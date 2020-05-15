@@ -1,8 +1,8 @@
 {
   "name": "hiavalon",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
-  "description": "An electron project with vue",
+  "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
   "main": "main.js",
   "scripts": {
@@ -55,7 +55,7 @@
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^4.0.1",
     "node-notifier": "^6.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^4.0.3",
     "portfinder": "^1.0.25",
@@ -76,7 +76,7 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",
     "webpack-bundle-analyzer": "^3.6.1",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^3.11.0",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.2"
   },
