@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'HiPano全景编辑器',
+  title: '',
 
   /**
    * @type {boolean} true | false

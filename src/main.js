@@ -27,9 +27,6 @@ Vue.use(require('vue-moment'), {moment});
 
 Vue.config.productionTip = false
 
-import {registerModules} from '@/store/custom'
-registerModules(store)
-
 new Vue({
   el: '#app',
   router,
