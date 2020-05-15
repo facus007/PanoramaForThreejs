@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'hiclue_token'
-const UserIdKey = 'hiclue_user_id'
+const TokenKey = 'hi_token'
+const UserIdKey = 'hi_user_id'
 
 export function getToken() {
   return Cookies.get(TokenKey)

@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title"></h3>
+        <h3 class="title">{{ title }}</h3>
       </div>
 
       <el-form-item prop="username">
@@ -52,6 +52,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import settings from '@/settings'
 
 export default {
   name: 'Login',
@@ -71,6 +72,7 @@ export default {
       }
     }
     return {
+      title: settings.title,
       loginForm: {
         username: '',
         password: ''
