@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "@vue/babel-preset-jsx",
+    "@babel/env",
+    "@vue/app"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-jsx",
+    "@babel/plugin-transform-runtime",
+  ]
+}

@@ -1,0 +1,20 @@
+[package]
+name = "pano-wasm"
+version = "0.1.0"
+authors = ["kirigiri hitomi <chenjw@hiscene.com>"]
+edition = "2018"
+description = "wasm package for panorama"
+license = "PRIVATE"
+repository = ""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+
+# [dependencies.web-sys]
+# version = "0.3"
+# features = []
