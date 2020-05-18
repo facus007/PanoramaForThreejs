@@ -1,15 +1,6 @@
 <template>
   <container>
-    <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" @selection-change="selectionChange">
-      <template v-slot:columns="scope">
-        <el-table-column type="selection"/>
-        <el-table-column>
-          <template slot="header" slot-scope="scope">
-            <!-- <el-input size="small" placeholder="输入关键字搜索"/> -->
-          </template>
-        </el-table-column>
-      </template>
-    </table-frame>
+    <chart :option="option"/>
   </container>
 </template>
 

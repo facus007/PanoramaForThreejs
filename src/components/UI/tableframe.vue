@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import styles from '@/UI/base/styles'
+import styles from '@/components/UI/base/styles'
 import { mapState } from 'vuex'
 
 export default {
