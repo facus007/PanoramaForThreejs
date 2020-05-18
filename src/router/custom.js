@@ -14,7 +14,7 @@ export var customRoutes=[
     title: "产品",
     path: "/products",
     pid: 0,
-    icon: "products",
+    icon: "example",
     order: 0,
     children: null,
     hidden: 0
@@ -24,7 +24,7 @@ export var customRoutes=[
     title: "展馆",
     path: "/exhibition",
     pid: 0,
-    icon: "exhibition",
+    icon: "example",
     order: 0,
     children: null,
     hidden: 0
@@ -34,7 +34,7 @@ export var customRoutes=[
     title: "素材库",
     path: "/material",
     pid: 0,
-    icon: "material",
+    icon: "example",
     order: 0,
     children: null,
     hidden: 0
