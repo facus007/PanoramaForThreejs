@@ -1,7 +1,11 @@
 <template>
   <el-container>
+    <el-header>
+      <slot name="header"/>
+    </el-header>
     <el-main>
-      <el-table :data="items" :row-style="{height:'80px'}" :header-row-style="{height:'60px'}" @selection-change="val=>$emit('selection-change',val)" size="small" tooltip-effect="dark" style="width: 100%;" :height="'100%'">
+      <el-table size="mini" :data="items" @selection-change="val=>$emit('selection-change',val)" tooltip-effect="dark" style="width: 100%;" :height="'100%'"
+        :row-style="{height:'80px'}" :header-row-style="{height:'20px'}" :header-cell-style="{padding:'0'}">
         <template v-slot:default="scope">
           <slot name="columns" :row="scope.row"/>
         </template>

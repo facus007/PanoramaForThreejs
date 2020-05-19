@@ -31,7 +31,7 @@ export default {
   },
   computed:{
     options(){
-      return this.option
+      return this.option || {xAxis:{},yAxis:{},serials:[{style:'line'}]}
     },
   },
   methods:{

@@ -7,9 +7,10 @@
 <script>
 import * as UI from '@/components/UI'
 import Container from './container'
+import Grid from './grid'
 
 export default {
-  components:{ ...UI, Container },
+  components:{ ...UI, Container, Grid },
 }
 </script>
 
@@ -18,5 +19,13 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+.container {
+  display: flex;
+}
+.grid {
+  display: grid;
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
 }
 </style>

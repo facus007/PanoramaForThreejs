@@ -4,9 +4,6 @@
       <template v-slot:columns="scope">
         <el-table-column type="selection"/>
         <el-table-column>
-          <template slot="header" slot-scope="scope">
-            <!-- <el-input size="small" placeholder="输入关键字搜索"/> -->
-          </template>
         </el-table-column>
       </template>
     </table-frame>
@@ -29,9 +26,7 @@ export default {
   }},
   watch:{},
   methods:{
-    selectionChange(val){
-      console.log(val)
-    },
+    selectionChange(val){},
   },
   mounted(){},
   beforeDestroy(){}

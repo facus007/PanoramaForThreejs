@@ -1,5 +1,5 @@
 <template>
-  <div class="home container">
+  <div class="home container grid" :style="{'grid-template-areas': grid}">
     <slot/>
   </div>
 </template>
@@ -8,6 +8,7 @@
 import { mapState } from 'vuex'
 
 export default {
+  props:['grid'],
   watch:{},
   methods:{},
   mounted(){},
