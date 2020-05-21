@@ -3,12 +3,13 @@
 </template>
 
 <script>
+import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
 export default {
   mixins: [THREEComponent],
+  props: ['option'],
   watch:{
     domElement(next, pre){
       pre && pre.removeEventListener('update', this.update)
@@ -17,7 +18,7 @@ export default {
   },
   methods:{},
   mounted(){
-    this.obj = new CSS3DRenderer()
+    this.obj = new THREE.WebGLRenderer(this.option)
     this.$el.appendChild(this.obj.domElement)
     this.observer = new ResizeObserver(this.resize)
     this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })

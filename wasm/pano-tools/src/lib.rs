@@ -47,7 +47,7 @@ const FUNCTIONS : [& dyn Fn(u32, u32, u32)->(f32, f32);6] = [
         (phi, theta)
     },
     &|i, j, half|->(f32, f32){//top
-        let z = half as i32; let x = (i - half) as i32; let y = (half - j) as i32;
+        let z = half as i32; let x = (half - i) as i32; let y = (j - half) as i32;
         let r = ((z*z + x*x + y*y) as f32).sqrt();
         let mut phi = if x > 0 { (y as f32 / x as f32).atan() * FRAC_1_PI * 0.5 + 1.0 }
                  else if x < 0 { (y as f32 / x as f32).atan() * FRAC_1_PI * 0.5 + 0.5 }
@@ -58,11 +58,11 @@ const FUNCTIONS : [& dyn Fn(u32, u32, u32)->(f32, f32);6] = [
         (phi, theta)
     },
     &|i, j, half|->(f32, f32){//buttom
-        let z = -(half as i32); let x = (i - half) as i32; let y = (half - j) as i32;
+        let z = -(half as i32); let x = (half - i) as i32; let y = (half - j) as i32;
         let r = ((z*z + x*x + y*y) as f32).sqrt();
         let mut phi = if x > 0 { (y as f32 / x as f32).atan() * FRAC_1_PI * 0.5 + 1.0 }
                  else if x < 0 { (y as f32 / x as f32).atan() * FRAC_1_PI * 0.5 + 0.5 }
-                          else { if y > 0 {0.75} else {0.25} };
+                          else { if y < 0 {0.75} else {0.25} };
         let theta = (z as f32 / r).acos() * FRAC_1_PI;
         if phi < 0.0 { phi = 1.0 + phi; };
         if phi > 1.0 { phi = phi - 1.0; };
@@ -76,8 +76,8 @@ pub fn slice(origin: &Uint8ClampedArray, width: u32, height: u32, outputsize: u3
     for i in 0..outputsize {
         for j in 0..outputsize {
             let (phi, theta) = FUNCTIONS[pos](i, j, half);
-            let u = (phi * width as f32) as u32;
-            let v = (theta * height as f32) as u32;
+            let u = (phi * width as f32).round() as u32;
+            let v = (theta * height as f32).round() as u32;
             let group_index = v * width + u;
             let result_index = j * outputsize + i;
 

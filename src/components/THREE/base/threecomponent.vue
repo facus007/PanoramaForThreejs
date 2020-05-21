@@ -16,10 +16,16 @@ export default {
     computeProp(){
       this.obj && this.propCompute()
     },
-    ...mapState('THREE',['scene', 'renderer', 'camera', 'needsUpdate', 'domElement'])
+    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement'])
   }
 }
 </script>
 
-<style scoped>
+<style scoped="three">
+.home {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 </style>

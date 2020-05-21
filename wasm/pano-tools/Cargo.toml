@@ -1,6 +1,6 @@
 [package]
-name = "pano-wasm"
-version = "0.1.0"
+name = "pano-tools"
+version = "0.5.0"
 authors = ["kirigiri hitomi <chenjw@hiscene.com>"]
 edition = "2018"
 description = "wasm package for panorama"

@@ -1,5 +1,5 @@
 <template>
-  <div class="canvas-container" :debug="debug">
+  <div class="canvas-container" :debug="isDebug && debug">
     <slot></slot>
   </div>
 </template>
@@ -15,12 +15,13 @@ const moduleName = 'THREE'
 export default {
   name:'THREE',
   mixins:[THREEComponent],
+  props:['isDebug'],
   computed:{
     debug(){
       window.scene = this.scene
       window.THREE = THREE
     },
-    ...mapState(moduleName, ['domElement','camera','renderer'])
+    ...mapState(moduleName, ['domElement','camera'])
   },
   created(){
     this.$store.registerModule(moduleName, store)
@@ -28,7 +29,6 @@ export default {
   },
   mounted(){
     this.$store.commit(moduleName+'/SET_DOMELEMENT', this.$el)
-    this.$el.appendChild(this.renderer.domElement)
     this.observer = new ResizeObserver(this.resize)
     this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
     this.startRendering()
@@ -37,7 +37,6 @@ export default {
     this.stopRendering()
     this.observer.unobserve(this.$el)
     this.observer = null
-    this.renderer.domElement.remove()
     this.$store.commit(moduleName+'/SET_DOMELEMENT', null)
   },
   destroyed(){
@@ -50,7 +49,6 @@ export default {
       if(this.camera.aspect !== aspect){
         this.camera.aspect = aspect
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize( this.domElement.clientWidth, this.domElement.clientHeight );
         this.$store.dispatch(moduleName+'/render')
       }
     },

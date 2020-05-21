@@ -28,11 +28,7 @@ export default {
     datalist,
   }},
   watch:{},
-  methods:{
-    selectionChange(val){
-      console.log(val)
-    },
-  },
+  methods:{},
   mounted(){},
   beforeDestroy(){}
 }

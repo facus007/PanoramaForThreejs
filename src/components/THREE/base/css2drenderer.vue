@@ -1,5 +1,5 @@
 <template>
-  <div style="position: absolute; width: 100%; height: 100%;"><slot/></div>
+  <div class="home"><slot/></div>
 </template>
 
 <script>
@@ -17,17 +17,25 @@ export default {
   },
   methods:{
     update(){
-      this.obj.setSize(this.$el.clientWidth, this.$el.clientHeight );
       this.obj.render(this.scene, this.camera);
     }
   },
   mounted(){
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
+    this.observer = new ResizeObserver(this.resize)
+    this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
   },
   beforeDestroy(){
+    this.observer.unobserve(this.$el)
+    this.observer = null
     this.obj.domElement.remove()
     this.obj = null
+  },
+  methods:{
+    resize(){
+      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+    },
   }
 }
 </script>

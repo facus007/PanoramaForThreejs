@@ -1,5 +1,5 @@
 <template>
-  <div style='width: 100%; height: 100%; position: absolute;'/>
+  <div class="home"/>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
       controls.enablePan = false
       controls.enableZoom = false
       controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-      controls.dampingFactor = 0.05;
+      controls.dampingFactor = 0.134;
       controls.addEventListener('change', this.changed, false)
       this.obj = controls
     },
