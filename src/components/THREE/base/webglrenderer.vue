@@ -29,7 +29,7 @@ export default {
     this.observer.unobserve(this.$el)
     this.observer = null
     this.obj.domElement.remove()
-    this.obj = null
+    this.obj = this.obj.dispose()
   },
   methods:{
     resize(){

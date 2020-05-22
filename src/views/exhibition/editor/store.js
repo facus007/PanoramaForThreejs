@@ -1,6 +1,10 @@
-const state = {}
+const state = {
+  preview: null
+}
 
-const mutations = {}
+const mutations = {
+  SET_PREVIEW:(state, param) => state.preview = param
+}
 
 const actions = {}
 

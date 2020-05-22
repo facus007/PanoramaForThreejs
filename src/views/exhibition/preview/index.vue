@@ -1,8 +1,8 @@
 <template>
   <container>
     <container style="display: grid; grid-template-areas: 'aab' 'aab' 'aab'; grid-row-gap: 5px; grid-column-gap: 5px;">
-      <THREE>
-      </THREE>
+        <THREE>
+        </THREE>
     </container>
   </container>
 </template>

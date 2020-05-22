@@ -30,6 +30,6 @@ export default {
   padding: 5px;
 }
 .shadow {
-  box-shadow: 0 5px 10px 0px;
+  box-shadow: 0 0 10px 0px;
 }
 </style>

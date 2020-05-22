@@ -1,32 +1,35 @@
 <template>
-  <el-tabs class="sidepanel" tabPosition="right" lazy style="color: white; height: 100%; padding: 10px 0;">
-    <el-tab-pane label="基础"><standard/></el-tab-pane>
-    <el-tab-pane label="视角"><viewspot/></el-tab-pane>
-    <el-tab-pane label="热点"><hotspot/></el-tab-pane>
-    <el-tab-pane label="沙盘"><sandbox/></el-tab-pane>
-    <el-tab-pane label="音乐"><music/></el-tab-pane>
-    <el-tab-pane label="嵌入"><embedded/></el-tab-pane>
+  <el-tabs class="sidepanel" v-model="curFeature" tabPosition="right" lazy style="color: white; height: 100%; padding: 10px; font-size: 14px; font-weight: bold;">
+    <slot></slot>
   </el-tabs>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import standard from './standard'
-import viewspot from './viewspot'
-import hotspot from './hotspot'
-import sandbox from './sandbox'
-import music from './music'
-import embedded from './embedded'
 
-export default {
+export { default as standard } from './standard'
+export { default as viewspot } from './viewspot'
+export { default as hotspot } from './hotspot'
+export { default as sandbox } from './sandbox'
+export { default as music } from './music'
+export { default as embedded } from './embedded'
+
+export const sidepanel = {
   mixins:[mixin],
-  components: {standard, viewspot, hotspot, sandbox, music, embedded},
-  watch:{},
+  data(){return {
+    curFeature: null,
+  }},
+  props: ['value'],
+  watch:{
+    curFeature(next, pre){this.$emit('input', next)},
+  },
   methods:{},
   mounted(){},
   beforeDestroy(){}
 }
+
+export default sidepanel;
 </script>
 
 <style scoped>
@@ -50,8 +53,5 @@ export default {
 .sidepanel >>> .el-tabs__content::-webkit-scrollbar-thumb {
   background: #99a9bf;
   border-radius: 20px;
-}
-.sidepanel >>> .el-tab-pane {
-  height: 200%;
 }
 </style>
