@@ -24,7 +24,7 @@
       </sidepanel>
     </div>
     <div class="shadow" style="background: #304156; grid-area: c;">
-      <div v-if="$refs['three-window']"/>
+      <scene v-if="$refs['three-window']"/>
     </div>
   </grid>
 </template>
@@ -33,6 +33,7 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import * as sidepanel from './sidepanel'
+import * as scene from './scene'
 import * as THREE from '@/components/THREE'
 import store from './store'
 
@@ -47,28 +48,33 @@ const moduleName = "editor"
 var features = [{
     name: "基础",
     sidepanel: "standard",
-  },{
+  },
+  {
     name: "视角",
     sidepanel: "viewspot",
     tools: "view-tools"
-  }, {
+  },
+  {
     name: "热点",
     sidepanel: "hotspot",
-  }, {
-    name: "沙盘",
-    sidepanel: "sandbox",
-  }, {
-    name: "音乐",
-    sidepanel: "music",
-  }, {
-    name: "嵌入",
-    sidepanel: "embedded",
   },
+  // {
+  //   name: "沙盘",
+  //   sidepanel: "sandbox",
+  // },
+  // {
+  //   name: "音乐",
+  //   sidepanel: "music",
+  // },
+  // {
+  //   name: "嵌入",
+  //   sidepanel: "embedded",
+  // },
 ]
 
 export default {
   mixins:[mixin],
-  components:{...THREE, ...sidepanel},
+  components:{...THREE, ...sidepanel, ...scene},
   data(){ return {
     isDebug: process.env.NODE_ENV === "development",
     total: 100,

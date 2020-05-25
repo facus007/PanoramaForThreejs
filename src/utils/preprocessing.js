@@ -16,15 +16,15 @@ export default function(source) {
       var result_buf = new Uint8ClampedArray(outputsize * outputsize * 4)
       var panoTools = await PanoTools
       var sideImgs = []
+      var procanvas = document.createElement('canvas')
+      procanvas.width = outputsize
+      procanvas.height = outputsize
+      var procontext = procanvas.getContext('2d')
       for (var i = 0; i < 6; i++) {
-        var procanvas = document.createElement('canvas')
-        procanvas.width = outputsize
-        procanvas.height = outputsize
-        var procontext = procanvas.getContext('2d')
         panoTools.slice(data, canvas.width, canvas.height, outputsize, result_buf, i)
         var imageData = new ImageData(result_buf ,outputsize)
         procontext.putImageData(imageData, 0, 0)
-        sideImgs[i] = procanvas.toDataURL()
+        sideImgs[i] = procanvas.toDataURL("image/jpeg", 1.0)
       }
       resolve(sideImgs)
     }

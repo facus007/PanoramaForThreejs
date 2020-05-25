@@ -52,7 +52,7 @@ export default {
       context.scale(1, -1);
       context.drawImage(newCanvas, 0, 0);
 
-      this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL())
+      this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL("image/jpeg", 1.0))
 
 
 

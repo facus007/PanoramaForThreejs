@@ -1,16 +1,16 @@
 <template>
   <div class="frame">
-    <el-form class="form" ref="form" :model="form" size="small" label-width="40px" style="width: 100%;">
-      <el-form-item label="分类">
-        <el-select v-model="form.region" placeholder="未分类">
+    <el-form class="form" ref="form" :model="form" size="small" style="width: 100%;">
+      <el-form-item label="分类" style="margin-bottom:0">
+        <el-select v-model="form.region" placeholder="未分类" style="width: 100%;">
           <!-- <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option> -->
         </el-select>
       </el-form-item>
-      <el-form-item label="标题">
+      <el-form-item label="标题" style="margin-bottom:0">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="描述">
+      <el-form-item label="描述" style="margin-bottom:0">
         <el-input type="textarea" v-model="form.desc"></el-input>
       </el-form-item>
     </el-form>

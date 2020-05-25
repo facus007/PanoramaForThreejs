@@ -38,7 +38,7 @@ export default {
   justify-content: center;
   padding: 15px 0px;
   flex-flow: wrap;
-  align-content: space-between;
+  align-content: space-around;
 }
 .slider {
   width: 80%;

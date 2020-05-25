@@ -42,7 +42,7 @@ export default sidepanel;
 }
 .sidepanel >>> .el-tabs__content{
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
 }
 .sidepanel >>> .el-tabs__content::-webkit-scrollbar-track-piece {
   background: #d3dce6;
