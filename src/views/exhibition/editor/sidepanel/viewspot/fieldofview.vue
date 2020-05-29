@@ -2,7 +2,7 @@
   <div class="frame">
     <div style="width: 200px;">当前视角大小</div>
     <div style="width: 90%; justify-content:space-between; flex-direction: row; display: flex; align-items: center;">
-      30 <el-slider class="slider" v-model="camera.fov" :min="30" :max="150"></el-slider> 150
+      30 <el-slider class="slider" v-model="curedit.fov" :min="30" :max="150"></el-slider> 150
     </div>
   </div>
 </template>
@@ -17,15 +17,22 @@ export default {
   components:{ ...THREE},
   watch:{
     'camera.fov'(next, pre){
+      this.curedit.fov = next
+      this.camera.updateProjectionMatrix()
+    },
+    'curedit.fov'(next, pre){
+      this.camera.fov = next
       this.camera.updateProjectionMatrix()
     }
   },
-  methods:{
-  },
+  methods:{},
   computed:{
     ...mapState('THREE',['scene', 'camera']),
-    ...mapState('editor',['preview']),
+    ...mapState('editor',['preview', 'product', 'curedit']),
   },
+  mounted(){
+    this.camera.fov = this.curedit.fov
+  }
 }
 </script>
 

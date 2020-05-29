@@ -1,7 +1,7 @@
 <template>
-  <container class="home" style="display: flex; flex-direction: column;">
-    <el-table class="table" :data="[]" height="100%" :row-style="{'background-color': '#0000', height: '64px'}">
-      <el-table-column label="当前场景热点">
+  <container class="home" style="position: relative; display: flex; flex-direction: column;">
+    <el-table class="table" :data="source" height="100%" :row-style="{'background-color': '#0000', height: '64px'}">
+      <el-table-column :label="label">
         <template slot-scope="scope">
           <div style="display: flex;">
             <el-button type='text' icon="el-icon-close" style="padding: 0;"/>
@@ -19,9 +19,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button style="width: 100%;" type="primary" size="small">
-      添加热点
-    </el-button>
   </container>
 </template>
 
@@ -31,6 +28,7 @@ import mixin from '@/views/mixin'
 
 export default {
   mixins:[mixin],
+  props:['label', 'source'],
   watch:{},
   methods:{},
   mounted(){},
@@ -53,6 +51,9 @@ export default {
 }
 .table >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
   background: #1f2d3d;
+}
+.table >>> .is-leaf{
+  padding: 0;
 }
 </style>
 

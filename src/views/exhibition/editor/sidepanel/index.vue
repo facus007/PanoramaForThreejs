@@ -10,6 +10,8 @@ import mixin from '@/views/mixin'
 
 export { default as standard } from './standard'
 export { default as viewspot } from './viewspot'
+export { default as adspot } from './adspot'
+export { default as productspot } from './productspot'
 export { default as hotspot } from './hotspot'
 export { default as sandbox } from './sandbox'
 export { default as music } from './music'
@@ -36,6 +38,7 @@ export default sidepanel;
 .sidepanel >>> .el-tabs__item{
   color: white;
   padding: 0 10px;
+  width: 90px;
 }
 .sidepanel >>> .el-tabs__item.is-active{
   color: #409EFF;

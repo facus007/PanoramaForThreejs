@@ -21,7 +21,7 @@ export default {
     // propCompute(){},
   },
   mounted(){
-    this.obj = new CSS2DObject(this.$el)
+    this.obj = new CSS3DObject(this.$el)
     this.scene.add(this.obj)
   },
   beforeDestroy(){

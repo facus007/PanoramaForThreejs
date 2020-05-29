@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header style="padding: 0px 20px;">
       <slot name="header"/>
     </el-header>
     <el-main>

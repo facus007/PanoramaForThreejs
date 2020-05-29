@@ -1,0 +1,55 @@
+<script>
+import * as THREE from 'three'
+import { mapState } from 'vuex'
+import THREEComponent from '@/components/THREE/base/threecomponent'
+
+const texloader = new THREE.TextureLoader()
+
+export default {
+  mixins: [THREEComponent],
+  props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected'],
+  watch:{
+    'item.transform'(next, pre){
+      var m = next.affine_transform
+      // this.mesh.material.uniforms.affineTransform.value.setUvTransform(m[0],m[1],1,1,m[4],m[5],m[6])
+      this.mesh.scale.set(m[3],1,m[2])
+    },
+    'selected'(next){
+      // this.mesh.material.uniforms.outline = {value: next && next.name === this.item.name}
+    }
+  },
+  methods:{
+    // update(){},
+    // propCompute(){},
+  },
+  mounted(){
+    var material = this.mesh.material
+    if(!this.url){ return }
+    if(this.type !== 1){
+      this.texture = texloader.load(this.url, (tex)=>{
+        material.opacity = 1
+        // material.uniforms.size.value.fromArray([parseInt(size[1]),parseInt(size[2])])
+      })
+    }else{
+      var video = document.createElement('video')
+      video.src = this.url
+      video.loop = true
+      video.autoplay = true
+      video.playsinline = true
+      video.crossOrigin = "anonymous"
+      video.style = "display:none"
+      video.muted = true
+      this.texture = new THREE.VideoTexture(video)
+      // material.uniforms.size.value.fromArray([parseInt(size[1]),parseInt(size[2])])
+    }
+    material.uniforms.customMap = {value: this.texture}
+    var m = this.item.transform.affine_transform
+    var size = this.item.name.split('_')
+    // material.uniforms.affineTransform.value.setUvTransform(m[0],m[1],1,1,m[4],m[5],m[6])
+    this.mesh.scale.set(m[3],1,m[2])
+  },
+  beforeDestroy(){
+    this.texture && this.texture.dispose()
+  }
+}
+</script>

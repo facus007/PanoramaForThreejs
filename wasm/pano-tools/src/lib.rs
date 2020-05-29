@@ -57,7 +57,7 @@ const FUNCTIONS : [& dyn Fn(u32, u32, u32)->(f32, f32);6] = [
         if phi > 1.0 { phi = phi - 1.0; };
         (phi, theta)
     },
-    &|i, j, half|->(f32, f32){//buttom
+    &|i, j, half|->(f32, f32){//bottom
         let z = -(half as i32); let x = (half - i) as i32; let y = (half - j) as i32;
         let r = ((z*z + x*x + y*y) as f32).sqrt();
         let mut phi = if x > 0 { (y as f32 / x as f32).atan() * FRAC_1_PI * 0.5 + 1.0 }

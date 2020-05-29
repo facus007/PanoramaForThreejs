@@ -12,6 +12,5 @@ export {default as Texture} from './base/texture'
 
 export {default as Panorama} from './prefabs/panorama'
 export {default as Label} from './prefabs/label'
-export {default as Model} from './prefabs/model'
-
-export {default as ViewTools} from './editor/viewtools'
+export {default as Prebuild} from './prefabs/prebuild'
+export {default as BuildedMesh} from './prefabs/buildedmesh'

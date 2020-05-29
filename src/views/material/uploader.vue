@@ -1,0 +1,112 @@
+<template>
+  <el-dialog title="提示" :visible.sync="visible" width="70%" v-loading="loading">
+    <el-form label-position="right" label-width="80px">
+      <el-form-item label="资源名称">
+        <el-input size="small" v-model="name" style="width: 200px"></el-input>
+      </el-form-item>
+      <el-form-item label="资源类型">
+        <el-select size="small" v-model="selected" placeholder="请选择">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="选择资源">
+        <el-upload class="upload" action="#" drag :show-file-list="false" :auto-upload="false" :on-change="onChange">
+          <img v-if="file" :src="url" style="width: 100%; height: 100%; object-fit: cover;">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="文件名">
+        {{file && file.name}}
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="$emit('input', false)">取 消</el-button>
+      <el-button type="primary" @click="upload">上 传</el-button>
+    </span>
+  </el-dialog>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import mixin from '@/views/mixin'
+import preprocessing from '@/utils/preprocessing'
+import JSZip from 'jszip'
+
+const options = [{
+  value: '0',
+  label: '全景图'
+},{
+  value: '1',
+  label: '图片'
+},{
+  value: '2',
+  label: '视频'
+},{
+  value: '3',
+  label: '音频'
+}]
+
+const label = ['right','back','left','front','top','bottom']
+
+export default {
+  mixins:[mixin],
+  data(){return {
+    options,
+    selected: '0',
+    name: '',
+    file: null,
+    visible: false,
+    loading: false,
+  }},
+  props:['value'],
+  watch:{
+    visible(next, pre){this.$emit('input', next)},
+    value(next, pre){
+      this.visible = next
+      if(!next){
+        this.selected = '0'
+        this.name = ''
+        this.file = null
+      }
+    },
+  },
+  methods:{
+    onChange(file) {
+      this.file = file
+      this.name = this.name || this.file.name
+    },
+    async upload(){
+      this.loading = true
+      preprocessing(this.url).then(async (result)=>{
+        if(this) {
+          var zip = new JSZip()
+          for (var i = 0; i < result.length; i++) {
+            await fetch(result[i]).then(r=>zip.file(label[i]+'.jpg',r.blob()))
+          }
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(await zip.generateAsync({type:"blob"}))
+          a.download = this.file.name + '.zip'
+          a.click()
+          this.loading = false
+          this.$emit('input', false)
+        }
+      })
+    }
+  },
+  mounted(){},
+  beforeDestroy(){},
+  computed:{
+    url(){
+      return this.file && URL.createObjectURL(this.file.raw)
+    }
+  },
+}
+</script>
+
+<style scoped="views">
+  .upload >>> .el-upload-dragger{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
