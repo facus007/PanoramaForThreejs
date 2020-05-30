@@ -1,6 +1,5 @@
 <template>
   <span :computeProp="computeProp">
-    <!-- <custom-material ref="shader"/> -->
     <slot></slot>
   </span>
 </template>
@@ -9,14 +8,14 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import CustomMaterial from './buildedmesh/custommaterial'
+import admesh from './admesh'
 
 const texloader = new THREE.TextureLoader()
 
 export default {
   mixins: [THREEComponent],
+  components: {admesh},
   props: ['template', 'value'],
-  components:{CustomMaterial},
   data(){ return{
     meshes: null
   }},
@@ -62,6 +61,7 @@ export default {
     }
   },
   computed:{
+    ...mapState('editor',['curedit']),
     jsonPath() {
       return URL.createObjectURL(new Blob([JSON.stringify(this.template)],{type:"application/json"}));
     }

@@ -4,7 +4,8 @@
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
     <div>当前影像</div>
     <el-button class="upload" type="text" :click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
-      <el-image v-if="selected.img_url" :src="selected.img_url" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+      <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+      <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
     <div style="margin-top:5px">当前区域推荐长宽比：{{selected.name.split('_')[1]}}:{{selected.name.split('_')[2]}}</div>

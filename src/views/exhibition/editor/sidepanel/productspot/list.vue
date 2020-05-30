@@ -55,10 +55,7 @@ export default {
 .table >>> .cell {
   padding: 0;
 }
-</style>
-
-<style>
-.el-table th, .el-table tr{
+.table th, .table tr{
   background-color: #0000;
 }
 </style>

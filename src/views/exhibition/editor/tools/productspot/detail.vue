@@ -1,10 +1,14 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 3fr 40px 1fr;" class="event">
+  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px 3fr 40px 1fr;" class="event">
   <div class="block">属性</div>
+  <div class="block" style="display:flex;align-items:center">
+    <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="selected.label" style=""></el-input>
+  </div>
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
     <div>当前影像</div>
     <el-button class="upload" type="text" :click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
-      <el-image v-if="selected.img_url" :src="selected.img_url" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+      <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+      <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
     <div style="margin-top:5px">当前区域推荐长宽比：{{selected.name.split('_')[1]}}:{{selected.name.split('_')[2]}}</div>
@@ -112,6 +116,9 @@ export default {
   background-color: #0000;
   border-color: #0000;
   color: white;
+}
+.select >>> input:hover{
+  border-color:#C0C4CC;
 }
 .upload >>> .el-upload--picture-card{
   position: relative;
