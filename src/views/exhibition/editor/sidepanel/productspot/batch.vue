@@ -9,8 +9,10 @@
       </div>
       <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
         <div>选择影像</div>
-        <el-button class="upload" type="text" :click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
-          <i class="el-icon-plus avatar-uploader-icon"></i>
+        <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+          <el-image v-if="img_url && imgtype === 1" :src="img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+          <video v-if="img_url && imgtype === 2" :src="img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
         <div style="margin-top:5px">当前区域推荐长宽比：{{1}}:{{1}}</div>
       </div>
@@ -50,6 +52,7 @@
         </div>
       </div>
     </div>
+    <material-selector v-model="showDialog" @select="select" imgtype="1"/>
   </container>
 </template>
 
@@ -70,10 +73,15 @@ export default {
     label: null,
     type: '0',
     target: {},
+    showDialog: false,
+    imgtype: null,
+    img_url: null,
   }},
   props:['source'],
   methods:{
-    onChange(){},
+    onChange(){
+      this.showDialog = true
+    },
     batch(){
       this.source.forEach((item, i) => {
         item.label = this.label
@@ -81,6 +89,11 @@ export default {
         item.target = this.target
       });
     },
+    select(material){
+      console.log(material)
+      this.img_url=material.material_content
+      this.imgtype = parseInt(material.material_type)
+    }
   },
   mounted(){},
   beforeDestroy(){},

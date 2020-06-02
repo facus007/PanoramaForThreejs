@@ -3,8 +3,10 @@
     border: outline ? '5px dashed yellow' : 'none',
     padding: '20px',
   }">
-    <img v-if="item.style === 1" :src="url" :width="100*size[0]+'px'" :height="100*size[1]+'px'" object-fit="contain">
-    <video v-if="item.style === 2" :src="url" loop autoplay playsinline crossOrigin = "anonymous" :style="{width:100*size[0]+'px',height:100*size[1]+'px'}" muted />
+    <el-button type="text" @click="action">
+      <img v-if="item.style === 1" :src="url" :width="100*size[0]+'px'" :height="100*size[1]+'px'"  style="object-fit:contain">
+      <video v-if="item.style === 2" :src="url" loop autoplay playsinline :style="{width:100*size[0]+'px',height:100*size[1]+'px'}"  style="object-fit:contain" muted />
+    </el-button>
     <div v-if="item.label" class="label">{{item.label}}</div>
   </div>
 </template>
@@ -39,6 +41,8 @@ export default {
       pos.applyQuaternion (this.obj.quaternion)
       this.obj.position.add(pos)
       this.obj.scale.set(m[2] * this.mesh.scale.x *0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z *0.01)
+    },
+    action(){
     }
   },
   mounted(){

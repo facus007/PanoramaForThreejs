@@ -1,7 +1,3 @@
-<template>
-  <div class="home"/>
-</template>
-
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
@@ -59,11 +55,11 @@ export default {
     }
   },
   mounted(){
-    this.newControl(this.camera, this.$el)
-    this.$el.addEventListener('wheel', this.onMouseWheel, false)
+    this.newControl(this.camera, this.$parent.$el)
+    this.$parent.$el.addEventListener('wheel', this.onMouseWheel, false)
   },
   beforeDestroy(){
-    this.$el.removeEventListener('wheel', this.onMouseWheel)
+    this.$parent.$el.removeEventListener('wheel', this.onMouseWheel)
     this.disposeControl()
   },
 }

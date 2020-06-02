@@ -6,9 +6,7 @@
     <el-main>
       <el-table size="mini" :data="items" @selection-change="val=>$emit('selection-change',val)" tooltip-effect="dark" style="width: 100%;" :height="'100%'"
         :row-style="{height:'80px'}" :header-row-style="{height:'20px'}" :header-cell-style="{padding:'0'}">
-        <template v-slot:default="scope">
-          <slot name="columns" :row="scope.row"/>
-        </template>
+        <slot name="columns"/>
       </el-table>
     </el-main>
     <el-footer>
@@ -32,6 +30,8 @@ export default {
     currentPage_(next){
       this.$emit('update:currentPage', next)
     }
+  },
+  methods:{
   }
 }
 </script>

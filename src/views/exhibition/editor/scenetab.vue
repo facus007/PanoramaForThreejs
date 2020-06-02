@@ -3,7 +3,7 @@
     <el-tabs v-model="tab_id" type="border-card" addable style="width: 100%; height: 100%; background: #0000; border: none;-webkit-box-shadow: none; box-shadow: none;">
       <el-tab-pane class="pane" :key="item.name" v-for="(item, index) in product.scenes" :label="item.name" :name="index.toString()" >
         <div style="display: flex; margin: 0 10px; align-items: center">
-          <el-button class="upload" type="text" :click="onChange" style="width: 80px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+          <el-button class="upload" type="text" @click="onChange" style="width: 80px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
             <el-image v-if="curedit.cover" :src="curedit.cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-button>
@@ -18,6 +18,7 @@
         </div>
       </el-tab-pane>
   </el-tabs>
+  <material-selector v-model="showDialog" @select="select" style="1"/>
 </div>
 </template>
 
@@ -28,7 +29,8 @@ import mixin from '@/views/mixin'
 export const scenetab = {
   mixins:[mixin],
   data(){return {
-    tab_id: '0'
+    tab_id: '0',
+    showDialog: false,
   }},
   watch:{
     tab_id(next, pre){
@@ -36,13 +38,12 @@ export const scenetab = {
     },
   },
   methods:{
-    onChange(file) {
-      var reader = new FileReader();
-      reader.readAsDataURL(file.raw);
-      reader.onloadend = () => {
-        this.curedit.cover = reader.result;
-      }
+    onChange() {
+      this.showDialog = true
     },
+    select(material){
+      this.curedit.cover = material.material_content
+    }
   },
   mounted(){},
   beforeDestroy(){},

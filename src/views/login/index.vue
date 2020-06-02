@@ -41,6 +41,23 @@
         </span>
       </el-form-item>
 
+      <el-form-item prop="code">
+        <el-input
+          ref="code"
+          v-model="loginForm.code"
+          placeholder="验证码"
+          name="code"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
+        <div class="code-container">
+          <el-button @click="refresh" type="text" style="padding:0; min-width: 100px;">
+            <img :src="img"/>
+          </el-button>
+        </div>
+      </el-form-item>
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <div class="tips">
@@ -53,6 +70,7 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import settings from '@/settings'
+import { captchaImage } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -75,7 +93,9 @@ export default {
       title: settings.title,
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        code: '',
+        uuid: '',
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -83,7 +103,8 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      img: '',
     }
   },
   watch: {
@@ -120,7 +141,16 @@ export default {
           return false
         }
       })
+    },
+    refresh(){
+      captchaImage().then(result=>{
+        this.img = 'data:image/jpg;base64,'+result.img
+        this.loginForm.uuid = result.uuid
+      })
     }
+  },
+  mounted() {
+    this.refresh()
   }
 }
 </script>
@@ -210,6 +240,17 @@ $light_gray:#eee;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
+  }
+
+  .code-container {
+    // padding: 6px 5px 6px 15px;
+    // color: $dark_gray;
+    // vertical-align: middle;
+    // width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    bottom: 5px;
   }
 
   .title-container {

@@ -36,7 +36,7 @@ export async function getProduct(product_id) {
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
           type: 1,
-          style: null,
+          style: 1,
           img_url: '/static/test.png/front.jpg',
           label: 'label',
           target: {},

@@ -42,44 +42,12 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { username, password, code, uuid } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        commit('SET_USER_ID',data.user_id)
-        setToken(data.token)
-        setUserId(data.user_id)
+      login({ username: username.trim(), password: password, code: code, uuid: uuid }).then(data => {
+        commit('SET_TOKEN', 'Bearer ' + data.token)
+        setToken('Bearer '+data.token)
         resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // get admin info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-
-        const { roles, username, head_pic_url, menu } = data
-
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
-
-        // sessionStorage.setItem('SYS_MENU', JSON.stringify(menu))
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', username)
-        commit('SET_AVATAR', head_pic_url)
-        commit('SET_MENU', menu)
-
-        resolve(data)
       }).catch(error => {
         reject(error)
       })
@@ -89,14 +57,9 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      removeToken() // must remove  token  first
+      commit('RESET_STATE')
+      resolve()
     })
   },
 

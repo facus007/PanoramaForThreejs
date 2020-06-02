@@ -3,9 +3,10 @@
     <div class="home shadow" style="background: #304156; grid-area: a; padding: 10px; position: relative;">
       <THREE class="shadow" style="position: relative;" :isDebug="isDebug">
         <stats v-if="isDebug"/>
-        <orbit-controls style="z-index: 1" ref="controls" :start_rotation="curedit.start_rotation"/>
         <WebGLRenderer :option="{antialias:true}" ref="renderer">
-          <CSS3DRenderer/>
+          <CSS3DRenderer>
+            <orbit-controls ref="controls" :start_rotation="curedit.start_rotation"/>
+          </CSS3DRenderer>
           <panorama v-if="sideImgs" :sideImgs="sideImgs"/>
         </WebGLRenderer>
         <component :is="curFeature && features[curFeature].tools" style="z-index: 2" :renderer="$refs.renderer" :controls="$refs.controls" ref="tools"/>
@@ -44,8 +45,8 @@ const features = [
   {name: "视角", sidepanel: "viewspot", tools: "viewspot-tools"},
   {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools'},
   {name: "产品位热点", sidepanel: "productspot", tools: 'productspot-tools'},
-  {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools'},
-  {name: "音乐", sidepanel: "music", },
+  // {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools'},
+  // {name: "音乐", sidepanel: "music", },
 ]
 
 export default {

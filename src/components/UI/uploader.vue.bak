@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="提示" :visible.sync="visible" width="70%" v-loading="loading">
+  <el-dialog title="提示" :visible.sync="visible" width="70%" v-loading="loading" append-to-body>
     <el-form label-position="right" label-width="80px">
       <el-form-item label="资源名称">
         <el-input size="small" v-model="name" style="width: 200px"></el-input>
@@ -29,7 +29,6 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import preprocessing from '@/utils/preprocessing'
 import JSZip from 'jszip'
 
 const options = [{
@@ -49,7 +48,7 @@ const options = [{
 const label = ['right','back','left','front','top','bottom']
 
 export default {
-  mixins:[mixin],
+  // mixins:[mixin],
   data(){return {
     options,
     selected: '0',
@@ -77,6 +76,7 @@ export default {
     },
     async upload(){
       this.loading = true
+      const preprocessing = request('@/utils/preprocessing')
       preprocessing(this.url).then(async (result)=>{
         if(this) {
           var zip = new JSZip()
