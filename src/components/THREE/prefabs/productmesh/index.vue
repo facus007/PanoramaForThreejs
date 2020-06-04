@@ -3,7 +3,7 @@
     border: outline ? '5px dashed yellow' : 'none',
     padding: '20px',
   }">
-    <el-button type="text" @click="action">
+    <el-button type="text" @click="$emit('action', item)">
       <img v-if="item.style === 1" :src="url" :width="100*size[0]+'px'" :height="100*size[1]+'px'"  style="object-fit:contain">
       <video v-if="item.style === 2" :src="url" loop autoplay playsinline :style="{width:100*size[0]+'px',height:100*size[1]+'px'}"  style="object-fit:contain" muted />
     </el-button>
@@ -18,6 +18,8 @@ import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
 const texloader = new THREE.TextureLoader()
+texloader.crossOrigin = null;
+
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 
@@ -42,8 +44,6 @@ export default {
       this.obj.position.add(pos)
       this.obj.scale.set(m[2] * this.mesh.scale.x *0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z *0.01)
     },
-    action(){
-    }
   },
   mounted(){
     // if(!this.url){ return }
@@ -63,9 +63,6 @@ export default {
       var size = this.item.name.split('_')
       return [parseInt(size[1]),parseInt(size[2])]
     },
-    style(){
-      return
-    }
   }
 }
 </script>
@@ -76,7 +73,7 @@ export default {
   background: #0008;
   padding: 5px 10px;
   color: white;
-  width: min-content;
+  width: max-content;
   top: 0px;
   left: 50%;
   transform: translate(-50%, -50%);

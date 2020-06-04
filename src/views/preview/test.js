@@ -35,11 +35,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
-          type: 1,
+          type: 0,
           style: 1,
           img_url: '/static/test.png/front.jpg',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         },{
           name: 'A1_2_1',
           label: '',
@@ -50,11 +52,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
-          type: 2,
+          type: 0,
           style: 2,
           img_url: '/static/trailer.mp4',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         }],
       },{
         group: 2,
@@ -68,11 +72,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
-          type: 1,
+          type: 0,
           style: 1,
           img_url: '/static/test.png/front.jpg',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         },{
           name: 'P34_1_1',
           label: '',
@@ -83,11 +89,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
-          type: 1,
+          type: 0,
           style: 1,
           img_url: '/static/pot.png',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         },{
           name: 'P32_1_1',
           label: '',
@@ -98,11 +106,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [0, 0, 1, 1, 0, 0.5, 0.5],
           },
-          type: 2,
+          type: 0,
           style: 2,
           img_url: '/static/trailer.mp4',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         }],
       },{
         group: 3,
@@ -115,11 +125,13 @@ export async function getProduct(product_id) {
             scale: [1, 1, 1],
             affine_transform: [1, 0, 0, 0, 1, 0, 0, 0, 1],
           },
-          type: 1,
+          type: 0,
           style: 2,
           img_url: '/static/test.png/right.jpg',
           label: 'label',
-          target: {},
+          target: {
+            link: 'https://www.baidu.com'
+          },
         }],
       },]
     }],

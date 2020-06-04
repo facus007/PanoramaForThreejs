@@ -23,10 +23,10 @@ export default {
     // propCompute(){},
   },
   mounted(){
-    this.obj = texloader.load(this.url, this.onLoad, this.onProgress, this.onError)
+    this.obj = texloader.load(this.url,this.onLoad,this.onProgress,this.onProgress)
   },
   beforeDestroy(){
-    this.obj.dispose()
+    this.obj && this.obj.dispose()
   }
 }
 </script>

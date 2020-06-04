@@ -24,7 +24,6 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import JSZip from 'jszip'
 import { imageUpload, mediaUpload } from '@/api/cos'
 import { addMaterial } from '@/api/server'
 

@@ -15,13 +15,14 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import * as THREE from '@/components/THREE'
+import MaterialSelector from '@/views/exhibition/materialselector'
 
 export default {
   mixins:[mixin],
   data(){return {
     showDialog: false,
   }},
-  components:{ ...THREE},
+  components:{ ...THREE, MaterialSelector},
   // props:['sideImgs'],
   watch:{},
   methods:{

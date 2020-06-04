@@ -1,13 +1,21 @@
+<template>
+  <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#AAA'}">
+    <img :src="src" width="100%" height="100%"/>
+  </div>
+</template>
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
-const size = 10000
+const size = 1000
 
 export default {
   mixins: [THREEComponent],
-  props:['pos', 'rot'],
+  props:['pos', 'rot', 'src'],
+  data(){return{
+  }},
   watch:{
     // domElement(next, pre){
     //   pre && pre.removeEventListener('update', this.update)
@@ -17,8 +25,12 @@ export default {
   methods:{
     // update(){}
   },
+  computed:{
+    ...mapState('three',['fov']),
+    size:()=>size,
+  },
   mounted(){
-    var obj = new THREE.Mesh( new THREE.PlaneGeometry( size, size ) );
+    var obj = new CSS3DObject(this.$el);
     var pos = [];
     pos[0] = this.pos[0] * size/2;  pos[1] = this.pos[1] * size/2;  pos[2] = this.pos[2] * size/2;
     obj.position.fromArray( pos );
@@ -28,8 +40,11 @@ export default {
   },
   beforeDestroy(){
     this.scene.remove(this.obj)
-    this.obj.geometry.dispose()
     this.obj = null
   }
 }
 </script>
+<style scoped>
+.csspanel{
+}
+</style>

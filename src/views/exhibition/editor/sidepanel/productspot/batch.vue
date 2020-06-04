@@ -39,10 +39,7 @@
             <el-button type="primary" style="width:100%">选择显示图片</el-button>
           </div>
         </div>
-        <div v-if="option === '2'"  style="width:100%">
-          <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="target.text" style="width:100"/>
-        </div>
-        <div class="scene" v-if="option === '3'" style="width:100%">
+        <div class="scene" v-if="option === '2'" style="width:100%">
           <div v-if="target.scene_id"  style="width:100%">
 
           </div>
@@ -52,21 +49,23 @@
         </div>
       </div>
     </div>
-    <material-selector v-model="showDialog" @select="select" imgtype="1"/>
+    <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
   </container>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
+import MaterialSelector from '@/views/exhibition/materialselector'
+
 const options = [
   { value: '0', label: '超链接'},
   { value: '1', label: '图片展示'},
-  { value: '2', label: '文本展示'},
-  { value: '3', label: '场景跳转'},
+  { value: '2', label: '场景跳转'},
 ]
 export default {
   mixins:[mixin],
+  components:{MaterialSelector},
   data(){return {
     group: null,
     options,
@@ -87,10 +86,11 @@ export default {
         item.label = this.label
         item.type = this.type
         item.target = this.target
+        item.style = this.imgtype
+        item.img_url = this.img_url
       });
     },
     select(material){
-      console.log(material)
       this.img_url=material.material_content
       this.imgtype = parseInt(material.material_type)
     }

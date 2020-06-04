@@ -37,7 +37,7 @@ export var customRoutes=[
     icon: "example",
     order: 0,
     children: null,
-    hidden: 0
+    hidden: 1
   },
   // {
   //   id: 4,

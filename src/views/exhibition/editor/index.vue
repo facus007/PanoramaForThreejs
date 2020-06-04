@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <container v-if="this.$route.query.product_id">
     <editor v-if="$store.state.editor.product"/>
   </container>
 </template>
@@ -11,7 +11,6 @@ import editor from './editor'
 import store from './store'
 
 const moduleName = "editor"
-const product_id = -1
 
 export default {
   mixins:[mixin],
@@ -21,8 +20,12 @@ export default {
   mounted(){},
   beforeDestroy(){},
   created(){
+    if(!this.$route.query.product_id){
+      this.$router.push('/exhibition/list')
+      return
+    }
     this.$store.registerModule(moduleName, store)
-    this.$store.dispatch(moduleName + '/init', product_id)
+    this.$store.dispatch(moduleName + '/init', this.$route.query.product_id)
   },
   destroyed(){
     this.$store.dispatch(moduleName + '/deinit')

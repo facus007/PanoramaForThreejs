@@ -27,7 +27,7 @@
 import { mapState } from 'vuex'
 import { listMaterials } from '@/api/server'
 import Container from '@/views/mixin/container'
-import TableFrame from './tableframe'
+import TableFrame from '@/components/UI/tableframe'
 import Uploader from './uploader'
 
 export default {
@@ -61,7 +61,6 @@ export default {
   },
   computed:{
     refresh(){
-      console.log(this.imgtype)
       this.loading = true
       listMaterials({
         endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),

@@ -18,15 +18,17 @@
         </div>
       </el-tab-pane>
   </el-tabs>
-  <material-selector v-model="showDialog" @select="select" style="1"/>
+  <material-selector v-model="showDialog" @select="select" imgtype="1"/>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
+import MaterialSelector from '../materialselector'
 
 export const scenetab = {
+  components:{MaterialSelector},
   mixins:[mixin],
   data(){return {
     tab_id: '0',

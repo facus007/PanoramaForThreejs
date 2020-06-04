@@ -46,16 +46,13 @@ export default {
 .table >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
   background: #1f2d3d;
 }
-.table >>> td{
-  padding: 0;
-}
 .table >>> .is-leaf{
   padding: 0;
 }
 .table >>> .cell {
   padding: 0;
 }
-.table th, .table tr{
+.table >>> th, .table >>> tr{
   background-color: #0000;
 }
 </style>

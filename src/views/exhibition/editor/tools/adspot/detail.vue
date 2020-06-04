@@ -33,10 +33,7 @@
         <el-button type="primary">选择显示图片</el-button>
       </div>
     </div>
-    <div v-if="option === '2'">
-      <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="selected.target.text"/>
-    </div>
-    <div class="scene" v-if="option === '3'">
+    <div class="scene" v-if="option === '2'">
       <div v-if="selected.target.scene_id">
 
       </div>
@@ -51,15 +48,15 @@
 
 <script>
 import { mapState } from 'vuex'
-import * as UI from '@/components/UI'
+import MaterialSelector from '@/views/exhibition/materialselector'
+
 const options = [
   { value: '0', label: '超链接'},
   { value: '1', label: '图片展示'},
-  { value: '2', label: '文本展示'},
-  { value: '3', label: '场景跳转'},
+  { value: '2', label: '场景跳转'},
 ]
 export default {
-  components:{...UI},
+  components:{MaterialSelector},
   data(){return {
     group: null,
     options,

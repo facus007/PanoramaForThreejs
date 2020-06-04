@@ -7,7 +7,7 @@
       <template v-slot:columns="scope">
         <el-table-column label="作品封面">
           <template v-slot:default="scope">
-            <img src="/static/test.png/front.jpg" width="100px" height="50px" style="border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: cover;"/>
+            <img :src="scope.row.cover" width="100px" height="50px" style="border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: cover;"/>
           </template>
         </el-table-column>
         <el-table-column label="作品名称">
@@ -37,10 +37,9 @@
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr 1fr; grid-gap: 5px;">
-              <el-button style="padding:0;margin:0; width:min-content;" type="text">编辑</el-button>
+            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text">预览</el-button>
-              <el-button style="padding:0;margin:0; width:min-content;" type="text">发布</el-button>
             </div>
           </template>
         </el-table-column>
@@ -53,10 +52,12 @@
 <script>
 import { mapState } from 'vuex'
 import { listProducts } from '@/api/server'
+import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
 
 export default {
   mixins:[mixin],
+  components:{NewProduct},
   data(){ return {
     total: 0,
     pageSize: 10,
@@ -65,15 +66,20 @@ export default {
     loading: true,
     showDialog: false,
   }},
-  watch:{},
+  watch:{
+    showDialog(){
+      this.refresh_()
+    }
+  },
   methods:{
     selectionChange(val){},
     newProduct(){
       this.showDialog = true
-    }
-  },
-  computed:{
-    refresh(){
+    },
+    edit(row){
+      this.$router.push({path:'/exhibition/editor', query: { product_id: row.product_id }})
+    },
+    refresh_(){
       this.loading = true
       listProducts({
         endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
@@ -84,6 +90,11 @@ export default {
         this.datalist = result.products
         this.loading = false
       })
+    }
+  },
+  computed:{
+    refresh(){
+      this.refresh_()
     }
   },
   mounted(){},

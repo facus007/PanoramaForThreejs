@@ -1,17 +1,13 @@
 <template>
   <div>
-    <panel v-for="src,index in sideImgs" :key="src" :pos="sides[index].position" :rot="sides[index].rotation">
-      <MashBasicMaterial :side="2">
-        <Texture :url="src" :onError="onError"/>
-      </MashBasicMaterial>
-    </panel>
+    <panel v-for="src, index in sideImgs" :key="src" :pos="sides[index].position" :rot="sides[index].rotation" :src="src"></panel>
   </div>
 </template>
 
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import panel from './panel'
+import panel from './csspanel'
 import THREEComponent from '../../base/threecomponent'
 import MashBasicMaterial from '../../base/meshbasicmaterial'
 import Texture from '../../base/texture'
@@ -53,7 +49,7 @@ export default {
   }},
   methods:{
     onError(e){
-      console.log(e)
+      // console.log(e)
     }
     // update(){}
   },

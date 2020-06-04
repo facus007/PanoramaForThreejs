@@ -1,6 +1,6 @@
 <template>
   <div :style="{border: outline ? '5px dashed yellow' : 'none'}">
-    <el-button type="text" @click="action">
+    <el-button type="text" @click="$emit('action',item)">
       <img v-if="item.style === 1" :src="url" :width="100*size[0]+'px'" :height="100*size[1]+'px'" style="object-fit:contain">
       <video v-if="item.style === 2" :src="url" loop autoplay playsinline :style="{width:100*size[0]+'px',height:100*size[1]+'px'}" style="object-fit:contain" muted />
     </el-button>
@@ -16,6 +16,7 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 const texloader = new THREE.TextureLoader()
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI,  Math.PI/2, 'XYZ'))
+texloader.crossOrigin = null;
 
 export default {
   mixins: [THREEComponent],
@@ -38,9 +39,6 @@ export default {
       this.obj.position.add(pos)
       this.obj.scale.set(m[2] * this.mesh.scale.x *0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z *0.01)
     },
-    action(){
-
-    }
   },
   mounted(){
     // if(!this.url){ return }

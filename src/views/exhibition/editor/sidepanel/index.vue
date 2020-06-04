@@ -12,10 +12,6 @@ export { default as standard } from './standard'
 export { default as viewspot } from './viewspot'
 export { default as adspot } from './adspot'
 export { default as productspot } from './productspot'
-export { default as hotspot } from './hotspot'
-export { default as sandbox } from './sandbox'
-export { default as music } from './music'
-export { default as embedded } from './embedded'
 
 export const sidepanel = {
   mixins:[mixin],

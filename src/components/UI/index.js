@@ -1,5 +1,2 @@
 export {default as TableFrame} from './tableframe'
 export {default as Chart} from './chart'
-export {default as Uploader} from './uploader'
-export {default as NewProduct} from './newproduct'
-export {default as MaterialSelector} from './materialselector'
