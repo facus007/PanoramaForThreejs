@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="提示" :visible.sync="visible" width="50%" v-loading="loading" append-to-body :modal="false">
+  <el-dialog title="提示" :visible.sync="visible" width="50%" append-to-body :modal="false">
     <el-form label-position="right" label-width="80px">
       <el-form-item label="资源类型">
         <el-select size="small" v-model="selected" placeholder="请选择">

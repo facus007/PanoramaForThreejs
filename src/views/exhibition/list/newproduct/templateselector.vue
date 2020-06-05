@@ -38,7 +38,7 @@ export default {
         listTmps({
           endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
           type: '1',
-          pageNum: ++this.page,
+          pageNum: this.page++,
           pageSize: this.pageSize,
         }).then((result)=>{
           this.rawData = result.tmps

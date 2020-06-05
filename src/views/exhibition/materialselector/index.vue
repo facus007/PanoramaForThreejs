@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="选择素材" :visible.sync="visible" width="50%" v-loading="loading" :modal="false">
-    <container :refresh="refresh" v-loading="loading">
+    <container v-if="visible" :refresh="refresh" v-loading="loading">
       <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
         <template v-slot:header="scope">
           <el-button type="primary" size="small" @click="newMaterial">上传素材</el-button>

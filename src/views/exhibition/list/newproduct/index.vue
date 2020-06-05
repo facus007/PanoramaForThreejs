@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="新建作品" :visible.sync="visible" width="70%" v-loading="loading">
-    <el-form label-position="right" label-width="80px">
+    <el-form v-if="visible" label-position="right" label-width="80px">
       <el-form-item label="作品名称">
         <el-input size="small" v-model="name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
       </el-form-item>

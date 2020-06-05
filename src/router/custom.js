@@ -20,7 +20,7 @@ export var customRoutes=[
     hidden: 0
   },
   {
-    id: 32,
+    id: 31,
     title: "展馆列表",
     path: "/exhibition/list",
     pid: 3,
@@ -30,7 +30,7 @@ export var customRoutes=[
     hidden: 0
   },
   {
-    id: 30,
+    id: 32,
     title: "展馆搭建",
     path: "/exhibition/editor",
     pid: 3,
@@ -40,7 +40,7 @@ export var customRoutes=[
     hidden: 1
   },
   {
-    id: 30,
+    id: 33,
     title: "展馆预览",
     path: "/preview",
     pid: 3,
