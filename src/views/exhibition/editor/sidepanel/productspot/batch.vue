@@ -1,6 +1,6 @@
 <template>
   <container class="home" style="position: relative; display: flex; flex-direction: column;">
-    <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 100%; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px 3fr 40px 1fr;" class="event">
+    <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 100%; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px 2fr 40px 1fr;" class="event">
       <div class="block" style="display:flex;align-items:center;">
         属性 <el-button size="mini" type="primary" style="margin-left:auto;" @click="batch">一键批处理</el-button>
       </div>
@@ -22,7 +22,7 @@
         </el-select>
       </div>
       <div class="block" style="display:flex; justify-content:center; align-items:center; width: 100%;">
-        <div v-if="option === '0'" style="display: flex; flex-direction: column; width: 100%; align-items: flex-start;">
+        <div v-if="option === '1'" style="display: flex; flex-direction: column; width: 100%; align-items: flex-start;">
           <span>
             请输入超链接
             <el-tooltip class="item" effect="dark" content="超链接需附上 http:// 或 https:// " placement="right-end">
@@ -31,24 +31,15 @@
           </span>
           <el-input class="input" size="mini" v-model="target.link" style="margin-top:5px"/>
         </div>
-        <div v-if="option === '1'" style="width:100%">
-          <div v-if="target.scene_id" style="width:100%">
-
-          </div>
-          <div v-else  style="width:100%">
-            <el-button type="primary" style="width:100%">选择显示图片</el-button>
-          </div>
-        </div>
-        <div class="scene" v-if="option === '2'" style="width:100%">
-          <div v-if="target.scene_id"  style="width:100%">
-
-          </div>
-          <div v-else  style="width:100%">
-            <el-button type="primary" style="width:100%">选择跳转场景</el-button>
-          </div>
+        <div class="scene" v-if="option === '2'" style="width:100%; display:flex; justify-content:center">
+          <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+            <el-image v-if="target.scene_id" :src="target.scene_cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-button>
         </div>
       </div>
     </div>
+    <scene-selector v-model="showSceneSelector" @select="selectScene"/>
     <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
   </container>
 </template>
@@ -57,15 +48,16 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import MaterialSelector from '@/views/exhibition/materialselector'
+import SceneSelector from '@/views/exhibition/sceneselector'
 
 const options = [
-  { value: '0', label: '超链接'},
-  { value: '1', label: '图片展示'},
+  { value: '0', label: '无动作'},
+  { value: '1', label: '超链接'},
   { value: '2', label: '场景跳转'},
 ]
 export default {
   mixins:[mixin],
-  components:{MaterialSelector},
+  components:{MaterialSelector,SceneSelector},
   data(){return {
     group: null,
     options,
@@ -75,6 +67,7 @@ export default {
     showDialog: false,
     imgtype: null,
     img_url: null,
+    showSceneSelector: false,
   }},
   props:['source'],
   methods:{
@@ -93,6 +86,10 @@ export default {
     select(material){
       this.img_url=material.material_content
       this.imgtype = parseInt(material.material_type)
+    },
+    selectScene(scene){
+      this.target.scene_id = scene.scene_id
+      this.target.scene_cover = scene.cover
     }
   },
   mounted(){},

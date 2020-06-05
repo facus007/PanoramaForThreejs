@@ -13,7 +13,7 @@ export async function getProduct(product_id) {
       description: '',
       cover: '',
       fov: 60,
-      start_rotation: [Math.PI/2, Math.PI/2],
+      start_rotation: [ Math.PI/2, Math.PI/2],
       material_id: '-1',
       type: 1,
       template: template,

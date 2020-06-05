@@ -50,7 +50,7 @@ export default {
       event.preventDefault()
       var camera = this.camera
       var fov = camera.fov + event.deltaY * 0.05;
-      camera.fov = THREE.MathUtils.clamp( fov, 30, 120 );
+      camera.fov = THREE.MathUtils.clamp( fov, 30, 90 );
       camera.updateProjectionMatrix();
     }
   },

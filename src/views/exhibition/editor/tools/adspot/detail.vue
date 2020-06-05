@@ -8,7 +8,6 @@
       <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-    <div style="margin-top:5px">当前区域推荐长宽比：{{selected.name.split('_')[1]}}:{{selected.name.split('_')[2]}}</div>
   </div>
   <div class="block">
     <el-select class="select" size="mini" v-model="option" style="">
@@ -16,7 +15,7 @@
     </el-select>
   </div>
   <div class="block" style="display:flex; justify-content:center; align-items:center; width: 100%;">
-    <div v-if="option === '0'" style="display: flex; flex-direction: column; width: 100%; align-items: flex-start;">
+    <div v-if="option === '1'" style="display: flex; flex-direction: column; width: 100%; align-items: flex-start;">
       <span>
         请输入超链接
         <el-tooltip class="item" effect="dark" content="超链接需附上 http:// 或 https:// " placement="right-end">
@@ -25,44 +24,39 @@
       </span>
       <el-input class="input" size="mini" v-model="selected.target.link" style="margin-top:5px"/>
     </div>
-    <div v-if="option === '1'">
-      <div v-if="selected.target.scene_id">
-
-      </div>
-      <div v-else>
-        <el-button type="primary">选择显示图片</el-button>
-      </div>
-    </div>
     <div class="scene" v-if="option === '2'">
-      <div v-if="selected.target.scene_id">
-
-      </div>
-      <div v-else>
-        <el-button type="primary">选择跳转场景</el-button>
-      </div>
+      <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+        <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-button>
     </div>
   </div>
   <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
+  <scene-selector v-model="showSceneSelector" @select="selectScene"/>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import MaterialSelector from '@/views/exhibition/materialselector'
+import SceneSelector from '@/views/exhibition/sceneselector'
 
 const options = [
-  { value: '0', label: '超链接'},
-  { value: '1', label: '图片展示'},
+  { value: '0', label: '无动作'},
+  { value: '1', label: '超链接'},
   { value: '2', label: '场景跳转'},
 ]
 export default {
-  components:{MaterialSelector},
+  components:{MaterialSelector,SceneSelector},
   data(){return {
     group: null,
     options,
     showDialog:false,
+    showSceneSelector: false,
   }},
   props:['selected'],
+  watch:{
+  },
   methods:{
     onChange(){
       this.showDialog=true
@@ -70,9 +64,13 @@ export default {
     select(material){
       this.selected.style = parseInt(material.material_type)
       this.selected.img_url = material.material_content
+    },
+    selectScene(scene){
+      this.selected.target.scene_id = scene.scene_id
+      this.selected.target.scene_cover = scene.cover
     }
   },
-  mounted(){},
+  mounted(){console.log(this.selected)},
   beforeDestroy(){},
   computed:{
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),

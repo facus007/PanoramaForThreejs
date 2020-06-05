@@ -11,6 +11,7 @@ import mixin from '@/views/mixin'
 export { default as standard } from './standard'
 export { default as viewspot } from './viewspot'
 export { default as adspot } from './adspot'
+export { default as hotspot } from './hotspot'
 export { default as productspot } from './productspot'
 
 export const sidepanel = {

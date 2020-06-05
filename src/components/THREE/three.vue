@@ -18,8 +18,8 @@ export default {
   props:['isDebug'],
   computed:{
     debug(){
-      window.scene = this.scene
-      window.THREE = THREE
+      // window.scene = this.scene
+      // window.THREE = THREE
     },
     ...mapState(moduleName, ['domElement','camera'])
   },

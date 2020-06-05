@@ -1,6 +1,7 @@
 <template>
   <container v-if="this.$route.query.product_id">
     <editor v-if="$store.state.editor.product"/>
+    <div v-else v-loading='true' style="width: 100%; height: 100%;"/>
   </container>
 </template>
 
@@ -26,10 +27,13 @@ export default {
     }
     this.$store.registerModule(moduleName, store)
     this.$store.dispatch(moduleName + '/init', this.$route.query.product_id)
+
   },
   destroyed(){
-    this.$store.dispatch(moduleName + '/deinit')
-    this.$store.unregisterModule(moduleName)
+    if(this.$store.hasModule(moduleName)){
+      this.$store.dispatch(moduleName + '/deinit')
+      this.$store.unregisterModule(moduleName)
+    }
   }
 }
 </script>

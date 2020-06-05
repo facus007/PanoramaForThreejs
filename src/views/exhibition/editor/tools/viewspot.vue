@@ -19,33 +19,33 @@ export default {
   watch:{},
   methods:{
     setView(){
-      var aspect = this.camera.aspect
-      this.camera.aspect = 200 / 100
-      this.camera.updateProjectionMatrix();
-      this.renderer.obj.setRenderTarget(renderTarget)
-      this.renderer.obj.render(this.scene, this.camera);
-      var pixelBuffer = new Uint8Array( 200 * 100 * 4 );
-      this.renderer.obj.readRenderTargetPixels(renderTarget, 0, 0, 200, 100, pixelBuffer)
-      this.renderer.obj.setRenderTarget(null)
-      this.camera.aspect = aspect
-      this.camera.updateProjectionMatrix();
-
-      var canvas = document.createElement('canvas');
-      canvas.width = 200;
-      canvas.height = 100;
-      var context = canvas.getContext('2d');
-      var imageData = context.createImageData(200, 100);
-      imageData.data.set(pixelBuffer);
-
-      var newCanvas = document.createElement('canvas');
-      newCanvas.width = 200;
-      newCanvas.height = 100;
-      newCanvas.getContext("2d").putImageData(imageData, 0, 0);
-      context.translate(0, 100);
-      context.scale(1, -1);
-      context.drawImage(newCanvas, 0, 0);
-
-      this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL("image/jpeg", 1.0))
+      // var aspect = this.camera.aspect
+      // this.camera.aspect = 200 / 100
+      // this.camera.updateProjectionMatrix();
+      // this.renderer.obj.setRenderTarget(renderTarget)
+      // this.renderer.obj.render(this.scene, this.camera);
+      // var pixelBuffer = new Uint8Array( 200 * 100 * 4 );
+      // this.renderer.obj.readRenderTargetPixels(renderTarget, 0, 0, 200, 100, pixelBuffer)
+      // this.renderer.obj.setRenderTarget(null)
+      // this.camera.aspect = aspect
+      // this.camera.updateProjectionMatrix();
+      //
+      // var canvas = document.createElement('canvas');
+      // canvas.width = 200;
+      // canvas.height = 100;
+      // var context = canvas.getContext('2d');
+      // var imageData = context.createImageData(200, 100);
+      // imageData.data.set(pixelBuffer);
+      //
+      // var newCanvas = document.createElement('canvas');
+      // newCanvas.width = 200;
+      // newCanvas.height = 100;
+      // newCanvas.getContext("2d").putImageData(imageData, 0, 0);
+      // context.translate(0, 100);
+      // context.scale(1, -1);
+      // context.drawImage(newCanvas, 0, 0);
+      //
+      // this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL("image/jpeg", 1.0))
       this.curedit.start_rotation = [this.controls.obj.getAzimuthalAngle(), this.controls.obj.getPolarAngle()]
     },
     // update(){},

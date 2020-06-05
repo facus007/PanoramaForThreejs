@@ -39,6 +39,16 @@ export var customRoutes=[
     children: null,
     hidden: 1
   },
+  {
+    id: 30,
+    title: "展馆预览",
+    path: "/preview",
+    pid: 3,
+    icon: "example",
+    order: 0,
+    children: null,
+    hidden: 1
+  },
   // {
   //   id: 4,
   //   title: "素材库",

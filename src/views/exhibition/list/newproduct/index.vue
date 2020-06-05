@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="新建模版" :visible.sync="visible" width="70%" v-loading="loading">
+  <el-dialog title="新建作品" :visible.sync="visible" width="70%" v-loading="loading">
     <el-form label-position="right" label-width="80px">
       <el-form-item label="作品名称">
         <el-input size="small" v-model="name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item label="选择封面">
         <el-button class="upload" type="text" @click="onChange" style="width: 200px; height: 100px; border-radius: 5px; border: 1px dashed gray; position:ralative;">
-          <el-image v-if="cover" :src="cover" fit="contain" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
+          <el-image v-if="cover" :src="cover" fit="cover" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
       </el-form-item>
@@ -62,6 +62,7 @@ export default {
         this.name = ''
         this.file = null
         this.cover = null
+        this.template = null
       }
     },
   },
@@ -80,7 +81,26 @@ export default {
         var tmps = (await listRandomHotspots({tmp_group_id:this.template.tmp_group_id})).tmps
         var scenes = []
         this.template.tmp_details.forEach((item, i) => {
-          scenes.push({...defaultScene, tmpId: item.tmp_id, name: '场景' + (1+i), embeddings: tmps[i].embeddings})
+          var embeddings = []
+          tmps[i].embeddings && tmps[i].embeddings.forEach((item_, i) => {
+            embeddings[i] = embeddings[i] || {}
+            embeddings[i].group = item_.group
+            var hotspots = []
+            item_.hotspots && item_.hotspots.forEach((item__, i) => {
+              hotspots[i] = hotspots[i] || {}
+              hotspots[i].embedId = item__.embed_id
+              hotspots[i].name = item__.name
+              hotspots[i].transform = {position: item__.transform.position, rotation: item__.transform.rotation, scale: item__.transform.scale, affine_transform: item__.transform.affine_transform}
+              hotspots[i].type = item__.type
+              hotspots[i].style = item__.style
+              hotspots[i].imgUrl = item__.img_url
+              hotspots[i].label = item__.label
+              hotspots[i].target = JSON.stringify(item__.target)
+              hotspots[i].attribute = JSON.stringify(item__.attribute)
+            });
+            embeddings[i].hotspots = hotspots
+          });
+          scenes.push({...defaultScene, tmpId: item.tmp_id, name: '场景' + (1+i), embeddings: embeddings})
         });
         await saveVR({
           name: this.name,

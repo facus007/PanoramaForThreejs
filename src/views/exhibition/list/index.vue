@@ -39,7 +39,7 @@
           <template v-slot:default="scope">
             <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr; grid-gap: 5px;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
-              <el-button style="padding:0;margin:0; width:min-content;" type="text">预览</el-button>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
             </div>
           </template>
         </el-table-column>
@@ -78,6 +78,9 @@ export default {
     },
     edit(row){
       this.$router.push({path:'/exhibition/editor', query: { product_id: row.product_id }})
+    },
+    preview(row){
+      this.$router.push({path:'/preview', query: { product_id: row.product_id }})
     },
     refresh_(){
       this.loading = true

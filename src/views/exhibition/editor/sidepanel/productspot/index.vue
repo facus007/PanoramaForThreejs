@@ -1,7 +1,11 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px; grid-template-rows:1fr 1.5fr">
-    <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected"/>
-    <batch :source="curedit.embeddings[1].hotspots"/>
+  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px; grid-template-rows:1fr 1fr">
+    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
+      <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected"/>
+    </div>
+    <div style="height: 100%; width: 100%; position: relative; ">
+      <batch :source="curedit.embeddings[1].hotspots"/>
+    </div>
   </container>
 </template>
 

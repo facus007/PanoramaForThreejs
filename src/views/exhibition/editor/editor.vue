@@ -45,7 +45,7 @@ const features = [
   {name: "视角", sidepanel: "viewspot", tools: "viewspot-tools"},
   {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools'},
   {name: "产品位热点", sidepanel: "productspot", tools: 'productspot-tools'},
-  // {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools'},
+  {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools'},
   // {name: "音乐", sidepanel: "music", },
 ]
 

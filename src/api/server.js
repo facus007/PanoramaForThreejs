@@ -63,3 +63,19 @@ export function getProduct(params){
     params
   })
 }
+
+export function addembed(data){
+  return request({
+    url: '/addembed',
+    method: 'post',
+    data
+  })
+}
+
+export function delembed(params){
+  return request({
+    url: '/delembed',
+    method: 'get',
+    params
+  })
+}

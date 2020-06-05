@@ -1,7 +1,8 @@
 <template>
   <div style="display:flex; padding: 0 20px; align-items: center;width: 100%; height: 100%;" :autosave="autosave">
     <el-checkbox v-model="setting.autosave"><span style="color: white;">自动保存</span></el-checkbox>
-    <el-button type="text" icon="el-icon-edit" style="padding: 0; margin-left: auto; color: white; font-size:20px;" @click="save"/>
+    <el-button type="text" icon="el-icon-caret-right" style="padding: 0; margin-left: auto; color: white; font-size:20px;" @click="preview"/>
+    <el-button type="text" icon="el-icon-upload" style="padding: 0; margin-left: 10px; color: white; font-size:20px;" @click="save"/>
   </div>
 </template>
 
@@ -14,7 +15,11 @@ const moduleName = "editor"
 
 export default {
   mixins:[mixin],
-  watch:{},
+  watch:{
+    'setting.autosave'(next){
+      this.$store.commit(moduleName+'/SET_SETTING',this.setting)
+    }
+  },
   methods:{
     save(){
       var scenes=[]
@@ -33,7 +38,8 @@ export default {
             hotspots[i].style = item__.style
             hotspots[i].imgUrl = item__.img_url
             hotspots[i].label = item__.label
-            hotspots[i].target = JSON.stringify({link: item__.target.link, sceneId: item__.target.scene_id, text: item__.target.text})
+            hotspots[i].target = JSON.stringify(item__.target)
+            hotspots[i].attribute = JSON.stringify(item__.attribute)
           });
           embeddings[i].hotspots = hotspots
         });
@@ -53,8 +59,10 @@ export default {
         scenes: scenes,
       }).then((result)=>{
         this.$store.commit(moduleName+'/SET_CURSAVE', JSON.stringify(this.curedit))
-        console.log(result)
       })
+    },
+    preview(){
+      this.$router.push({path:'/preview', query: { product_id: this.product.product_id }})
     }
   },
   mounted(){},
