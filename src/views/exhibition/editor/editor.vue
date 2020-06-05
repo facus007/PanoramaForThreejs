@@ -3,12 +3,10 @@
     <div class="home shadow" style="background: #304156; grid-area: a; padding: 10px; position: relative;">
       <THREE class="shadow" style="position: relative;" :isDebug="isDebug">
         <stats v-if="isDebug"/>
-        <WebGLRenderer :option="{antialias:true}" ref="renderer">
-          <CSS3DRenderer>
-            <orbit-controls ref="controls" :start_rotation="curedit.start_rotation"/>
-          </CSS3DRenderer>
-          <panorama v-if="sideImgs" :sideImgs="sideImgs"/>
-        </WebGLRenderer>
+        <CSS3DRenderer>
+          <orbit-controls ref="controls" :start_rotation="curedit.start_rotation"/>
+        </CSS3DRenderer>
+        <panorama v-if="sideImgs" :sideImgs="sideImgs"/>
         <component :is="curFeature && features[curFeature].tools" style="z-index: 2" :renderer="$refs.renderer" :controls="$refs.controls" ref="tools" :key="curedit.scene_id"/>
       </THREE>
     </div>

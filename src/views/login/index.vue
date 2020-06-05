@@ -50,6 +50,7 @@
           type="text"
           tabindex="1"
           auto-complete="on"
+          style="margin-left: 30px;"
         />
         <div class="code-container">
           <el-button @click="refresh" type="text" style="padding:0; min-width: 100px;">

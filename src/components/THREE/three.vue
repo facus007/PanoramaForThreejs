@@ -53,12 +53,11 @@ export default {
       }
     },
     rendering(){
-      if(this.$store.state[moduleName]){
-        this.$store.dispatch(moduleName+'/render')
-        this.frame = requestAnimationFrame(this.rendering)
-      }
+      this.$store.dispatch(moduleName+'/render')
+      this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){
+      this.$store.dispatch(moduleName+'/render')
       this.frame = requestAnimationFrame(this.rendering)
     },
     stopRendering(){

@@ -60,7 +60,7 @@ module.exports = {
     port: '8081',
     proxy: {
       "/vr": { // 图片上传代理
-        target: 'http://29338808df.zicp.vip/manager', // 生产
+        target: 'http://w29j338808.oicp.vip/manager', // 生产
         changeOrigin: true,
         // pathRewrite: {
         //   '^/vr': '/'

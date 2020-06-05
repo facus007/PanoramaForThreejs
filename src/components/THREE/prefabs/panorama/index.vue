@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <panel v-for="src, index in sideImgs" :key="src" :pos="sides[index].position" :rot="sides[index].rotation" :src="src"></panel>
+  <div :isloaded="isloaded">
+    <panel v-for="src, index in sideImgs" :key="src" :pos="sides[index].position" :rot="sides[index].rotation" :src="src" @onload="loaded++"></panel>
   </div>
 </template>
 
@@ -46,12 +46,16 @@ export default {
   props: ['sideImgs'],
   data(){return {
     sides,
+    loaded:0
   }},
   methods:{
-    onError(e){
-      // console.log(e)
-    }
     // update(){}
   },
+  computed:{
+    isloaded(){
+      if(this.loaded >= 6){this.$emit('onload')}
+      return this.loaded
+    }
+  }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#AAA'}">
-    <img :src="src" width="100%" height="100%"/>
+  <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#EEEEEE'}" :blurfactor="blurfactor">
+    <img :src="src" width="100%" height="100%" :style="{filter: loaded ? undefined :'blur('+blurfactor+')'}" ref="img"/>
   </div>
 </template>
 <script>
@@ -15,6 +15,8 @@ export default {
   mixins: [THREEComponent],
   props:['pos', 'rot', 'src'],
   data(){return{
+    loaded: false,
+    blur: 50,
   }},
   watch:{
     // domElement(next, pre){
@@ -28,6 +30,9 @@ export default {
   computed:{
     ...mapState('three',['fov']),
     size:()=>size,
+    blurfactor(){
+      return this.loaded ? (this.blur *= 0.135) : this.blur
+    }
   },
   mounted(){
     var obj = new CSS3DObject(this.$el);
@@ -37,6 +42,7 @@ export default {
     obj.rotation.fromArray( this.rot );
     this.scene.add(obj)
     this.obj = obj
+    this.$refs.img.onload = ()=>{this.loaded = true; this.$emit('onload')}
   },
   beforeDestroy(){
     this.scene.remove(this.obj)

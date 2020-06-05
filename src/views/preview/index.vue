@@ -1,9 +1,9 @@
 <template>
   <div style="position: absolute; width: 100%; height: 100%;">
-    <div v-if="product" class="home shadow" style="background: #304156; grid-area: a; position: relative; width:100%; height:100%">
+    <div v-if="product" class="home shadow" style="background: #EEEEEE; grid-area: a; position: relative; width:100%; height:100%">
       <THREE class="shadow" style="position: relative;">
         <span v-for="scene in product.scenes">
-          <transition name="animate">
+          <transition name="el-fade-in">
             <preview v-if="scene.scene_id===curSceneId" :curScene="scene" v-model="curSceneId" :key="scene.scene_id"/>
           </transition>
         </span>
@@ -48,7 +48,6 @@ export default {
 
           this.curSceneId = result.productInfo.scenes[0].scene_id
           this.product = result.productInfo
-          // this.sceneIds = this.product.scenes.map(scene=>scene.scene_id)
         }
       })
     }
@@ -57,12 +56,5 @@ export default {
   computed:{}
 }
 </script>
-
 <style scoped>
-.animate-enter-active, .animate-leave-active {
-  transition: opacity .5s;
-}
-.animate-enter, .animate-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
 </style>

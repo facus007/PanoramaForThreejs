@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'HiAvalon管理后台',
+  title: 'Avalon管理后台',
 
   /**
    * @type {boolean} true | false
