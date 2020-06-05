@@ -1,6 +1,6 @@
 <template>
   <div class="frame">
-    <div style="width: 200px;">封面</div>
+    <div style="width: 100%;">作品封面</div>
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="product.cover" :src="product.cover" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <!-- <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted /> -->

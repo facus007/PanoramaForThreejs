@@ -73,7 +73,7 @@ export default {
       this.selected.target.scene_cover = scene.cover
     }
   },
-  mounted(){console.log(this.selected)},
+  mounted(){},
   beforeDestroy(){},
   computed:{
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),

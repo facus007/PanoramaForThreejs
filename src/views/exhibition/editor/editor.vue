@@ -9,11 +9,11 @@
           </CSS3DRenderer>
           <panorama v-if="sideImgs" :sideImgs="sideImgs"/>
         </WebGLRenderer>
-        <component :is="curFeature && features[curFeature].tools" style="z-index: 2" :renderer="$refs.renderer" :controls="$refs.controls" ref="tools"/>
+        <component :is="curFeature && features[curFeature].tools" style="z-index: 2" :renderer="$refs.renderer" :controls="$refs.controls" ref="tools" :key="curedit.scene_id"/>
       </THREE>
     </div>
     <div class="shadow" style="background: #304156; grid-area: b;">
-      <sidepanel v-model="curFeature">
+      <sidepanel v-model="curFeature" :key="curedit.scene_id">
         <el-tab-pane v-for="(feature, index) in features" :label="feature.name" :key="feature.name">
           <component v-if="feature.name === features[curFeature].name" :is="features[index].sidepanel" :sideImgs="sideImgs" :editor="self"/>
         </el-tab-pane>

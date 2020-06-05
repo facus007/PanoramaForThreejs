@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -24,6 +24,7 @@
     "path-to-regexp": "6.1.0",
     "three": "^0.115.0",
     "uuid": "^7.0.3",
+    "velocity-animate": "^1.5.2",
     "vue": "2.6.11",
     "vue-moment": "^4.1.0",
     "vue-router": "3.1.6",

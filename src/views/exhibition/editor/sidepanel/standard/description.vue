@@ -1,10 +1,10 @@
 <template>
   <div class="frame">
     <el-form class="form" ref="form" :model="product" size="small" style="width: 100%;">
-      <el-form-item label="标题" style="margin-bottom:0">
+      <el-form-item label="作品标题" style="margin-bottom:0">
         <el-input v-model="product.name"></el-input>
       </el-form-item>
-      <el-form-item label="描述" style="margin-bottom:0">
+      <el-form-item label="作品描述" style="margin-bottom:0">
         <el-input type="textarea" v-model="product.description"></el-input>
       </el-form-item>
     </el-form>
