@@ -95,8 +95,8 @@ export default {
               hotspots[i].style = item__.style
               hotspots[i].imgUrl = item__.img_url
               hotspots[i].label = item__.label
-              hotspots[i].target = JSON.stringify(item__.target)
-              hotspots[i].attribute = JSON.stringify(item__.attribute)
+              hotspots[i].target = item__.target
+              hotspots[i].attribute = JSON.stringify({})
             });
             embeddings[i].hotspots = hotspots
           });

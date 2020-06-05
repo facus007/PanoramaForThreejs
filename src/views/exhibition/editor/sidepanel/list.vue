@@ -5,9 +5,12 @@
         <template slot-scope="scope">
           <div :style="{display:'flex', background:scope.row === value ? '#1f2d3d' : '#0000', height:'64px', padding: '0'}">
             <el-button type="text" style="display:flex; padding:0; width:100%; height:100%; align-items: center; padding: 10px" @click="$emit('input', value !== scope.row && scope.row)">
-              <div style="display: flex; width: 100%;">
-                {{scope.row.name}}
-              </div>
+              <span style="display:flex; padding:0; width:200px; height:100%; align-items: center;">
+                <div style="display: flex;">
+                  {{scope.row.label}}
+                </div>
+                <el-button v-if="clearable" type="text" style="margin-left: auto" icon="el-icon-close" @click="$emit('del', scope.row)"/>
+              </span>
             </el-button>
           </div>
         </template>
@@ -22,7 +25,7 @@ import mixin from '@/views/mixin'
 
 export default {
   mixins:[mixin],
-  props:['label', 'source', 'value'],
+  props:['label', 'source', 'value', 'clearable'],
   watch:{},
   methods:{},
   mounted(){},

@@ -7,7 +7,7 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import list from './list'
+import list from '../list'
 import * as THREE from '@/components/THREE'
 
 const labels = ['广告位热点', '产品位热点', '自定义热点']

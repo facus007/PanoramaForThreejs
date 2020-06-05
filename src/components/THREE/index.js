@@ -11,7 +11,6 @@ export {default as MashBasicMaterial} from './base/meshbasicmaterial'
 export {default as Texture} from './base/texture'
 
 export {default as Panorama} from './prefabs/panorama'
-export {default as Label} from './prefabs/label'
 export {default as Prebuild} from './prefabs/prebuild'
 export {default as AdMesh} from './prefabs/admesh'
 export {default as ProductMesh} from './prefabs/productmesh'

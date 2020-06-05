@@ -12,8 +12,8 @@
 <script>
 import { mapState } from 'vuex'
 import * as THREE from '@/components/THREE'
-import transform from './transform'
-import detail from './detail'
+import transform from '../transform'
+import detail from '../detail'
 
 export default {
   data(){return {

@@ -12,7 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import list from './list'
+import list from '../list'
 import batch from './batch'
 import * as THREE from '@/components/THREE'
 

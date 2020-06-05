@@ -1,7 +1,5 @@
 <template>
   <container class="home" style="display: flex; flex-direction: column;">
-    <!-- <preview/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/> -->
     <fieldofview/>
     <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
   </container>

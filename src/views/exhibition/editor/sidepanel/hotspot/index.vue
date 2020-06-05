@@ -4,7 +4,7 @@
       <el-button type="primary" style="width:100%" @click="add">添加热点</el-button>
     </div>
     <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]" v-model="selected" @del="del"/>
+      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]" v-model="selected" @del="del" :clearable="true"/>
     </div>
   </container>
 </template>
@@ -12,7 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import list from './list'
+import list from '../list'
 import * as THREE from 'three'
 import { v4 as uuid} from 'uuid'
 import {addembed, delembed} from '@/api/server'

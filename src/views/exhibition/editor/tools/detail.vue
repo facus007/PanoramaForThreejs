@@ -70,7 +70,7 @@ export default {
     },
     selectScene(scene){
       this.selected.target.scene_id = scene.scene_id
-      this.selected.target.scene_cover = scene.cover
+      this.selected.target.scene_cover = scene.pano_graphic_url4
     }
   },
   mounted(){},
