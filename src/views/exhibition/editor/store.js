@@ -1,5 +1,7 @@
 // import {getProduct} from './test'
 import {getProduct, saveVR} from '@/utils/server'
+import { listRandomHotspots } from '@/api/server'
+
 import Cookies from 'js-cookie'
 const SettingKey = 'avalon_setting'
 
@@ -46,6 +48,26 @@ const actions = {
     await saveVR(state.product)
     commit('SET_CURSAVE', JSON.stringify(state.curedit))
   },
+
+  async randomHotspots({state, commit}){
+    let product = JSON.parse(JSON.stringify(state.product))
+    let {tmps} = await listRandomHotspots({tmp_group_id:product.tmp_group_id})
+    product.scenes.forEach((item, i) => {
+      item.embeddings[0].hotspots = tmps[i].embeddings[0].hotspots
+      item.embeddings[0].hotspots.forEach((item_, i) => {
+        item_.target = JSON.parse(item_.target)
+        item_.embed_id = null
+      });
+      item.embeddings[1].hotspots = tmps[i].embeddings[1].hotspots
+      item.embeddings[1].hotspots.forEach((item_, i) => {
+        item_.target = JSON.parse(item_.target)
+        item_.embed_id = null
+      });
+    });
+    await saveVR(product)
+    commit('SET_PRODUCT', await getProduct(product.product_id))
+    commit('SET_CURSAVE', JSON.stringify(state.product))
+  }
 }
 
 export default {
