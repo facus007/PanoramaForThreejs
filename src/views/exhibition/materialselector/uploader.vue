@@ -105,7 +105,7 @@ export default {
           addMaterial({
             materialType: '1',
             materialContent: result.url,
-          }).then(a=>this.loading=false)
+          }).then(_=>{this.loading=false;this.visible=false})
         })
       }
       else if (this.selected ==='2') {
@@ -114,7 +114,7 @@ export default {
           addMaterial({
             materialType: '2',
             materialContent: result.url,
-          }).then(a=>this.loading=false)
+          }).then(_=>{this.loading=false;this.visible=false})
         })
       }
     }

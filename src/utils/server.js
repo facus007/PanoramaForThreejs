@@ -38,6 +38,7 @@ export async function saveVR(product){
         hotspots[i].imgUrl = item__.img_url
         hotspots[i].label = item__.label
         hotspots[i].target = JSON.stringify(item__.target)
+        hotspots[i].align = item__.align
       });
       embeddings[i].hotspots = hotspots
     });

@@ -51,6 +51,9 @@ export default {
         this.file = null
       }
     },
+    showDialog(){
+      this.refresh()
+    }
   },
   props:['value', 'onSelect', 'imgtype'],
   methods:{
