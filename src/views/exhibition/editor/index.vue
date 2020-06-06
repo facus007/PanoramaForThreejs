@@ -1,6 +1,6 @@
 <template>
   <container v-if="this.$route.query.product_id">
-    <editor v-if="$store.state.editor.product"/>
+    <editor v-if="$store.state.editor.product && $store.state.editor.curedit"/>
     <div v-else v-loading='true' style="width: 100%; height: 100%;"/>
   </container>
 </template>
