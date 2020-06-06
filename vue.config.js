@@ -7,35 +7,36 @@ function resolve(dir) {
 }
 
 module.exports = {
+  publicPath: './',
   pluginOptions: {},
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin({
-        parallel: 4, // 并行打包
-        terserOptions: {
-          ecma: undefined,
-          warnings: false,
-          parse: {},
-          compress: {
-            drop_debugger: false,
-            drop_console: true
-          },
-          mangle: true, // Note `mangle.properties` is `false` by default.
-          module: false,
-          output: null,
-          toplevel: false,
-          nameCache: null,
-          ie8: false,
-          keep_classnames: undefined,
-          keep_fnames: false,
-          safari10: false,
-        }
-      })],
-    }
+    //
+    // optimization: {
+    //   minimize: true,
+    //   minimizer: [new TerserPlugin({
+    //     parallel: 4, // 并行打包
+    //     terserOptions: {
+    //       ecma: undefined,
+    //       warnings: false,
+    //       parse: {},
+    //       compress: {
+    //         drop_debugger: false,
+    //         drop_console: true
+    //       },
+    //       mangle: true, // Note `mangle.properties` is `false` by default.
+    //       module: false,
+    //       output: null,
+    //       toplevel: false,
+    //       nameCache: null,
+    //       ie8: false,
+    //       keep_classnames: undefined,
+    //       keep_fnames: false,
+    //       safari10: false,
+    //     }
+    //   })],
+    // }
   },
   chainWebpack(config) {
     // set svg-sprite-loader
