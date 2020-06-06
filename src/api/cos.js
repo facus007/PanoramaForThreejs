@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const cosUrl = "/file-api"
+const cosUrl = process.env.VUE_APP_COS_API
 
 export function fileUpload(data){
   return request({
