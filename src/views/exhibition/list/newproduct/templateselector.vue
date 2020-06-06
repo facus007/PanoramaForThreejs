@@ -44,6 +44,7 @@ export default {
           this.rawData = result.tmps
           this.total = result.total
           this.loading = false
+          this.total === 1 && this.$emit('input', this.rawData[0])
         })
       }
     },
