@@ -9,7 +9,6 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import { saveVR } from '@/api/server'
 
 const moduleName = "editor"
 
@@ -22,44 +21,7 @@ export default {
   },
   methods:{
     save(){
-      var scenes=[]
-      this.product.scenes.forEach((item, i) => {
-        var embeddings = []
-        item.embeddings && item.embeddings.forEach((item_, i) => {
-          embeddings[i] = embeddings[i] || {}
-          embeddings[i].group = item_.group
-          var hotspots = []
-          item_.hotspots && item_.hotspots.forEach((item__, i) => {
-            hotspots[i] = hotspots[i] || {}
-            hotspots[i].embedId = item__.embed_id
-            hotspots[i].name = item__.name
-            hotspots[i].transform = {position: item__.transform.position, rotation: item__.transform.rotation, scale: item__.transform.scale, affine_transform: item__.transform.affine_transform}
-            hotspots[i].type = item__.type
-            hotspots[i].style = item__.style
-            hotspots[i].imgUrl = item__.img_url
-            hotspots[i].label = item__.label
-            hotspots[i].target = JSON.stringify(item__.target)
-            hotspots[i].attribute = JSON.stringify(item__.attribute)
-          });
-          embeddings[i].hotspots = hotspots
-        });
-        scenes[i] = scenes[i] || {}
-        scenes[i].sceneId = item.scene_id
-        scenes[i].name = item.name
-        scenes[i].cover = item.cover
-        scenes[i].fov = item.fov
-        scenes[i].startRotation = item.start_rotation
-        scenes[i].embeddings = embeddings
-      });
-      saveVR({
-        name: this.product.name,
-        productId: this.product.product_id,
-        description: this.product.description,
-        cover: this.product.cover,
-        scenes: scenes,
-      }).then((result)=>{
-        this.$store.commit(moduleName+'/SET_CURSAVE', JSON.stringify(this.curedit))
-      })
+      this.$store.dispatch(moduleName+'/save')
     },
     preview(){
       this.$router.push({path:'/preview', query: { product_id: this.product.product_id }})
@@ -70,7 +32,7 @@ export default {
   computed:{
     ...mapState(moduleName, ['product', 'setting','curedit','cursave']),
     autosave(){
-      if(this.setting.autosave && JSON.stringify(this.curedit)!==this.cursave){
+      if(this.setting.autosave && JSON.stringify(this.product)!==this.cursave){
         this.save()
       }
       return this.cursave

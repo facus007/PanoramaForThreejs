@@ -2,7 +2,7 @@
   <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 1fr;" class="event">
   <div class="block">属性</div>
   <div class="block" style="display:flex;align-items:center">
-    <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="selected.label" style=""></el-input>
+    <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
   </div>
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
     <div>当前影像</div>
@@ -25,7 +25,7 @@
           <el-button type="text" class="el-icon-info" style="margin: 0;padding:0"/>
         </el-tooltip>
       </span>
-      <el-input class="input" size="mini" v-model="selected.target.link" style="margin-top:5px"/>
+      <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
     </div>
     <div class="scene" v-if="option === '2'">
       <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
@@ -78,10 +78,18 @@ export default {
   computed:{
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
     ...mapState('editor',['curedit']),
+    label:{
+      get(){return this.selected.label},
+      set(value){this.selected.label = value}
+    },
     option:{
-       get(){return this.selected.type.toString()},
-       set(value){this.selected.type=parseInt(value)}
-     }
+      get(){return this.selected.type.toString()},
+      set(value){this.selected.type = parseInt(value)}
+    },
+    link:{
+      get(){return this.selected.target.link},
+      set(value){this.selected.target.link = value}
+    }
   }
 }
 </script>

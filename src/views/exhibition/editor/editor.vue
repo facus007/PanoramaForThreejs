@@ -1,5 +1,5 @@
 <template>
-  <grid :grid="grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 150px;">
+  <grid :grid="grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 100px; 40px">
     <div class="home shadow" style="background: #304156; grid-area: a; padding: 10px; position: relative;">
       <THREE class="shadow" style="position: relative;" :isDebug="isDebug">
         <stats v-if="isDebug"/>
@@ -23,6 +23,9 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
+    <div class="shadow" style="background: #304156; grid-area: d;">
+      <autofill/>
+    </div>
   </grid>
 </template>
 
@@ -34,8 +37,9 @@ import * as scenetab from './scenetab'
 import * as THREE from '@/components/THREE'
 import * as Tools from './tools'
 import autosave from './autosave'
+import autofill from './autofill'
 
-const grid = "'a t' 'a b' 'c b'"
+const grid = "'a t' 'a b' 'c b' 'c d'"
 const moduleName = "editor"
 
 const features = [
@@ -49,7 +53,7 @@ const features = [
 
 export default {
   mixins:[mixin],
-  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave},
+  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave, autofill},
   data(){
     return {
     curFeature: 0,

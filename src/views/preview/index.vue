@@ -16,7 +16,7 @@
 <script>
 import { mapState } from 'vuex'
 import preview from './preview'
-import {getProduct, listHotspots} from '@/api/openserver'
+import {getProduct} from '@/utils/server'
 import * as THREE from '@/components/THREE'
 
 export default {
@@ -32,23 +32,9 @@ export default {
   beforeDestroy(){},
   created(){
     if(this.$route.query.product_id){
-      getProduct({product_id: this.$route.query.product_id}).then(async result => {
-        for (var i = 0; i < result.productInfo.scenes.length; i++) {
-          let embeddings = await listHotspots({scene_id: result.productInfo.scenes[i].scene_id})
-          result.productInfo.scenes[i].embeddings = embeddings.sceneInfo.embeddings || []
-          var rebuild = [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
-          result.productInfo.scenes[i].embeddings && result.productInfo.scenes[i].embeddings.forEach((item, i) => {
-            item.hotspots && item.hotspots.forEach((item_) => {
-              item_.target = item_.target && JSON.parse(item_.target)
-              item_.attribute = item_.attribute && JSON.parse(item_.attribute)
-            });
-            rebuild[item.group-1] = item
-          });
-          result.productInfo.scenes[i].embeddings = rebuild
-
-          this.curSceneId = result.productInfo.scenes[0].scene_id
-          this.product = result.productInfo
-        }
+      getProduct(this.$route.query.product_id, true).then(async result => {
+        this.curSceneId = result.scenes[0].scene_id
+        this.product = result
       })
     }
   },

@@ -1,5 +1,5 @@
 // import {getProduct} from './test'
-import {getProduct} from '@/utils/server'
+import {getProduct, saveVR} from '@/utils/server'
 import Cookies from 'js-cookie'
 const SettingKey = 'avalon_setting'
 
@@ -30,16 +30,22 @@ const mutations = {
 const actions = {
   async init({state, commit, dispatch}, product_id){
     commit('SET_PRODUCT', await getProduct(product_id))
+    commit('SET_CURSAVE', JSON.stringify(state.product))
     dispatch('setEdit', 0)
   },
   async deinit({state, commit}){
+    state.curedit && commit('SET_CUREDIT', null)
+    state.cursave && commit('SET_CURSAVE', null)
     state.product && commit('SET_PRODUCT', {})
   },
   setEdit({state, commit}, index){
     commit('SET_CURINDEX', index)
-    commit('SET_CURSAVE', JSON.stringify(state.product.scenes[index]))
     commit('SET_CUREDIT', state.product.scenes[index])
-  }
+  },
+  async save({state, commit}){
+    await saveVR(state.product)
+    commit('SET_CURSAVE', JSON.stringify(state.curedit))
+  },
 }
 
 export default {

@@ -96,7 +96,7 @@ export default {
   beforeDestroy(){},
   computed:{
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
-    ...mapState('editor',['curedit']),
+    ...mapState('editor',['curedit','product']),
     option:{
       get(){return this.type.toString()},
       set(value){this.type=parseInt(value)}

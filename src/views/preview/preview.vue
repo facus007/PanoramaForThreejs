@@ -49,7 +49,6 @@ export default {
         ]
       },
       isShow(){
-        console.log(this.value, this.value === this.curScene.scene_id)
         return this.value === this.curScene.scene_id
       }
     },

@@ -1,6 +1,6 @@
 <template>
-  <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#EEEEEE'}" :blurfactor="blurfactor">
-    <img :src="src" width="100%" height="100%" :style="{filter: loaded ? undefined :'blur('+blurfactor+')'}" ref="img"/>
+  <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#EEEEEE'}">
+    <img :src="src" width="100%" height="100%" ref="img"/>
   </div>
 </template>
 <script>
@@ -16,7 +16,7 @@ export default {
   props:['pos', 'rot', 'src'],
   data(){return{
     loaded: false,
-    blur: 50,
+    blur: 20,
   }},
   watch:{
     // domElement(next, pre){
@@ -30,9 +30,6 @@ export default {
   computed:{
     ...mapState('three',['fov']),
     size:()=>size,
-    blurfactor(){
-      return this.loaded ? (this.blur *= 0.135) : this.blur
-    }
   },
   mounted(){
     var obj = new CSS3DObject(this.$el);
