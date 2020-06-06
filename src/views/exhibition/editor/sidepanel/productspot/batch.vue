@@ -75,12 +75,15 @@ export default {
       this.showDialog = true
     },
     batch(){
-      this.source.forEach((item, i) => {
-        item.label = this.label
-        item.type = this.type
-        item.target = this.target
-        item.style = this.imgtype
-        item.img_url = this.img_url
+      this.product.scenes.forEach((item, i) => {
+        item.embeddings[1].hotspots.forEach((item_, i) => {
+          item_.label = this.label
+          item_.type = this.type
+          item_.target = this.target
+          item_.style = this.imgtype
+          item_.img_url = this.img_url
+        });
+
       });
     },
     select(material){

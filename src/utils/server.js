@@ -12,7 +12,6 @@ export async function getProduct(product_id, openserver){
     result.productInfo.scenes[i].embeddings && result.productInfo.scenes[i].embeddings.forEach((item, i) => {
       item.hotspots && item.hotspots.forEach((item_, i) => {
         item_.target = item_.target && JSON.parse(item_.target) || {}
-        item_.attribute = item_.attribute && JSON.parse(item_.attribute) || {}
       });
       rebuild[item.group-1] = item
     });
@@ -39,7 +38,6 @@ export async function saveVR(product){
         hotspots[i].imgUrl = item__.img_url
         hotspots[i].label = item__.label
         hotspots[i].target = JSON.stringify(item__.target)
-        hotspots[i].attribute = JSON.stringify(item__.attribute)
       });
       embeddings[i].hotspots = hotspots
     });

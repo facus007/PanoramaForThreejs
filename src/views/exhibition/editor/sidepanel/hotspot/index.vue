@@ -50,7 +50,6 @@ export default {
         style: 1,
         img_url: null,
         target: {},
-        attribute: {},
       }
       addembed({
         productId: this.product.product_id,

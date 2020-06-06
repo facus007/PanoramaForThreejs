@@ -65,30 +65,62 @@ export default {
       this.showDialog=true
     },
     select(material){
-      this.selected.style = parseInt(material.material_type)
-      this.selected.img_url = material.material_content
+      this.getSelecteds().forEach((item, i) => {
+        item.style = parseInt(material.material_type)
+        item.img_url = material.material_content
+      });
     },
     selectScene(scene){
-      this.selected.target.scene_id = scene.scene_id
-      this.selected.target.scene_cover = scene.pano_graphic_url4
+      this.getSelecteds().forEach((item, i) => {
+        item.target.scene_id = scene.scene_id
+        item.target.scene_cover = scene.pano_graphic_url4
+      });
+    },
+    getSelecteds(){
+      let selecteds = []
+      this.product.scenes.forEach((item, i) => {
+        item.embeddings[0].hotspots.forEach((item_, i) => {
+          if(item_.name === this.selected.name){
+            selecteds.push(item_)
+          }
+        });
+        item.embeddings[1].hotspots.forEach((item_, i) => {
+          if(item_.name === this.selected.name){
+            selecteds.push(item_)
+          }
+        });
+      });
+      return selecteds
     }
   },
   mounted(){},
   beforeDestroy(){},
   computed:{
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
-    ...mapState('editor',['curedit']),
+    ...mapState('editor',['curedit', 'product']),
     label:{
       get(){return this.selected.label},
-      set(value){this.selected.label = value}
+      set(value){
+        this.getSelecteds().forEach((item, i) => {
+          item.label = value
+        })
+      }
     },
     option:{
       get(){return this.selected.type.toString()},
-      set(value){this.selected.type = parseInt(value)}
+      set(value){
+        this.getSelecteds().forEach((item, i) => {
+          item.type = parseInt(value)
+        })
+      }
     },
     link:{
       get(){return this.selected.target.link},
-      set(value){this.selected.target.link = value}
+      set(value){
+        this.getSelecteds().forEach((item, i) => {
+          item.target.link = parseInt(value)
+        })
+      }
     }
   }
 }

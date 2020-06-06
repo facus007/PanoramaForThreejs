@@ -9,7 +9,7 @@
 <script>
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
-import { saveVR } from '@/api/server'
+import { listRandomHotspots } from '@/api/server'
 
 const moduleName = "editor"
 
@@ -17,27 +17,18 @@ export default {
   mixins:[mixin],
   methods:{
     fill(){
-      // var tmps = (await listRandomHotspots({tmp_group_id:this.template.tmp_group_id})).tmps
-      // var embeddings = []
-      // tmps[i].embeddings && tmps[i].embeddings.forEach((item_, i) => {
-      //   embeddings[i] = embeddings[i] || {}
-      //   embeddings[i].group = item_.group
-      //   var hotspots = []
-      //   item_.hotspots && item_.hotspots.forEach((item__, i) => {
-      //     hotspots[i] = hotspots[i] || {}
-      //     hotspots[i].embedId = item__.embed_id
-      //     hotspots[i].name = item__.name
-      //     hotspots[i].transform = {position: item__.transform.position, rotation: item__.transform.rotation, scale: item__.transform.scale, affine_transform: item__.transform.affine_transform}
-      //     hotspots[i].type = item__.type
-      //     hotspots[i].style = item__.style
-      //     hotspots[i].imgUrl = item__.img_url
-      //     hotspots[i].label = item__.label
-      //     hotspots[i].target = item__.target
-      //     hotspots[i].attribute = JSON.stringify({})
-      //   });
-      //   embeddings[i].hotspots = hotspots
-      // });
-      // scenes.push({...defaultScene, tmpId: item.tmp_id, name: '场景' + (1+i), embeddings: embeddings})
+      listRandomHotspots({tmp_group_id:this.product.tmp_group_id}).then(({tmps}) => {
+        this.product.scenes.forEach((item, i) => {
+          item.embeddings[0].hotspots = tmps[i].embeddings[0].hotspots
+          item.embeddings[0].hotspots.forEach((item_, i) => {
+            item_.target = JSON.parse(item_.target)
+          });
+          item.embeddings[1].hotspots = tmps[i].embeddings[1].hotspots
+          item.embeddings[1].hotspots.forEach((item_, i) => {
+            item_.target = JSON.parse(item_.target)
+          });
+        });
+      })
     }
   },
   mounted(){},
