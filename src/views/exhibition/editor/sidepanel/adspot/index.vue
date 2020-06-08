@@ -1,6 +1,6 @@
 <template>
   <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
-    <list :source="curedit.embeddings[0].hotspots" :label="labels[0]" v-model="selected"/>
+    <list :source="curedit.embeddings[0].hotspots" :label="labels[0]" v-model="selected" @del="del" :clearable="true"/>
   </container>
 </template>
 
@@ -9,6 +9,7 @@ import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import list from '../list'
 import * as THREE from '@/components/THREE'
+import {addembed, delembed} from '@/api/server'
 
 const labels = ['广告位热点', '产品位热点', '自定义热点']
 
@@ -22,7 +23,13 @@ export default {
       this.editor.$refs.tools.setSelected(next)
     }
   },
-  methods:{},
+  methods:{
+    del(item){
+      delembed({embedIds: item.embed_id})
+      let index = this.curedit.embeddings[0].hotspots.indexOf(item)
+      this.curedit.embeddings[0].hotspots.splice(index, 1)
+      this.selected = null
+    }},
   mounted(){},
   beforeDestroy(){},
   computed: {

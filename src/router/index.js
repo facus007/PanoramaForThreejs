@@ -53,7 +53,11 @@ export const constantRoutes = [
     //   meta: { title: '仪表盘 ', icon: 'dashboard' }
     // }]
   },
-
+  {
+    path: '/share',
+    component: () => import('@/views/preview/index'),
+    hidden: true
+  },
   // {
   //   path: '/example',
   //   component: Layout,

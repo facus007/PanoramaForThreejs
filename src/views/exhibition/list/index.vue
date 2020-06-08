@@ -37,9 +37,10 @@
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr 1fr; grid-gap: 5px;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="link(scope.row)">复制链接</el-button>
             </div>
           </template>
         </el-table-column>
@@ -81,6 +82,21 @@ export default {
     },
     preview(row){
       this.$router.push({path:'/preview', query: { product_id: row.product_id }})
+    },
+    link(row){
+      var input = document.createElement('input');
+      document.body.appendChild(input);
+      input.value = location.href.replace(this.$route.path,'/share?product_id='+row.product_id);
+      input.focus();
+      input.select();
+      var result = document.execCommand('copy');
+      input.remove()
+      if (result === 'unsuccessful') {
+        this.$message.error("复制至剪贴板失败")
+      }
+      else {
+        this.$message("已复制至剪贴板")
+      }
     },
     refresh_(){
       this.loading = true

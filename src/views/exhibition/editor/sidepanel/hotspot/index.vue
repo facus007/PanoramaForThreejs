@@ -50,6 +50,7 @@ export default {
         style: 1,
         img_url: null,
         target: {},
+        align: '4',
       }
       addembed({
         productId: this.product.product_id,
@@ -62,6 +63,7 @@ export default {
         style: spot.style,
         img_url: spot.img_url,
         target: JSON.stringify(spot.target),
+        align: spot.align,
       }).then((result)=>{
         spot.embed_id = result.embedId
         this.curedit.embeddings[2].hotspots.push(spot)

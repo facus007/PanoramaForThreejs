@@ -52,6 +52,18 @@ export default {
       var fov = camera.fov + event.deltaY * 0.05;
       camera.fov = THREE.MathUtils.clamp( fov, 30, 90 );
       camera.updateProjectionMatrix();
+    },
+    setView(phi, theta){
+      this.obj.maxAzimuthAngle = theta
+      this.obj.minAzimuthAngle = theta
+      this.obj.maxPolarAngle = phi
+      this.obj.minPolarAngle = phi
+      this.obj.update()
+      this.obj.maxAzimuthAngle = Infinity
+      this.obj.minAzimuthAngle = -Infinity
+      this.obj.maxPolarAngle = Math.PI
+      this.obj.minPolarAngle = 0
+      this.obj.update()
     }
   },
   mounted(){

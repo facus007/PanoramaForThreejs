@@ -4,26 +4,42 @@
     <detail v-if="selected" :selected="selected" style="margin-left: auto;"/>
     <prebuild :template="curedit.template" v-model="group">
       <span v-for="item, index in group && curedit.embeddings[2].hotspots">
-        <hotspot-mesh :url="item.img_url" :key="index" :item="item" :selected="selected"/>
+        <hotspot-mesh :url="item.img_url" :key="index" :item="item" :selected="selected" @action="action"/>
       </span>
     </prebuild>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
-import * as THREE from '@/components/THREE'
+import * as THREEComponent from '@/components/THREE'
+import * as THREE from 'three'
 import transform from '../transform'
 import detail from '../detail'
 
 export default {
+  props:['controls'],
   data(){return {
     group: null,
     selected: null,
   }},
-  components:{...THREE, transform, detail},
+  watch:{
+    selected(next){
+      if(next){
+        let spherical = new THREE.Spherical()
+        let pos = this.group.getObjectByName(next.name).position.clone() || new THREE.Vector3(next.transform.position[0],next.transform.position[1],next.transform.position[2])
+        pos.x *= -1; pos.y *= -1; pos.z *= -1;
+        spherical.setFromVector3(pos)
+        this.controls.setView(spherical.phi, spherical.theta)
+      }
+    }
+  },
+  components:{...THREEComponent, transform, detail},
   methods:{
     setSelected(selected){
       this.selected = selected
+    },
+    action(item){
+      this.selected = this.selected === item ? null : item
     }
   },
   mounted(){},
