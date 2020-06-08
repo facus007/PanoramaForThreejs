@@ -12,8 +12,10 @@
               <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;display:flex;">
                 <img v-if="scope.row.material_type === '1'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
                 <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
+                <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
                 <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
               </el-button>
+              {{scope.row.remark}}
             </template>
           </el-table-column>
         </template>
@@ -52,7 +54,17 @@ export default {
       }
     },
     showDialog(){
-      this.refresh()
+      this.loading = true
+      listMaterials({
+        endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
+        materialType: this.imgtype,
+        pageNum: this.currentPage,
+        pageSize: this.pageSize,
+      }).then(result=>{
+        this.total = result.total
+        this.datalist = result.materials
+        this.loading = false
+      })
     }
   },
   props:['value', 'onSelect', 'imgtype'],

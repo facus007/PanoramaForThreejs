@@ -55,7 +55,12 @@ export const constantRoutes = [
   },
   {
     path: '/share',
-    component: () => import('@/views/preview/index'),
+    component: () => import('@/views/share/index'),
+    hidden: true
+  },
+  {
+    path: '/music',
+    component: () => import('@/views/music/index'),
     hidden: true
   },
   // {

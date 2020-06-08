@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="选择素材" :visible.sync="visible" width="50%" :modal="false">
+  <el-dialog title="选择场景" :visible.sync="visible" width="50%" :modal="false">
     <container v-if="visible">
       <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
         <template v-slot:columns="scope">

@@ -58,5 +58,6 @@ export async function saveVR(product){
     cover: product.cover,
     scenes: scenes,
     tmpGroupId: product.tmp_group_id,
+    music_url: product.music_url
   })
 }

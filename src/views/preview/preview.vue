@@ -1,7 +1,7 @@
 <template>
   <span>
     <CSS3DRenderer>
-      <orbit-controls ref="controls" :start_rotation="curScene.start_rotation"/>
+      <orbit-controls ref="controls" :start_rotation="curScene.start_rotation" :auto_rotate="true"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" :key="value" @onload="loaded=true"/>
     <transition name="el-fade-in"><span v-if="loaded">

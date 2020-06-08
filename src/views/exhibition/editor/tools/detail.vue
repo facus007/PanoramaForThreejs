@@ -89,6 +89,11 @@ export default {
             selecteds.push(item_)
           }
         });
+        item.embeddings[2].hotspots.forEach((item_, i) => {
+          if(item_.name === this.selected.name){
+            selecteds.push(item_)
+          }
+        });
       });
       return selecteds
     }

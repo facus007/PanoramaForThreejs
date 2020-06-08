@@ -74,7 +74,6 @@ export default {
       delembed({embedIds: item.embed_id})
       let index = this.curedit.embeddings[2].hotspots.indexOf(item)
       this.curedit.embeddings[2].hotspots.splice(index, 1)
-      this.selected = null
     }
   },
   mounted(){},

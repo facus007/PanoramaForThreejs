@@ -8,6 +8,7 @@
           </transition>
         </span>
       </THREE>
+      <backgroundmusic :product="product" style="position: absolute; top: 0; right: 0; padding:10px"/>
     </div>
     <div v-else v-loading='true' style="width: 100%; height: 100%;"/>
   </div>
@@ -16,11 +17,12 @@
 <script>
 import { mapState } from 'vuex'
 import preview from './preview'
+import backgroundmusic from './backgroundmusic'
 import {getProduct} from '@/utils/server'
 import * as THREE from '@/components/THREE'
 
 export default {
-  components:{...THREE,preview},
+  components:{...THREE, preview, backgroundmusic},
   data(){return {
     product: null,
     // sceneIds: [],
@@ -35,6 +37,7 @@ export default {
       getProduct(this.$route.query.product_id, true).then(async result => {
         this.curSceneId = result.scenes[0].scene_id
         this.product = result
+        document.title = this.product.name
       })
     }
   },

@@ -6,12 +6,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default {
   mixins: [THREEComponent],
-  props: ['start_rotation'],
+  props: ['start_rotation', 'auto_rotate'],
   watch:{
     domElement(next, pre){
       pre && pre.removeEventListener('update', this.update)
       next && next.addEventListener('update', this.update)
     },
+    auto_rotate(next, pre){
+      this.obj.autoRotate = next
+    }
   },
   methods:{
     update(){
@@ -29,6 +32,8 @@ export default {
       controls.enableZoom = false
       controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
       controls.dampingFactor = 0.134;
+      controls.autoRotate = this.auto_rotate
+      controls.autoRotateSpeed = 0.25
       controls.maxAzimuthAngle = this.start_rotation[0]
       controls.minAzimuthAngle = this.start_rotation[0]
       controls.maxPolarAngle = this.start_rotation[1]

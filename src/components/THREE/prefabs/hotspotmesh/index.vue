@@ -4,7 +4,7 @@
       <el-button type="text" @click="$emit('action',item)" style="padding:0">
         <img v-if="item.style === 1 && item.type!==2" :src="url" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/>
         <video v-if="item.style === 2 && item.type!==2" :src="url" loop autoplay playsinline :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px','object-fit':'contain'}" muted />
-        <img v-if="item.type===1" src="/static/m.gif" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" />
+        <img v-if="item.type===1" :src="iconPath" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" />
         <!-- <svg-icon v-if="item.type===1" icon-class='example' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" /> -->
         <i v-if="item.type===2" class='el-icon-place' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" />
         <div v-if="item.label" class="label">{{item.label}}</div>
@@ -16,14 +16,26 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import path from 'path'
+
+const iconPath = './static/m.gif'
+const layout = {
+  '0':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'flex-start', width: '100%', height: '100%' },
+  '1':{display:'flex', 'justify-content': 'center', 'align-items': 'flex-start', width: '100%' , height: '100%'},
+  '2':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start' , width: '100%', height: '100%'},
+  '3':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'center', width: '100%' , height: '100%'},
+  '4':{display:'flex', 'justify-content': 'center', 'align-items': 'center' , width: '100%', height: '100%'},
+  '5':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'center', width: '100%' , height: '100%'},
+  '6':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'flex-end', width: '100%' , height: '100%'},
+  '7':{display:'flex', 'justify-content': 'center', 'align-items': 'flex-end' , width: '100%', height: '100%'},
+  '8':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'flex-end', width: '100%' , height: '100%'},
+}
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI,  Math.PI/2, 'XYZ'))
 
 export default {
-  mixins: [THREEComponent],
   props:['url', 'type', 'side', 'transparent', 'color', 'opacity', 'item', 'selected'],
   watch:{
     'item.transform'(next, pre){
@@ -60,7 +72,10 @@ export default {
     },
     size(){
       return [1,1]
-    }
+    },
+    iconPath:()=>iconPath,
+    layout:() => layout,
+    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement'])
   }
 }
 </script>

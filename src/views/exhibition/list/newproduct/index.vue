@@ -87,7 +87,8 @@ export default {
           description: this.description,
           cover: this.cover,
           scenes,
-          tmp_group_id: this.template.tmp_group_id
+          tmp_group_id: this.template.tmp_group_id,
+          music_url: null,
         })
         this.visible=false
       } catch (e) {

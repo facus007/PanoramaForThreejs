@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="提示" :visible.sync="visible" width="50%" append-to-body :modal="false">
+  <el-dialog title="提示" :visible.sync="visible" width="50%" append-to-body :modal="false" v-loading="loading">
     <el-form label-position="right" label-width="80px">
       <el-form-item label="资源类型">
         <el-select size="small" v-model="selected" placeholder="请选择">
@@ -9,9 +9,13 @@
       <el-form-item label="选择资源">
         <el-upload class="upload" action="#" drag :show-file-list="false" :auto-upload="false" :on-change="onChange" :accept="accept">
           <img v-if="file && selected==='1'" :src="url" style="width: 100%; height: 100%; object-fit: contain;"/>
-          <video v-else-if="file && selected==='2'" autoplay :src="url" style="width: 100%; height: 100%;" playsinline/>
+          <video v-else-if="file && selected==='2'" controls :src="url" style="max-width: 100%; max-height: 100%;" playsinline/>
+          <audio v-else-if="file && selected==='5'" controls :src="url" style="max-width: 100%; max-height: 100%;" playsinline/>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
+      </el-form-item>
+      <el-form-item label="资源描述">
+        <el-input v-model="remark" style="width: 200px"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -35,6 +39,10 @@ const options = [{
   value: '2',
   label: '视频',
   accept: 'video/*',
+},{
+  value: '5',
+  label: '音频',
+  accept: 'audio/*',
 }]
 
 const label = ['right','back','left','front','top','bottom']
@@ -49,6 +57,7 @@ export default {
     visible: false,
     loading: false,
     url: null,
+    remark: null,
   }},
   props:['value'],
   watch:{
@@ -60,18 +69,21 @@ export default {
         this.name = ''
         this.file = null
         this.url = null
+        this.remark = null
       }
     },
     selected(){
       this.file = null
       this.name = ''
       this.url = null
+      this.remark = null
     }
   },
   methods:{
     onChange(file) {
       this.file = file
       this.name = this.name || this.file.name
+      this.remark = this.remark || this.file.name
       this.url = null
       var fr = new FileReader();
       fr.readAsDataURL(this.file.raw);
@@ -105,15 +117,25 @@ export default {
           addMaterial({
             materialType: '1',
             materialContent: result.url,
+            remark: this.remark,
           }).then(_=>{this.loading=false;this.visible=false})
         })
       }
       else if (this.selected ==='2') {
         mediaUpload(formData).then(result=>{
-          console.log(1)
           addMaterial({
             materialType: '2',
             materialContent: result.url,
+            remark: this.remark,
+          }).then(_=>{this.loading=false;this.visible=false})
+        })
+      }
+      else if (this.selected ==='5') {
+        mediaUpload(formData).then(result=>{
+          addMaterial({
+            materialType: '5',
+            materialContent: result.url,
+            remark: this.remark,
           }).then(_=>{this.loading=false;this.visible=false})
         })
       }

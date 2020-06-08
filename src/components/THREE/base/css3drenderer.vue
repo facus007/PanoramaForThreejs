@@ -39,6 +39,7 @@ export default {
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){
+      this.obj.render(this.scene, this.camera);
       this.frame = requestAnimationFrame(this.rendering)
     },
     stopRendering(){
