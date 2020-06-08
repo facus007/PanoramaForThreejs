@@ -12,7 +12,7 @@ module.exports = {
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    //
+
     // optimization: {
     //   minimize: true,
     //   minimizer: [new TerserPlugin({
@@ -61,11 +61,11 @@ module.exports = {
     port: '8081',
     proxy: {
       "/vr": { // 图片上传代理
-        target: 'http://w29j338808.oicp.vip/manager', // 生产
+        target: 'https://manager.flycloudinfo.com/prod-api/vr', // 生产
         changeOrigin: true,
-        // pathRewrite: {
-        //   '^/vr': '/'
-        // }
+        pathRewrite: {
+          '^/vr': '/'
+        }
       },
       "/file-api":{
         target: 'https://manager.flycloudinfo.com/file-api',
