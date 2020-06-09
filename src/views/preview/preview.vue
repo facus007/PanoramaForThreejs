@@ -1,10 +1,7 @@
 <template>
   <span>
-    <CSS3DRenderer>
-      <orbit-controls ref="controls" :start_rotation="curScene.start_rotation" :auto_rotate="true"/>
-    </CSS3DRenderer>
-    <panorama v-if="sideImgs" :sideImgs="sideImgs" :key="value" @onload="loaded=true"/>
-    <transition name="el-fade-in"><span v-if="loaded">
+    <panorama v-if="sideImgs" :sideImgs="sideImgs" :key="value"/>
+    <transition name="el-fade-in"><span>
       <prebuild :template="curScene.template" v-model="group">
         <span v-for="item, index in group && curScene.embeddings[0].hotspots">
           <ad-mesh class="event" v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
@@ -35,7 +32,6 @@ export default {
     return {
       self: this,
       group: null,
-      loaded: false,
     }},
     computed:{
       sideImgs() {
@@ -73,14 +69,5 @@ export default {
   .event :hover{
     cursor: pointer;
     pointer-events: visible;
-  }
-  .animate-enter-active, .animate-leave-active {
-    transition: opacity 0.1s;
-  }
-  .animate-enter /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 1;
-  }
-  .animate-leave-to{
-    opacity: 0;
   }
   </style>

@@ -79,3 +79,11 @@ export function delembed(params){
     params
   })
 }
+
+export function listexhibitor(params){
+  return request({
+    url: '/listexhibitor',
+    method: 'get',
+    params
+  })
+}

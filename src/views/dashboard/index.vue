@@ -12,7 +12,7 @@ export default {
     ...mapGetters([
       'name',
       'roles'
-    ])
+    ]),
   },
 }
 </script>

@@ -59,8 +59,8 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/music',
-    component: () => import('@/views/music/index'),
+    path: '/video',
+    component: () => import('@/views/video/index'),
     hidden: true
   },
   // {

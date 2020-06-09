@@ -2,7 +2,8 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from '../core/orbitcontrols'
 
 export default {
   mixins: [THREEComponent],
@@ -12,9 +13,6 @@ export default {
       pre && pre.removeEventListener('update', this.update)
       next && next.addEventListener('update', this.update)
     },
-    auto_rotate(next, pre){
-      this.obj.autoRotate = next
-    }
   },
   methods:{
     update(){
@@ -34,10 +32,13 @@ export default {
       controls.dampingFactor = 0.134;
       controls.autoRotate = this.auto_rotate
       controls.autoRotateSpeed = 0.25
-      controls.maxAzimuthAngle = this.start_rotation[0]
-      controls.minAzimuthAngle = this.start_rotation[0]
-      controls.maxPolarAngle = this.start_rotation[1]
-      controls.minPolarAngle = this.start_rotation[1]
+      controls.rotateSpeed = 0.25
+      if(this.start_rotation){
+        controls.maxAzimuthAngle = this.start_rotation[0]
+        controls.minAzimuthAngle = this.start_rotation[0]
+        controls.maxPolarAngle = this.start_rotation[1]
+        controls.minPolarAngle = this.start_rotation[1]
+      }
       controls.update()
       controls.maxAzimuthAngle = Infinity
       controls.minAzimuthAngle = -Infinity

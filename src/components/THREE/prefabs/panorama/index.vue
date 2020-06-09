@@ -1,13 +1,17 @@
 <template>
   <div :isloaded="isloaded">
-    <panel v-for="src, index in sideImgs" :key="src" :pos="sides[index].position" :rot="sides[index].rotation" :src="src" @onload="loaded++"></panel>
+    <panel v-for="src, index in sideImgs" :key="index" :pos="sides[index].position" :rot="sides[index].rotation" :src="src" @onload="loaded++">
+      <MashBasicMaterial>
+        <texture :url='src' :key="src"/>
+      </MashBasicMaterial>
+    </panel>
   </div>
 </template>
 
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import panel from './csspanel'
+import panel from './panel'
 import THREEComponent from '../../base/threecomponent'
 import MashBasicMaterial from '../../base/meshbasicmaterial'
 import Texture from '../../base/texture'

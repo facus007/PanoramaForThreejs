@@ -10,7 +10,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 store.dispatch('permission/generateRoutes').then(accessRoutes=>router.addRoutes(accessRoutes))
 
-const whiteList = ['/login','/404','/share','/music'] // no redirect whitelist
+const whiteList = ['/login','/404','/share','/video'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar

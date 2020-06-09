@@ -41,10 +41,10 @@ export default {
           pageNum: this.page++,
           pageSize: this.pageSize,
         }).then((result)=>{
-          this.rawData = result.tmps
+          this.rawData = this.rawData.concat(result.tmps)
           this.total = result.total
           this.loading = false
-          this.total === 1 && this.$emit('input', this.rawData[0])
+          this.total === 1 && this.$emit('input', this.rawData[0]) && (this.tmp_group_id=this.rawData[0].tmp_group_id)
         })
       }
     },

@@ -123,7 +123,7 @@ export default {
       get(){return this.selected.target.link},
       set(value){
         this.getSelecteds().forEach((item, i) => {
-          item.target.link = parseInt(value)
+          item.target.link = value
         })
       }
     }

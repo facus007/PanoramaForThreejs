@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
 
-const size = 10000
+const size = 1000
 
 export default {
   mixins: [THREEComponent],

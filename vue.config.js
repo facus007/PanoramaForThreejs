@@ -73,6 +73,13 @@ module.exports = {
         pathRewrite: {
           '^/file-api': '/'
         }
+      },
+      "/websources":{
+        target: 'https://manager.flycloudinfo.com/websources',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/websources': '/'
+        }
       }
     },
     // https: true,

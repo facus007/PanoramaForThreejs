@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="新建作品" :visible.sync="visible" width="70%" v-loading="loading">
-    <el-form v-if="visible" label-position="right" label-width="80px">
+    <el-form v-if="visible" label-position="right" label-width="100px">
       <el-form-item label="作品名称">
         <el-input size="small" v-model="name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
       </el-form-item>
@@ -12,6 +12,9 @@
           <el-image v-if="cover" :src="cover" fit="cover" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
+      </el-form-item>
+      <el-form-item label="选择参展商">
+        <exhibitor-selector v-model="exhibitor_id"/>
       </el-form-item>
       <el-form-item label="选择模板">
         <template-selector v-model="template"/>
@@ -29,6 +32,7 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import TemplateSelector from './templateselector'
+import ExhibitorSelector from './exhibitorselector'
 import { imageUpload } from '@/api/cos'
 import { saveVR } from '@/utils/server'
 import MaterialSelector from '@/views/exhibition/materialselector'
@@ -40,7 +44,7 @@ const defaultScene = {
 
 export default {
   // mixins:[mixin],
-  components:{TemplateSelector, MaterialSelector},
+  components:{TemplateSelector, MaterialSelector,ExhibitorSelector},
   data(){return {
     selected: '0',
     name: '',
@@ -51,6 +55,7 @@ export default {
     template: null,
     showDialog: false,
     cover: false,
+    exhibitor_id: null,
   }},
   props:['value'],
   watch:{
@@ -63,6 +68,7 @@ export default {
         this.file = null
         this.cover = null
         this.template = null
+        this.exhibitor_id = null
       }
     },
   },
@@ -72,11 +78,16 @@ export default {
         this.$message.warning('请输入作品名')
         return
       }
+      if(!this.exhibitor_id){
+        this.$message.warning('请选择参展商')
+        return
+      }
       if(!this.template){
         this.$message.warning('请选择模版')
         return
       }
       try {
+        console.log(this.exhibitor_id,)
         this.loading = true
         var scenes = []
         this.template.tmp_details.forEach((item, i) => {
@@ -88,6 +99,7 @@ export default {
           cover: this.cover,
           scenes,
           tmp_group_id: this.template.tmp_group_id,
+          exhibitor_id: this.exhibitor_id,
           music_url: null,
         })
         this.visible=false

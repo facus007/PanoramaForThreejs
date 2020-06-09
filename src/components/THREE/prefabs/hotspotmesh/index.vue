@@ -3,7 +3,9 @@
     <div :style="layout[item.align || '4']">
       <el-button type="text" @click="$emit('action',item)" style="padding:0">
         <img v-if="item.style === 1 && item.type!==2" :src="url" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/>
-        <video v-if="item.style === 2 && item.type!==2" :src="url" loop autoplay playsinline :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px','object-fit':'contain'}" muted />
+        <!-- <iframe v-if="item.style === 2 && item.type!==2" :src="videourl" :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px', border: '0'}" /> -->
+        <video-panel v-if="item.style === 2" :width="100*size[0]" :height="100*size[1]" :src="url" :item="item" :mesh="mesh" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/>
+        <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/>
         <img v-if="item.type===1" :src="iconPath" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" />
         <!-- <svg-icon v-if="item.type===1" icon-class='example' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" /> -->
         <i v-if="item.type===2" class='el-icon-place' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" />
@@ -18,6 +20,7 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import path from 'path'
+import VideoPanel from '../video'
 
 const iconPath = './static/m.gif'
 const layout = {
@@ -36,6 +39,7 @@ var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI,  Math.PI/2, 'XYZ'))
 
 export default {
+  components:{VideoPanel},
   props:['url', 'type', 'side', 'transparent', 'color', 'opacity', 'item', 'selected'],
   watch:{
     'item.transform'(next, pre){
@@ -75,7 +79,13 @@ export default {
     },
     iconPath:()=>iconPath,
     layout:() => layout,
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement'])
+    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
+    videourl(){
+      return location.href.replace(this.$route.path,'/video?link='+encodeURI(this.url))
+      +'&width='+100*this.size[0]+'px'
+      +'&height='+100*this.size[1]+'px'
+      +'&layout='+this.item.align || '4'
+    }
   }
 }
 </script>

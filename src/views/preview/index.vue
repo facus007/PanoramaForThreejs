@@ -2,6 +2,11 @@
   <div style="position: absolute; width: 100%; height: 100%;">
     <div v-if="product" class="home shadow" style="background: #EEEEEE; grid-area: a; position: relative; width:100%; height:100%">
       <THREE class="shadow" style="position: relative;">
+        <WebGLRenderer>
+          <CSS3DRenderer>
+            <orbit-controls ref="controls" :auto_rotate="true"/>
+          </CSS3DRenderer>
+        </WebGLRenderer>
         <span v-for="scene in product.scenes">
           <transition name="el-fade-in">
             <preview v-if="scene.scene_id===curSceneId" :curScene="scene" v-model="curSceneId" :key="scene.scene_id"/>

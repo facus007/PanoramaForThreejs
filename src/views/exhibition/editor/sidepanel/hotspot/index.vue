@@ -49,7 +49,7 @@ export default {
         type: 0,
         style: 1,
         img_url: null,
-        target: {},
+        target: {link:''},
         align: '4',
       }
       addembed({

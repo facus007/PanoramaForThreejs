@@ -60,6 +60,12 @@ export default {
       var size = this.item.name.split('_')
       return [parseInt(size[1]),parseInt(size[2])]
     },
+    videourl(){
+      return location.href.replace(this.$route.path,'/video?link='+encodeURI(this.url))
+      +'&width='+100*this.size[0]+'px'
+      +'&height='+100*this.size[1]+'px'
+      +'&layout='+this.item.align || '4'
+     }
   }
 }
 </script>
