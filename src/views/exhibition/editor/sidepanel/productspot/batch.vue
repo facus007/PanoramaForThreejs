@@ -37,7 +37,7 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-button>
         </div>
-        <div class="scene" v-if="option === '3'" style="width:100%; display:flex; justify-content:center">
+        <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center">
           <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
             <video v-if="target.video" :src="target.video" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>

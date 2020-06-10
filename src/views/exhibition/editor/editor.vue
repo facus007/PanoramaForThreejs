@@ -1,5 +1,5 @@
 <template>
-  <grid :grid="grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 100px; 40px">
+  <grid :grid="grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 100px 70px 70px;">
     <div class="home shadow" style="background: #304156; grid-area: a; padding: 10px; position: relative;">
       <THREE class="shadow" style="position: relative;" :isDebug="isDebug">
         <stats v-if="isDebug"/>
@@ -25,11 +25,11 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
-    <div class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%">
-      <autofill/>
+    <div class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
+      <autofill style="height:40px;"/>
     </div>
-    <div class="shadow" style="background: #304156; grid-area: e;">
-      <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance"/>
+    <div class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
+      <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance" style="height:40px;"/>
       <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
           <exhibitionBox @exhibitionFinished="exhibitionFinished"/>
       </el-dialog>
@@ -100,7 +100,7 @@ export default {
   beforeDestroy(){},
 }
 </script>
-
+<!--
   <style scoped>
     .el-dialog__body{height: 50vh;overflow: auto;}
-  </style>
+  </style> -->

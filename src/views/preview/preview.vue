@@ -17,6 +17,9 @@
         </span>
       </prebuild>
     </span></transition>
+    <el-dialog class="dialog" :visible.sync="showDialog" width="90%" append-to-body>
+      <iframe v-if="link" :src="link" style="width:100%; height:100%; border:0px"/>
+    </el-dialog>
   </span>
 </template>
 
@@ -31,7 +34,16 @@ export default {
     return {
       self: this,
       group: null,
+      link: null,
+      showDialog: null,
     }},
+    watch:{
+      showDialog(next){
+        if(!next){
+          this.link = null
+        }
+      }
+    },
     methods:{
       action(item){
         if(item.type===1 && item.target.link){
@@ -41,6 +53,10 @@ export default {
         }
         else if (item.type===2 && item.target.scene_id) {
           this.$emit('input', item.target.scene_id)
+        }
+        else if (item.type===3 && item.target.scene_id) {
+          this.link = item.target.video
+          this.showDialog = true
         }
       }
     },
@@ -53,5 +69,12 @@ export default {
   .event :hover{
     cursor: pointer;
     pointer-events: visible;
+  }
+  .dialog >>> .el-dialog{
+    height:70%;
+  }
+  .dialog >>> .el-dialog__body{
+    height: 100%;
+    overflow: hidden;
   }
   </style>
