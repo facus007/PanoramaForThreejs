@@ -60,11 +60,18 @@ module.exports = {
     host: '0.0.0.0',
     port: '8081',
     proxy: {
-      "/vr": { // 图片上传代理
-        target: 'https://manager.flycloudinfo.com/prod-api/vr', // 生产
+      "/vr": {
+        target: 'https://manager.flycloudinfo.com/prod-api/vr',
         changeOrigin: true,
         pathRewrite: {
           '^/vr': '/'
+        }
+      },
+      "/base-url": {
+        target: 'https://manager.flycloudinfo.com/prod-api',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/base-url': '/'
         }
       },
       "/file-api":{
