@@ -32,7 +32,7 @@ export default {
       controls.dampingFactor = 0.134;
       controls.autoRotate = this.auto_rotate
       controls.autoRotateSpeed = 0.25
-      controls.rotateSpeed = 0.25
+      controls.rotateSpeed = 0.3
       if(this.start_rotation){
         controls.maxAzimuthAngle = this.start_rotation[0]
         controls.minAzimuthAngle = this.start_rotation[0]
@@ -56,7 +56,7 @@ export default {
       event.preventDefault()
       var camera = this.camera
       var fov = camera.fov + event.deltaY * 0.05;
-      camera.fov = THREE.MathUtils.clamp( fov, 30, 90 );
+      camera.fov = THREE.MathUtils.clamp( fov, 30, 160 );
       camera.updateProjectionMatrix();
     },
     setView(phi, theta){

@@ -163,7 +163,7 @@ var OrbitControls = function ( object, domElement ) {
 
 			if ( scope.autoRotate && state === STATE.NONE ) {
 
-				rotateLeft( getAutoRotationAngle() );
+				rotateRight( getAutoRotationAngle() );
 
 			}
 
@@ -331,15 +331,15 @@ var OrbitControls = function ( object, domElement ) {
 
 	}
 
-	function rotateLeft( angle ) {
+	function rotateRight( angle ) {
 
-		sphericalDelta.theta -= angle;
+		sphericalDelta.theta += angle;
 
 	}
 
-	function rotateUp( angle ) {
+	function rotateDown( angle ) {
 
-		sphericalDelta.phi -= angle;
+		sphericalDelta.phi += angle;
 
 	}
 
@@ -496,9 +496,9 @@ var OrbitControls = function ( object, domElement ) {
 
 		var element = scope.domElement;
 
-		rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
+		rotateRight( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
 
-		rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight );
+		rotateDown( 2 * Math.PI * rotateDelta.y / element.clientHeight );
 
 		rotateStart.copy( rotateEnd );
 
@@ -684,9 +684,9 @@ var OrbitControls = function ( object, domElement ) {
 
 		var element = scope.domElement;
 
-		rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
+		rotateRight( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
 
-		rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight );
+		rotateDown( 2 * Math.PI * rotateDelta.y / element.clientHeight );
 
 		rotateStart.copy( rotateEnd );
 

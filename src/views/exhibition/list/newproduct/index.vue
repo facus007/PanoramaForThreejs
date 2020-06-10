@@ -87,7 +87,6 @@ export default {
         return
       }
       try {
-        console.log(this.exhibitor_id,)
         this.loading = true
         var scenes = []
         this.template.tmp_details.forEach((item, i) => {

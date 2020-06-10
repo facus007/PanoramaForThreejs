@@ -80,7 +80,7 @@ module.exports = {
         pathRewrite: {
           '^/websources': '/'
         }
-      }
+      },
     },
     // https: true,
     disableHostCheck: true

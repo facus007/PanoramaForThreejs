@@ -1,6 +1,5 @@
 <template>
   <span>
-    <panorama v-if="sideImgs" :sideImgs="sideImgs" :key="value"/>
     <transition name="el-fade-in"><span>
       <prebuild :template="curScene.template" v-model="group">
         <span v-for="item, index in group && curScene.embeddings[0].hotspots">
@@ -33,31 +32,6 @@ export default {
       self: this,
       group: null,
     }},
-    computed:{
-      sideImgs() {
-        return this.curScene && [
-          this.curScene.pano_graphic_url1,
-          this.curScene.pano_graphic_url2,
-          this.curScene.pano_graphic_url3,
-          this.curScene.pano_graphic_url4,
-          this.curScene.pano_graphic_url5,
-          this.curScene.pano_graphic_url6
-        ]
-      },
-      blurSideImgs(){
-        return this.curScene && [
-          this.curScene.pano_graphic_blur_url1,
-          this.curScene.pano_graphic_blur_url2,
-          this.curScene.pano_graphic_blur_url3,
-          this.curScene.pano_graphic_blur_url4,
-          this.curScene.pano_graphic_blur_url5,
-          this.curScene.pano_graphic_blur_url6,
-        ]
-      },
-      isShow(){
-        return this.value === this.curScene.scene_id
-      }
-    },
     methods:{
       action(item){
         if(item.type===1 && item.target.link){

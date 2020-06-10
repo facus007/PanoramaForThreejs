@@ -4,6 +4,7 @@ import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
 
 const size = 1000
+const loader = new THREE.BufferGeometryLoader()
 
 export default {
   mixins: [THREEComponent],
@@ -18,18 +19,25 @@ export default {
     // update(){}
   },
   mounted(){
-    var obj = new THREE.Mesh( new THREE.PlaneGeometry( size, size ) );
-    var pos = [];
-    pos[0] = this.pos[0] * size/2;  pos[1] = this.pos[1] * size/2;  pos[2] = this.pos[2] * size/2;
-    obj.position.fromArray( pos );
-    obj.rotation.fromArray( this.rot );
-    this.scene.add(obj)
-    this.obj = obj
+    loader.load('./static/geometry.json',geometry=>{
+      if(this){
+        var obj = new THREE.Mesh(geometry);
+        obj.rotation.fromArray( this.rot );
+        obj.scale.set(size,size,size)
+        this.scene.add(obj)
+        this.obj = obj
+      }
+      else{
+        geometry.dispose()
+      }
+    })
   },
   beforeDestroy(){
-    this.scene.remove(this.obj)
-    this.obj.geometry.dispose()
-    this.obj = null
+    if(this.obj){
+      this.scene.remove(this.obj)
+      this.obj.geometry.dispose()
+      this.obj = null
+    }
   }
 }
 </script>

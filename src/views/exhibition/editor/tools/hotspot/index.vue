@@ -17,7 +17,7 @@ import transform from '../transform'
 import detail from '../detail'
 
 export default {
-  props:['controls'],
+  props:['controls','editor'],
   data(){return {
     group: null,
     selected: null,
@@ -39,7 +39,7 @@ export default {
       this.selected = selected
     },
     action(item){
-      this.selected = this.selected === item ? null : item
+      this.editor.$refs.panel[0].setSelected(this.selected === item ? null : item)
     }
   },
   mounted(){},

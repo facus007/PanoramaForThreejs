@@ -2,7 +2,7 @@
   <div class="frame">
     <div style="width: 200px;">当前视角大小</div>
     <div style="width: 90%; justify-content:space-between; flex-direction: row; display: flex; align-items: center;">
-      30 <el-slider class="slider" v-model="curedit.fov" :min="30" :max="90"></el-slider> 90
+      30 <el-slider class="slider" v-model="curedit.fov" :min="30" :max="160"></el-slider> 160
     </div>
   </div>
 </template>

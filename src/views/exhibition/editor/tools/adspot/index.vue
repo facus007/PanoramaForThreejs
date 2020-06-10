@@ -17,7 +17,6 @@ import transform from '../transform'
 import detail from '../detail'
 
 export default {
-  props:['controls'],
   data(){return {
     group: null,
     selected: null,
@@ -33,14 +32,14 @@ export default {
       }
     }
   },
-  props:['controls'],
+  props:['controls','editor'],
   components:{...THREEComponent, transform, detail},
   methods:{
     setSelected(selected){
       this.selected = selected
     },
     action(item){
-      this.selected = this.selected === item ? null : item
+      this.editor.$refs.panel[0].setSelected(this.selected === item ? null : item)
     }
   },
   mounted(){},

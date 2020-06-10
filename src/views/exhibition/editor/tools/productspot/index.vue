@@ -21,7 +21,7 @@ export default {
     group: null,
     selected: null,
   }},
-  props:['controls'],
+  props:['controls','editor'],
   watch:{
     selected(next){
       if(next){
@@ -39,7 +39,7 @@ export default {
       this.selected = selected
     },
     action(item){
-      this.selected = this.selected === item ? null : item
+      this.editor.$refs.panel[0].setSelected(this.selected === item ? null : item)
     }
   },
   mounted(){},

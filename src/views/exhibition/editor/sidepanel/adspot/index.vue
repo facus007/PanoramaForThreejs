@@ -29,7 +29,11 @@ export default {
       let index = this.curedit.embeddings[0].hotspots.indexOf(item)
       this.curedit.embeddings[0].hotspots.splice(index, 1)
       this.selected = null
-    }},
+    },
+    setSelected(selected){
+      this.selected = selected
+    },
+  },
   mounted(){},
   beforeDestroy(){},
   computed: {

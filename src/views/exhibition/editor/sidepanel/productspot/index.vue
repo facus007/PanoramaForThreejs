@@ -27,7 +27,10 @@ export default {
   watch:{
     selected(next){
       this.editor.$refs.tools.setSelected(next)
-    }
+    },
+    setSelected(selected){
+      this.selected = selected
+    },
   },
   methods:{
     del(item){
