@@ -44,6 +44,16 @@ export default {
           this.curScene.pano_graphic_url6
         ]
       },
+      blurSideImgs(){
+        return this.curScene && [
+          this.curScene.pano_graphic_blur_url1,
+          this.curScene.pano_graphic_blur_url2,
+          this.curScene.pano_graphic_blur_url3,
+          this.curScene.pano_graphic_blur_url4,
+          this.curScene.pano_graphic_blur_url5,
+          this.curScene.pano_graphic_blur_url6,
+        ]
+      },
       isShow(){
         return this.value === this.curScene.scene_id
       }

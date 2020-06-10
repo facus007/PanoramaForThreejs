@@ -1,6 +1,6 @@
 <template>
   <div :style="{position:'absolute',left:0,top:0,...layout}">
-    <video :src="link" loop webkit-playsinline playsinline preload="metadata" muted :style="{'width':width,'height':height}" ref="video" />
+    <video :src="link" loop controls muted :style="{'width':width,'height':height}" ref="video" />
   </div>
 </template>
 <script>

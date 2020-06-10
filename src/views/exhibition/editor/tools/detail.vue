@@ -8,7 +8,7 @@
     <div>当前影像</div>
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
-      <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+      <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
   </div>

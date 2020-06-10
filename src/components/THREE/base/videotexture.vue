@@ -1,5 +1,5 @@
 <template>
-  <video loop autoplay webkit-playsinline playsinline muted :src="src" style="display:none"/>
+  <video loop autoplay webkit-playsinline playsinline x5-playsinline  x5-video-player-type="h5-page"  muted :src="src" style="display:none"/>
 </template>
 <script>
 import * as THREE from 'three'
@@ -25,7 +25,10 @@ export default {
   },
   mounted(){
     this.obj = new THREE.VideoTexture(this.$el)
-    this.$el.play()
+    this.$el.loadeddata=()=>this.$el.play()
+    document.addEventListener("WeixinJSBridgeReady", function() {
+      this.$el.play();
+    });
     this.$el.addEventListener("resize", ev => {
       let w = this.$el.videoWidth;
       let h = this.$el.videoHeight;

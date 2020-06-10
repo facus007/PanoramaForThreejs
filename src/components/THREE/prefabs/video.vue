@@ -45,7 +45,7 @@ export default {
       this.obj.quaternion.multiply(fix)
       pos.applyQuaternion (this.obj.quaternion)
       this.obj.position.add(pos)
-      this.obj.scale.set(m[2] * this.mesh.scale.x *0.01 ,m[3]* this.mesh.scale.y*0.01, this.mesh.scale.z*0.01)
+      this.obj.scale.set(0 ,0, 0)
     },
   },
   mounted(){

@@ -13,7 +13,7 @@
           </transition>
         </span>
       </THREE>
-      <backgroundmusic :product="product" style="position: absolute; top: 0; right: 0; padding:10px"/>
+      <backgroundmusic :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:1"/>
     </div>
     <div v-else v-loading='true' style="width: 100%; height: 100%;"/>
   </div>
