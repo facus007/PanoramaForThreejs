@@ -2,7 +2,7 @@ import request from '@/utils/request'
 // 查询参展商信息列表
 export function listExhibitor(query) {
   return request({
-    baseURL: "/baseVR",
+    baseURL: process.env.VUE_APP_BASE_API_1,
     url: '/fair/exhibitor/list',
     method: 'get',
     params: query

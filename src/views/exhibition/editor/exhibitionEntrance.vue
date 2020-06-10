@@ -26,10 +26,12 @@ export default {
     handleClose(done) {
     },
     fill(batchNo){
-      this.loading = true
-      this.$store.dispatch('editor' + '/setExhibition', {batch_no: batchNo}).then(()=>{
-        this.loading = false
-      })
+      if(batchNo){
+        this.loading = true
+        this.$store.dispatch('editor' + '/setExhibition', {batch_no: batchNo}).then(()=>{
+          this.loading = false
+        })
+      }
     },
   },
   mounted(){},

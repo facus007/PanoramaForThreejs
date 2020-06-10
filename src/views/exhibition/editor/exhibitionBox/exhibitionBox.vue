@@ -376,15 +376,16 @@ export default {
       let localStorage = window.localStorage;
       localStorage.removeItem("batchNo");
       let ids = this.ids.join(",");
-      boxaddChooseBox(ids).then(res => {
-        console.log("res", res)
-        if (res.code == 200) {
-          localStorage.setItem("batchNo", res.data.batchNo);
-
-          this.$emit("exhibitionFinished", res.data.batchNo)
-        }
-
-      });
+      if(ids){
+        boxaddChooseBox(ids).then(res => {
+          if (res.code == 200) {
+            localStorage.setItem("batchNo", res.data.batchNo);
+            this.$emit("exhibitionFinished", res.data.batchNo)
+          }
+        });
+      }else{
+        this.$emit("exhibitionFinished", "")
+      }
     }
   },
   computed: {
