@@ -28,6 +28,12 @@
     <div class="shadow" style="background: #304156; grid-area: d;">
       <autofill/>
     </div>
+    <div class="shadow" style="background: #304156; grid-area: e;">
+      <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance"/>
+      <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
+          <exhibitionBox @exhibitionFinished="exhibitionFinished"/>
+      </el-dialog>
+    </div>
   </grid>
 </template>
 
@@ -40,8 +46,11 @@ import * as THREE from '@/components/THREE'
 import * as Tools from './tools'
 import autosave from './autosave'
 import autofill from './autofill'
+import exhibitionBox from './exhibitionBox/exhibitionBox'
+import exhibitionEntrance from './exhibitionEntrance'
 
-const grid = "'a t' 'a b' 'c b' 'c d'"
+
+const grid = "'a t' 'a b' 'c b' 'c d' 'c e'"
 const moduleName = "editor"
 
 const features = [
@@ -55,11 +64,12 @@ const features = [
 
 export default {
   mixins:[mixin],
-  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave, autofill},
+  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave, autofill, exhibitionBox, exhibitionEntrance},
   data(){
     return {
     curFeature: 0,
     self: this,
+      exhibitionBoxVisible: false
   }},
   computed:{
     isDebug: () => process.env.NODE_ENV === "development",
@@ -77,8 +87,20 @@ export default {
     },
     ...mapState(moduleName, ['product', 'setting', 'curedit']),
   },
-  methods:{},
+  methods:{
+    openExhibitionBox(val){
+      this.exhibitionBoxVisible = true
+    },
+    exhibitionFinished(batchNo){
+      this.exhibitionBoxVisible = false
+      this.$refs.exhibitionEntrance.fill(batchNo)
+    }
+  },
   mounted(){},
   beforeDestroy(){},
 }
 </script>
+
+  <style scoped>
+    .el-dialog__body{height: 50vh;overflow: auto;}
+  </style>

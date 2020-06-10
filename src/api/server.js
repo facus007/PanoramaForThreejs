@@ -87,3 +87,11 @@ export function listexhibitor(params){
     params
   })
 }
+
+export function listChooseHotspots(data) {
+  return request({
+    url: '/listChooseHotspots',
+    method: 'get',
+    params: data
+  })
+}
