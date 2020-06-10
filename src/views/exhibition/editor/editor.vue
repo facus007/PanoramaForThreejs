@@ -25,7 +25,7 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
-    <div class="shadow" style="background: #304156; grid-area: d;">
+    <div class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%">
       <autofill/>
     </div>
     <div class="shadow" style="background: #304156; grid-area: e;">
@@ -50,7 +50,7 @@ import exhibitionBox from './exhibitionBox/exhibitionBox'
 import exhibitionEntrance from './exhibitionEntrance'
 
 
-const grid = "'a t' 'a b' 'c b' 'c d' 'c e'"
+const grid = "'a t' 'a b' 'a b' 'c d' 'c e'"
 const moduleName = "editor"
 
 const features = [

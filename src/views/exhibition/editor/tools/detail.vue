@@ -33,8 +33,15 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
     </div>
+    <div class="scene" v-if="option === '3'" style="width:100%; display:flex; justify-content:center">
+      <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+        <video v-if="selected.target.video" :src="selected.target.video" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-button>
+    </div>
   </div>
-  <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
+  <material-selector v-model="showDialog" @select="select" imgtype="1"/>
+  <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   <scene-selector v-model="showSceneSelector" @select="selectScene"/>
 </div>
 </template>
@@ -48,6 +55,7 @@ const options = [
   { value: '0', label: '无动作'},
   { value: '1', label: '超链接'},
   { value: '2', label: '场景跳转'},
+  { value: '3', label: '视频展示'},
 ]
 export default {
   components:{MaterialSelector,SceneSelector},
@@ -56,6 +64,7 @@ export default {
     options,
     showDialog:false,
     showSceneSelector: false,
+    showvideoDialog: false,
   }},
   props:['selected'],
   watch:{
@@ -68,6 +77,11 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.style = parseInt(material.material_type)
         item.img_url = material.material_content
+      });
+    },
+    selectVideo(material){
+      this.getSelecteds().forEach((item, i) => {
+        item.target.video = material.material_content
       });
     },
     selectScene(scene){

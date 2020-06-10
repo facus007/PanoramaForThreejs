@@ -1,16 +1,17 @@
 <template>
-  <THREE style="position: absolute; width: 100%; height: 100%;"  v-loading="loading" :isDebug="true">
-    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}">
-      <CSS3DRenderer>
-        <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
-        <orbit-controls v-if="afterloaded" style="pointer-events:auto" ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
-      </CSS3DRenderer>
-    </WebGLRenderer>
+  <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
+    <transition name='fade'>
+      <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" :key="curSceneId"></WebGLRenderer>
+    </transition>
+    <CSS3DRenderer v-if="loaded" style="z-index:1;">
+      <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+      <orbit-controls v-if="afterloaded && !loading" :key="curSceneId" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
+    </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideBlurImgs="sideBlurImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
-      <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId"/>
+      <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId" :key="curSceneId"/>
     </transition>
-    <backgroundmusic v-if="product" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:1"/>
+    <backgroundmusic v-if="product" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
   </THREE>
 </template>
 
@@ -22,6 +23,13 @@ import CameraAnimation from './cameraanimation'
 import {getProduct} from '@/utils/server'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
+const texloader = new three.TextureLoader()
+
+async function loadtex(url){
+  return new Promise(function(resolve, reject) {
+    texloader.load(url,resolve)
+  });
+}
 
 const sides = [
   {
@@ -70,6 +78,28 @@ export default {
         });
       }
     },
+    async curSceneId(next){
+      if(!this.afterloaded){return}
+      this.loading = true
+      let texs = []
+      for (var i = 1; i < 6; i++) {
+        let url = this.curScene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+        console.log(url)
+        texs.push(await loadtex(url))
+        this.$refs.panorama.$refs.mats[i-1].obj.map = texs[i-1]
+        this.$refs.panorama.$refs.texs[i-1].obj.dispose()
+        this.$refs.panorama.$refs.texs[i-1].obj = texs[i-1]
+      }
+      this.loading = false
+      texs = []
+      for (var i = 1; i < 6; i++) {
+        let url = this.curScene['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+        texs.push(await loadtex(url))
+        this.$refs.panorama.$refs.mats[i-1].obj.map = texs[i-1]
+        this.$refs.panorama.$refs.texs[i-1].obj.dispose()
+        this.$refs.panorama.$refs.texs[i-1].obj = texs[i-1]
+      }
+    }
   },
   methods:{
     async init(){
@@ -124,4 +154,12 @@ export default {
 }
 </script>
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: all;
+  transition-duration: 0.5s;
+}
+.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: scale(1.3);
+  opacity: 0;
+}
 </style>

@@ -2,7 +2,7 @@
   <div :isloaded="isloaded">
     <panel v-for="src, index in sideImgs" :key="index" :pos="sides[index].position" :rot="sides[index].rotation" :src="src" ref="panel">
       <MashBasicMaterial ref="mats">
-        <texture :url='sideBlurImgs && sideBlurImgs[index] || src' :key="src" :onLoad="onLoad" ref="texs"/>
+        <texture :url='sideBlurImgs && sideBlurImgs[index] || src' :key="index+''" :onLoad="onLoad" ref="texs"/>
       </MashBasicMaterial>
     </panel>
   </div>
@@ -63,7 +63,6 @@ export default {
     isloaded(){
       if(this.loaded >= 6){
         this.loaded = 0
-        this.$emit('onload')
         if(this.sideBlurImgs){
           this.sideImgs.forEach((item, i) => {
             var index = i
@@ -75,6 +74,7 @@ export default {
             })
           });
         }
+        this.$nextTick(()=>this.$emit('onload'))
       }
       return this.loaded
     }

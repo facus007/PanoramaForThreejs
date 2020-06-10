@@ -37,10 +37,17 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-button>
         </div>
+        <div class="scene" v-if="option === '3'" style="width:100%; display:flex; justify-content:center">
+          <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+            <video v-if="target.video" :src="target.video" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-button>
+        </div>
       </div>
     </div>
     <scene-selector v-model="showSceneSelector" @select="selectScene"/>
-    <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
+    <material-selector v-model="showDialog" @select="select" imgtype="1"/>
+    <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   </container>
 </template>
 
@@ -54,6 +61,7 @@ const options = [
   { value: '0', label: '无动作'},
   { value: '1', label: '超链接'},
   { value: '2', label: '场景跳转'},
+  { value: '3', label: '视频展示'},
 ]
 export default {
   mixins:[mixin],
@@ -68,6 +76,7 @@ export default {
     imgtype: null,
     img_url: null,
     showSceneSelector: false,
+    showvideoDialog: false,
   }},
   props:['source'],
   methods:{
@@ -89,6 +98,9 @@ export default {
     select(material){
       this.img_url=material.material_content
       this.imgtype = parseInt(material.material_type)
+    },
+    selectVideo(material){
+      this.target.video = material.material_content
     },
     selectScene(scene){
       this.target.scene_id = scene.scene_id
