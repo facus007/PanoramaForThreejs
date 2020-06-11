@@ -1,6 +1,6 @@
 <template>
   <span>
-    <preview v-if="loaded=true"/>
+    <preview/>
   </span>
 </template>
 
@@ -10,12 +10,11 @@ import settings from "@/settings"
 
 export default {
   components:{preview},
-  data(){return {
-    loaded:false
-  }},
+  data(){return {loaded:false}},
   created(){
     document.title = ''
-    fetch('../../assets/img/loading_sprite.png').then(()=>this.loaded = true)
+    // fetch('../../assets/img/loading_sprite.png').then(()=>this.loaded = true)
+
   },
   destroyed(){
     document.title = settings.title
