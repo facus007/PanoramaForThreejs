@@ -12,8 +12,8 @@ export default {
 </script>
 <style scoped>
 .loading{
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-image: url(../../assets/img/loading_sprite.png);
   -webkit-animation:animation 1s steps(41) 0s infinite both;
   animation: animation 1s steps(41) 0s infinite both;

@@ -114,7 +114,6 @@ export default {
         this.scenes[item.scene_id] = item
       });
       this.curSceneId = this.$route.query.scene_id || this.product.scenes[0].scene_id
-      this.loading = false
     },
     onload(){
       this.loaded = true

@@ -2,13 +2,13 @@
   <el-button type="text" @click="isPlaying=!isPlaying" >
     <div :class="isPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
     <!-- <iframe v-if="isPlaying" :src='product.music_url' allow='autoplay' style="display:none"></iframe> -->
-    <audio loop :src="product.music_url" preload="metadata" ref="audio"/>
+    <audio loop autoplay :src="product.music_url" preload="metadata" ref="audio"/>
   </el-button>
 </template>
 <script>
 export default{
   props:['product'],
-  data(){return {isPlaying: false}},
+  data(){return {isPlaying: true}},
   watch: {
     isPlaying(next){
       if(next){ this.$refs.audio.play()}
