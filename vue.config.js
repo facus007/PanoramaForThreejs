@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin")
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -12,7 +13,9 @@ module.exports = {
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-
+    plugins: [
+      new CompressionPlugin({test: /\.js$|\.html$|\.css/, threshold: 10240, deleteOriginalAssets: false})
+    ],
     // optimization: {
     //   minimize: true,
     //   minimizer: [new TerserPlugin({
