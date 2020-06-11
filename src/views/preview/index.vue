@@ -5,7 +5,7 @@
     </transition>
     <CSS3DRenderer v-if="loaded" style="z-index:1;">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
-      <orbit-controls v-if="afterloaded && !loading" :key="curSceneId" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
+      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideBlurImgs="sideBlurImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
@@ -82,7 +82,7 @@ export default {
       if(!this.afterloaded){return}
       this.loading = true
       let texs = []
-      for (var i = 1; i < 6; i++) {
+      for (var i = 1; i <= 6; i++) {
         let url = this.curScene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
         console.log(url)
         texs.push(await loadtex(url))
@@ -92,7 +92,7 @@ export default {
       }
       this.loading = false
       texs = []
-      for (var i = 1; i < 6; i++) {
+      for (var i = 1; i <= 6; i++) {
         let url = this.curScene['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
         texs.push(await loadtex(url))
         this.$refs.panorama.$refs.mats[i-1].obj.map = texs[i-1]
@@ -147,7 +147,7 @@ export default {
         this.curScene.pano_graphic_url3,
         this.curScene.pano_graphic_url4,
         this.curScene.pano_graphic_url5,
-        this.curScene.pano_graphic_url6
+        this.curScene.pano_graphic_url6,
       ]
     },
   },

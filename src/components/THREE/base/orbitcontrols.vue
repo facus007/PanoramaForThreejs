@@ -29,7 +29,7 @@ export default {
       controls.enablePan = false
       controls.enableZoom = false
       controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-      controls.dampingFactor = 0.134;
+      controls.dampingFactor = 0.25;
       controls.autoRotate = this.auto_rotate
       controls.autoRotateSpeed = 0.25
       controls.rotateSpeed = 0.3
@@ -75,6 +75,7 @@ export default {
   mounted(){
     this.newControl(this.camera, this.$parent.$el)
     this.$parent.$el.addEventListener('wheel', this.onMouseWheel, false)
+    this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
     this.$parent.$el.removeEventListener('wheel', this.onMouseWheel)

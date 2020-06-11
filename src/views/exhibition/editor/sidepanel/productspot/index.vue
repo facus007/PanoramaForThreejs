@@ -28,9 +28,6 @@ export default {
     selected(next){
       this.editor.$refs.tools.setSelected(next)
     },
-    setSelected(selected){
-      this.selected = selected
-    },
   },
   methods:{
     del(item){
@@ -38,7 +35,10 @@ export default {
       let index = this.curedit.embeddings[1].hotspots.indexOf(item)
       this.curedit.embeddings[1].hotspots.splice(index, 1)
       this.selected = null
-    }
+    },
+    setSelected(selected){
+      this.selected = selected
+    },
   },
   mounted(){},
   beforeDestroy(){},
