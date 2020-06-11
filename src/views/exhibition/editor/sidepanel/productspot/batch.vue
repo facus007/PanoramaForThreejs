@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <scene-selector v-model="showSceneSelector" @select="selectScene"/>
+    <scene-selector v-model="showSceneSelector" @select="selectScene" :curSceneId="curedit.scene_id"/>
     <material-selector v-model="showDialog" @select="select" imgtype="1"/>
     <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   </container>

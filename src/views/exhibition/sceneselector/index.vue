@@ -45,12 +45,12 @@ export default {
       this.visible = next
     },
   },
-  props:['value', 'onSelect'],
+  props:['value', 'onSelect', 'curSceneId'],
   methods:{},
   computed:{
     ...mapState('editor',{
       total: state => state.product.scenes.length,
-      datalist: state => state.product.scenes
+      datalist(state) {return state.product.scenes.filter(item=>item.scene_id!==this.curSceneId)}
     })
   },
   mounted(){},
