@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" class="loading" :style="style"/>
+  <div class="loading" :style="style"/>
 </template>
 <script>
 var count = 1

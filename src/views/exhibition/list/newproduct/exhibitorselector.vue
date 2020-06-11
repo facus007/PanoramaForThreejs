@@ -4,7 +4,7 @@
       <el-button type="text" style="padding:0;width: 100%; height: 100%;" @click="()=>{tmp_group_id=src.userId; $emit('input',src.userId)}">
         <div style="position:relative;width: 100%; height: 100%;">
           <div>{{src.exhibitorName}}</div>
-          <div v-if="src.userId === tmp_group_id" style="display:block;position:absolute;right: -17px;top: -20px;width: 46px;height: 26px;background: #13ce66;text-align: center;transform: rotate(45deg);box-shadow: 0 1px 1px #ccc;">
+          <div v-if="src.userId === tmp_group_id" style="display:block;position:absolute;right: -17px;top: -30px;width: 46px;height: 26px;background: #13ce66;text-align: center;transform: rotate(45deg);box-shadow: 0 1px 1px #ccc;">
             <i class="el-icon-check" style="font-size: 12px;margin-top: 12px;transform: rotate(-45deg);color:#fff"/>
           </div>
         </div>
