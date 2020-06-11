@@ -1,7 +1,6 @@
 <template>
   <el-button type="text" @click="isPlaying=!isPlaying" >
     <div :class="isPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
-    <!-- <iframe v-if="isPlaying" :src='product.music_url' allow='autoplay' style="display:none"></iframe> -->
     <audio loop autoplay :src="product.music_url" preload="metadata" ref="audio"/>
   </el-button>
 </template>
