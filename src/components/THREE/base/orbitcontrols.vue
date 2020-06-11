@@ -8,6 +8,9 @@ import { OrbitControls } from '../core/orbitcontrols'
 export default {
   mixins: [THREEComponent],
   props: ['start_rotation', 'auto_rotate'],
+  data(){return {
+    interval: null
+  }},
   watch:{
     domElement(next, pre){
       pre && pre.removeEventListener('update', this.update)
@@ -22,6 +25,12 @@ export default {
     changed(){
       this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
     },
+    timer(){
+      this.obj.autoRotate=false
+      this.setInterval(function () {
+
+      }, 10);
+    },
     newControl(camera, domElement){
       let controls = new OrbitControls(camera, domElement)
       camera.position.set(0.00001,0,0) //controls.update() must be called after any manual changes to the camera's transform
@@ -29,9 +38,9 @@ export default {
       controls.enablePan = false
       controls.enableZoom = false
       controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-      controls.dampingFactor = 0.25;
+      controls.dampingFactor = 0.05;
       controls.autoRotate = this.auto_rotate
-      controls.autoRotateSpeed = 0.25
+      controls.autoRotateSpeed = -0.3
       controls.rotateSpeed = 0.3
       if(this.start_rotation){
         controls.maxAzimuthAngle = this.start_rotation[0]

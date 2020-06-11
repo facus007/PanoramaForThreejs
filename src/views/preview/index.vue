@@ -1,17 +1,19 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
-    <transition name='fade'>
-      <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" :key="curSceneId"></WebGLRenderer>
-    </transition>
+    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer"></WebGLRenderer>
     <CSS3DRenderer v-if="loaded" style="z-index:1;">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
       <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
     </CSS3DRenderer>
-    <panorama v-if="sideImgs" :sideBlurImgs="sideBlurImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
+    <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
       <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId" :key="curSceneId"/>
     </transition>
-    <backgroundmusic v-if="product" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+    <backgroundmusic v-if="product&&product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+    <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
+      <i v-if="loaded" style="font-size: 50px; color: gray; text-shadow: 0 0 5px;" class="el-icon-loading"/>
+      <loading v-else/>
+    </div>
   </THREE>
 </template>
 
@@ -20,6 +22,7 @@ import { mapState } from 'vuex'
 import preview from './preview'
 import backgroundmusic from './backgroundmusic'
 import CameraAnimation from './cameraanimation'
+import Loading from './loading'
 import {getProduct} from '@/utils/server'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
@@ -59,7 +62,7 @@ const sides = [
 ];
 
 export default {
-  components:{...THREE, preview, backgroundmusic, CameraAnimation},
+  components:{...THREE, preview, backgroundmusic, CameraAnimation, Loading},
   data(){return {
     product: null,
     scenes: {},
@@ -84,11 +87,12 @@ export default {
       let texs = []
       for (var i = 1; i <= 6; i++) {
         let url = this.curScene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        console.log(url)
         texs.push(await loadtex(url))
-        this.$refs.panorama.$refs.mats[i-1].obj.map = texs[i-1]
-        this.$refs.panorama.$refs.texs[i-1].obj.dispose()
-        this.$refs.panorama.$refs.texs[i-1].obj = texs[i-1]
+      }
+      for (var i = 0; i < 6; i++) {
+        this.$refs.panorama.$refs.mats[i].obj.map = texs[i]
+        this.$refs.panorama.$refs.texs[i].obj.dispose()
+        this.$refs.panorama.$refs.texs[i].obj = texs[i]
       }
       this.loading = false
       texs = []
