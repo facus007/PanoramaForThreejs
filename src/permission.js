@@ -9,7 +9,8 @@ import getPageTitle from '@/utils/get-page-title'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login','/404','/share','/video'] // no redirect whitelist
-var setRouter= false
+
+store.dispatch('permission/generateRoutes').then(accessRoutes=>{router.addRoutes(accessRoutes)})
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
@@ -27,7 +28,6 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // determine whether the user has obtained his permission roles through getInfo
       // const hasRoles = store.getters.roles && store.getters.roles.length > 0
-      !setRouter && store.dispatch('permission/generateRoutes').then(accessRoutes=>{router.addRoutes(accessRoutes); setRouter=true})
       next()
       // if (hasRoles) {
       //   next()

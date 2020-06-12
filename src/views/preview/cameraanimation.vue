@@ -3,7 +3,7 @@ import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import * as THREE from 'three'
 
-const lerpfactor = 0.025
+const lerpfactor = 0.01
 const zero = new THREE.Vector3( );
 
 export default {

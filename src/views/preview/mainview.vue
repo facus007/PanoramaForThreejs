@@ -7,7 +7,7 @@
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
-      <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId" :key="curSceneId"/>
+      <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action"/>
     </transition>
     <backgroundmusic v-if="product&&product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import { mapState } from 'vuex'
 import preview from './preview'
 import backgroundmusic from './backgroundmusic'
@@ -106,18 +107,23 @@ export default {
   methods:{
     async init(){
       this.loading = true
-      this.product = await getProduct(this.$route.query.product_id, true)
+      if(!this.product){
+        this.product = await getProduct(this.$route.query.product_id, true)
+        this.product.scenes.forEach((item, i) => {
+          this.scenes[item.scene_id] = item
+        });
+        this.curSceneId = Cookies.get('vrpreivew' + this.$route.query.product_id) || this.product.scenes[0].scene_id
+      }
       document.title = this.product.name
-      this.product.scenes.forEach((item, i) => {
-        this.scenes[item.scene_id] = item
-      });
-      this.curSceneId = this.$route.query.scene_id || this.product.scenes[0].scene_id
     },
     onload(){
       this.loaded = true
       this.loading = false
       this.$emit('input', false)
     },
+    action(){
+      Cookies.set('vrpreivew' + this.$route.query.product_id, this.$data.curSceneId)
+    }
   },
   mounted(){},
   beforeDestroy(){},

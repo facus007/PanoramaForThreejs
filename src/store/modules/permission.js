@@ -36,11 +36,11 @@ export function filterAsyncRoutes(routes, roles) {
 }
 
 const components={
-  '/dashboard': ()=>import(/* webpackChunkName: "views" */'@/views/dashboard/index'),
-  '/exhibition/list': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/list'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/editor'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/editor'),
-  '/preview': ()=>import(/* webpackChunkName: "views" */'@/views/preview/index'),
+  '/dashboard': ()=>import(/* webpackChunkName: "views" */ '@/views/dashboard/index'),
+  '/exhibition/list': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/list'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/editor'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/editor'),
+  '/preview': ()=>import(/* webpackChunkName: "views" */ '@/views/preview/index'),
 }
 
 const state = {

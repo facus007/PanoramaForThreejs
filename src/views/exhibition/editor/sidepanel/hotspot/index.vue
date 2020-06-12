@@ -20,6 +20,7 @@ import {addembed, delembed} from '@/api/server'
 
 const labels = ['广告位热点', '产品位热点', '自定义热点']
 
+
 export default {
   mixins:[mixin],
   components:{list},

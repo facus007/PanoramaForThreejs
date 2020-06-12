@@ -47,6 +47,7 @@ export default {
     methods:{
       action(item){
         if(item.type===1 && item.target.link){
+          this.$emit('action')
           var a = document.createElement('a');
           a.href=item.target.link
           a.click()
