@@ -35,6 +35,14 @@ export function filterAsyncRoutes(routes, roles) {
   return res
 }
 
+const components={
+  '/dashboard': ()=>import(/* webpackChunkName: "views" */'@/views/dashboard/index'),
+  '/exhibition/list': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/list'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/editor'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */'@/views/exhibition/editor'),
+  '/preview': ()=>import(/* webpackChunkName: "views" */'@/views/preview/index'),
+}
+
 const state = {
   routes: [],
   addRoutes: []
@@ -78,7 +86,7 @@ const actions = {
             m.fullPath = r.meta.fullPath + m.path
             var menu = {
               path: m.path,
-              component: resolve => require(['@/views' + r.meta.fullPath + m.path], resolve),
+              component: components[r.meta.fullPath + m.path],
               meta: { id: m.id, title: m.title, fullPath: r.meta.fullPath + m.path, icon: m.icon },
               name: m.path,
               hidden: (m.hidden > 0) ? true : false ,
@@ -98,7 +106,7 @@ const actions = {
             if (!r.children) r.children = []
             var index = {
               path: 'index',
-              component: resolve => require(['@/views' + r.path], resolve),
+              component: components[r.path],
               meta:  {id: r.meta.id, title: r.meta.title, fullPath: r.path + '/index', icon: r.meta.icon },
               name: r.name + '/index'
             }

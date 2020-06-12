@@ -58,6 +58,9 @@ module.exports = {
       symbolId: 'icon-[name]'
     })
     .end()
+    if(process.env.use_analyzer){
+      config.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
   },
   devServer: {
     host: '0.0.0.0',

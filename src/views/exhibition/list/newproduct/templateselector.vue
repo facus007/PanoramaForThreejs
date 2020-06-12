@@ -18,6 +18,7 @@
 import styles from '@/components/UI/base/styles'
 import { mapState } from 'vuex'
 import { listTmps } from '@/api/server'
+import moment from 'moment'
 
 export default {
   mixins: [styles],
@@ -36,7 +37,7 @@ export default {
       if(!this.total || this.rawData.length < this.total){
         this.loading = true
         listTmps({
-          endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
+          endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
           type: '1',
           pageNum: this.page++,
           pageSize: this.pageSize,

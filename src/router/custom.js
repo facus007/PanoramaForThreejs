@@ -1,4 +1,4 @@
-export var customRoutes=[
+export const customRoutes=[
   {
     id: 1,
     title: "仪表板",
@@ -49,24 +49,4 @@ export var customRoutes=[
     children: null,
     hidden: 1
   },
-  // {
-  //   id: 4,
-  //   title: "素材库",
-  //   path: "/material",
-  //   pid: 0,
-  //   icon: "example",
-  //   order: 0,
-  //   children: null,
-  //   hidden: 0
-  // },
-  // {
-  //   id: 5,
-  //   title: "用户管理",
-  //   path: "/user",
-  //   pid: 0,
-  //   icon: "sysUser",
-  //   order: 0,
-  //   children: null,
-  //   hidden: 0
-  // },
 ]

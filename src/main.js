@@ -18,11 +18,6 @@ import '@/permission' // permission control
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 
-// moment
-const moment = require('moment')
-import 'moment/locale/zh-cn'
-Vue.use(require('vue-moment'), {moment});
-
 Vue.config.productionTip = false
 
 new Vue({

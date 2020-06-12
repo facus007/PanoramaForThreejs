@@ -31,6 +31,7 @@ import { listMaterials } from '@/api/server'
 import Container from '@/views/mixin/container'
 import TableFrame from '@/components/UI/tableframe'
 import Uploader from './uploader'
+import moment from 'moment'
 
 export default {
   components:{Container, TableFrame, Uploader},
@@ -56,7 +57,7 @@ export default {
     showDialog(){
       this.loading = true
       listMaterials({
-        endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
+        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         materialType: this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,
@@ -78,7 +79,7 @@ export default {
     refresh(){
       this.loading = true
       listMaterials({
-        endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
+        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         materialType: this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,

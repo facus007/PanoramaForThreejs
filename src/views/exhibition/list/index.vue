@@ -51,10 +51,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapState } from 'vuex'
 import { listProducts } from '@/api/server'
 import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
+import moment from 'moment'
 
 export default {
   mixins:[mixin],
@@ -101,7 +103,7 @@ export default {
     refresh_(){
       this.loading = true
       listProducts({
-        endTime: this.$moment(new Date()).format('YYYYMMDDHHmmss'),
+        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       }).then(result=>{
