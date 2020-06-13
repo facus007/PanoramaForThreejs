@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="120px">
-      <el-form-item label="展箱标题:" prop="productName">
+      <el-form-item label="展商标题:" prop="productName">
         <el-input
           v-model="queryParams.productName"
-          placeholder="请输入展箱标题"
+          placeholder="请输入展商标题"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -27,7 +27,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="展箱创建时间" prop="dateRanges">
+      <el-form-item label="展商创建时间" prop="dateRanges">
         <el-date-picker
           v-model="dateRanges"
           size="small"
@@ -64,8 +64,8 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="参展商编号" align="center" prop="exhibitorId" width="100"/>
       <el-table-column label="参展商名称" align="center" prop="exhibitorName" width="150"/>
-      <el-table-column label="展箱标题" align="center" prop="productName" min-width="150"/>
-      <el-table-column label="3D展箱链接" align="center" min-width="400">
+      <el-table-column label="展商标题" align="center" prop="productName" min-width="150"/>
+      <el-table-column label="3D展商链接" align="center" min-width="400">
         <template slot-scope="scope">
           <div style="text-align:left;">{{scope.row.resourceUrl}}</div>
           <div
@@ -76,7 +76,7 @@
           >复制链接</div>
         </template>
       </el-table-column>
-      <el-table-column label="平面展箱链接" align="center" width="400">
+      <el-table-column label="平面展商链接" align="center" width="400">
         <template slot-scope="scope">
           <div style="text-align:left;">{{websourcesUrl}}{{scope.row.id}}</div>
           <div
@@ -165,6 +165,7 @@ export default {
       loading: true,
       // 选中数组
       ids: [],
+      idList: [],
       // 选中下标
       indexs: [],
       // 当前页码
@@ -237,7 +238,7 @@ export default {
       //   this.$refs["elForm"].resetFields();
       this.$emit("open:visible", false);
     },
-    /** 查询展箱列表 */
+    /** 查询展商列表 */
     getList() {
       this.loading = true;
       if (this.dateRanges != null) {
@@ -251,6 +252,10 @@ export default {
         this.postList = response.rows;
         this.total = response.total;
         this.loading = false;
+        if (this.indexs.length > 0) {
+          this.pageData(this.currentPage);
+        }
+        this.getPageSelectData(this.queryParams.pageNum);
       });
     },
     //获取参展商列表
@@ -273,7 +278,23 @@ export default {
     },
     pageData(page) {
       /**页码选择数据记录 */
-      console.log(page, "上一页码");
+      this.pageSlectData.push({ page: page, indexs: this.indexs });
+    },
+    getPageSelectData(page) {
+      // 当前页数是否有选择过数据  有就反选
+      for (let i = 0; i < this.pageSlectData.length; i++) {
+        if (page == this.pageSlectData[i].page) {
+          // console.log(
+          //   this.pageSlectData[i].indexs,
+          //   "this.pageSlectData[i].indexs"
+          // );
+          for (let j = 0; j < this.pageSlectData[i].indexs.length; j++) {
+            this.toggleSelection1([
+              this.postList[this.pageSlectData[i].indexs[j]]
+            ]);
+          }
+        }
+      }
     },
     // 表单重置
     reset() {
@@ -316,15 +337,11 @@ export default {
     handleSelectionChange(selection) {
       //   console.log(selection, "666");
       this.ids = selection.map(item => item.id);
-      //   this.indexs = selection.map((item, index) => {
-      //     return this.contains(this.postList, item);
-      //   });
-      //   console.log(this.ids, "idsss");
-      //   console.log(this.indexs, "indexs");
-      //   this.currentPage = this.queryParams.pageNum;
-      //   console.log(this.currentPage, "currentPage");
-      //   this.single = selection.length != 1;
-      //   this.multiple = !selection.length;
+      this.indexs = selection.map((item, index) => {
+        return this.contains(this.postList, item);
+      });
+      this.idList = this.idList.concat(this.ids);
+      this.currentPage = this.queryParams.pageNum;
     },
     // 获取数组下标
     contains(arrays, item) {
@@ -371,12 +388,33 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
+    toggleSelection1(rows) {
+      //反选操作
+      let arr = [];
+      this.postList.forEach((e, index) => {
+        rows.forEach((i, ind) => {
+          if (e.id === i.id) {
+            arr.push(this.postList[index]);
+          }
+        });
+      });
+      if (arr) {
+        this.$nextTick(() => {
+          arr.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row, true);
+          });
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
     toggleSelectionData() {
       // 确定
       let localStorage = window.localStorage;
       localStorage.removeItem("batchNo");
-      let ids = this.ids.join(",");
-      if(ids){
+      let ids = Array.from(new Set(this.idList));
+      console.log("toggleSelectionData==--=", ids)
+      if(ids.length > 0){
         boxaddChooseBox(ids).then(res => {
           if (res.code == 200) {
             localStorage.setItem("batchNo", res.data.batchNo);
