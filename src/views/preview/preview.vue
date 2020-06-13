@@ -20,7 +20,7 @@
     <transition name="el-fade-in">
       <div v-if="showDialog" style="width: 100%; height: 100%; z-index: 2000; top: 0; left: 0; position: absolute;background: #000E; display: flex; align-items: center;" @click="showDialog=false">
         <el-button icon="el-icon-close" type="text" style="position: absolute; font-size: 30px; right: 20px; top: 40px; padding: 0;"/>
-        <video v-if="link" :src="link" style="width:100%; border:0px;" controls autoplay playsinline webkit-playsinline x5-playsinline/>
+        <video v-if="link" :src="link" style="width:100%; border:0px;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
       </div>
     </transition>
   </span>

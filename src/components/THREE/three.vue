@@ -11,6 +11,12 @@ import THREEComponent from './base/threecomponent'
 import store from './store'
 
 const moduleName = 'THREE'
+var frame = 0;
+
+var isWeixin = function () { //判断是否是微信
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+};
 
 export default {
   name:'THREE',
@@ -53,7 +59,9 @@ export default {
       }
     },
     rendering(){
-      this.$store.dispatch(moduleName+'/render')
+      if(++frame % (isWeixin ? 2 : 1) === 0){
+        this.$store.dispatch(moduleName+'/render')
+      }
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){

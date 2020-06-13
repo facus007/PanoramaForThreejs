@@ -23,7 +23,7 @@ export default {
     },
     // propCompute(){},
     changed(){
-      this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
+      // this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
     },
     timer(){
       this.obj.autoRotate=false
