@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.62",
+  "version": "0.1.64",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -8,7 +8,6 @@
   "scripts": {
     "postinstall": "./.plugins/postinstall.sh",
     "build": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
     "dev": "vue-cli-service serve",
     "analyzer": "use_analyzer=true npm run dev"
   },
