@@ -16,7 +16,7 @@ router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
 
-  document.title = whiteList.indexOf(to.path) !== -1 ? '' : getPageTitle(to.meta.title)
+  document.title = whiteList.indexOf(to.path) !== -1 && whiteList.indexOf(to.path) !== 0  ? '' : getPageTitle(to.meta.title)
   // determine whether the user has logged in
   const hasToken = getToken()
 

@@ -17,7 +17,6 @@ export default {
       next && next.addEventListener('update', this.update)
     }
   },
-  methods:{},
   mounted(){
     this.obj = new CSS3DRenderer()
     this.$el.appendChild(this.obj.domElement)
@@ -46,12 +45,16 @@ export default {
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){
-      this.obj.render(this.scene, this.camera);
-      this.frame = requestAnimationFrame(this.rendering)
+      this.domElement && this.domElement.addEventListener('update', this.update)
+      // this.obj.render(this.scene, this.camera);
+      // this.frame = requestAnimationFrame(this.rendering)
     },
     stopRendering(){
-      cancelAnimationFrame(this.frame)
+      // cancelAnimationFrame(this.frame)
     },
+    update(){
+      this.obj.render(this.scene, this.camera);
+    }
   }
 }
 </script>

@@ -18,7 +18,6 @@ export default {
       next && next.addEventListener('update', this.update)
     }
   },
-  methods:{},
   mounted(){
     this.obj = new THREE.WebGLRenderer(this.option)
     this.$el.appendChild(this.obj.domElement)
@@ -47,10 +46,14 @@ export default {
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){
-      this.frame = requestAnimationFrame(this.rendering)
+      // this.frame = requestAnimationFrame(this.rendering)
+      this.domElement && this.domElement.addEventListener('update', this.update)
     },
     stopRendering(){
-      cancelAnimationFrame(this.frame)
+      // cancelAnimationFrame(this.frame)
+    },
+    update(){
+      this.obj.render(this.scene, this.camera);
     },
   }
 }

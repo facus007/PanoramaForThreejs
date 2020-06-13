@@ -17,9 +17,12 @@
         </span>
       </prebuild>
     </span></transition>
-    <el-dialog class="dialog" :visible.sync="showDialog" width="90%" append-to-body>
-      <iframe v-if="link" :src="link" style="width:100%; height:100%; border:0px;" allow="autoplay"/>
-    </el-dialog>
+    <transition name="el-fade-in">
+      <div v-if="showDialog" style="width: 100%; height: 100%; z-index: 2000; top: 0; left: 0; position: absolute;background: #000E; display: flex; align-items: center;" @click="showDialog=false">
+        <el-button icon="el-icon-close" type="text" style="position: absolute; font-size: 30px; right: 20px; top: 40px; padding: 0;"/>
+        <video v-if="link" :src="link" style="width:100%; border:0px;" controls autoplay playsinline webkit-playsinline x5-playsinline/>
+      </div>
+    </transition>
   </span>
 </template>
 
@@ -73,9 +76,15 @@ export default {
   }
   .dialog >>> .el-dialog{
     margin-top: 15vw;
+    padding: 0;
+    background: #0000;
+  }
+  .dialog >>> .el-dialog__header{
+    padding: 0;
   }
   .dialog >>> .el-dialog__body{
     height: 70vw;
+    padding: 0;
     overflow: hidden;
   }
   </style>

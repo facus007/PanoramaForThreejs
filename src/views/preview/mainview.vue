@@ -3,7 +3,7 @@
     <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer"></WebGLRenderer>
     <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
-      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
+      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
@@ -74,9 +74,9 @@ export default {
     afterloaded(next){
       if(next){
         this.$refs.panorama.$refs.panel.forEach((item, i) => {
-          item.obj.geometry.dispose()
-          item.obj.geometry = new three.PlaneGeometry(1, 1)
-          item.obj.position = new three.Vector3(sides[i].position[0]* 500,sides[i].position[1]* 500,sides[i].position[2]* 500)
+          item.obj && item.obj.geometry && item.obj.geometry.dispose()
+          item.obj && (item.obj.geometry = new three.PlaneGeometry(1, 1))
+          item.obj && (item.obj.position = new three.Vector3(sides[i].position[0]* 500,sides[i].position[1]* 500,sides[i].position[2]* 500))
         });
       }
     },
@@ -112,18 +112,18 @@ export default {
         this.product.scenes.forEach((item, i) => {
           this.scenes[item.scene_id] = item
         });
-        this.curSceneId = this.hasCookies && Cookies.get('vrpreivew' + this.$route.query.product_id).curSceneId || this.product.scenes[0].scene_id
+        this.curSceneId = this.cookies && this.cookies.curSceneId || this.product.scenes[0].scene_id
       }
       document.title = this.product.name
     },
     onload(){
       this.loaded = true
       this.loading = false
-      this.afterloaded = this.afterloaded || this.hasCookies
+      this.afterloaded = this.afterloaded || this.cookies
       this.$emit('input', false)
     },
     action(){
-      Cookies.set('vrpreivew' + this.$route.query.product_id, {sceneId: this.$data.curSceneId})
+      Cookies.set('vrpreivew' + this.$route.query.product_id, {sceneId: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
     },
   },
   mounted(){},
@@ -136,8 +136,8 @@ export default {
   },
   destroyed(){},
   computed:{
-    hasCookies(){
-      return Cookies.get('vrpreivew' + this.$route.query.product_id)
+    cookies(){
+      return Cookies.get('vrpreivew' + this.$route.query.product_id) && JSON.parse(Cookies.get('vrpreivew' + this.$route.query.product_id))
     },
     curScene(){
       return this.scenes[this.curSceneId]
@@ -162,6 +162,9 @@ export default {
         this.curScene.pano_graphic_url6,
       ]
     },
+    start_rotation(){
+      return this.cookies && this.cookies.start_rotation
+    }
   },
 }
 </script>

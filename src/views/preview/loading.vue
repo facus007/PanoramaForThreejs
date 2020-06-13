@@ -36,7 +36,7 @@ export default {
 .loading{
   width: 200px;
   height: 200px;
-  background-image: url(../../assets/img/loading_sprite.jpg);
+  background-image: url(../../assets/img/loading_sprite.png);
   -webkit-animation:animation 1s steps(41) 0s infinite both;
   animation: animation 1s steps(41) 0s infinite both;
 }
