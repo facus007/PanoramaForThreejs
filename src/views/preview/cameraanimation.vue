@@ -4,7 +4,7 @@ import mixin from '@/views/mixin'
 import * as THREE from 'three'
 import Cookies from 'js-cookie'
 
-const lerpfactor = 0.02
+const lerpfactor = 0.01
 const zero = new THREE.Vector3(0,-100, 0);
 
 export default {

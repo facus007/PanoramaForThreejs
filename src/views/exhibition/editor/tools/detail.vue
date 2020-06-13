@@ -1,5 +1,5 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 1fr;" class="event">
+  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 2fr;" class="event">
   <div class="block">属性</div>
   <div class="block" style="display:flex;align-items:center">
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
@@ -17,8 +17,8 @@
       <el-option v-for="item in options" :key="item.value" :label="item.label":value="item.value"/>
     </el-select>
   </div>
-  <div class="block" style="display:flex; justify-content:center; align-items:center; width: 100%;">
-    <div v-if="option === '1'" style="display: flex; flex-direction: column; width: 100%; align-items: flex-start;">
+  <div class="block" style="display:flex; flex-direction: column; justify-content:space-between; align-items:center; width: 100%;">
+    <div v-if="option === '1'" style="display: flex; flex-direction: column; width: 100%; height:100%; align-items: flex-start;">
       <span>
         请输入超链接
         <el-tooltip class="item" effect="dark" content="超链接需附上 http:// 或 https:// " placement="right-end">
@@ -27,15 +27,15 @@
       </span>
       <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
     </div>
-    <div class="scene" v-if="option === '2'">
+    <div class="scene" v-if="option === '2'" style="width: 100%">
       <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
         <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
     </div>
-    <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center">
+    <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center;">
       <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
-        <video v-if="selected.target.video" :src="selected.target.video" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+        <video v-if="selected.target.video" :src="selected.target.video" controls autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
     </div>
@@ -81,7 +81,7 @@ export default {
     },
     selectVideo(material){
       this.getSelecteds().forEach((item, i) => {
-        // item.img_url = material. || item.img_url
+        item.img_url = material.resource_url || item.img_url
         item.target.video = material.material_content
       });
     },

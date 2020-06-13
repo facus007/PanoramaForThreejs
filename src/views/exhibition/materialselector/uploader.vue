@@ -114,6 +114,7 @@ export default {
       formData.append('file',this.file.raw)
       if (this.selected==='1') {
         imageUpload(formData).then(result=>{
+          console.log(result)
           addMaterial({
             materialType: '1',
             materialContent: result.url,
@@ -123,15 +124,18 @@ export default {
       }
       else if (this.selected ==='2') {
         mediaUpload(formData).then(result=>{
+          console.log(result)
           addMaterial({
             materialType: '2',
             materialContent: result.url,
             remark: this.remark,
+            resourceUrl: result.previewurl,
           }).then(_=>{this.loading=false;this.visible=false})
         })
       }
       else if (this.selected ==='5') {
         mediaUpload(formData).then(result=>{
+          console.log(result)
           addMaterial({
             materialType: '5',
             materialContent: result.url,

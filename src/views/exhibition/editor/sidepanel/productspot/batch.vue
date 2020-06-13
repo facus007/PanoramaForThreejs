@@ -100,6 +100,7 @@ export default {
       this.imgtype = parseInt(material.material_type)
     },
     selectVideo(material){
+      this.img_url = material.resource_url || this.img_url
       this.target.video = material.material_content
     },
     selectScene(scene){

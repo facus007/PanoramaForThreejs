@@ -15,9 +15,9 @@
             {{scope.row.name}}
           </template>
         </el-table-column>
-        <el-table-column label="作品描述">
+        <el-table-column label="作品ID">
           <template v-slot:default="scope">
-            {{scope.row.description}}
+            {{scope.row.product_id}}
           </template>
         </el-table-column>
         <el-table-column label="发布状态">

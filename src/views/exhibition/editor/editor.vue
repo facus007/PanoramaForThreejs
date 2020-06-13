@@ -1,5 +1,5 @@
 <template>
-  <grid :grid="grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 100px 70px 70px;">
+  <grid :grid="features[curFeature].showtools?gridtools:grid" style="grid-template-columns: 1fr 350px; grid-template-rows: 40px 1fr 100px 70px 70px;">
     <div class="home shadow" style="background: #304156; grid-area: a; padding: 10px; position: relative;">
       <THREE class="shadow" style="position: relative;" :isDebug="isDebug">
         <stats v-if="isDebug"/>
@@ -25,10 +25,10 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
-    <div class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
+    <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
       <autofill style="height:40px;"/>
     </div>
-    <div class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
+    <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
       <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance" style="height:40px;"/>
       <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
           <exhibitionBox @exhibitionFinished="exhibitionFinished" v-model="selected_ids"/>
@@ -51,15 +51,16 @@ import exhibitionBox from './exhibitionBox/exhibitionBox'
 import exhibitionEntrance from './exhibitionEntrance'
 
 
-const grid = "'a t' 'a b' 'a b' 'c d' 'c e'"
+const gridtools = "'a t' 'a b' 'a b' 'c d' 'c e'"
+const grid = "'a t' 'a b' 'a b' 'c b' 'c b'"
 const moduleName = "editor"
 
 const features = [
-  {name: "基础", sidepanel: "standard", },
-  {name: "视角", sidepanel: "viewspot", tools: "viewspot-tools"},
-  {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools'},
-  {name: "产品位热点", sidepanel: "productspot", tools: 'productspot-tools'},
-  {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools'},
+  {name: "基础", sidepanel: "standard", showtools: false},
+  {name: "视角", sidepanel: "viewspot", tools: "viewspot-tools", showtools: false},
+  {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools', showtools: true},
+  {name: "产品位热点", sidepanel: "productspot", tools: 'productspot-tools', showtools: true},
+  {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools', showtools: true},
   // {name: "音乐", sidepanel: "music", },
 ]
 
@@ -77,6 +78,7 @@ export default {
     isDebug: () => process.env.NODE_ENV === "development",
     features: () => features,
     grid:() => grid,
+    gridtools:() => gridtools,
     sideImgs() {
       return this.curedit && [
         this.curedit.pano_graphic_url1,

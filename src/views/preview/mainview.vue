@@ -1,13 +1,13 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
     <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer"></WebGLRenderer>
-    <CSS3DRenderer v-if="loaded" style="z-index:1;">
+    <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
       <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="curScene.start_rotation"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
-      <preview v-if="!loading && afterloaded" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action"/>
+      <preview v-if="!loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" />
     </transition>
     <backgroundmusic v-if="product&&product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
