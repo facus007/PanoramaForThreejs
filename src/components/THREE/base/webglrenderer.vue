@@ -7,6 +7,8 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
 
+var frame = 0
+
 export default {
   mixins: [THREEComponent],
   props: ['option'],
@@ -36,7 +38,12 @@ export default {
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     },
     rendering(){
-      this.obj.render(this.scene, this.camera);
+      // let rate = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) === "micromessenger" ? 2 : 1;
+      let rate = 1
+      if(++frame % rate === 0){
+        frame= 0
+        this.obj.render(this.scene, this.camera);
+      }
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){

@@ -7,11 +7,15 @@
 
 <script>
 import Loading from './loading'
+import Cookies from 'js-cookie'
+
 export default {
   components:{MainView: () => import('./mainview'), Loading},
   data(){return{
-    loading: true
+     loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
   }},
+  computed:{
+  }
 }
 
 </script>

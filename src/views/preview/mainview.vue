@@ -112,18 +112,19 @@ export default {
         this.product.scenes.forEach((item, i) => {
           this.scenes[item.scene_id] = item
         });
-        this.curSceneId = Cookies.get('vrpreivew' + this.$route.query.product_id) || this.product.scenes[0].scene_id
+        this.curSceneId = this.hasCookies && Cookies.get('vrpreivew' + this.$route.query.product_id).curSceneId || this.product.scenes[0].scene_id
       }
       document.title = this.product.name
     },
     onload(){
       this.loaded = true
       this.loading = false
+      this.afterloaded = this.afterloaded || this.hasCookies
       this.$emit('input', false)
     },
     action(){
-      Cookies.set('vrpreivew' + this.$route.query.product_id, this.$data.curSceneId)
-    }
+      Cookies.set('vrpreivew' + this.$route.query.product_id, {sceneId: this.$data.curSceneId})
+    },
   },
   mounted(){},
   beforeDestroy(){},
@@ -135,6 +136,9 @@ export default {
   },
   destroyed(){},
   computed:{
+    hasCookies(){
+      return Cookies.get('vrpreivew' + this.$route.query.product_id)
+    },
     curScene(){
       return this.scenes[this.curSceneId]
     },

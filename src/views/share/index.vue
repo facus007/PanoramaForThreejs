@@ -5,11 +5,10 @@
 </template>
 
 <script>
-import preview from '@/views/preview'
 import settings from "@/settings"
 
 export default {
-  components:{preview},
+  components:{ preview: ()=>import('@/views/preview') },
   data(){return {loaded:false}},
   created(){
     document.title = ''

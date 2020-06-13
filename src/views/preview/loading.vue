@@ -14,7 +14,7 @@ export default {
 .loading{
   width: 100px;
   height: 100px;
-  background-image: url(../../assets/img/loading_sprite.png);
+  background-image: url(../../assets/img/loading_sprite.jpg);
   -webkit-animation:animation 1s steps(41) 0s infinite both;
   animation: animation 1s steps(41) 0s infinite both;
 }

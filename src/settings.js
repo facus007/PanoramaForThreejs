@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Avalon管理后台',
+  title: '数字展厅编辑云平台',
 
   /**
    * @type {boolean} true | false

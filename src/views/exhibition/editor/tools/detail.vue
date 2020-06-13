@@ -34,7 +34,7 @@
       </el-button>
     </div>
     <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center">
-      <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+      <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
         <video v-if="selected.target.video" :src="selected.target.video" autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
@@ -81,6 +81,7 @@ export default {
     },
     selectVideo(material){
       this.getSelecteds().forEach((item, i) => {
+        // item.img_url = material. || item.img_url
         item.target.video = material.material_content
       });
     },
