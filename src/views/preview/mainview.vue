@@ -1,8 +1,9 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
-    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer"></WebGLRenderer>
-    <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
+    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+    </WebGLRenderer>
+    <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
       <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
