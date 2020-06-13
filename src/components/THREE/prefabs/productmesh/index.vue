@@ -1,6 +1,7 @@
 <template>
   <div :style="{border: outline ? '5px dashed yellow' : 'none', width:100*size[0]+10+'px', height:100*size[1]+10+'px'}">
     <div :style="layout[item.align || '4']" @click="$emit('action', item)">
+      <span style="position: relative">
       <img v-if="item.style === 1" :src="url" :max-width="100*size[0]+'px'" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/>
       <video-panel v-if="item.style === 2" :width="100*size[0]" :height="100*size[1]" :src="url" :item="item" :mesh="mesh"/>
       <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/>
@@ -11,6 +12,7 @@
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>
+    </span>
     </div>
   </div>
 </template>
@@ -49,9 +51,9 @@ export default {
   justify-content: center;
   position: absolute;
   /* width: max-content; */
-  top: 0px;
+  top: -10px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
 }
 .label{
   border-radius: 20px;

@@ -72,9 +72,10 @@ export default {
     pointer-events: visible;
   }
   .dialog >>> .el-dialog{
+    margin-top: 15vw;
   }
   .dialog >>> .el-dialog__body{
-    height: 70vh;
+    height: 70vw;
     overflow: hidden;
   }
   </style>
