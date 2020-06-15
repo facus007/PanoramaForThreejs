@@ -37,10 +37,14 @@
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr 1fr; grid-gap: 5px;">
+            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr; grid-gap: 5px;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="link(scope.row)">复制链接</el-button>
+              <el-popover placement="left" trigger="click">
+                <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
+                <el-button slot="reference" style="padding:0;margin:0; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
+              </el-popover>
             </div>
           </template>
         </el-table-column>
@@ -57,6 +61,7 @@ import { listProducts } from '@/api/server'
 import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
 import moment from 'moment'
+import QRCode from 'qrcode'
 
 export default {
   mixins:[mixin],
@@ -71,7 +76,7 @@ export default {
   }},
   watch:{
     showDialog(){
-      this.refresh_()
+      this.$nextTick(()=> this.refresh_())
     }
   },
   methods:{
@@ -99,6 +104,10 @@ export default {
       else {
         this.$message("已复制至剪贴板")
       }
+    },
+    qrcode(row){
+      var link = location.href.replace(this.$route.path,'/share?product_id='+row.product_id);
+      QRCode.toCanvas(document.getElementById('qrcodeContent'), link)
     },
     refresh_(){
       this.loading = true

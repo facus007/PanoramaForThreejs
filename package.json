@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.71",
+  "version": "0.1.72",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -24,6 +24,7 @@
     "nprogress": "0.2.0",
     "pano-tools": "file:wasm/pano-tools/pkg",
     "path-to-regexp": "6.1.0",
+    "qrcode": "^1.4.4",
     "three": "^0.117.0",
     "uuid": "^7.0.3",
     "vue": "2.6.11",
