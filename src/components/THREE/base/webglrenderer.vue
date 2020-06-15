@@ -53,7 +53,7 @@ export default {
       // cancelAnimationFrame(this.frame)
     },
     update(){
-      this.obj.render(this.scene, this.camera);
+      this.obj.render(this.scene, this.camera)
     },
   }
 }

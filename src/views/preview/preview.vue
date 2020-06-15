@@ -3,7 +3,7 @@
     <transition name="el-fade-in"><span>
       <prebuild :template="curScene.template" v-model="group">
         <span v-for="item, index in group && curScene.embeddings[0].hotspots">
-          <ad-mesh class="event" v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+          <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
         </span>
       </prebuild>
       <prebuild :template="curScene.template" v-model="group">
@@ -63,11 +63,14 @@ export default {
           this.link = item.target.video
           this.showDialog = true
         }
-      }
+      },
     },
     mounted(){},
     beforeDestroy(){},
-    created(){}
+    created(){},
+    computed:{
+      ...mapState('THREE',['camera'])
+    }
   }
   </script>
   <style scoped="three">

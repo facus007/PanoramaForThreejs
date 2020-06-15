@@ -35,15 +35,14 @@ export default {
     resize(){
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     },
-    rendering(){
-      // let rate = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) === "micromessenger" ? 2 : 1;
-      let rate = 1
-      if(++frame % rate === 0){
-        frame= 0
-        this.obj.render(this.scene, this.camera);
-      }
-      this.frame = requestAnimationFrame(this.rendering)
-    },
+    // rendering(){
+    //   // let rate = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) === "micromessenger" ? 2 : 1;
+    //   if(++frame % rate === 0){
+    //     frame= 0
+    //     this.obj.render(this.scene, this.camera);
+    //   }
+    //   this.frame = requestAnimationFrame(this.rendering)
+    // },
     startRendering(){
       this.domElement && this.domElement.addEventListener('update', this.update)
       // this.obj.render(this.scene, this.camera);

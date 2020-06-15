@@ -14,8 +14,7 @@ export default {
   data(){return{
      loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
   }},
-  computed:{
-  }
+  computed:{}
 }
 
 </script>

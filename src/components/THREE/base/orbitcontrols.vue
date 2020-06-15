@@ -25,12 +25,6 @@ export default {
     changed(){
       // this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
     },
-    timer(){
-      this.obj.autoRotate=false
-      this.setInterval(function () {
-
-      }, 10);
-    },
     newControl(camera, domElement){
       let controls = new OrbitControls(camera, domElement)
       camera.position.set(0.00001,0,0) //controls.update() must be called after any manual changes to the camera's transform

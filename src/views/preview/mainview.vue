@@ -79,6 +79,18 @@ export default {
           item.obj && (item.obj.geometry = new three.PlaneGeometry(1, 1))
           item.obj && (item.obj.position = new three.Vector3(sides[i].position[0]* 500,sides[i].position[1]* 500,sides[i].position[2]* 500))
         });
+        this.product.scenes.forEach(async(item, i) => {
+          for (var i = 1; i <= 6; i++) {
+            let url = item['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+            await loadtex(url)
+          }
+        });
+        // this.product.scenes.forEach(async(item, i) => {
+        //   for (var i = 1; i <= 6; i++) {
+        //     let url = item['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+        //     await loadtex(url)
+        //   }
+        // });
       }
     },
     async curSceneId(next){
