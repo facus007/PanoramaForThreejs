@@ -4,9 +4,6 @@ const event = new Event('update');
 
 function render({state, commit}){
   state.domElement.dispatchEvent(event)
-  if(state.needsUpdate){
-    commit('SET_NEEDS_UPDATE' ,false)
-  }
 }
 
 const state = {
@@ -20,12 +17,11 @@ const mutations = {
   SET_DOMELEMENT:(state, param) => state.domElement = param,
   SET_CAMERA:(state, param) => state.camera = param,
   SET_SCENE:(state,param) => {state.scene = param; window.scene = param },
-  SET_NEEDS_UPDATE:(state, param) => state.needsUpdate = param,
 }
 
 const actions = {
   start({state, commit}, param) {
-    commit('SET_CAMERA', new THREE.PerspectiveCamera(60, 0, 0.1, 10000))
+    commit('SET_CAMERA', new THREE.PerspectiveCamera(60, 0, 0.1, 2000))
     commit('SET_SCENE', new THREE.Scene())
   },
 

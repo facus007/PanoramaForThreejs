@@ -1,6 +1,6 @@
 <template>
   <div :style="{width:(size+4)+'px', height:(size+4)+'px', background: '#EEEEEE'}">
-    <img :src="src" width="100%" height="100%" ref="img"/>
+    <img :src="src" width="100%" height="100%" ref="img" :onload="$emit('onload')"/>
   </div>
 </template>
 <script>

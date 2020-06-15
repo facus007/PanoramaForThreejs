@@ -1,6 +1,6 @@
 <template>
   <MashBasicMaterial>
-    <texture :url='src' v-model="size"/>
+    <texture :url='src' v-model="size" ref="texture"/>
   </MashBasicMaterial>
 </template>
 <script>

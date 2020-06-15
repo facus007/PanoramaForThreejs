@@ -59,13 +59,16 @@ export default {
       }
     },
     rendering(){
-      if(++frame % (isWeixin ? 2 : 1) === 0){
-        this.$store.dispatch(moduleName+'/render')
+      if(!this.inRendering){
+        this.inRendering = true
+        this.$nextTick(() => {
+          this.$store.dispatch(moduleName+'/render');
+          this.inRendering = false
+        })
       }
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){
-      this.$store.dispatch(moduleName+'/render')
       this.frame = requestAnimationFrame(this.rendering)
     },
     stopRendering(){

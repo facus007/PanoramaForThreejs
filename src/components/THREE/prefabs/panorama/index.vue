@@ -16,6 +16,7 @@ import MashBasicMaterial from '../../base/meshbasicmaterial'
 import Texture from '../../base/texture'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import panel from './panel'
+import csspanel from './csspanel'
 const texloader = new THREE.TextureLoader()
 
 const sides = [
@@ -47,7 +48,7 @@ const sides = [
 
 export default {
   mixins: [THREEComponent],
-  components: {panel, MashBasicMaterial, Texture},
+  components: {panel, MashBasicMaterial, Texture, csspanel},
   props: ['sideImgs','sideBlurImgs'],
   data(){return {
     sides,
@@ -63,17 +64,17 @@ export default {
     isloaded(){
       if(this.loaded >= 6){
         this.loaded = 0
-        if(this.sideBlurImgs){
-          this.sideImgs.forEach((item, i) => {
-            var index = i
-            let url = item.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-            texloader.load(url,(tex) => {
-              this.$refs.mats[index].obj.map = tex
-              this.$refs.texs[index].obj.dispose()
-              this.$refs.texs[index].obj = tex
-            })
-          });
-        }
+        // if(this.sideBlurImgs){
+        //   this.sideImgs.forEach((item, i) => {
+        //     var index = i
+        //     let url = item.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+        //     texloader.load(url,(tex) => {
+        //       this.$refs.mats[index].obj.map = tex
+        //       this.$refs.texs[index].obj.dispose()
+        //       this.$refs.texs[index].obj = tex
+        //     })
+        //   });
+        // }
         this.$nextTick(()=>this.$emit('onload'))
       }
       return this.loaded
