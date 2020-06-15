@@ -12,6 +12,7 @@
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>
+      <div :style="{'width':40*size[0]+'px','height':40*size[1]+'px'}"/>
       </span>
     </div>
   </div>

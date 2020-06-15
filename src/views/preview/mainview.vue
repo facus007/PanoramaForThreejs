@@ -70,6 +70,7 @@ export default {
     loading: true,
     loaded: false,
     afterloaded: false,
+    textures:{},
   }},
   watch:{
     afterloaded(next){
@@ -80,17 +81,22 @@ export default {
           item.obj && (item.obj.position = new three.Vector3(sides[i].position[0]* 500,sides[i].position[1]* 500,sides[i].position[2]* 500))
         });
         this.product.scenes.forEach(async(item, i) => {
+          this.textures[item.scene_id] = {}
+        })
+        this.product.scenes.forEach(async(item, i) => {
+          this.textures[item.scene_id].blur = []
           for (var i = 1; i <= 6; i++) {
             let url = item['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-            await loadtex(url)
+            this.textures[item.scene_id].blur.push(await loadtex(url))
           }
         });
-        // this.product.scenes.forEach(async(item, i) => {
-        //   for (var i = 1; i <= 6; i++) {
-        //     let url = item['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        //     await loadtex(url)
-        //   }
-        // });
+        this.product.scenes.forEach(async(item, i) => {
+          this.textures[item.scene_id].clear = []
+          for (var i = 1; i <= 6; i++) {
+            let url = item['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+            this.textures[item.scene_id].clear.push(await loadtex(url))
+          }
+        });
       }
     },
     async curSceneId(next){
@@ -101,10 +107,12 @@ export default {
         let url = this.curScene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
         texs.push(await loadtex(url))
       }
-      for (var i = 0; i < 6; i++) {
-        this.$refs.panorama.$refs.mats[i].obj.map = texs[i]
-        this.$refs.panorama.$refs.texs[i].obj.dispose()
-        this.$refs.panorama.$refs.texs[i].obj = texs[i]
+      if(!(this.textures[next] && this.textures[next].clear.length === 6)){
+        for (var i = 0; i < 6; i++) {
+          this.$refs.panorama.$refs.mats[i].obj.map = texs[i]
+          this.$refs.panorama.$refs.texs[i].obj.dispose()
+          this.$refs.panorama.$refs.texs[i].obj = texs[i]
+        }
       }
       this.loading = false
       texs = []
