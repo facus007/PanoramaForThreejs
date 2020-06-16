@@ -52,7 +52,11 @@ export default {
   computed:{
     ...mapState(moduleName, ['product', 'setting','curedit','cursave']),
     autosave(){
-      if(this.setting.autosave && JSON.stringify(this.product)!==this.cursave){
+      let product = JSON.parse(JSON.stringify(this.product))
+      product.scenes.forEach((item, i) => {
+        delete item.fov
+      });
+      if(this.setting.autosave && JSON.stringify(product)!==this.cursave){
         this.save()
       }
       return this.cursave

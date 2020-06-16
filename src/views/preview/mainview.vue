@@ -1,16 +1,14 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
-    <stats v-if="isDebug"/>
-    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer">
-      <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
-    </WebGLRenderer>
+    <!-- <stats v-if="isDebug"/> -->
+    <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
       <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
     </CSS3DRenderer>
-    <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
-    <transition name="el-fade-in">
-      <preview v-if="!loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" />
-    </transition>
+    <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer">
+      <camera-animation v-if="!afterloaded" v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+    </WebGLRenderer>
+    <preview v-if="!loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" />
     <backgroundmusic v-if="product&&product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="loaded" style="font-size: 50px; color: gray; text-shadow: 0 0 5px;" class="el-icon-loading"/>
@@ -192,12 +190,4 @@ export default {
 }
 </script>
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: all;
-  transition-duration: 0.5s;
-}
-.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: scale(1.3);
-  opacity: 0;
-}
 </style>

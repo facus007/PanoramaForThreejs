@@ -5,8 +5,8 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import MP4Box from 'mp4box'
-import {PostbirdMp4ToBlob} from '@/utils/video'
+// import MP4Box from 'mp4box'
+// import {PostbirdMp4ToBlob} from '@/utils/video'
 
 export default {
   mixins: [THREEComponent],
@@ -26,21 +26,21 @@ export default {
     // propCompute(){},
   },
   mounted(){
-    var mp4boxfile = MP4Box.createFile();
-    mp4boxfile.onReady = (info)=>{
-      console.log(info)
-      // var url = this.src
-      // var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
-      // PostbirdMp4ToBlob.init(this.$refs.video, url, mimeCodec)
-    }
-    mp4boxfile.onError = function (e) {
-               console.log("mp4box failed to parse data.",e);
-           };
-    const range = 'bytes=0-50000';
-    fetch(this.src, {headers: {range,}}).then((res)=>res.arrayBuffer()).then((arrayBuffer)=>{
-      arrayBuffer.fileStart = 0;
-      mp4boxfile.appendBuffer(arrayBuffer);
-    })
+    // var mp4boxfile = MP4Box.createFile();
+    // mp4boxfile.onReady = (info)=>{
+    //   console.log(info)
+    //   // var url = this.src
+    //   // var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+    //   // PostbirdMp4ToBlob.init(this.$refs.video, url, mimeCodec)
+    // }
+    // mp4boxfile.onError = function (e) {
+    //            console.log("mp4box failed to parse data.",e);
+    //        };
+    // const range = 'bytes=0-50000';
+    // fetch(this.src, {headers: {range,}}).then((res)=>res.arrayBuffer()).then((arrayBuffer)=>{
+    //   arrayBuffer.fileStart = 0;
+    //   mp4boxfile.appendBuffer(arrayBuffer);
+    // })
 
     this.obj = new THREE.VideoTexture(this.$el)
     this.$el.addEventListener("resize", ev => {

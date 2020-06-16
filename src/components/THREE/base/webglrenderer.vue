@@ -36,24 +36,14 @@ export default {
     resize(){
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     },
-    rendering(){
-      // let rate = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) === "micromessenger" ? 2 : 1;
-      let rate = 1
-      if(++frame % rate === 0){
-        frame= 0
-        this.obj.render(this.scene, this.camera);
-      }
-      this.frame = requestAnimationFrame(this.rendering)
-    },
     startRendering(){
-      // this.frame = requestAnimationFrame(this.rendering)
       this.domElement && this.domElement.addEventListener('update', this.update)
     },
     stopRendering(){
-      // cancelAnimationFrame(this.frame)
+      this.domElement && this.domElement.removeEventListener('update', this.update)
     },
     update(){
-      this.obj.render(this.scene, this.camera)
+      this.obj.render(this.scene, this.camera);
     },
   }
 }

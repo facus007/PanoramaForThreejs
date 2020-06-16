@@ -19,6 +19,8 @@ import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 
+var frame = 0
+
 export default {
   mixins: [THREEComponent],
   props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected'],
@@ -45,10 +47,12 @@ export default {
       this.obj.scale.set(m[2] * this.mesh.scale.x *0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z *0.01)
     },
     update(){
-      let front = new THREE.Vector3()
-      this.camera.getWorldDirection(front)
-      // let result = this.obj.position.clone().project(this.camera)
-      this.obj.visible = front.dot(this.obj.position) > 0 //&& Math.abs(result.x)<=1 && Math.abs(result.y)<=1
+      if(frame++ % 2 === 0){
+        frame = 0
+        let front = new THREE.Vector3()
+        this.camera.getWorldDirection(front)
+        this.obj.visible = front.dot(this.obj.position) > 0
+      }
     },
   },
   mounted(){
@@ -56,10 +60,10 @@ export default {
     this.obj = new CSS3DObject(this.$el)
     this.setTransform()
     this.scene.add(this.obj)
-    this.domElement && this.domElement.addEventListener('update', this.update)
+    // this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
-    this.domElement && this.domElement.removeEventListener('update', this.update)
+    // this.domElement && this.domElement.removeEventListener('update', this.update)
     this.scene.remove(this.obj)
     this.obj = null
   },

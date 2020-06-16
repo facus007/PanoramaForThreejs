@@ -59,13 +59,7 @@ export default {
       }
     },
     rendering(){
-      if(!this.inRendering){
-        this.inRendering = true
-        this.$nextTick(() => {
-          this.$store.dispatch(moduleName+'/render');
-          this.inRendering = false
-        })
-      }
+      this.$store.dispatch(moduleName+'/render');
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){

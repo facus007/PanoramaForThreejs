@@ -46,7 +46,11 @@ const actions = {
   },
   async save({state, commit}){
     await saveVR(state.product)
-    commit('SET_CURSAVE', JSON.stringify(state.curedit))
+    let product = JSON.parse(JSON.stringify(state.product))
+    product.scenes.forEach((item, i) => {
+      delete item.fov
+    });
+    commit('SET_CURSAVE', JSON.stringify(product))
   },
 
   async randomHotspots({state, commit}){

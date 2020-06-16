@@ -19,15 +19,8 @@ export default {
   data(){ return{
     meshes: null
   }},
-  watch:{
-    // domElement(next, pre){
-    //   pre && pre.removeEventListener('update', this.update)
-    //   next && next.addEventListener('update', this.update)
-    // }
-  },
+  watch:{},
   methods:{
-    // update(){},
-    // propCompute(){},
     dispose(){
       this.obj.children.forEach((item, i) => {
         item.geometry.dispose()
@@ -42,7 +35,6 @@ export default {
         this.obj = object
         this.obj.visible=false
         this.$emit('input', this.obj)
-        this.scene.add(this.obj)
       }
       else{
         object.children.forEach((item, i) => {
@@ -56,7 +48,6 @@ export default {
     if( this.obj){
       this.dispose()
       this.meshes = null
-      this.scene.remove(this.obj)
       this.obj = null
     }
   },
