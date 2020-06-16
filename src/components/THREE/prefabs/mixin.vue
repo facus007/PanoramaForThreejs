@@ -26,6 +26,10 @@ export default {
     'item.transform'(next, pre){
       this.setTransform()
     },
+    domElement(next, pre){
+      pre && pre.removeEventListener('update', this.update)
+      next && next.addEventListener('update', this.update)
+    }
   },
   methods:{
     // update(){},
@@ -40,14 +44,22 @@ export default {
       this.obj.position.add(pos)
       this.obj.scale.set(m[2] * this.mesh.scale.x *0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z *0.01)
     },
+    update(){
+      let front = new THREE.Vector3()
+      this.camera.getWorldDirection(front)
+      // let result = this.obj.position.clone().project(this.camera)
+      this.obj.visible = front.dot(this.obj.position) > 0 //&& Math.abs(result.x)<=1 && Math.abs(result.y)<=1
+    },
   },
   mounted(){
     // if(!this.url){ return }
     this.obj = new CSS3DObject(this.$el)
     this.setTransform()
     this.scene.add(this.obj)
+    this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
+    this.domElement && this.domElement.removeEventListener('update', this.update)
     this.scene.remove(this.obj)
     this.obj = null
   },

@@ -2,12 +2,12 @@
   <span>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[0].hotspots">
-        <ad-mesh v-if="group.getObjectByName(item.name) && isInScreen(group.getObjectByName(item.name))" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
       </span>
     </prebuild>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[1].hotspots">
-        <product-mesh v-if="group.getObjectByName(item.name) && isInScreen(group.getObjectByName(item.name))" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+        <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
       </span>
     </prebuild>
     <prebuild :template="curScene.template" v-model="group">
@@ -44,7 +44,7 @@ export default {
         if(!next){
           this.link = null
         }
-      }
+      },
     },
     methods:{
       action(item){
@@ -62,16 +62,10 @@ export default {
           this.showDialog = true
         }
       },
-      isInScreen(mesh){
-        // console.log(mesh, this.camera.projectionMatrix)
-        return true
-      }
     },
-    mounted(){},
-    beforeDestroy(){},
     created(){},
     computed:{
-      ...mapState('THREE',['camera'])
+      ...mapState('THREE',['camera','domElement'])
     }
   }
   </script>
