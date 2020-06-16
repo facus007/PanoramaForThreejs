@@ -59,9 +59,9 @@ export default {
         requestAnimationFrame(this.lerping)
       }
       else{
-        this.$emit('input',true)
         this.start_rotation[0] = this.cur_aim[0]
         this.start_rotation[1] = this.cur_aim[1]
+        this.$emit('input',true)
       }
     },
   },
@@ -76,6 +76,12 @@ export default {
       this.lerping()
     }
     else{
+      let v3 = (new THREE.Vector3()).setFromSphericalCoords(1,this.start_rotation[1],this.start_rotation[0])
+      var aim = v3.multiplyScalar(-1)
+      this.camera.fov = this.fov
+      this.camera.lookAt(aim)
+      this.camera.position.set(0,0,0)
+      this.camera.updateProjectionMatrix()
       this.$emit('input',true)
     }
   },

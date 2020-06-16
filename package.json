@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.73",
+  "version": "0.1.75",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "0.19.2",
+    "babel-polyfill": "^6.26.0",
     "cos-js-sdk-v5": "^0.5.26",
     "element-ui": "2.13.0",
     "hls.js": "^0.13.2",

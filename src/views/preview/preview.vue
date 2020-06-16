@@ -1,20 +1,20 @@
 <template>
   <span>
-      <prebuild :template="curScene.template" v-model="group">
-        <span v-for="item, index in group && curScene.embeddings[0].hotspots">
-          <ad-mesh v-if="group.getObjectByName(item.name) && isInScreen(group.getObjectByName(item.name))" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
-        </span>
-      </prebuild>
-      <prebuild :template="curScene.template" v-model="group">
-        <span v-for="item, index in group && curScene.embeddings[1].hotspots">
-          <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
-        </span>
-      </prebuild>
-      <prebuild :template="curScene.template" v-model="group">
-        <span v-for="item, index in group && curScene.embeddings[2].hotspots">
-          <hotspot-mesh :url="item.img_url" :key="index" :item="item" @action="action"/>
-        </span>
-      </prebuild>
+    <prebuild :template="curScene.template" v-model="group">
+      <span v-for="item, index in group && curScene.embeddings[0].hotspots">
+        <ad-mesh v-if="group.getObjectByName(item.name) && isInScreen(group.getObjectByName(item.name))" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+      </span>
+    </prebuild>
+    <prebuild :template="curScene.template" v-model="group">
+      <span v-for="item, index in group && curScene.embeddings[1].hotspots">
+        <product-mesh v-if="group.getObjectByName(item.name) && isInScreen(group.getObjectByName(item.name))" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+      </span>
+    </prebuild>
+    <prebuild :template="curScene.template" v-model="group">
+      <span v-for="item, index in group && curScene.embeddings[2].hotspots">
+        <hotspot-mesh :url="item.img_url" :key="index" :item="item" @action="action"/>
+      </span>
+    </prebuild>
     <transition name="el-fade-in">
       <div v-if="showDialog" style="width: 100%; height: 100%; z-index: 2000; top: 0; left: 0; position: absolute; display: flex; align-items: center;">
         <div style="width:100%;height:100%;background: #000; opacity: 0.8; position:absolute"/>
@@ -63,7 +63,7 @@ export default {
         }
       },
       isInScreen(mesh){
-        // console.log(mesh, this.camera.pro)
+        // console.log(mesh, this.camera.projectionMatrix)
         return true
       }
     },

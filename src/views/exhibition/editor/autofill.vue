@@ -1,7 +1,7 @@
 <template>
   <div style="display:flex; padding: 0 20px; align-items: center;width: 100%; height: 100%;">
     <el-button type="primary" style="margin: 10px; width: 100%; height: 100%;" @click="fill" v-loading="loading">
-      填充随机热点
+      批量填充热点（所选参展商）
     </el-button>
   </div>
 </template>

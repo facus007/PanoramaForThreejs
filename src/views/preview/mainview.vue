@@ -1,10 +1,11 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
+    <stats v-if="isDebug"/>
     <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer">
       <camera-animation v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
     </WebGLRenderer>
     <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
-      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation"/>
+      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
     </CSS3DRenderer>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <transition name="el-fade-in">
@@ -97,6 +98,7 @@ export default {
             this.textures[item.scene_id].clear.push(await loadtex(url))
           }
         });
+        return Cookies.remove('vrpreivew' + this.$route.query.product_id)
       }
     },
     async curSceneId(next){
@@ -140,7 +142,6 @@ export default {
     onload(){
       this.loaded = true
       this.loading = false
-      this.afterloaded = this.afterloaded || this.cookies
       this.$emit('input', false)
     },
     action(){
@@ -185,7 +186,8 @@ export default {
     },
     start_rotation(){
       return this.cookies && this.cookies.start_rotation
-    }
+    },
+    isDebug: () => process.env.NODE_ENV === "development",
   },
 }
 </script>
