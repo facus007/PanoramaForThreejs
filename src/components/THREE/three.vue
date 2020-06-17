@@ -13,11 +13,6 @@ import store from './store'
 const moduleName = 'THREE'
 var frame = 0;
 
-var isWeixin = function () { //判断是否是微信
-    var ua = navigator.userAgent.toLowerCase();
-    return ua.match(/MicroMessenger/i) == "micromessenger";
-};
-
 export default {
   name:'THREE',
   mixins:[THREEComponent],

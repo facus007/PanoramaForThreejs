@@ -95,3 +95,12 @@ export function listChooseHotspots(data) {
     params: data
   })
 }
+
+export function getshareconfig(data) {
+  return request({
+    baseURL: process.env.VUE_APP_BASE_API_1,
+    url: 'share/getshareconfig',
+    method: 'get',
+    params: data
+  })
+}

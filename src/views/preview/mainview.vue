@@ -9,7 +9,7 @@
       <camera-animation v-if="!afterloaded" v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
     </WebGLRenderer>
     <preview v-if="!loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" />
-    <backgroundmusic v-if="product&&product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+    <backgroundmusic v-if="product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="loaded" style="font-size: 50px; color: gray; text-shadow: 0 0 5px;" class="el-icon-loading"/>
     </div>

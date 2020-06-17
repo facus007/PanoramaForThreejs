@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.81",
+  "version": "0.1.82",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -31,7 +31,8 @@
     "vue": "2.6.11",
     "vue-router": "3.1.6",
     "vuex": "^3.2.0",
-    "webpack": "^4.42.1"
+    "webpack": "^4.42.1",
+    "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

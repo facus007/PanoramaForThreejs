@@ -8,11 +8,30 @@
 <script>
 import Loading from './loading'
 import Cookies from 'js-cookie'
+import {getshareconfig} from '@/api/server'
+
+// const isWeixin = (() => { //判断是否是微信
+//     var ua = navigator.userAgent.toLowerCase();
+//     return ua.match(/MicroMessenger/i) == "micromessenger";
+// })();
 
 export default {
-  components:{MainView: () => import('./mainview'), Loading},
+  components:{MainView: async() => {
+    var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
+    // if(isWeixin){
+      var wx = await import('weixin-js-sdk');
+      wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});
+      var ready = new Promise(function(resolve, reject) {
+        wx.ready(function(){
+          resolve()
+        });
+      });
+      await ready
+    // }
+    return await import('./mainview')
+  }, Loading},
   data(){return{
-     loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
+    loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
   }},
   computed:{}
 }
