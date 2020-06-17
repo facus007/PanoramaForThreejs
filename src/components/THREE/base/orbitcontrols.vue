@@ -24,6 +24,7 @@ export default {
     // propCompute(){},
     changed(){
       // this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
+      this.$emit('onchange')
     },
     newControl(camera, domElement){
       let controls = new OrbitControls(camera, domElement)

@@ -1,15 +1,14 @@
 <template>
-  <el-button type="text" @click="isPlaying=!isPlaying" >
-    <div :class="isPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
+  <el-button type="text" @click="$emit('input',!value)" >
+    <div :class="value ? 'icon icon-music' : 'icon icon-music-mute'"/>
     <audio loop autoplay :src="product.music_url" preload="metadata" ref="audio"/>
   </el-button>
 </template>
 <script>
 export default{
-  props:['product'],
-  data(){return {isPlaying: true}},
+  props:['product','value'],
   watch: {
-    isPlaying(next){
+    value(next){
       if(next){ this.$refs.audio.play()}
       else{this.$refs.audio.pause()}
     }

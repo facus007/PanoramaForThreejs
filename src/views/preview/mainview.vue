@@ -3,13 +3,13 @@
     <stats v-if="isDebug"/>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
-      <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
+      <orbit-controls @onchange="playmusic" v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
     </CSS3DRenderer>
     <WebGLRenderer v-if="loaded" :option="{antialias: true, alpha: true}" ref="renderer">
       <camera-animation v-if="!afterloaded" v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
     </WebGLRenderer>
     <preview v-if="!loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" />
-    <backgroundmusic v-if="product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+    <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="afterloaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="loaded" style="font-size: 50px; color: gray; text-shadow: 0 0 5px;" class="el-icon-loading"/>
     </div>
@@ -70,6 +70,7 @@ export default {
     loaded: false,
     afterloaded: false,
     textures:{},
+    isMusicPlaying: true,
   }},
   watch:{
     afterloaded(next){
@@ -145,6 +146,14 @@ export default {
     action(){
       Cookies.set('vrpreivew' + this.$route.query.product_id, {scene_id: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
     },
+    playmusic(){
+      try {
+        this.isMusicPlaying && this.$refs.bgm.$refs.audio.play()
+      }
+      catch{
+        
+      }
+    }
   },
   mounted(){},
   beforeDestroy(){},

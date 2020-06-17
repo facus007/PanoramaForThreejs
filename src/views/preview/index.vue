@@ -10,15 +10,15 @@ import Loading from './loading'
 import Cookies from 'js-cookie'
 import {getshareconfig} from '@/api/server'
 
-// const isWeixin = (() => { //判断是否是微信
-//     var ua = navigator.userAgent.toLowerCase();
-//     return ua.match(/MicroMessenger/i) == "micromessenger";
-// })();
+const isWeixin = (() => { //判断是否是微信
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+})();
 
 export default {
   components:{MainView: async() => {
-    var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
-    // if(isWeixin){
+    if(isWeixin){
+      var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
       var wx = await import('weixin-js-sdk');
       wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});
       var ready = new Promise(function(resolve, reject) {
@@ -27,7 +27,7 @@ export default {
         });
       });
       await ready
-    // }
+    }
     return await import('./mainview')
   }, Loading},
   data(){return{
