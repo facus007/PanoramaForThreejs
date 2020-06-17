@@ -1,6 +1,6 @@
 <template>
   <container class="home" style="position: relative; display: flex; flex-direction: column;">
-    <el-table class="table" :data="source" height="100%" :row-style="{'background-color': '#0000', height: '64px'}">
+    <el-table class="table" :data="source" height="100%" :row-style="{'background-color': '#0000', height: '64px'}" ref="table">
       <el-table-column :label="label">
         <template slot-scope="scope">
           <div :style="{display:'flex', background:scope.row === value ? '#1f2d3d' : '#0000', height:'64px', padding: '0'}">

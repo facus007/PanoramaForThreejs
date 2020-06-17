@@ -7,8 +7,9 @@
       <!-- <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
       <!-- <iframe v-if="item.style === 2" :src="videourl" :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px', border: '0'}"/> -->
       <!-- <img v-if="item.type===1 && item.target.link" :src="iconPath" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" /> -->
-      <div v-if="item.type===1 && item.target.link" :class="visible && 'breathe-btn'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"></div>
-      <i v-if="item.type===2" class='el-icon-location' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" />
+      <svg-icon v-if="item.type===1 && item.target.link" :icon-class="visible && 'breathe' || 'example'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"/>
+      <!-- <div v-if="item.type===1 && item.target.link" :class="visible && 'breathe-btn'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"/> -->
+      <img v-if="item.type===2" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>

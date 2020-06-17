@@ -7,7 +7,8 @@
       <!-- <video-panel v-if="item.style === 2" :width="100*size[0]" :height="100*size[1]" :src="url" :item="item" :mesh="mesh" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
       <!-- <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
       <div v-if="item.type===1 && item.target.link" class="breathe-btn" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"></div>
-      <i v-if="item.type===2" class='el-icon-place' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); font-size: 50px" />
+      <img v-if="item.type===2" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
+      <!-- <i v-if="item.type===2" class='el-icon-place' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); font-size: 50px" /> -->
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>
