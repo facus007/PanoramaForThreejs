@@ -1,6 +1,6 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
-    <!-- <stats v-if="isDebug"/> -->
+    <stats v-if="isDebug"/>
     <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
     <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
       <orbit-controls v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
@@ -133,7 +133,7 @@ export default {
         this.product.scenes.forEach((item, i) => {
           this.scenes[item.scene_id] = item
         });
-        this.curSceneId = this.cookies && this.cookies.curSceneId || this.product.scenes[0].scene_id
+        this.curSceneId = this.cookies && this.cookies.scene_id || this.product.scenes[0].scene_id
       }
       document.title = this.product.name
     },
@@ -143,7 +143,7 @@ export default {
       this.$emit('input', false)
     },
     action(){
-      Cookies.set('vrpreivew' + this.$route.query.product_id, {sceneId: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
+      Cookies.set('vrpreivew' + this.$route.query.product_id, {scene_id: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
     },
   },
   mounted(){},

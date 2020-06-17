@@ -6,8 +6,7 @@
       <!-- <iframe v-if="item.style === 2 && item.type!==2" :src="videourl" :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px', border: '0'}" /> -->
       <!-- <video-panel v-if="item.style === 2" :width="100*size[0]" :height="100*size[1]" :src="url" :item="item" :mesh="mesh" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
       <!-- <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
-      <img v-if="item.type===1 && item.target.link" :src="iconPath" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" />
-      <!-- <svg-icon v-if="item.type===1" icon-class='example' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)" /> -->
+      <div v-if="item.type===1 && item.target.link" class="breathe-btn" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"></div>
       <i v-if="item.type===2" class='el-icon-place' style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); font-size: 50px" />
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
@@ -107,5 +106,23 @@ export default {
   background: #0008;
   padding: 5px 10px;
   color: white;
+}
+.breathe-btn{
+  width:20px;
+  height:20px;
+  border:5px solid #2b92d4;
+  border-radius:20px; color:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.3);
+  overflow:hidden;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-name: breathe;
+  -webkit-animation-duration: 2700ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation:ease-in-out breathe 2700ms infinite alternate;
+}
+@keyframes breathe{
+0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+  100% { opacity: 1; border:5px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
 }
 </style>

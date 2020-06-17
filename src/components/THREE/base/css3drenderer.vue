@@ -41,7 +41,7 @@ export default {
     stopRendering(){
       this.domElement && this.domElement.removeEventListener('update', this.update)
     },
-    update(){
+    async update(){
       this.obj.render(this.scene, this.camera);
     }
   }
