@@ -34,3 +34,14 @@ export function mediaUpload(data){
     data
   })
 }
+
+export function AdvResourceUpload(data){
+  return request({
+    baseURL: cosUrl,
+    timeout: 0,
+    url: '/vrAdvResourceUpload',
+    method: 'post',
+    headers: {'Content-Type': 'multipart/form-data'},
+    data
+  })
+}
