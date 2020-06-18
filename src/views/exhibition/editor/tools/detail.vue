@@ -87,7 +87,7 @@ export default {
     },
     selectScene(scene){
       this.getSelecteds().forEach((item, i) => {
-        item.target.scene_id = scene.scene_id
+        item.target.scene_id = this.product.scenes.indexOf(scene) + ''
         item.target.scene_cover = scene.pano_graphic_url4
       });
     },

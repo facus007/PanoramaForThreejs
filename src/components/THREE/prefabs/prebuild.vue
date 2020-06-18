@@ -8,13 +8,11 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import admesh from './admesh'
 
 const texloader = new THREE.TextureLoader()
 
 export default {
   mixins: [THREEComponent],
-  components: {admesh},
   props: ['template', 'value'],
   data(){ return{
     meshes: null

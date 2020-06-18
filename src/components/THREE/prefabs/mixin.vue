@@ -15,6 +15,8 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
+import GlImage from './glimage'
+import Spot from './spot'
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
@@ -23,7 +25,11 @@ var frame = 0
 
 export default {
   mixins: [THREEComponent],
-  props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected'],
+  components: {GlImage, Spot},
+  props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected', 'hidden'],
+  data(){return {
+    imageData: null
+  }},
   watch:{
     'item.transform'(next, pre){
       this.setTransform()
@@ -31,6 +37,9 @@ export default {
     domElement(next, pre){
       pre && pre.removeEventListener('update', this.update)
       next && next.addEventListener('update', this.update)
+    },
+    url(next){
+      this.imageData = null
     }
   },
   methods:{
@@ -73,15 +82,28 @@ export default {
       return this.selected && this.selected.name === this.item.name
     },
     size(){
-      var size = this.item.name.split('_')
-      return [parseInt(size[1]),parseInt(size[2])]
+      return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
     },
-    videourl(){
-      return location.href.replace(this.$route.path,'/video?link='+encodeURI(this.url))
-      +'&width='+100*this.size[0]+'px'
-      +'&height='+100*this.size[1]+'px'
-      +'&layout='+this.item.align || '4'
-     }
+    image(){
+      if(!this.url){return;}
+      let image = new Image()
+      image.src = this.url.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+      image.onload = ()=>{
+        this.imageData = image
+      }
+      return image;
+    },
+    width(){
+      let sizeAspect = this.size[0] / this.size[1]
+      let imageAspect = this.image.width / this.image.height
+      return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
+    },
+    height(){
+      let sizeAspect = this.size[0] / this.size[1]
+      let imageAspect = this.image.width / this.image.height
+      // console.log(sizeAspect > imageAspect ? this.image.height * imageAspect / sizeAspect : this.size[1])
+      return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
+    }
   }
 }
 </script>

@@ -2,17 +2,17 @@
   <span>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[0].hotspots">
-        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[1].hotspots">
-        <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action"/>
+        <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[2].hotspots">
-        <hotspot-mesh :url="item.img_url" :key="index" :item="item" @action="action"/>
+        <hotspot-mesh :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
     <transition name="el-fade-in">
@@ -31,7 +31,7 @@ import * as THREE from '@/components/THREE'
 
 export default {
   components:{...THREE},
-  props:['curScene', 'value'],
+  props:['curScene', 'value', 'visible', 'product'],
   data(){
     return {
       self: this,
@@ -55,7 +55,7 @@ export default {
           a.click()
         }
         else if (item.type===2 && item.target.scene_id) {
-          this.$emit('input', item.target.scene_id)
+          this.$emit('input', this.product.scenes[item.target.scene_id].scene_id)
         }
         else if (item.type===3 && item.target.video) {
           this.link = item.target.video

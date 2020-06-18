@@ -21,7 +21,7 @@ const mutations = {
 
 const actions = {
   start({state, commit}, param) {
-    commit('SET_CAMERA', new THREE.PerspectiveCamera(60, 0, 0.1, 2000))
+    commit('SET_CAMERA', new THREE.PerspectiveCamera(60, 0, 0.1, 400))
     commit('SET_SCENE', new THREE.Scene())
   },
 

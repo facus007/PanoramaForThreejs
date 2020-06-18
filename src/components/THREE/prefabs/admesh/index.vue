@@ -1,7 +1,8 @@
 <template>
-  <div :style="{border: outline ? '5px dashed yellow' : 'none', width:100*size[0]+10+'px', height:100*size[1]+10+'px'}">
+  <div :style="{border: outline ? '5px dashed yellow' : 'none'}">
     <div :style="layout[item.align || '4']" @click="$emit('action',item)">
-      <img v-if="item.style === 1" :src="url" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/>
+      <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height: height * 100+'px'}"/>
+      <gl-image v-if="item.style === 1 && image && imageData && visible" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
     </div>
   </div>
 </template>
@@ -11,12 +12,12 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import mixin from '../mixin'
 import path from 'path'
-import VideoPanel from '../video'
+// import VideoPanel from '../video'
 
 const iconPath = './static/m.gif'
 
 export default {
-  components:{VideoPanel},
+  // components:{VideoPanel},
   mixins: [mixin],
   watch:{
     // domElement(next, pre){
@@ -29,7 +30,8 @@ export default {
     // propCompute(){},
   },
   computed:{
-    iconPath:()=>iconPath
+    iconPath:()=>iconPath,
+    visible(){return !this.hidden && this.obj && this.obj.visible}
   },
   mounted(){},
   beforeDestroy(){}

@@ -35,12 +35,12 @@
           <div style="position: fixed; bottom: 20px; left: 20px; background:#1118;color:white;padding: 10px;z-index:10; border-radius: 5px;">当前已选{{product.max_hotspot_num || 0}}件，还可以选择{{ 0 }}件</div>
       </el-dialog>
     </div>
-    <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: f; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
+    <!-- <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: f; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
       <upload-source @openAdvsSouceFrame="openAdvsSouceFrame" ref="openUploadSouceFrame" style="height:40px;"/>
       <el-dialog title="" :visible.sync="advsFrameVisible" destroy-on-close>
         <advs/>
       </el-dialog>
-    </div>
+    </div> -->
   </grid>
 </template>
 
@@ -58,7 +58,7 @@ import exhibitionEntrance from './exhibitionEntrance'
 import UploadSource from "./uploadSource";
 import advs from "./uploadSourceFrame/advs";
 
-const gridtools = "'a t' 'a b' 'a b' 'c d' 'c e' 'c f'"
+const gridtools = "'a t' 'a b' 'a b' 'c d' 'c e'"
 const grid = "'a t' 'a b' 'a b' 'c b' 'c b'"
 const moduleName = "editor"
 

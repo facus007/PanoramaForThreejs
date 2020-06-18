@@ -1,14 +1,14 @@
 <template>
-  <div :style="{border: outline ? '5px dashed yellow' : 'none', width:100*size[0]+10+'px', height:100*size[1]+10+'px'}">
+  <div :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height:size[1] * 100+'px'}">
     <div :style="layout[item.align || '4']" @click="$emit('action', item)">
       <span style="position: relative">
-      <img v-if="item.style === 1" :src="url" :max-width="100*size[0]+'px'" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/>
+      <!-- <img v-if="item.style === 1" :src="url" :max-width="100*size[0]+'px'" :style="{'object-fit':'contain','max-width':100*size[0]+'px', 'max-height':100*size[1]+'px'}"/> -->
+      <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height:height * 100+'px'}"/>
+      <gl-image v-if="item.style === 1 && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
       <!-- <video-panel v-if="item.style === 2" :width="100*size[0]" :height="100*size[1]" :src="url" :item="item" :mesh="mesh"/> -->
       <!-- <div v-if="item.style === 2" :style="{'width':100*size[0]+'px','height':100*size[1]+'px'}"/> -->
       <!-- <iframe v-if="item.style === 2" :src="videourl" :style="{'max-width':100*size[0]+'px','max-height':100*size[1]+'px', border: '0'}"/> -->
-      <!-- <img v-if="item.type===1 && item.target.link" :src="iconPath" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px;" /> -->
-      <svg-icon v-if="item.type===1 && item.target.link" :icon-class="visible && 'breathe' || 'example'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"/>
-      <!-- <div v-if="item.type===1 && item.target.link" :class="visible && 'breathe-btn'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%)"/> -->
+      <spot v-if="item.style === 1 && item.target.link && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
       <img v-if="item.type===2" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
@@ -41,7 +41,7 @@ export default {
   },
   computed:{
     iconPath:()=>iconPath,
-    visible(){return this.obj && this.obj.visible}
+    visible(){return !this.hidden && this.obj && this.obj.visible}
   },
   mounted(){},
   beforeDestroy(){}
@@ -56,6 +56,7 @@ export default {
   top: -10px;
   left: 50%;
   transform: translate(-50%, -100%);
+  pointer-events: none;
 }
 .label{
   border-radius: 20px;
@@ -63,7 +64,7 @@ export default {
   padding: 5px 10px;
   color: white;
 }
-.breathe-btn{
+/* .breathe-btn{
   width:20px;
   height:20px;
   border:5px solid #2b92d4;
@@ -73,5 +74,5 @@ export default {
 @keyframes breathe{
 0% {box-shadow:0 1px 2px rgba(255,255,255,0.1);}
 100% {border:5px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
-}
+} */
 </style>

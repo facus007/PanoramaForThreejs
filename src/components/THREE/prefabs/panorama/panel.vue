@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
 
-const size = 1000
+const size = 200
 const loader = new THREE.BufferGeometryLoader()
 
 export default {

@@ -7,7 +7,7 @@
       <template v-slot:columns="scope">
         <el-table-column label="作品封面">
           <template v-slot:default="scope">
-            <img :src="scope.row.cover" width="100px" height="50px" style="border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: cover;"/>
+            <img :src="scope.row.cover" width="100px" height="50px" style="border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: contain;"/>
           </template>
         </el-table-column>
         <el-table-column label="作品名称">
@@ -60,7 +60,7 @@ import { mapState } from 'vuex'
 import { listProducts } from '@/api/server'
 import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
-import moment from 'moment'
+// import moment from 'moment'
 import QRCode from 'qrcode'
 
 export default {
@@ -112,7 +112,7 @@ export default {
     refresh_(){
       this.loading = true
       listProducts({
-        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
+        // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       }).then(result=>{

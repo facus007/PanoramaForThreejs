@@ -16,6 +16,7 @@
             :on-exceed="overreProduct"
             :on-error="onError"
             accept=".zip"
+            :headers="headers"
           >
             <div slot="tip" class="el-upload__tip">请上传zip格式文件</div>
             <el-button size="small">上传</el-button>
@@ -42,6 +43,7 @@
   // import { vrAdvResourceUpload } from "@/api/upload";
   import { saveAdvResource } from "./index.js";
   import { AdvResourceUpload } from '@/api/cos'
+  import { getToken } from '@/utils/auth'
   export default {
     name: "advs",
     data() {
@@ -57,6 +59,9 @@
         file: null,
         url: null,
         remark: null,
+        headers: {
+          Authorization: getToken()
+        },
       };
     },
     methods: {

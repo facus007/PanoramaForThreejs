@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item label="选择封面">
         <el-button class="upload" type="text" @click="onChange" style="width: 200px; height: 100px; border-radius: 5px; border: 1px dashed gray; position:ralative;">
-          <el-image v-if="cover" :src="cover" fit="cover" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
+          <el-image v-if="cover" :src="cover" fit="contain" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
       </el-form-item>
@@ -89,7 +89,9 @@ export default {
       try {
         this.loading = true
         var scenes = []
+        var music_url = null
         this.template.tmp_details.forEach((item, i) => {
+          music_url = item.music_url
           scenes.push({...defaultScene, tmp_id: item.tmp_id, name: '场景' + (1+i)})
         });
         await saveVR({
@@ -99,7 +101,7 @@ export default {
           scenes,
           tmp_group_id: this.template.tmp_group_id,
           exhibitor_id: this.exhibitor_id,
-          music_url: null,
+          music_url: music_url,
         })
         this.visible=false
       } catch (e) {

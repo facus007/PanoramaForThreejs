@@ -48,7 +48,7 @@
 </template>
 <script>
 // import { vrResourceUpload } from "@/api/upload";
-import { saveproductchoose } from "@/api/externalLinks";
+import { saveproductchoose } from "./index";
 export default {
   name: "product",
   data() {

@@ -1,0 +1,104 @@
+<script>
+import * as THREE from 'three'
+import { mapState } from 'vuex'
+import THREEComponent from '../base/threecomponent'
+
+const material = new THREE.MeshBasicMaterial()
+const texloader = new THREE.TextureLoader()
+material.transparent = true
+material.map = texloader.load('./static/spot.png')
+material.map.repeat = new THREE.Vector2(0.05, 1)
+const tex = material.map
+
+var frame = 0
+
+function updateTexture(){
+  if(++frame % 4 === 0){
+    if(frame % 80 === 0){frame = 0}
+    tex.offset = new THREE.Vector2(frame * 0.0125, 0)
+    tex.updateMatrix()
+  }
+  requestAnimationFrame(updateTexture)
+}
+requestAnimationFrame(updateTexture)
+
+var fix = new THREE.Quaternion()
+fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
+const posfix = new THREE.Vector3(0,0,0.1)
+
+export default {
+  mixins: [THREEComponent],
+  props: ['image','mesh','item','visible'],
+  watch:{
+    // domElement(next, pre){
+    //   pre && pre.removeEventListener('update', this.update)
+    //   next && next.addEventListener('update', this.update)
+    // }
+    'item.transform'(next, pre){
+      this.setTransform()
+    },
+    visible(next){
+      this.obj && (this.obj.visible = next)
+    }
+  },
+  methods:{
+    // update(){},
+    // propCompute(){},
+    setTransform(){
+      let m = this.item.transform.affine_transform
+      this.obj.position.copy(this.mesh.position)
+      let pos = new THREE.Vector3(-m[0], -m[1], 0)
+      this.obj.quaternion.copy(this.mesh.quaternion)
+      this.obj.quaternion.multiply(fix)
+      pos.applyQuaternion (this.obj.quaternion)
+      this.obj.position.add(pos)
+      this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
+      this.obj.position.add(posfix.clone().applyQuaternion (this.obj.quaternion))
+      this.obj.scale.set(m[2] * this.mesh.scale.x * 0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z * 0.01)
+    },
+  },
+  mounted(){
+    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(40, 40),material);
+    this.setTransform()
+    this.obj.visible = this.visible
+    this.scene.add(this.obj)
+  },
+  beforeDestroy(){
+    this.scene.remove(this.obj)
+    this.obj.geometry.dispose()
+    this.obj = null
+  },
+  computed:{
+    src(){
+      return getDataURL(this.image)
+    },
+    size(){
+      return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
+    },
+    width(){
+      let sizeAspect = this.size[0] / this.size[1]
+      let imageAspect = this.image.width / this.image.height
+      return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
+    },
+    height(){
+      let sizeAspect = this.size[0] / this.size[1]
+      let imageAspect = this.image.width / this.image.height
+      return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
+    },
+    layout(){
+      let compute = {
+        '0': new THREE.Vector3(-50*(this.size[0] - this.width), 50*(this.size[1] - this.height), 0),
+        '1': new THREE.Vector3(0, 50*(this.size[1] - this.height), 0),
+        '2': new THREE.Vector3(50*(this.size[0] - this.width), 50*(this.size[1] - this.height), 0),
+        '3': new THREE.Vector3(-50*(this.size[0] - this.width), 0, 0),
+        '4': new THREE.Vector3(0, 0, 0),
+        '5': new THREE.Vector3(50*(this.size[0] - this.width), 0, 0),
+        '6': new THREE.Vector3(-50*(this.size[0] - this.width), -50*(this.size[1] - this.height), 0),
+        '7': new THREE.Vector3(0, -50*(this.size[1] - this.height), 0),
+        '8': new THREE.Vector3(50*(this.size[0] - this.width), -50*(this.size[1] - this.height), 0),
+      }
+      return compute[this.item.align]
+    }
+  }
+}
+</script>

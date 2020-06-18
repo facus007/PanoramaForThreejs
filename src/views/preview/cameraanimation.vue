@@ -11,7 +11,7 @@ import * as THREE from 'three'
 import Cookies from 'js-cookie'
 
 const lerpfactor = 0.01
-const zero = new THREE.Vector3(0,-100, 0);
+const zero = new THREE.Vector3(0,-20, 0);
 
 var browser = {
   versions:function(){
@@ -46,14 +46,14 @@ export default {
   watch:{},
   methods:{
     lerping(){
-      this.showguide = this.camera.position.y < 500 && this.camera.position.y > 0
+      this.showguide = this.camera.position.y < 100 && this.camera.position.y > 0
 
       if(this.camera.position.y > 0){
         this.camera.position.lerp(zero, lerpfactor)
         this.camera.fov = THREE.MathUtils.lerp(this.camera.fov, this.fov, lerpfactor)
         this.cur_aim[0] = THREE.MathUtils.lerp(this.cur_aim[0], this.start_rotation[0], lerpfactor)
         this.cur_aim[1] = THREE.MathUtils.lerp(this.cur_aim[1], this.start_rotation[1], lerpfactor)
-        var aim = (new THREE.Vector3()).setFromSphericalCoords(1000, this.cur_aim[1], this.cur_aim[0]).multiplyScalar(-1)
+        var aim = (new THREE.Vector3()).setFromSphericalCoords(200, this.cur_aim[1], this.cur_aim[0]).multiplyScalar(-1)
         this.camera.lookAt(aim)
         this.camera.updateProjectionMatrix()
         requestAnimationFrame(this.lerping)
@@ -71,7 +71,7 @@ export default {
       var aim = v3.multiplyScalar(-1)
       this.camera.fov = 150
       this.camera.lookAt(aim)
-      this.camera.position.set(0,1000,0)
+      this.camera.position.set(0,200,0)
       this.camera.updateProjectionMatrix()
       this.lerping()
     }

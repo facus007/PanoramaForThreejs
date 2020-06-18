@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "0.1.84",
+  "version": "0.1.85",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -19,7 +19,6 @@
     "hls.js": "^0.13.2",
     "js-cookie": "2.2.1",
     "jszip": "^3.4.0",
-    "moment": "^2.24.0",
     "mp4box": "^0.3.20",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
@@ -35,6 +34,7 @@
     "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {
+    "moment": "^2.24.0",
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",

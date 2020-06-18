@@ -35,6 +35,7 @@ export default {
   methods:{
     resize(){
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      this.obj.setPixelRatio( window.devicePixelRatio );
     },
     startRendering(){
       this.domElement && this.domElement.addEventListener('update', this.update)

@@ -7,7 +7,7 @@
             <el-button type="text" style="display:flex; padding:0; width:100%; height:100%; align-items: center; padding: 10px" @click="$emit('input', value !== scope.row && scope.row)">
               <span style="display:flex; padding:0; width:200px; height:100%; align-items: center;">
                 <div style="display: flex;">
-                  {{scope.row.label}}
+                  {{scope.row.label || scope.row.name}}
                 </div>
                 <el-button v-if="clearable" type="text" style="margin-left: auto" icon="el-icon-close" @click="$emit('del', scope.row)"/>
               </span>

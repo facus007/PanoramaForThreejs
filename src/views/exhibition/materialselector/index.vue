@@ -4,7 +4,7 @@
       <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
         <template v-slot:header="scope">
           <el-button type="primary" size="small" @click="newMaterial">上传素材</el-button>
-          <el-button type="primary" size="small" @click="()=>refresh">刷新</el-button>
+          <el-button type="primary" size="small" @click="refresh_">刷新</el-button>
         </template>
         <template v-slot:columns="scope">
           <el-table-column label="素材预览">
@@ -31,7 +31,7 @@ import { listMaterials } from '@/api/server'
 import Container from '@/views/mixin/container'
 import TableFrame from '@/components/UI/tableframe'
 import Uploader from './uploader'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
   components:{Container, TableFrame, Uploader},
@@ -57,7 +57,7 @@ export default {
     showDialog(){
       this.loading = true
       listMaterials({
-        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
+        // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         materialType: this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,
@@ -74,12 +74,10 @@ export default {
     newMaterial(){
       this.showDialog = true
     },
-  },
-  computed:{
-    refresh(){
+    refresh_(){
       this.loading = true
       listMaterials({
-        endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
+        // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         materialType: this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,
@@ -88,6 +86,11 @@ export default {
         this.datalist = result.materials
         this.loading = false
       })
+    }
+  },
+  computed:{
+    refresh(){
+      this.refresh_()
     }
   },
   mounted(){},

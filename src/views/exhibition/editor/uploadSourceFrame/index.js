@@ -24,7 +24,7 @@ export function addexhibitorBox(vdata, data) {
     data: data
   })
 }
-// 选择 type: 1-3D展箱  2-AR展箱 3-品牌展厅 refId 
+// 选择 type: 1-3D展箱  2-AR展箱 3-品牌展厅 refId
 export function addchoosebox(vdata, data) {
   return request({
     url: '/ruiyue/addchoosebox',
@@ -75,7 +75,7 @@ export function addEhall(data, query) {
     params: query
   })
 }
-//单选 type: 1-3D展箱  2-AR展箱 3-品牌展厅 refId 
+//单选 type: 1-3D展箱  2-AR展箱 3-品牌展厅 refId
 export function addChooseBoxs(data, query) {
   return request({
     url: '/ruiyue/addchoosebox',
@@ -94,7 +94,7 @@ export function getmateriallist(query) {
 /** 展箱列表 */
 export function boxlist(query) {
   return request({
-    url: '/vr/exhibitionBox/list',
+    url: '/exhibitionBox/list',
     method: 'get',
     params: query
   })
@@ -102,7 +102,7 @@ export function boxlist(query) {
 /** 展箱列表 */
 export function boxaddChooseBox(data) {
   return request({
-    url: '/vr/exhibitionBox/addChooseBox/' + data,
+    url: '/exhibitionBox/addChooseBox/' + data,
     method: 'get'
     // params: data
   })
@@ -110,7 +110,7 @@ export function boxaddChooseBox(data) {
 /** 产品资源 */
 export function saveproductchoose(data) {
   return request({
-    url: '/vr/saveproductchoose',
+    url: '/saveproductchoose',
     method: 'post',
     data: data
   })
@@ -118,7 +118,7 @@ export function saveproductchoose(data) {
 /** 广告资源 */
 export function saveAdvResource(data) {
   return request({
-    url: '/vr/resource/saveAdvResource',
+    url: '/resource/saveAdvResource',
     method: 'post',
     data: data
   })
