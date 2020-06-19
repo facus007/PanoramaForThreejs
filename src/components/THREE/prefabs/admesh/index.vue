@@ -1,5 +1,5 @@
 <template>
-  <div :style="{border: outline ? '5px dashed yellow' : 'none'}">
+  <div :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height: size[1] * 100+'px'}">
     <div :style="layout[item.align || '4']" @click="$emit('action',item)">
       <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height: height * 100+'px'}"/>
       <gl-image v-if="item.style === 1 && image && imageData && visible" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
@@ -11,13 +11,8 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import mixin from '../mixin'
-import path from 'path'
-// import VideoPanel from '../video'
-
-const iconPath = './static/m.gif'
 
 export default {
-  // components:{VideoPanel},
   mixins: [mixin],
   watch:{
     // domElement(next, pre){
@@ -30,7 +25,6 @@ export default {
     // propCompute(){},
   },
   computed:{
-    iconPath:()=>iconPath,
     visible(){return !this.hidden && this.obj && this.obj.visible}
   },
   mounted(){},

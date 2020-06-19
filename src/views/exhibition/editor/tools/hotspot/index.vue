@@ -4,7 +4,7 @@
     <detail v-if="selected" :selected="selected" style="margin-left: auto;"/>
     <prebuild :template="curedit.template" v-model="group">
       <span v-for="item, index in group && curedit.embeddings[2].hotspots">
-        <hotspot-mesh :url="item.img_url" :key="index" :item="item" :selected="selected" @action="action"/>
+        <hotspot-mesh :url="item.img_url" :mesh="mesh(item)" :key="index" :item="item" :selected="selected" @action="action"/>
       </span>
     </prebuild>
   </div>
@@ -40,7 +40,14 @@ export default {
     },
     action(item){
       this.editor.$refs.panel[0].setSelected(this.selected === item ? null : item)
-    }
+    },
+    mesh(item){
+      return {
+        position: (new THREE.Vector3()).fromArray(item.transform.position),
+        quaternion: (new THREE.Quaternion()).fromArray(item.transform.rotation),
+        scale: (new THREE.Vector3()).fromArray(item.transform.scale)
+      }
+    },
   },
   mounted(){},
   beforeDestroy(){},
