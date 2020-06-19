@@ -20,9 +20,9 @@ export default {
   mounted(){
     var obj = new THREE.Mesh(new THREE.PlaneGeometry());
     obj.position.fromArray( this.pos )
-    obj.position.multiplyScalar(this.size / 2)
+    obj.position.multiplyScalar(this.size)
     obj.rotation.fromArray( this.rot );
-    obj.scale.set(this.size,this.size,this.size)
+    obj.scale.multiplyScalar(this.size * 2)
     this.scene.add(obj)
     this.obj = obj
   },

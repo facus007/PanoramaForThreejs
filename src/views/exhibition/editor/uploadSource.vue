@@ -33,6 +33,22 @@ export default {
         })
       }
     },
+    fillAds(batchNo){
+      if(batchNo){
+        this.loading = true
+        this.$store.dispatch('editor' + '/setExhibitionAds', {batch_no: batchNo}).then(()=>{
+          this.loading = false
+        })
+      }
+    },
+    fillProduct(batchNo){
+      if(batchNo){
+        this.loading = true
+        this.$store.dispatch('editor' + '/setExhibition', {batch_no: batchNo}).then(()=>{
+          this.loading = false
+        })
+      }
+    },
   },
   mounted(){},
   beforeDestroy(){},

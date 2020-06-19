@@ -96,6 +96,14 @@ export function listChooseHotspots(data) {
   })
 }
 
+export function listAdvHotspots(data) {
+  return request({
+    url: '/listAdvHotspots',
+    method: 'get',
+    params: data
+  })
+}
+
 export function getshareconfig(data) {
   return request({
     baseURL: process.env.VUE_APP_BASE_API_1,

@@ -1,37 +1,36 @@
 <template>
   <THREE style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
     <stats v-if="isDebug"/>
-    <panorama v-if="sideImgs" :sideImgs="sideImgs" @onload="onload" ref="panorama"/>
-    <CSS3DRenderer v-if="loaded" :style="{'z-index': '1', visibility: afterloaded ? 'visible' : 'hidden'}">
-      <orbit-controls @onchange="playmusic" v-if="afterloaded && !loading" style="pointer-events:auto"  ref="controls" :auto_rotate="true" :start_rotation="cookies && start_rotation ||curScene.start_rotation" :key="curScene.scene_id"/>
+    <WebGLRenderer v-if="first_loaded" :option="{antialias: true, alpha: true}"/>
+    <CSS3DRenderer v-if="first_loaded" :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}">
+      <orbit-controls @onchange="playmusic" v-if="after_animation_loaded && !loading" style="pointer-events:auto" ref="controls" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
     </CSS3DRenderer>
-    <WebGLRenderer v-if="loaded" :option="{antialias: true, precision: 'highp', alpha: true}" ref="renderer">
-      <camera-animation v-if="!afterloaded" v-model="afterloaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
-    </WebGLRenderer>
-    <preview v-if="curScene" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="afterloaded" :product="product" style="visibility: hidden"/>
-    <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="afterloaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+
+    <animated-panorama v-if="first_loaded" :curScene="curScene" :textures="textures" ref="panorama"/>
+
+    <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden"/>
+
+    <camera-animation v-if="first_loaded && !after_animation_loaded" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+
+    <texture-loader v-if="curScene" v-model="textures" :product="product" :scene="curScene" ref="textureloader"/>
+
+    <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
-      <i v-if="loaded" style="font-size: 50px; color: gray; text-shadow: 0 0 5px;" class="el-icon-loading"/>
+      <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
     </div>
   </THREE>
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import { mapState } from 'vuex'
-import preview from './preview'
+import { getProduct } from '@/utils/server'
+import Cookies from 'js-cookie'
+import Preview from './preview'
 import backgroundmusic from './backgroundmusic'
 import CameraAnimation from './cameraanimation'
-import {getProduct} from '@/utils/server'
+import TextureLoader from './textureloader'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
-const texloader = new three.TextureLoader()
-
-async function loadtex(url){
-  return new Promise(function(resolve, reject) {
-    texloader.load(url,resolve)
-  });
-}
 
 const sides = [
   {
@@ -61,105 +60,64 @@ const sides = [
 ];
 
 export default {
-  components:{...THREE, preview, backgroundmusic, CameraAnimation },
+  components:{...THREE, Preview, backgroundmusic, CameraAnimation, TextureLoader },
   data(){return {
     product: null,
     scenes: {},
     curSceneId: 0,
-    loading: true,
-    loaded: false,
-    afterloaded: false,
+    loading: false,
+    first_loaded: false,
+    after_animation_loaded: false,
     textures:{},
     isMusicPlaying: true,
   }},
   watch:{
-    afterloaded(next){
+    after_animation_loaded(next){
       if(next){
-        this.$refs.panorama.$refs.panel.forEach((item, i) => {
-          item.obj && item.obj.geometry && item.obj.geometry.dispose()
-          item.obj && (item.obj.geometry = new three.PlaneGeometry(1, 1))
-          item.obj && (item.obj.position = new three.Vector3(sides[i].position[0]* 100,sides[i].position[1]* 100,sides[i].position[2]* 100))
-        });
-        this.product.scenes.forEach(async(item, i) => {
-          this.textures[item.scene_id] = {}
-        })
-        this.product.scenes.forEach(async(item, i) => {
-          this.textures[item.scene_id].blur = []
-          for (var i = 1; i <= 6; i++) {
-            let url = item['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-            this.textures[item.scene_id].blur.push(await loadtex(url))
-          }
-        });
-        this.product.scenes.forEach(async(item, i) => {
-          this.textures[item.scene_id].clear = []
-          for (var i = 1; i <= 6; i++) {
-            let url = item['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-            this.textures[item.scene_id].clear.push(await loadtex(url))
-          }
-        });
-        return Cookies.remove('vrpreivew' + this.$route.query.product_id)
+        this.$refs.panorama.afterloaded()
+        Cookies.remove('vrpreivew' + this.$route.query.product_id)
       }
     },
     async curSceneId(next){
-      if(!this.afterloaded){return}
+      if(!this.after_animation_loaded){return}
       this.loading = true
-      let texs = []
-      for (var i = 1; i <= 6; i++) {
-        let url = this.curScene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        texs.push(await loadtex(url))
-      }
-      if(!(this.textures[next] && this.textures[next].clear.length === 6)){
-        for (var i = 0; i < 6; i++) {
-          this.$refs.panorama.$refs.mats[i].obj.map = texs[i]
-          this.$refs.panorama.$refs.texs[i].obj.dispose()
-          this.$refs.panorama.$refs.texs[i].obj = texs[i]
-        }
-      }
+      await new Promise((resolve, reject) => {
+        this.$refs.textureloader.load(this.curScene, null, resolve)
+      });
+      await this.$refs.panorama.switchscene()
       this.loading = false
-      texs = []
-      for (var i = 1; i <= 6; i++) {
-        let url = this.curScene['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        texs.push(await loadtex(url))
-        this.$refs.panorama.$refs.mats[i-1].obj.map = texs[i-1]
-        this.$refs.panorama.$refs.texs[i-1].obj.dispose()
-        this.$refs.panorama.$refs.texs[i-1].obj = texs[i-1]
-      }
-    }
+    },
   },
   methods:{
     async init(){
-      this.loading = true
-      if(!this.product){
-        this.product = await getProduct(this.$route.query.product_id, true)
-        this.product.scenes.forEach((item, i) => {
-          this.scenes[item.scene_id] = item
+      let product = await getProduct(this.$route.query.product_id, true)
+      product.scenes.forEach(item => { this.scenes[item.scene_id] = item });
+      this.curSceneId = this.cookies && this.cookies.scene_id || product.scenes[0].scene_id
+      document.title = product.name
+      this.product = product
+      this.$nextTick(async()=>{
+        await new Promise((resolve, reject) => {
+          this.$refs.textureloader.load(this.curScene, null, resolve)
         });
-        this.curSceneId = this.cookies && this.cookies.scene_id || this.product.scenes[0].scene_id
-      }
-      document.title = this.product.name
+        this.first_load()
+      })
     },
-    onload(){
-      this.loaded = true
-      this.loading = false
+    first_load(){
+      this.first_loaded = true
       this.$emit('input', false)
     },
     action(){
       Cookies.set('vrpreivew' + this.$route.query.product_id, {scene_id: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
     },
     playmusic(){
-      try {
-        this.isMusicPlaying && this.$refs.bgm.$refs.audio.play()
-      }
-      catch{}
+      try{this.isMusicPlaying && this.$refs.bgm.$refs.audio.play()}catch{}
     }
   },
   mounted(){},
   beforeDestroy(){},
   created(){
     document.title = ''
-    if(this.$route.query.product_id){
-      this.init()
-    }
+    if(this.$route.query.product_id){this.init()}
   },
   destroyed(){},
   computed:{
@@ -168,26 +126,6 @@ export default {
     },
     curScene(){
       return this.scenes[this.curSceneId]
-    },
-    sideBlurImgs() {
-      return this.curScene && [
-        this.curScene.pano_graphic_blur_url1,
-        this.curScene.pano_graphic_blur_url2,
-        this.curScene.pano_graphic_blur_url3,
-        this.curScene.pano_graphic_blur_url4,
-        this.curScene.pano_graphic_blur_url5,
-        this.curScene.pano_graphic_blur_url6,
-      ]
-    },
-    sideImgs() {
-      return this.curScene && [
-        this.curScene.pano_graphic_url1,
-        this.curScene.pano_graphic_url2,
-        this.curScene.pano_graphic_url3,
-        this.curScene.pano_graphic_url4,
-        this.curScene.pano_graphic_url5,
-        this.curScene.pano_graphic_url6,
-      ]
     },
     start_rotation(){
       return this.cookies && this.cookies.start_rotation

@@ -3,12 +3,11 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
 
-const size = 200
 const loader = new THREE.BufferGeometryLoader()
 
 export default {
   mixins: [THREEComponent],
-  props:['pos', 'rot'],
+  props:['pos', 'rot', 'size'],
   watch:{
     // domElement(next, pre){
     //   pre && pre.removeEventListener('update', this.update)
@@ -21,7 +20,7 @@ export default {
   mounted(){
     var obj = new THREE.Mesh();
     obj.rotation.fromArray( this.rot );
-    obj.scale.set(size,size,size)
+    obj.scale.set(this.size,this.size,this.size)
     this.scene.add(obj)
     this.obj = obj
 

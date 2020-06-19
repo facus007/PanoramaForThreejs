@@ -114,7 +114,7 @@ export default {
         this.productList = [];
         this.resPonseData = [];
         // this.resetForm("dataForm");
-        this.$emit('input', res.data.batch_no)
+        this.$emit('input', res.data.batchNo)
       });
     }
   }

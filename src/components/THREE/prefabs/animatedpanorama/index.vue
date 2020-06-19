@@ -1,9 +1,11 @@
 <template>
-  <div :isloaded="isloaded">
-    <panel v-for="src, index in sideImgs" :key="index" :pos="sides[index].position" :rot="sides[index].rotation" :src="src" ref="panel">
-      <MashBasicMaterial ref="mats">
-        <texture :url='sideBlurImgs && sideBlurImgs[index] || src' :key="index+''" :onLoad="onLoad" ref="texs"/>
-      </MashBasicMaterial>
+  <div class="animated-panorama">
+    <roundpanel v-for="_, index in 6" :key="'round'+index" :pos="sides[index].position" :rot="sides[index].rotation" ref="round" :size="200">
+      <MashBasicMaterial ref="roundmat" :transparent="true"/>
+    </roundpanel>
+
+    <panel v-for="_, index in 6" :key="'plane'+index" :pos="sides[index].position" :rot="sides[index].rotation" ref="plane" :size="200">
+      <MashBasicMaterial ref="planemat"/>
     </panel>
   </div>
 </template>
@@ -13,10 +15,8 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../../base/threecomponent'
 import MashBasicMaterial from '../../base/meshbasicmaterial'
-import Texture from '../../base/texture'
-import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import panel from './panel'
-const texloader = new THREE.TextureLoader()
+import roundpanel from './roundpanel'
 
 const sides = [
   {
@@ -47,38 +47,80 @@ const sides = [
 
 export default {
   mixins: [THREEComponent],
-  components: {panel, MashBasicMaterial, Texture},
-  props: ['sideImgs','sideBlurImgs'],
-  data(){return {
-    sides,
-    loaded:0
-  }},
+  components: {panel, roundpanel, MashBasicMaterial},
+  props: ['curScene', 'textures'],
+  data(){return {}},
   methods:{
-    onLoad(){
-      this.loaded++
+    afterloaded(){
+      this.$refs.round.forEach((item, i) => {
+        item.obj.visible = false
+      });
+      this.$refs.plane.forEach((item, i) => {
+        item.obj.visible = true
+      });
+    },
+    async switchscene(){
+      var orirot = []
+      this.$refs.round.forEach((item, i) => {
+        orirot[i]=item.obj.quaternion.clone()
+        item.obj.quaternion.multiply(this.camera.quaternion.clone().inverse())
+      });
+
+      var aim = (new THREE.Vector3()).setFromSphericalCoords(200, this.curScene.start_rotation[1], this.curScene.start_rotation[0]).multiplyScalar(-1)
+      this.camera.lookAt(aim)
+      this.$refs.round.forEach((item, i) => {
+        item.obj.quaternion.multiply(this.camera.quaternion.clone())
+      });
+
+      this.$refs.round.forEach((item, i) => {
+        item.obj.visible = true
+      });
+      this.$refs.planemat.forEach((item, i) => {
+        item.obj.map = this.textures[this.curScene.scene_id][i].clear
+      });
+      this.$refs.plane.forEach((item, i) => {
+        item.obj.visible = true
+      });
+      var dist = (new THREE.Vector3(0, 0, 100)).applyQuaternion (this.camera.quaternion)
+      return new Promise((resolve, reject) => {
+        let a = ()=>{
+          if(this.$refs.round[0].obj.material.opacity <= 0){
+            this.$refs.round.forEach((item, i) => {
+              item.obj.position.set(0,0,0)
+              item.obj.material.opacity = 1
+              item.obj.visible = false
+              item.obj.quaternion = orirot[i]
+            });
+            resolve()
+          }
+          else{
+            this.$refs.round.forEach((item, i) => {
+              item.obj.position.lerp(dist, 0.0125)
+              item.obj.material.opacity = THREE.MathUtils.lerp(item.obj.material.opacity, -1, 0.0125)
+            });
+            requestAnimationFrame(a)
+          }
+        }
+        a()
+      });
     }
-    // update(){}
   },
   computed:{
-    isloaded(){
-      if(this.loaded >= 6){
-        this.loaded = 0
-        console.log('onload')
-        // if(this.sideBlurImgs){
-        //   this.sideImgs.forEach((item, i) => {
-        //     var index = i
-        //     let url = item.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        //     texloader.load(url,(tex) => {
-        //       this.$refs.mats[index].obj.map = tex
-        //       this.$refs.texs[index].obj.dispose()
-        //       this.$refs.texs[index].obj = tex
-        //     })
-        //   });
-        // }
-        this.$nextTick(()=>this.$emit('onload'))
-      }
-      return this.loaded
-    }
+    sides:()=>sides,
+  },
+  mounted(){
+    this.$refs.roundmat.forEach((item, i) => {
+      item.obj.map = this.textures[this.curScene.scene_id][i].clear
+    });
+    this.$refs.round.forEach((item, i) => {
+      item.obj.visible = true
+    });
+    this.$refs.planemat.forEach((item, i) => {
+      item.obj.map = this.textures[this.curScene.scene_id][i].clear
+    });
+    this.$refs.plane.forEach((item, i) => {
+      item.obj.visible = false
+    });
   }
 }
 </script>

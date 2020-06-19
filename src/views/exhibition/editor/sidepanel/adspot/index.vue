@@ -37,7 +37,7 @@ export default {
     batch_no(next){
       if(next){
         this.advsFrameVisible=false
-        this.$refs.openUploadSouceFrame.fill(next)
+        this.$refs.openUploadSouceFrame.fillAds(next)
         this.batch_no = null
       }
     }

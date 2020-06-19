@@ -1,6 +1,6 @@
 // import {getProduct} from './test'
 import {getProduct, saveVR} from '@/utils/server'
-import { listRandomHotspots, listChooseHotspots } from '@/api/server'
+import { listRandomHotspots, listChooseHotspots, listAdvHotspots } from '@/api/server'
 
 import Cookies from 'js-cookie'
 const SettingKey = 'avalon_setting'
@@ -82,7 +82,7 @@ const actions = {
     let {tmps} = await listChooseHotspots({batch_no: params.batch_no, tmp_group_id:product.tmp_group_id})
     tmps.forEach((item, i) => {
       product.scenes[i].embeddings = product.scenes[i].embeddings || [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
-      for (var e = 0; e < 2; e++) {
+      for (var e = 1; e < 2; e++) {
         var map = {}
         product.scenes[i].embeddings[e] && product.scenes[i].embeddings[e].hotspots.forEach((item_, i) => {
           map[item_.name] = item_
@@ -99,7 +99,31 @@ const actions = {
     commit('SET_PRODUCT', await getProduct(product.product_id))
     commit('SET_CURSAVE', JSON.stringify(state.product))
     commit('SET_CUREDIT', state.product.scenes[state.curindex])
-  }
+  },
+
+  async setExhibitionAds({state, commit}, params){
+    let product = JSON.parse(JSON.stringify(state.product))
+    let {tmps} = await listAdvHotspots({batch_no: params.batch_no, tmp_group_id:product.tmp_group_id})
+    tmps.forEach((item, i) => {
+      product.scenes[i].embeddings = product.scenes[i].embeddings || [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
+      for (var e = 0; e < 1; e++) {
+        var map = {}
+        product.scenes[i].embeddings[e] && product.scenes[i].embeddings[e].hotspots.forEach((item_, i) => {
+          map[item_.name] = item_
+        });
+        item.embeddings[e].hotspots.forEach((item_, i) => {
+          item_.embed_id = map[item_.name] && map[item_.name].embed_id
+          item_.target = JSON.parse(item_.target)
+          map[item_.name] = item_
+        });
+        product.scenes[i].embeddings[e].hotspots = Object.values(map)
+      }
+    });
+    await saveVR(product)
+    commit('SET_PRODUCT', await getProduct(product.product_id))
+    commit('SET_CURSAVE', JSON.stringify(state.product))
+    commit('SET_CUREDIT', state.product.scenes[state.curindex])
+  },
 }
 
 export default {
