@@ -10,8 +10,8 @@ export const Raycaster = () => import(/* webpackChunkName = "THREE" */'./base/ra
 export const MashBasicMaterial = () => import(/* webpackChunkName = "THREE" */'./base/meshbasicmaterial')
 export const Texture = () => import(/* webpackChunkName = "THREE" */'./base/texture')
 
-export const AnimatedPanorama = () => import(/* webpackChunkName = "THREE" */'./prefabs/panorama')
-export const Panorama = () => import(/* webpackChunkName = "THREE" */'./prefabs/animatedpanorama')
+export const AnimatedPanorama = () => import(/* webpackChunkName = "THREE" */'./prefabs/animatedpanorama')
+export const Panorama = () => import(/* webpackChunkName = "THREE" */'./prefabs/panorama')
 export const Prebuild = () => import(/* webpackChunkName = "THREE" */'./prefabs/prebuild')
 export const AdMesh = () => import(/* webpackChunkName = "THREE" */'./prefabs/admesh')
 export const ProductMesh = () => import(/* webpackChunkName = "THREE" */'./prefabs/productmesh')
