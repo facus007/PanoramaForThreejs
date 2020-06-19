@@ -17,18 +17,21 @@ export default {
   },
   methods:{
     update(){
+      this.resize()
       this.obj.render(this.scene, this.camera);
     }
   },
   mounted(){
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
-    this.observer = new ResizeObserver(this.resize)
-    this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
+    // this.observer = new ResizeObserver(this.resize)
+    // this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
+    window.addEventListener('resize', this.resize);
   },
   beforeDestroy(){
-    this.observer.unobserve(this.$el)
-    this.observer = null
+    window.removeEventListener('resize', this.resize);
+    // this.observer.unobserve(this.$el)
+    // this.observer = null
     this.obj.domElement.remove()
     this.obj = null
   },

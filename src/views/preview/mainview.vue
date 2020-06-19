@@ -150,9 +150,7 @@ export default {
       try {
         this.isMusicPlaying && this.$refs.bgm.$refs.audio.play()
       }
-      catch{
-
-      }
+      catch{}
     }
   },
   mounted(){},

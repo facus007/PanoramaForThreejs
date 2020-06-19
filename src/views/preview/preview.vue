@@ -12,7 +12,7 @@
     </prebuild>
     <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[2].hotspots">
-        <hotspot-mesh :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
+        <hotspot-mesh :mesh="mesh(item)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
     <transition name="el-fade-in">
@@ -28,6 +28,7 @@
 <script>
 import { mapState } from 'vuex'
 import * as THREE from '@/components/THREE'
+import * as three from 'three'
 
 export default {
   components:{...THREE},
@@ -60,6 +61,13 @@ export default {
         else if (item.type===3 && item.target.video) {
           this.link = item.target.video
           this.showDialog = true
+        }
+      },
+      mesh(item){
+        return {
+          position: (new three.Vector3()).fromArray(item.transform.position),
+          quaternion: (new three.Quaternion()).fromArray(item.transform.rotation),
+          scale: (new three.Vector3()).fromArray(item.transform.scale)
         }
       },
     },

@@ -22,12 +22,8 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import mixin from '../mixin'
-import path from 'path'
-import VideoPanel from '../video'
 
-const iconPath = './static/m.gif'
 export default {
-  components:{VideoPanel},
   mixins: [mixin],
   watch:{
     // domElement(next, pre){
@@ -40,7 +36,6 @@ export default {
     // propCompute(){},
   },
   computed:{
-    iconPath:()=>iconPath,
     visible(){return !this.hidden && this.obj && this.obj.visible}
   },
   mounted(){},

@@ -1,0 +1,21 @@
+{
+  "name": "pano-tools",
+  "collaborators": [
+    "kirigiri hitomi <chenjw@hiscene.com>"
+  ],
+  "description": "wasm package for panorama",
+  "version": "0.5.0",
+  "license": "PRIVATE",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "pano_tools_bg.wasm",
+    "pano_tools.js",
+    "pano_tools.d.ts"
+  ],
+  "module": "pano_tools.js",
+  "types": "pano_tools.d.ts",
+  "sideEffects": false
+}
