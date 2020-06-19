@@ -66,28 +66,28 @@ module.exports = {
     host: '0.0.0.0',
     port: '8081',
     proxy: {
-      "/vr": {
+      "^/vr": {
         target: 'https://manager.flycloudinfo.com/prod-api/vr',
         changeOrigin: true,
         pathRewrite: {
           '^/vr': '/'
         }
       },
-      "/base-url": {
+      "^/base-url": {
         target: 'https://manager.flycloudinfo.com/prod-api',
         changeOrigin: true,
         pathRewrite: {
           '^/base-url': '/'
         }
       },
-      "/file-api":{
+      "^/file-api":{
         target: 'https://manager.flycloudinfo.com/file-api',
         changeOrigin: true,
         pathRewrite: {
           '^/file-api': '/'
         }
       },
-      "/websources":{
+      "^/websources":{
         target: 'https://manager.flycloudinfo.com/websources',
         changeOrigin: true,
         pathRewrite: {

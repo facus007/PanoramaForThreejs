@@ -51,9 +51,10 @@
 import { saveproductchoose } from "./index";
 export default {
   name: "product",
+  props:['value'],
   data() {
     return {
-      vrResourceUpload: 'https://manager.match.ccb.com/file-api/vrResourceUpload',
+      vrResourceUpload: process.env.VUE_APP_COS_API + '/vrResourceUpload',
       formData: {},
       rules: {
         imageUrl: [
@@ -112,7 +113,8 @@ export default {
         });
         this.productList = [];
         this.resPonseData = [];
-        this.resetForm("dataForm");
+        // this.resetForm("dataForm");
+        this.$emit('input', res.data.batch_no)
       });
     }
   }

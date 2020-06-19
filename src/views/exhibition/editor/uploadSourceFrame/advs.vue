@@ -46,6 +46,7 @@
   import { getToken } from '@/utils/auth'
   export default {
     name: "advs",
+    props:['value'],
     data() {
       return {
         // "https://manager.flycloudinfo.com/file-api/vrAdvResourceUpload",
@@ -120,7 +121,8 @@
           });
           this.advsList = [];
           this.resPonseData = [];
-          this.resetForm("dataForm");
+          // this.resetForm("dataForm");
+          this.$emit('input', res.data.batch_no)
         });
       },
       onError() {

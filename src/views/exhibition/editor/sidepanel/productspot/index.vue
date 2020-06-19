@@ -1,11 +1,12 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px; grid-template-rows:1fr">
-    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected"  @del="del" :clearable="true"/>
+  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
+    <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected" @del="del" :clearable="true"/>
+    <div style="background: #304156; width: 100%; height: 50px; position:relative;display:flex;align-items:center">
+      <upload-source @openAdvsSouceFrame="openAdvsSouceFrame" ref="openUploadSouceFrame" style="height:40px;"/>
+      <el-dialog title="" :visible.sync="advsFrameVisible" destroy-on-close>
+        <advs v-model="batch_no"/>
+      </el-dialog>
     </div>
-    <!-- <div style="height: 100%; width: 100%; position: relative; ">
-      <batch :source="curedit.embeddings[1].hotspots"/>
-    </div> -->
   </container>
 </template>
 
@@ -13,21 +14,33 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import list from '../list'
-import batch from './batch'
 import * as THREE from '@/components/THREE'
 import {addembed, delembed} from '@/api/server'
+import advs from "../../uploadSourceFrame/product";
+import UploadSource from "../../uploadSource";
 
 const labels = ['广告位热点', '产品位热点', '自定义热点']
 
 export default {
   mixins:[mixin],
-  components:{ ...THREE, list, batch},
-  data(){return {selected: null}},
+  components:{ ...THREE, list, advs, UploadSource},
+  data(){return {
+    selected: null,
+    advsFrameVisible: false,
+    batch_no: null,
+  }},
   props:['editor'],
   watch:{
     selected(next){
       this.editor.$refs.tools.setSelected(next)
     },
+    batch_no(next){
+      if(next){
+        this.advsFrameVisible=false
+        this.$refs.openUploadSouceFrame.fill(next)
+        this.batch_no = null
+      }
+    }
   },
   methods:{
     del(item){
@@ -39,6 +52,9 @@ export default {
     setSelected(selected){
       this.selected = selected
     },
+    openAdvsSouceFrame(val){
+      this.advsFrameVisible = true
+    }
   },
   mounted(){},
   beforeDestroy(){},
