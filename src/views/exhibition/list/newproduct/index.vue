@@ -93,10 +93,10 @@ export default {
         this.template.tmp_details.forEach((item, i) => {
           music_url = item.music_url
           scenes.push({...defaultScene, tmp_id: item.tmp_id, name: '场景' + (1+i)})
+          this.template.tmp_group_id === '1' && item.tmp_id === '1' && (scenes[i].start_rotation[0] -= Math.PI/6) //TODO:  hardcode
         });
 
-        this.template.tmp_group_id === '1' && (scenes[0].start_rotation[0] -= Math.PI/6) //TODO:  hardcode
-        
+
         await saveVR({
           name: this.name,
           description: this.description,

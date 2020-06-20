@@ -1,7 +1,7 @@
 <template>
   <el-button type="text" @click="$emit('input',!value)" >
     <div :class="value ? 'icon icon-music' : 'icon icon-music-mute'"/>
-    <audio loop autoplay :src="product.music_url" preload="metadata" ref="audio"/>
+    <audio autoplay loop :src="product.music_url" preload="metadata" ref="audio"/>
   </el-button>
 </template>
 <script>
@@ -13,7 +13,14 @@ export default{
       else{this.$refs.audio.pause()}
     }
   },
-  methods:{},
+  methods:{
+    play(){
+      this.$refs.audio.play()
+    },
+    stop(){
+      this.$refs.audio.pause()
+    }
+  },
   computed:{},
   mounted(){}
 }

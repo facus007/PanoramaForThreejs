@@ -8,7 +8,7 @@
 
     <animated-panorama v-if="first_loaded" :curScene="curScene" :textures="textures" ref="panorama"/>
 
-    <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden"/>
+    <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden" @videoPlay="$refs.bgm.stop()" @videoStop="()=>isMusicPlaying && $refs.bgm.play()"/>
 
     <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
 
@@ -58,6 +58,8 @@ const sides = [
     rotation: [ - Math.PI / 2, 0, Math.PI ]
   },
 ];
+
+var interact = false
 
 export default {
   components:{...THREE, Preview, backgroundmusic, CameraAnimation, TextureLoader },
@@ -117,8 +119,11 @@ export default {
     action(){
       Cookies.set('vrpreivew' + this.$route.query.product_id, {scene_id: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})
     },
-    playmusic(){
-      try{this.isMusicPlaying && this.$refs.bgm.$refs.audio.play()}catch{}
+    async playmusic(){
+      try{
+        !interact && this.isMusicPlaying && await this.$refs.bgm.$refs.audio.play()
+        interact = true
+      }catch{}
     }
   },
   mounted(){},
