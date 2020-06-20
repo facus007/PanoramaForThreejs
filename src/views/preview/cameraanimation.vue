@@ -50,8 +50,8 @@ export default {
       if(this.camera.position.y > 0){
         this.camera.position.lerp(zero, lerpfactor)
         this.camera.fov = THREE.MathUtils.lerp(this.camera.fov, this.fov, lerpfactor)
-        this.cur_aim[0] = THREE.MathUtils.lerp(this.cur_aim[0], this.start_rotation[0], lerpfactor)
-        this.cur_aim[1] = THREE.MathUtils.lerp(this.cur_aim[1], this.start_rotation[1], lerpfactor)
+        this.cur_aim[0] = THREE.MathUtils.lerp(this.cur_aim[0], this.start_rotation[0], lerpfactor * 2)
+        this.cur_aim[1] = THREE.MathUtils.lerp(this.cur_aim[1], this.start_rotation[1], lerpfactor * 2)
         var aim = (new THREE.Vector3()).setFromSphericalCoords(200, this.cur_aim[1], this.cur_aim[0]).multiplyScalar(-1)
         this.camera.lookAt(aim)
         this.camera.updateProjectionMatrix()
