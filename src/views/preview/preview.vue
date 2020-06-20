@@ -18,7 +18,7 @@
     <transition name="el-fade-in">
       <div class="player" v-if="showDialog" style="width: 100%; height: 100%; z-index: 2000; top: 0; left: 0; position: absolute; display: flex; align-items: center; visibility: visible;">
         <div style="width:100%;height:100%;background: #000; opacity: 0.8; position:absolute;" />
-        <el-button icon="el-icon-close" type="text" style="position: absolute; font-size: 30px; right: 20px; top: 40px; padding: 0;" @click="()=>{showDialog=false;$emit('videoStop')}"/>
+        <el-button icon="el-icon-close" type="text" style="position: absolute; font-size: 30px; right: 20px; top: 40px; padding: 0;z-index:2" @click="()=>{showDialog=false;$emit('videoStop')}"/>
         <video v-if="link" :src="link" style="width:100%; border:0px;z-index:1" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline muted/>
       </div>
     </transition>

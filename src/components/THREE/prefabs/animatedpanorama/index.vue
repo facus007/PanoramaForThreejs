@@ -63,13 +63,13 @@ export default {
       var orirot = []
       this.$refs.round.forEach((item, i) => {
         orirot[i]=item.obj.quaternion.clone()
-        item.obj.quaternion.multiply(this.camera.quaternion.clone().inverse())
+        item.obj.applyQuaternion(this.camera.quaternion.clone().inverse())
       });
 
       var aim = (new THREE.Vector3()).setFromSphericalCoords(200, this.curScene.start_rotation[1], this.curScene.start_rotation[0]).multiplyScalar(-1)
       this.camera.lookAt(aim)
       this.$refs.round.forEach((item, i) => {
-        item.obj.quaternion.multiply(this.camera.quaternion.clone())
+        item.obj.applyQuaternion(this.camera.quaternion.clone())
       });
 
       this.$refs.round.forEach((item, i) => {
