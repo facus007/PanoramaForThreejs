@@ -10,7 +10,7 @@
 
     <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden"/>
 
-    <camera-animation v-if="first_loaded && !after_animation_loaded" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+    <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
 
     <texture-loader v-if="curScene" v-model="textures" :product="product" :scene="curScene" ref="textureloader"/>
 
@@ -74,7 +74,7 @@ export default {
   watch:{
     async after_animation_loaded(next){
       if(next){
-        // Cookies.remove('vrpreivew' + this.$route.query.product_id)
+        Cookies.remove('vrpreivew' + this.$route.query.product_id)
         await new Promise((resolve, reject) => {
           let a = ()=>{
             if(this.$refs.panorama){resolve()}

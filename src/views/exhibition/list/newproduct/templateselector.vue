@@ -1,5 +1,5 @@
 <template>
-  <el-container style="padding:5px;display:grid; grid-gap:5px;grid-auto-flow: column;width:400px; overflow:auto;" class="media-center" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+  <el-container style="padding:5px;display:grid; grid-gap:5px;grid-auto-flow: column;width:100%; overflow:auto;" class="media-center" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
     <el-row v-for="(src, index) in rawData" class="infinite-list-item" :key="index" style="width: 200px; height: 100px;overflow:hidden;border-radius: 5px; box-shadow: 0 0 4px 0 gray;">
       <el-button type="text" style="padding:0;width: 100%; height: 100%;" @click="()=>{tmp_group_id=src.tmp_group_id; $emit('input',src)}">
         <img :src="src.tmp_details[0].pano_graphic_url4" style="position:relative;width: 100%; height: 100%; object-fit: cover; ">
