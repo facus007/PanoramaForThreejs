@@ -54,11 +54,11 @@ export default {
       this.obj.position.add(pos)
       this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
       this.obj.position.add(posfix.clone().applyQuaternion (this.obj.quaternion))
-      this.obj.scale.set(m[2] * this.mesh.scale.x * 0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z * 0.01)
+      this.obj.scale.set(m[2] * 10 * 0.01,m[3] * 10 * 0.01, 10 * 0.01)
     },
   },
   mounted(){
-    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(40, 40),material);
+    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(30, 30),material);
     this.setTransform()
     this.obj.visible = this.visible
     this.scene.add(this.obj)

@@ -29,7 +29,8 @@ export default {
     return await import('./mainview')
   }, Loading},
   data(){return{
-    loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
+    loading: true,
+    // loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
   }},
   computed:{}
 }
