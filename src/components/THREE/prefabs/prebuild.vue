@@ -31,7 +31,6 @@ export default {
     loader.load( this.jsonPath, ( object ) => {
       if(this){
         this.obj = object
-        this.obj.visible=false
         this.$emit('input', this.obj)
       }
       else{

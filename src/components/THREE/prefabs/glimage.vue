@@ -62,8 +62,9 @@ export default {
       this.obj.quaternion.multiply(fix)
       pos.applyQuaternion (this.obj.quaternion)
       this.obj.position.add(pos)
-      this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
-      this.obj.scale.set(m[2] * this.mesh.scale.x * 0.01,m[3] * this.mesh.scale.y * 0.01, this.mesh.scale.z * 0.01)
+      let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
+      this.obj.position.add(this.layout.clone().multiplyScalar(short * 0.01))
+      this.obj.scale.set(m[2] * short * 0.01,m[3] * short * 0.01, short * 0.01)
     },
   },
   mounted(){
@@ -83,7 +84,8 @@ export default {
       // return getDataURL(this.image)
     },
     size(){
-      return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
+      let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
+      return [this.mesh.scale.z / short, this.mesh.scale.x / short]
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]

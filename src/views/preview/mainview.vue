@@ -97,6 +97,7 @@ export default {
   },
   methods:{
     async init(){
+      this.loading = true
       let product = await getProduct(this.$route.query.product_id, true)
       product.scenes.forEach(item => { this.scenes[item.scene_id] = item });
       this.curSceneId = this.cookies && this.cookies.scene_id || product.scenes[0].scene_id
@@ -106,12 +107,12 @@ export default {
         await new Promise((resolve, reject) => {
           this.$refs.textureloader.load(this.curScene, null, resolve)
         });
-        this.first_load()
+        this.first_loaded = true
+        this.$nextTick(()=>{
+          this.$emit('input', false)
+          this.loading = false
+        })
       })
-    },
-    first_load(){
-      this.first_loaded = true
-      this.$emit('input', false)
     },
     action(){
       Cookies.set('vrpreivew' + this.$route.query.product_id, {scene_id: this.$data.curSceneId, start_rotation: [this.$refs.controls.obj.getAzimuthalAngle(), this.$refs.controls.obj.getPolarAngle()]})

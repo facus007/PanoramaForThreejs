@@ -55,7 +55,7 @@ const actions = {
 
   async randomHotspots({state, commit}){
     let product = JSON.parse(JSON.stringify(state.product))
-    let {tmps} = await listRandomHotspots({tmp_group_id:product.tmp_group_id})
+    let {tmps} = await listRandomHotspots({tmp_group_id:product.tmp_group_id, product_id: state.product.product_id})
     tmps.forEach((item, i) => {
       product.scenes[i].embeddings = product.scenes[i].embeddings || [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
       for (var e = 0; e < 2; e++) {
