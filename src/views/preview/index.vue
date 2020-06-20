@@ -22,9 +22,7 @@ export default {
       var wx = await import('weixin-js-sdk');
       wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});
       var ready = new Promise(function(resolve, reject) {
-        wx.ready(function(){
-          resolve()
-        });
+        wx.ready(function(){resolve()});
       });
       await ready
     }
