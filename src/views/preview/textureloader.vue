@@ -25,22 +25,22 @@ export default {
         return true
       }
 
-      let pblur = new Promise((resolve, reject) => {
-        let a = ()=>{
-          if(checkResourceblur()){resolve()}
-          else{requestAnimationFrame(a)}
-        }
-        a()
-      });
-
-      for (var i = 1; i <= 6; i++) {
-        let url = scene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        let index = i - 1
-        this.loadtex(url).then(tex => this.textures[scene.scene_id][index].blur = tex)
-      }
-
-      await pblur
-      onloadblur && onloadblur()
+      // let pblur = new Promise((resolve, reject) => {
+      //   let a = ()=>{
+      //     if(checkResourceblur()){resolve()}
+      //     else{requestAnimationFrame(a)}
+      //   }
+      //   a()
+      // });
+      //
+      // for (var i = 1; i <= 6; i++) {
+      //   let url = scene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+      //   let index = i - 1
+      //   this.loadtex(url).then(tex => this.textures[scene.scene_id][index].blur = tex)
+      // }
+      //
+      // await pblur
+      // onloadblur && onloadblur()
 
       let checkResourceclear = ()=>{
         for(var i = 0; i < 6; i++){
@@ -62,7 +62,7 @@ export default {
         let index = i - 1
         this.loadtex(url).then(tex => this.textures[scene.scene_id][index].clear = tex)
       }
-      
+
       await pclear
       onloadclear && onloadclear()
     },

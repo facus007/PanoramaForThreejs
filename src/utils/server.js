@@ -5,18 +5,30 @@ export async function getProduct(product_id, openserver){
   let get_product = openserver ? getProduct_openserver : getProduct_
   let list_hotspots = openserver ? listHotspots_openserver : listHotspots_
   var result = await get_product({product_id})
-  for (var i = 0; i < result.productInfo.scenes.length; i++) {
-    let embeddings = await list_hotspots({scene_id: result.productInfo.scenes[i].scene_id})
-    result.productInfo.scenes[i].embeddings = embeddings.sceneInfo.embeddings || []
-    var rebuild = [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
-    result.productInfo.scenes[i].embeddings && result.productInfo.scenes[i].embeddings.forEach((item, i) => {
-      item.hotspots && item.hotspots.forEach((item_, i) => {
-        item_.target = item_.target && JSON.parse(item_.target) || {}
+
+  var request = 0
+
+  for (var index = 0; index < result.productInfo.scenes.length; index++) {
+    let i = index
+    list_hotspots({scene_id: result.productInfo.scenes[i].scene_id}).then(embeddings => {
+      result.productInfo.scenes[i].embeddings = embeddings.sceneInfo.embeddings || []
+      var rebuild = [{group:1, hotspots:[]},{group:2, hotspots:[]},{group:3, hotspots:[]}]
+      result.productInfo.scenes[i].embeddings && result.productInfo.scenes[i].embeddings.forEach((item, i) => {
+        item.hotspots && item.hotspots.forEach((item_, i) => {
+          item_.target = item_.target && JSON.parse(item_.target) || {}
+        });
+        rebuild[item.group-1] = item
       });
-      rebuild[item.group-1] = item
-    });
-    result.productInfo.scenes[i].embeddings = rebuild
+      result.productInfo.scenes[i].embeddings = rebuild
+    }).finally(()=>request++)
   }
+  await new Promise((resolve, reject) => {
+    let a = ()=>{
+      if(request >= result.productInfo.scenes.length){resolve()}
+      else{requestAnimationFrame(a)}
+    }
+    a()
+  });
   return result.productInfo
 }
 

@@ -72,10 +72,17 @@ export default {
     isMusicPlaying: true,
   }},
   watch:{
-    after_animation_loaded(next){
+    async after_animation_loaded(next){
       if(next){
+        // Cookies.remove('vrpreivew' + this.$route.query.product_id)
+        await new Promise((resolve, reject) => {
+          let a = ()=>{
+            if(this.$refs.panorama){resolve()}
+            else{requestAnimationFrame(a)}
+          }
+          a()
+        });
         this.$refs.panorama.afterloaded()
-        Cookies.remove('vrpreivew' + this.$route.query.product_id)
       }
     },
     async curSceneId(next){
