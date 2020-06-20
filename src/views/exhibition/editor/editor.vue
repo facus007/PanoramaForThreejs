@@ -13,9 +13,9 @@
       </THREE>
     </div>
     <div class="shadow" style="background: #304156; grid-area: b;">
-      <sidepanel v-model="curFeature" :key="curedit.scene_id">
+      <sidepanel v-model="curFeature">
         <el-tab-pane v-for="(feature, index) in features" :label="feature.name" :key="feature.name">
-          <component v-if="feature.name === features[curFeature].name" :is="features[index].sidepanel" :sideImgs="sideImgs" :editor="self" ref="panel"/>
+          <component v-if="feature.name === features[curFeature].name" :is="features[index].sidepanel" :sideImgs="sideImgs" :editor="self" ref="panel" :key="curedit.scene_id"/>
         </el-tab-pane>
       </sidepanel>
     </div>
