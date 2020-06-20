@@ -2,7 +2,6 @@
   <transition class= "el-fade-in">
     <div :class="isMoblie ? 'guide-mobile' : 'guide'" :style="{visibility: showguide? 'visible' : 'hidden'}"/>
   </transition>
-</div>
 </template>
 <script>
 import { mapState } from 'vuex'

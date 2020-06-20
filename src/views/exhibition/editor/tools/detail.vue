@@ -89,6 +89,7 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.target.scene_id = this.product.scenes.indexOf(scene) + ''
         item.target.scene_cover = scene.pano_graphic_url4
+        item.target = JSON.parse(JSON.stringify(item.target))
       });
     },
     getSelecteds(){
