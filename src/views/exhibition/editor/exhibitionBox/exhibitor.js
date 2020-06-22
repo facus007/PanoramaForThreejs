@@ -3,7 +3,7 @@ import request from '@/utils/request'
 export function listExhibitor(query) {
   return request({
     baseURL: process.env.VUE_APP_BASE_API_1,
-    url: '/fair/exhibitor/list',
+    url: '/fair/exhibitor/vrlist',
     method: 'get',
     params: query
   })

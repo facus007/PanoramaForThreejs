@@ -17,6 +17,7 @@
             :on-error="onError"
             accept=".zip"
             :headers="headers"
+            :before-upload="onChange"
           >
             <div slot="tip" class="el-upload__tip">请上传zip格式文件</div>
             <el-button size="small">上传</el-button>
@@ -37,8 +38,17 @@
         </el-form-item>
       </el-form>
     </div>
+    <transition name="el-fade-in">
+    <div style="position: fixed; width:100%; height:100%; z-index:5000; top:0;left:0; background:#FFF8; display:flex; align-items:center; justify-content: center;" v-if="loading">
+      <span style="margin:auto;">
+        <i class="el-icon-loading" style="margin: auto;margin-right:10px"/>
+        请稍后，正在进行图片处理
+      </span>
+    </div>
+    </transition>
   </div>
 </template>
+
 <script>
   // import { vrAdvResourceUpload } from "@/api/upload";
   import { saveAdvResource } from "./index.js";
@@ -63,35 +73,17 @@
         headers: {
           Authorization: getToken()
         },
+        loading: false
       };
     },
     methods: {
       onChange(file) {
-        this.file = file
-        this.name = this.name || this.file.name
-        this.remark = this.remark || this.file.name
-        this.url = null
-        var fr = new FileReader();
-        fr.readAsDataURL(this.file.raw);
-        fr.onload= (e)=>{
-          this.url = e.target.result
-
-          this.loading= true
-          let formData = new FormData()
-          // formData.append('filename',this.file.name)
-          formData.append('file',this.file.raw)
-            AdvResourceUpload(formData).then(result=>{
-              console.log(result)
-              // addMaterial({
-              //   materialType: '1',
-              //   materialContent: result.url,
-              //   remark: this.remark,
-              // }).then(_=>{this.loading=false;this.visible=false})
-            })
-        }
+        console.log(1)
+        this.loading=true
       },
       advsUpload(response, file, fileList) {
         //上传成功处理
+        this.loading=false
         console.log(response, "respone");
         this.num++;
         this.$message({

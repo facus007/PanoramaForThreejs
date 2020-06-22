@@ -22,7 +22,8 @@
               >产品上传的说明：
                 <p>1. zip包中需要包含相应的产品图片</p>
                 <p>2. zip包中需要包含相应的产品相关信息的excel</p>
-                <p>3. 示例产品包下载</p>
+                <p>3. zip包的文件夹名字需为英文</p>
+                <p>4. 示例产品包下载</p>
               </div>
             </div>
             <el-button size="small">上传</el-button>
@@ -44,6 +45,14 @@
         </el-form-item>
       </el-form>
     </div>
+    <transition name="el-fade-in">
+    <div style="position: fixed; width:100%; height:100%; z-index:5000; top:0;left:0; background:#FFF8; display:flex; align-items:center; justify-content: center;" v-if="loading">
+      <span style="margin:auto;">
+        <i class="el-icon-loading" style="margin: auto;margin-right:10px"/>
+        请稍后，正在进行图片处理
+      </span>
+    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -66,13 +75,17 @@ export default {
         ]
       },
       productList: [],
-      resPonseData: []
+      resPonseData: [],
+      loading: false,
     };
   },
   methods: {
-    productBeforeUpload() {},
+    productBeforeUpload() {
+      this.loading=true
+    },
     productUpload(response, file, fileList) {
       //上传成功处理
+      this.loading=false
       console.log(response, "respone");
       let arr = response.data.map(item => {
         return {

@@ -16,7 +16,7 @@ export default {
   props:['loading'],
   watch:{
     loading(){
-      this.curProgress=100
+      this.curProgress = 100
     }
   },
   methods:{
@@ -38,8 +38,8 @@ export default {
   width: 200px;
   height: 200px;
   background-image: url(../../assets/img/loading_sprite.png);
-  -webkit-animation:animation 1s steps(41) 0s infinite both;
-  animation: animation 1s steps(41) 0s infinite both;
+  -webkit-animation:animation 2s steps(41) 0s infinite both;
+  animation: animation 2s steps(41) 0s infinite both;
   transform: scale(0.5);
 }
 

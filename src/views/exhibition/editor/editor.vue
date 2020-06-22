@@ -57,7 +57,7 @@ const moduleName = "editor"
 const features = [
   {name: "基础", sidepanel: "standard", showtools: false},
   {name: "视角", sidepanel: "viewspot", tools: "viewspot-tools", showtools: false},
-  {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools', showtools: true},
+  {name: "广告位热点", sidepanel: "adspot", tools: 'adspot-tools', showtools: false},
   {name: "产品位热点", sidepanel: "productspot", tools: 'productspot-tools', showtools: true},
   {name: "自定义热点", sidepanel: "hotspot", tools: 'hotspot-tools', showtools: false},
   // {name: "音乐", sidepanel: "music", },

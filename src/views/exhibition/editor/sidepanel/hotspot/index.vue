@@ -37,7 +37,7 @@ export default {
       pos.applyQuaternion(this.camera.quaternion)
       var e = new THREE.Euler( 1.57, 1.57, 0, 'XYZ' );
       var q = (new THREE.Quaternion(0,0,0,1)).setFromEuler(e)
-      var rot = this.camera.quaternion.multiply(q)
+      var rot = this.camera.quaternion.clone().multiply(q)
       var spot = {
         name: uuid(),
         label: '新热点',
