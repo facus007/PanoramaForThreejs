@@ -38,7 +38,6 @@ export default{
 .icon-music {
     background-position: -32.5px -97.5px;
 }
-
 .icon-music-mute{
     background-position: -97.5px -32.5px;
 }

@@ -19,6 +19,7 @@ export default {
   mounted(){
     this.obj = new Stats()
     this.obj.dom.style.position = 'absolute'
+    this.obj.dom.style['z-index'] = '1'
     this.$el.appendChild(this.obj.dom)
   },
   beforeDestroy(){

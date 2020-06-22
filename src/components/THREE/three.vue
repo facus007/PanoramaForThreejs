@@ -31,14 +31,10 @@ export default {
   mounted(){
     this.$store.commit(moduleName+'/SET_DOMELEMENT', this.$el)
     window.addEventListener('resize', this.resize);
-    // this.observer = new ResizeObserver(this.resize)
-    // this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
     this.startRendering()
   },
   beforeDestroy(){
     this.stopRendering()
-    // this.observer.unobserve(this.$el)
-    // this.observer = null
     window.removeEventListener('resize', this.resize);
     this.$store.commit(moduleName+'/SET_DOMELEMENT', null)
   },
