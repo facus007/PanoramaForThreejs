@@ -46,7 +46,7 @@
       </el-form>
     </div>
     <transition name="el-fade-in">
-    <div style="position: fixed; width:100%; height:100%; z-index:5000; top:0;left:0; background:#FFF8; display:flex; align-items:center; justify-content: center;" v-if="loading">
+    <div style="position: fixed; width:100%; height:100%; z-index:5000; top:0;left:0; background:#FFFE; display:flex; align-items:center; justify-content: center;" v-if="loading">
       <span style="margin:auto;">
         <i class="el-icon-loading" style="margin: auto;margin-right:10px"/>
         请稍后，正在进行图片处理
