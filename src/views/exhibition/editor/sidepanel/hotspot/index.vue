@@ -4,7 +4,7 @@
       <el-button type="primary" style="width:100%" @click="add">添加热点</el-button>
     </div>
     <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]" v-model="selected" @del="del" :clearable="true"/>
+      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
   </container>
 </template>
@@ -28,6 +28,7 @@ export default {
   props:['editor'],
   watch:{
     selected(next){
+      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[2].hotspots.indexOf(next)].$el.scrollIntoView()
       this.editor.$refs.tools.setSelected(next)
     },
   },

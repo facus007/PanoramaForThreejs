@@ -37,7 +37,7 @@
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-template-rows: 1fr;grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+            <div style="display: grid; grid-auto-flow: row; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="link(scope.row)">复制链接</el-button>
@@ -45,6 +45,7 @@
                 <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
                 <el-button slot="reference" style="padding:0;margin:0; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
               </el-popover>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制</el-button>
             </div>
           </template>
         </el-table-column>
@@ -58,9 +59,9 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { listProducts } from '@/api/server'
+import { getProduct, saveVR } from '@/utils/server'
 import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
-// import moment from 'moment'
 import QRCode from 'qrcode'
 
 export default {
@@ -112,7 +113,6 @@ export default {
     refresh_(){
       this.loading = true
       listProducts({
-        // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       }).then(result=>{
@@ -120,6 +120,15 @@ export default {
         this.datalist = result.products
         this.loading = false
       })
+    },
+    async copy(row){
+      this.loading = true
+      let result = await getProduct(row.product_id)
+      result.product_id = undefined
+      result.name += '-复制'
+      await saveVR(result)
+      this.refresh_()
+      this.loading = false
     }
   },
   computed:{
