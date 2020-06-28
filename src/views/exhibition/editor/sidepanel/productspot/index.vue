@@ -1,6 +1,6 @@
 <template>
   <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
-    <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected" @del="del" :clearable="true"/>
+    <list :source="curedit.embeddings[1].hotspots" :label="labels[1]" v-model="selected" @del="del" :clearable="true" ref="list"/>
     <div style="background: #304156; width: 100%; height: 50px; position:relative;display:flex;align-items:center">
       <upload-source @openAdvsSouceFrame="openAdvsSouceFrame" ref="openUploadSouceFrame" style="height:40px;"/>
       <el-dialog title="" :visible.sync="advsFrameVisible" destroy-on-close>
@@ -32,6 +32,7 @@ export default {
   props:['editor'],
   watch:{
     selected(next){
+      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[1].hotspots.indexOf(next)].$el.scrollIntoView()
       this.editor.$refs.tools.setSelected(next)
     },
     batch_no(next){

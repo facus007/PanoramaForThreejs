@@ -21,16 +21,12 @@ export default {
   mounted(){
     this.obj = new THREE.WebGLRenderer(this.option)
     this.$el.appendChild(this.obj.domElement)
-    // this.observer = new ResizeObserver(this.resize)
-    // this.observer.observe(this.$el, { attributes: true, childList: true, subtree: true })
     window.addEventListener('resize', this.resize);
     this.startRendering()
   },
   beforeDestroy(){
     this.stopRendering()
     window.removeEventListener('resize', this.resize);
-    // this.observer.unobserve(this.$el)
-    // this.observer = null
     this.obj.domElement.remove()
     this.obj = this.obj.dispose()
   },

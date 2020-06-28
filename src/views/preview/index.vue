@@ -8,16 +8,12 @@
 <script>
 import Loading from './loading'
 import Cookies from 'js-cookie'
+import browser from '@/utils/browser'
 import {getshareconfig} from '@/api/server'
-
-const isWeixin = (() => { //判断是否是微信
-    var ua = navigator.userAgent.toLowerCase();
-    return ua.match(/MicroMessenger/i) == "micromessenger";
-})();
 
 export default {
   components:{MainView: async() => {
-    if(isWeixin){
+    if(browser.versions.weixin){
       var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
       var wx = await import('weixin-js-sdk');
       wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});

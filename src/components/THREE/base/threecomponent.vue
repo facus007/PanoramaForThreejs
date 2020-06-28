@@ -4,7 +4,7 @@
 
 <script>
 import { mapState } from 'vuex'
-const a = 1
+
 export default {
   data(){return {
     obj: null,

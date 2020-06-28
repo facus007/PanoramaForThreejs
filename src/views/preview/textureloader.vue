@@ -3,6 +3,7 @@
 
 <script>
 import * as three from 'three'
+import multiaction from '@/utils/multiaction'
 const texloader = new three.TextureLoader()
 
 export default {
@@ -18,52 +19,20 @@ export default {
         this.textures[scene.scene_id][i-1] = {}
       }
 
-      let checkResourceblur = ()=>{
-        for(var i = 0; i < 6; i++){
-          if(!this.textures[scene.scene_id][i].blur){return false}
-        }
-        return true
-      }
-
-      // let pblur = new Promise((resolve, reject) => {
-      //   let a = ()=>{
-      //     if(checkResourceblur()){resolve()}
-      //     else{requestAnimationFrame(a)}
-      //   }
-      //   a()
-      // });
+      // await multiaction(new Array(6), async (item, i) => {
+      //   let url = scene['pano_graphic_blur_url'+(i+1)].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+      //   let index = i
+      //   this.textures[scene.scene_id][index].clear = await this.loadtex(url)
+      // })
       //
-      // for (var i = 1; i <= 6; i++) {
-      //   let url = scene['pano_graphic_blur_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-      //   let index = i - 1
-      //   this.loadtex(url).then(tex => this.textures[scene.scene_id][index].blur = tex)
-      // }
-      //
-      // await pblur
       // onloadblur && onloadblur()
 
-      let checkResourceclear = ()=>{
-        for(var i = 0; i < 6; i++){
-          if(!this.textures[scene.scene_id][i].clear){return false}
-        }
-        return true
-      }
+      await multiaction(new Array(6), async (item, i) => {
+        let url = scene['pano_graphic_url'+(i+1)].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
+        let index = i
+        this.textures[scene.scene_id][index].clear = await this.loadtex(url)
+      })
 
-      let pclear = new Promise((resolve, reject) => {
-        let a = ()=>{
-          if(checkResourceclear()){resolve()}
-          else{requestAnimationFrame(a)}
-        }
-        a()
-      });
-
-      for (var i = 1; i <= 6; i++) {
-        let url = scene['pano_graphic_url'+i].replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-        let index = i - 1
-        this.loadtex(url).then(tex => this.textures[scene.scene_id][index].clear = tex)
-      }
-
-      await pclear
       onloadclear && onloadclear()
     },
     loadtex(url) {
@@ -74,7 +43,6 @@ export default {
         this.loaders.push(loader())
       });
     },
-
   },
   created(){
     this.$emit('input',this.textures)
@@ -83,7 +51,6 @@ export default {
     this.loaders.forEach((item, i) => {
       item.dispose()
     });
-
   }
 }
 </script>

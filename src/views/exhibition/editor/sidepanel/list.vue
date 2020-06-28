@@ -6,7 +6,7 @@
           <div :style="{display:'flex', background:scope.row === value ? '#1f2d3d' : '#0000', height:'64px', padding: '0'}">
             <el-button type="text" style="display:flex; padding:0; width:100%; height:100%; align-items: center; padding: 10px" @click="$emit('input', value !== scope.row && scope.row)">
               <span style="display:flex; padding:0; width:200px; height:100%; align-items: center;">
-                <div style="display: flex;">
+                <div class="text" style="display: flex; width: 80%">
                   {{scope.row.label || scope.row.name}}
                 </div>
                 <el-button v-if="clearable" type="text" style="margin-left: auto" icon="el-icon-close" @click="$emit('del', scope.row)"/>
@@ -34,6 +34,12 @@ export default {
 </script>
 
 <style scoped="views">
+.text{
+  word-break: keep-all;           /* 不换行 */
+  white-space: nowrap;          /* 不换行 */
+  overflow: hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow: ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
 .table {
   width: 100%;
   background-color: #0000;
