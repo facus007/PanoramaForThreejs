@@ -10,40 +10,34 @@ function resolve(dir) {
 module.exports = {
   publicPath: './',
   pluginOptions: {},
-  configureWebpack: {
+  configureWebpack: config => {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    plugins: [
-      new CompressionPlugin({test: /\.js$|\.html$|\.css/, threshold: 10240, deleteOriginalAssets: false})
-    ],
-    // optimization: {
-    //   minimize: true,
-    //   minimizer: [new TerserPlugin({
-    //     parallel: 4, // 并行打包
-    //     terserOptions: {
-    //       ecma: undefined,
-    //       warnings: false,
-    //       parse: {},
-    //       compress: {
-    //         drop_debugger: false,
-    //         drop_console: true
-    //       },
-    //       mangle: true, // Note `mangle.properties` is `false` by default.
-    //       module: false,
-    //       output: null,
-    //       toplevel: false,
-    //       nameCache: null,
-    //       ie8: false,
-    //       keep_classnames: undefined,
-    //       keep_fnames: false,
-    //       safari10: false,
-    //     }
-    //   })],
-    // }
+    config.optimization = {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name (module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `package.${packageName.replace('@', '')}`
+            }
+          }
+        }
+      }
+    }
+    config.plugins.push(new CompressionPlugin({test: /\.js$|\.html$|\.css/, threshold: 10240, deleteOriginalAssets: false}))
   },
   pages: {
     index: 'src/main.js',
-    share: 'src/views/share/main.js'
+    // share: 'src/views/share/main.js'
   },
   chainWebpack(config) {
     // set svg-sprite-loader

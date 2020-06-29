@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -17,10 +17,8 @@
   "dependencies": {
     "axios": "0.19.2",
     "babel-polyfill": "^6.26.0",
-    "cos-js-sdk-v5": "^0.5.26",
     "element-ui": "2.13.0",
     "js-cookie": "2.2.1",
-    "jszip": "^3.4.0",
     "mp4box": "^0.3.20",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
