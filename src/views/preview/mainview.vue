@@ -76,7 +76,6 @@ export default {
   watch:{
     async after_animation_loaded(next){
       if(next){
-        Cookies.remove('vrpreivew' + this.$route.query.product_id)
         await new Promise((resolve, reject) => {
           let a = ()=>{
             if(this.$refs.panorama){resolve()}
@@ -141,7 +140,10 @@ export default {
       return this.scenes[this.curSceneId]
     },
     start_rotation(){
-      return this.cookies && this.cookies.start_rotation
+      let cookies = Cookies.get('vrpreivew' + this.$route.query.product_id) && JSON.parse(Cookies.get('vrpreivew' + this.$route.query.product_id))
+      Cookies.remove('vrpreivew' + this.$route.query.product_id);
+      (()=>{})(this.curSceneId) // watch
+      return cookies && cookies.start_rotation
     },
     isDebug: () => process.env.NODE_ENV === "development",
   },

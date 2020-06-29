@@ -41,6 +41,10 @@ module.exports = {
     //   })],
     // }
   },
+  pages: {
+    index: 'src/main.js',
+    share: 'src/views/share/main.js'
+  },
   chainWebpack(config) {
     // set svg-sprite-loader
     config.module
