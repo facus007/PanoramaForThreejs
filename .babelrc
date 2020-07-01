@@ -4,11 +4,12 @@
       "useBuiltIns": "usage",
       "corejs": 3
     }],
-    "@vue/babel-preset-jsx",
+    "@vue/babel-preset-jsx"
   ],
   "plugins": [
     "@babel/plugin-syntax-jsx",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
+    ["component",{"libraryName": "element-ui","styleLibraryName": "theme-chalk"}]
   ]
 }

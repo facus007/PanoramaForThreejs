@@ -105,6 +105,8 @@ export default {
           tmp_group_id: this.template.tmp_group_id,
           exhibitor_id: this.exhibitor_id,
           music_url: music_url,
+          loop: true,
+          animation: true,
         })
         this.visible=false
       } catch (e) {

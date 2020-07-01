@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "1.1.17",
+  "version": "1.1.18",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -50,6 +50,7 @@
     "autoprefixer": "^9.7.5",
     "babel-loader": "^8.1.0",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "babel-plugin-component": "^1.1.1",
     "babel-register": "^6.26.0",
     "cfonts": "^2.8.1",
     "chalk": "^3.0.0",

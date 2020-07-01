@@ -1,7 +1,7 @@
 <template>
   <el-button type="text" @click="$emit('input',!value)" >
     <div :class="value ? 'icon icon-music' : 'icon icon-music-mute'"/>
-    <audio autoplay loop :src="product.music_url" preload="metadata" ref="audio"/>
+    <audio autoplay :loop="product.loop" :src="product.music_url" preload="metadata" ref="audio"/>
   </el-button>
 </template>
 <script>

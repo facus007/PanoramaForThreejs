@@ -13,7 +13,7 @@ const lerpfactor = 0.01
 const zero = new THREE.Vector3(0,-20, 0);
 
 export default {
-  props:['value', 'fov', 'start_rotation'],
+  props:['value', 'fov', 'start_rotation', 'product'],
   data(){return {
     cur_aim:[0 , 0],
     showguide: false,
@@ -41,7 +41,7 @@ export default {
     },
   },
   created(){
-    if(!this.hasCookies){
+    if(!this.hasCookies && this.product.animation){
       let v3 = (new THREE.Vector3()).setFromSphericalCoords(1,this.cur_aim[1],this.cur_aim[0])
       var aim = v3.multiplyScalar(-1)
       this.camera.fov = 150

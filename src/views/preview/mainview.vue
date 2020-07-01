@@ -10,7 +10,7 @@
 
     <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden" @videoPlay="$refs.bgm.stop()" @videoStop="()=>isMusicPlaying && $refs.bgm.play()"/>
 
-    <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
+    <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product"/>
 
     <texture-loader v-model="textures" ref="textureloader"/>
 
