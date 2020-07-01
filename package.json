@@ -1,14 +1,14 @@
 {
   "name": "hiavalon",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
   "main": "main.js",
   "scripts": {
     "postinstall": "./.plugins/postinstall.sh",
-    "build": "vue-cli-service build",
-    "build:test": "vue-cli-service build --mode production_test",
+    "build": "vue-cli-service build --dest dist_prod",
+    "build:test": "vue-cli-service build --mode production_test --dest dist_dev",
     "dev": "vue-cli-service serve",
     "analyzer": "use_analyzer=true npm run dev",
     "dev:stage": "vue-cli-service serve --mode staging",

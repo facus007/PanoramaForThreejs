@@ -13,6 +13,7 @@
             :on-success="productUpload"
             :on-exceed="overreProduct"
             :on-error="onError"
+            :headers="headers"
             :on-progress="onProgress"
             accept=".zip"
           >
@@ -58,6 +59,7 @@
 <script>
 // import { vrResourceUpload } from "@/api/upload";
 import { saveproductchoose } from "./index";
+import { getToken } from '@/utils/auth'
 export default {
   name: "product",
   props:['value'],
@@ -77,6 +79,9 @@ export default {
       productList: [],
       resPonseData: [],
       loading: false,
+      headers: {
+        Authorization: getToken()
+      },
     };
   },
   methods: {
