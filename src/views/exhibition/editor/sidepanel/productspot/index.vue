@@ -32,8 +32,8 @@ export default {
   props:['editor'],
   watch:{
     selected(next){
-      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[1].hotspots.indexOf(next)].$el.scrollIntoView()
       this.editor.$refs.tools.setSelected(next)
+      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[1].hotspots.indexOf(next)+1].$el.scrollIntoView()
     },
     batch_no(next){
       if(next){

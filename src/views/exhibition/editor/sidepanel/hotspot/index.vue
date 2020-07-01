@@ -28,8 +28,8 @@ export default {
   props:['editor'],
   watch:{
     selected(next){
-      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[2].hotspots.indexOf(next)].$el.scrollIntoView()
       this.editor.$refs.tools.setSelected(next)
+      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[2].hotspots.indexOf(next)+1].$el.scrollIntoView()
     },
   },
   methods:{
