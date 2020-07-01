@@ -22,7 +22,7 @@ export default {
       });
       await ready
     }
-    return await import(/* webpackChunkName: "preview-main" */ './mainview')
+    return await import(/* webpackChunkName: "chunk-preview-main" */ './mainview')
   }, Loading},
   data(){return{
     loading: true,

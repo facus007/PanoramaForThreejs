@@ -10,7 +10,7 @@
 import Loading from '@/views/preview/loading'
 
 export default {
-  components:{MainView: ()=>import(/* webpackChunkName: "preview_instance-main" */'./mainview'), Loading},
+  components:{MainView: ()=>import(/* webpackChunkName: "chunk-preview_instance-main" */'./mainview'), Loading},
   data(){return{
     loading: true,
     // loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)

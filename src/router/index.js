@@ -9,23 +9,23 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "buildin-views" */ '@/views/login/index'),
+    component: () => import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/login/index'),
     hidden: true
   },
 
   {
     path: '/404',
-    component: () => import(/* webpackChunkName: "buildin-views" */ '@/views/404'),
+    component: () => import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/404'),
     hidden: true
   },
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "buildin-views" */ '@/layout'),
+    component: () => import(/* webpackChunkName: "chunk-buildin-views" */ '@/layout'),
     redirect: '/dashboard',
   },
   {
     path: '/share',
-    component: () => import(/* webpackChunkName: "share" */ '@/views/share/index'),
+    component: () => import(/* webpackChunkName: "chunk-share" */ '@/views/share/index'),
     hidden: true
   },
 ]

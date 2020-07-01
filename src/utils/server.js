@@ -4,11 +4,11 @@ export async function getProduct(product_id, openserver){
   let list_hotspots;
 
   if(openserver){
-    var {getProduct, listHotspots} = await import(/* webpackChunkName: "openserver" */'@/api/openserver')
+    var {getProduct, listHotspots} = await import(/* webpackChunkName: "chunk-openserver" */'@/api/openserver')
     get_product = getProduct
     list_hotspots = listHotspots
   }else{
-    var {getProduct, listHotspots} = await import(/* webpackChunkName: "server" */'@/api/server')
+    var {getProduct, listHotspots} = await import(/* webpackChunkName: "chunk-server" */'@/api/server')
     get_product = getProduct
     list_hotspots = listHotspots
   }
@@ -73,7 +73,7 @@ export async function saveVR(product){
     scenes[i].tmpId = item.tmp_id
   });
 
-  var {saveVR} = await import(/* webpackChunkName: "server" */'@/api/server')
+  var {saveVR} = await import(/* webpackChunkName: "chunk-server" */'@/api/server')
 
   await saveVR({
     name: product.name,
