@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
+// import Layout from '@/layout'
 
 export const constantRoutes = [
   {
@@ -20,7 +20,7 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    component: Layout,
+    component: () => import(/* webpackChunkName: "buildin-views" */ '@/layout'),
     redirect: '/dashboard',
   },
   {
@@ -66,8 +66,8 @@ function convertTree(routers) {
         m.fullPath = r.meta.fullPath + '/' + m.path
         var menu = {
           path: m.path,
-          // component: components[ r.meta.fullPath + '/' + m.path],
-          component: () => import('@/views' + r.meta.fullPath + '/' + m.path),
+          component: components[ r.meta.fullPath + '/' + m.path],
+          // component: () => import('@/views' + r.meta.fullPath + '/' + m.path),
           meta: { id: m.id, title: m.title, fullPath: r.meta.fullPath + '/' + m.path, icon: m.icon },
           name: m.path
         }

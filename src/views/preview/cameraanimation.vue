@@ -5,7 +5,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import * as THREE from 'three'
 import Cookies from 'js-cookie'
 import browser from '@/utils/browser'
@@ -14,7 +13,6 @@ const lerpfactor = 0.01
 const zero = new THREE.Vector3(0,-20, 0);
 
 export default {
-  mixins:[mixin],
   props:['value', 'fov', 'start_rotation'],
   data(){return {
     cur_aim:[0 , 0],

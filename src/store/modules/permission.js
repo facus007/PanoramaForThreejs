@@ -1,5 +1,4 @@
 import { constantRoutes, customRoutes } from '@/router'
-import Layout from '@/layout'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -36,11 +35,10 @@ export function filterAsyncRoutes(routes, roles) {
 }
 
 const components={
-  '/dashboard': ()=>import(/* webpackChunkName: "views" */ '@/views/dashboard/index'),
-  '/exhibition/list': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/list'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/editor'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "views" */ '@/views/exhibition/editor'),
-  '/preview': ()=>import(/* webpackChunkName: "views" */ '@/views/preview/index'),
+  '/dashboard': ()=>import(/* webpackChunkName: "buildin-views" */ '@/views/dashboard/index'),
+  '/exhibition/list': ()=>import(/* webpackChunkName: "exhibition" */ '@/views/exhibition/list'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "exhibition_editor" */ '@/views/exhibition/editor'),
+  '/preview': ()=>import(/* webpackChunkName: "preview" */ '@/views/preview'),
 }
 
 const state = {
@@ -68,7 +66,7 @@ const actions = {
         m.fullPath = m.path
         var module = {
           path: m.path,
-          component: Layout,
+          component: () => import(/* webpackChunkName: "buildin-views" */ '@/layout'),
           meta: {pid: m.pid, id: m.id, title: m.title, fullPath: "", icon: m.icon },
           name: m.path,
           hidden: m.hidden > 0 ? true : false ,

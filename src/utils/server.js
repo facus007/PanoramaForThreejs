@@ -1,9 +1,18 @@
-import {getProduct as getProduct_, listHotspots as listHotspots_, saveVR as saveVR_} from '@/api/server'
-import {getProduct as getProduct_openserver, listHotspots as listHotspots_openserver} from '@/api/openserver'
 
 export async function getProduct(product_id, openserver){
-  let get_product = openserver ? getProduct_openserver : getProduct_
-  let list_hotspots = openserver ? listHotspots_openserver : listHotspots_
+  let get_product;
+  let list_hotspots;
+
+  if(openserver){
+    var {getProduct, listHotspots} = await import(/* webpackChunkName: "openserver" */'@/api/openserver')
+    get_product = getProduct
+    list_hotspots = listHotspots
+  }else{
+    var {getProduct, listHotspots} = await import(/* webpackChunkName: "server" */'@/api/server')
+    get_product = getProduct
+    list_hotspots = listHotspots
+  }
+
   var result = await get_product({product_id})
 
   var request = 0
@@ -63,7 +72,10 @@ export async function saveVR(product){
     scenes[i].embeddings = embeddings
     scenes[i].tmpId = item.tmp_id
   });
-  await saveVR_({
+
+  var {saveVR} = await import(/* webpackChunkName: "server" */'@/api/server')
+
+  await saveVR({
     name: product.name,
     productId: product.product_id,
     description: product.description,

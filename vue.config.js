@@ -33,8 +33,8 @@ module.exports = {
     config.plugins.push(new CompressionPlugin({test: /\.js$|\.html$|\.css/, threshold: 10240, deleteOriginalAssets: false}))
   },
   pages: {
-    index: 'src/main.js',
-    // share: 'src/views/share/main.js'
+    instance: 'src/pages/instance/main.js',
+    index: 'src/pages/index/main.js',
   },
   chainWebpack(config) {
     // set svg-sprite-loader
@@ -56,6 +56,10 @@ module.exports = {
     if(process.env.use_analyzer){
       config.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     }
+    config.plugins.delete('prefetch-index')
+    config.plugins.delete('preload-index');
+    config.plugins.delete('prefetch-instance');
+    config.plugins.delete('preload-instance');
   },
   devServer: {
     host: '0.0.0.0',

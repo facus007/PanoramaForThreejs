@@ -6,7 +6,7 @@
 import settings from "@/settings"
 
 export default {
-  components:{ preview: ()=>import('@/views/preview') },
+  components:{ preview: ()=>import(/* webpackChunkName: "preview" */ '@/views/preview') },
   data(){return {loaded:false}},
   created: _ => document.title = '',
   destroyed: _ => document.title = settings.title
