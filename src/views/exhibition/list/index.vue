@@ -46,6 +46,7 @@
                 <el-button slot="reference" style="padding:0;margin:0; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
               </el-popover>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制</el-button>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="download(scope.row)">下载配置</el-button>
             </div>
           </template>
         </el-table-column>
@@ -128,6 +129,16 @@ export default {
       result.name += '-复制'
       await saveVR(result)
       this.refresh_()
+      this.loading = false
+    },
+    async download(row){
+      this.loading = true
+      let result = await getProduct(row.product_id)
+       var urlObject = window.URL || window.webkitURL || window;
+      var a = document.createElement('a');
+      a.href=urlObject.createObjectURL(new Blob([JSON.stringify(result)]))
+      a.download='data.json'
+      a.click()
       this.loading = false
     }
   },

@@ -12,7 +12,7 @@
 
     <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation"/>
 
-    <texture-loader v-if="curScene" v-model="textures" :product="product" :scene="curScene" ref="textureloader"/>
+    <texture-loader v-model="textures" ref="textureloader"/>
 
     <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
@@ -23,7 +23,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getProduct } from '@/utils/server'
+import { getProduct } from './server'
 import Cookies from 'js-cookie'
 import Preview from '@/views/preview/preview'
 import backgroundmusic from '@/views/preview/backgroundmusic'
@@ -105,6 +105,7 @@ export default {
       this.product = product
       this.$nextTick(async()=>{
         await new Promise((resolve, reject) => {
+          console.log(this.$refs)
           this.$refs.textureloader.load(this.curScene, null, resolve)
         });
         this.first_loaded = true
@@ -128,7 +129,7 @@ export default {
   beforeDestroy(){},
   created(){
     document.title = ''
-    if(this.$route.query.product_id){this.init()}
+    this.init()
   },
   destroyed(){},
   computed:{
