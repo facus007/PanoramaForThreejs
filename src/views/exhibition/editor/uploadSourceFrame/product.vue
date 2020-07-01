@@ -66,6 +66,7 @@ export default {
   data() {
     return {
       vrResourceUpload: process.env.VUE_APP_COS_API + '/vrResourceUpload',
+      // vrResourceUpload: process.env.VUE_APP_COS_API + '/saveVrResource',
       formData: {},
       rules: {
         imageUrl: [
