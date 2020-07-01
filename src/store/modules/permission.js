@@ -37,7 +37,7 @@ export function filterAsyncRoutes(routes, roles) {
 const components={
   '/dashboard': ()=>import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/dashboard/index'),
   '/exhibition/list': ()=>import(/* webpackChunkName: "chunk-exhibition" */ '@/views/exhibition/list'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "chunk-exhibition_editor" */ '@/views/exhibition/editor'),
+  '/exhibition/editor': ()=>import(/* webpackChunkName: "chunk-exhibition-editor" */ '@/views/exhibition/editor'),
   '/preview': ()=>import(/* webpackChunkName: "chunk-preview" */ '@/views/preview'),
 }
 
