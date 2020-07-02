@@ -1,4 +1,4 @@
-const PanoTools = import('pano-tools')
+const PanoTools = import(/* webpackChunkName: "chunk-tools" */'pano-tools')
 
 export default function(source) {
   return new Promise((resolve)=>{

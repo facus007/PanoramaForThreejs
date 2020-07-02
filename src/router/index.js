@@ -12,7 +12,6 @@ export const constantRoutes = [
     component: () => import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/404'),
@@ -67,7 +66,6 @@ function convertTree(routers) {
         var menu = {
           path: m.path,
           component: components[ r.meta.fullPath + '/' + m.path],
-          // component: () => import('@/views' + r.meta.fullPath + '/' + m.path),
           meta: { id: m.id, title: m.title, fullPath: r.meta.fullPath + '/' + m.path, icon: m.icon },
           name: m.path
         }

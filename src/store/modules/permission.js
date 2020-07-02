@@ -39,6 +39,7 @@ const components={
   '/exhibition/list': ()=>import(/* webpackChunkName: "chunk-exhibition" */ '@/views/exhibition/list'),
   '/exhibition/editor': ()=>import(/* webpackChunkName: "chunk-exhibition-editor" */ '@/views/exhibition/editor'),
   '/preview': ()=>import(/* webpackChunkName: "chunk-preview" */ '@/views/preview'),
+  '/tools': ()=>import(/* webpackChunkName: "chunk-tools" */ '@/views/tools'),
 }
 
 const state = {
@@ -120,12 +121,6 @@ const actions = {
 
     return new Promise(resolve => {
       var accessedRoutes = menuRouters || []
-      // if (roles.includes('admin')) {
-      //   accessedRoutes = asyncRoutes || []
-      //   accessedRoutes = menuRouters || []
-      // } else {
-      //   accessedRoutes = filterAsyncRoutes(menuRouters, roles)
-      // }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })

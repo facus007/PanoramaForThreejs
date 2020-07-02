@@ -1,6 +1,6 @@
 {
   "name": "hiavalon",
-  "version": "1.1.23",
+  "version": "1.1.24",
   "private": true,
   "description": "HiAvalon, a project with vue",
   "author": "kirigiri hitomi <chenjw@hiscene.com>",
@@ -10,15 +10,14 @@
     "build": "vue-cli-service build --dest dist_prod",
     "build:test": "vue-cli-service build --mode production_test --dest dist_dev",
     "dev": "vue-cli-service serve",
-    "analyzer": "use_analyzer=true npm run dev",
-    "dev:stage": "vue-cli-service serve --mode staging",
-    "build:stage": "vue-cli-service build --mode staging"
+    "analyzer": "use_analyzer=true npm run dev"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
     "axios": "0.19.2",
     "element-ui": "2.13.0",
     "js-cookie": "2.2.1",
+    "jszip": "^3.5.0",
     "mp4box": "^0.3.20",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",

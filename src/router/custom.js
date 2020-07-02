@@ -49,4 +49,14 @@ export const customRoutes=[
     children: null,
     hidden: 1
   },
+  {
+    id: 4,
+    title: "全景转换工具",
+    path: "/tools",
+    pid: 0,
+    icon: "example",
+    order: 0,
+    children: null,
+    hidden: 0
+  },
 ]
