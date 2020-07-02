@@ -13,6 +13,7 @@ export { default as viewspot } from './viewspot'
 export { default as adspot } from './adspot'
 export { default as hotspot } from './hotspot'
 export { default as productspot } from './productspot'
+export { default as advanced } from './advanced'
 
 export const sidepanel = {
   mixins:[mixin],
