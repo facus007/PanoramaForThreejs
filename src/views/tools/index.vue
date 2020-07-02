@@ -19,7 +19,7 @@
 import preprocessing from '@/utils/preprocessing'
 import JSZip from 'jszip'
 
-const label = ['right','back','left','front','top','bottom']
+const label = ['right', 'back', 'left', 'front', 'top', 'bottom']
 
 export default {
   data(){return {
@@ -33,20 +33,16 @@ export default {
     },
     async processing(){
       this.loading = true
-      this.$nextTick(()=>this.$nextTick(()=> preprocessing(this.url).then(async (result)=>{
-        if(this) {
-          var zip = new JSZip()
-          for (var i = 0; i < result.length; i++) {
-            await fetch(result[i]).then(r=>zip.file(label[i]+'.jpg',r.blob()))
-          }
-          var a = document.createElement('a');
-          a.href = URL.createObjectURL(await zip.generateAsync({type:"blob"}))
-          a.download = this.file.name + '.zip'
-          a.click()
-          this.loading = false
-          this.$emit('input', false)
-        }
-      })))
+      let result = await preprocessing(this.url)
+      var zip = new JSZip()
+      for (var i = 0; i < result.length; i++) {
+        await fetch(result[i]).then(r=>zip.file(label[i]+'.jpg',r.blob()))
+      }
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(await zip.generateAsync({type:"blob"}))
+      a.download = this.file.name + '.zip'
+      a.click()
+      this.loading = false
     }
   },
   mounted(){},
