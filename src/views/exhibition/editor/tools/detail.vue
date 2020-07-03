@@ -8,7 +8,7 @@
     <div>当前影像</div>
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
-      <video v-if="selected.img_url && selected.style === 2" :src="selected.img_url" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
+      <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
   </div>
@@ -40,7 +40,7 @@
       </el-button>
     </div>
   </div>
-  <material-selector v-model="showDialog" @select="select" imgtype="1"/>
+  <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
   <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   <scene-selector v-model="showSceneSelector" @select="selectScene" :curSceneId="curedit.scene_id"/>
 </div>
@@ -77,6 +77,10 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.style = parseInt(material.material_type)
         item.img_url = material.material_content
+        if(item.style === 2) {
+          item.img_url = material.resource_url
+          item.target.video = material.material_content
+        }
       });
     },
     selectVideo(material){

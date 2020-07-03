@@ -16,6 +16,7 @@ import { mapState } from 'vuex'
 import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import GlImage from './glimage'
+import GlVideo from './glvideo'
 import Spot from './spot'
 
 var fix = new THREE.Quaternion()
@@ -25,7 +26,7 @@ var frame = 0
 
 export default {
   mixins: [THREEComponent],
-  components: {GlImage, Spot},
+  components: {GlImage, GlVideo, Spot},
   props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected', 'hidden'],
   data(){return {
     imageData: null

@@ -8,7 +8,7 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
 import MashBasicMaterial from '../base/meshbasicmaterial'
-import Texture from '../base/texture'
+import Texture from '../base/videotexture'
 
 // var _canvas;
 // function getDataURL ( image ) {
@@ -38,7 +38,7 @@ fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 export default {
   components:{MashBasicMaterial,Texture},
   mixins: [THREEComponent],
-  props: ['image','mesh','item','visible'],
+  props: ['image','video','mesh','item','visible'],
   watch:{
     // domElement(next, pre){
     //   pre && pre.removeEventListener('update', this.update)
@@ -80,8 +80,10 @@ export default {
   },
   computed:{
     src(){
-      return this.image.src
+      // return this.image.src
       // return getDataURL(this.image)
+      return this.video
+      // return './static/frag_bunny.mp4'
     },
     size(){
       let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)

@@ -1,10 +1,11 @@
 <template>
-  <video loop playsinline x5-playsinline x5-video-player-type="h5" style="display:none" ref='video' muted/>
+  <video loop webkit-playsinline playsinline x5-playsinline x5-video-player-type="h5" style="display:none" ref='video' muted/>
 </template>
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
+import VideoUtils from '@/utils/video'
 
 export default {
   mixins: [THREEComponent],
@@ -32,6 +33,7 @@ export default {
         this.$emit('input', {w, h})
       }
     }, false);
+    new VideoUtils(this.$el, this.src)
   },
   beforeDestroy(){
     this.obj && this.obj.dispose()

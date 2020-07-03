@@ -9,7 +9,7 @@
 import Cookies from 'js-cookie'
 import browser from '@/utils/browser'
 import {getshareconfig} from '@/api/server'
-import ws from 'weixin-js-sdk';
+import wx from 'weixin-js-sdk';
 import Loading from '@/views/preview/loading'
 
 export default {
