@@ -1,5 +1,5 @@
 <template>
-  <MashBasicMaterial :transparent="true">
+  <MashBasicMaterial>
     <texture :url='src'/>
   </MashBasicMaterial>
 </template>
