@@ -1,11 +1,12 @@
 <template>
-  <video loop webkit-playsinline playsinline x5-playsinline x5-video-player-type="h5" style="display:none" ref='video' muted/>
+  <video loop :src="!isSupported && src" style="display:none" webkit-playsinline playsinline x5-playsinline x5-video-player-type="h5" ref='video' muted>
+  </video>
 </template>
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import VideoUtils from '@/utils/video'
+import {default as VideoUtils, isSupported} from '@/utils/video'
 
 export default {
   mixins: [THREEComponent],
@@ -21,6 +22,9 @@ export default {
     }
   },
   methods:{
+    play(){
+      this.$el.play()
+    }
     // update(){}
     // propCompute(){},
   },
@@ -33,12 +37,13 @@ export default {
         this.$emit('input', {w, h})
       }
     }, false);
-    new VideoUtils(this.$el, this.src)
+    this.isSupported && new VideoUtils(this.$el, this.src)
   },
   beforeDestroy(){
     this.obj && this.obj.dispose()
   },
   computed:{
+    isSupported:_=>isSupported(),
     src(){
       return this.url.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
     },

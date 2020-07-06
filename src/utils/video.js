@@ -5,9 +5,8 @@ export default class Video {
     this.video = video
     this.source = source
 
-    if(!'MediaSource' in window || !window.MediaSource) {
+    if(!isSupported()) {
       this.video.src = this.source
-      this.video.play();
       return
     }
     this.fetchBuffer();
@@ -24,7 +23,6 @@ export default class Video {
         var sourceBuffer = this.mediaSource.addSourceBuffer('video/mp4; codecs="'+info.videoTracks[0].codec+','+info.audioTracks[0].codec +'"');
         sourceBuffer.addEventListener('updateend', (_) => {
            this.mediaSource.endOfStream();
-           this.video.play()
         });
         sourceBuffer.appendBuffer(arrayBuffer);
       });
@@ -33,4 +31,8 @@ export default class Video {
     arrayBuffer.fileStart = 0;
     this.mp4boxfile.appendBuffer(arrayBuffer);
   }
+}
+
+export function isSupported (){
+  return window.MediaSource
 }

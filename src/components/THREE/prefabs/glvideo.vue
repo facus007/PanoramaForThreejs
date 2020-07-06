@@ -1,6 +1,10 @@
 <template>
-  <MashBasicMaterial>
-    <texture :url='src'/>
+  <MashBasicMaterial :transparent="true" ref="material">
+    <video-texture :url='src' ref='player'/>
+    <texture :url='imagesrc'/>
+    <div v-if="!isSupported && !isPlaying" :style="{width: width*100+'px', height: height*100+'px', display: 'flex'}">
+      <el-button @click="play" style="margin: auto; color: white" type="text"><i class="el-icon-caret-right"/></el-button>
+    </div>
   </MashBasicMaterial>
 </template>
 <script>
@@ -8,7 +12,9 @@ import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
 import MashBasicMaterial from '../base/meshbasicmaterial'
-import Texture from '../base/videotexture'
+import Texture from '../base/texture'
+import VideoTexture from '../base/videotexture'
+import {isSupported} from '@/utils/video'
 
 // var _canvas;
 // function getDataURL ( image ) {
@@ -36,8 +42,11 @@ var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 
 export default {
-  components:{MashBasicMaterial,Texture},
+  components:{MashBasicMaterial, Texture, VideoTexture},
   mixins: [THREEComponent],
+  data(){return {
+    isPlaying: false,
+  }},
   props: ['image','video','mesh','item','visible'],
   watch:{
     // domElement(next, pre){
@@ -66,12 +75,19 @@ export default {
       this.obj.position.add(this.layout.clone().multiplyScalar(short * 0.01))
       this.obj.scale.set(m[2] * short * 0.01,m[3] * short * 0.01, short * 0.01)
     },
+    play(){
+      console.log(1)
+      this.$refs.material.obj.map = this.$refs.player.obj
+      this.$refs.player.play()
+      this.isPlaying = true
+    }
   },
   mounted(){
     this.obj = new THREE.Mesh(new THREE.PlaneGeometry(this.width * 100, this.height * 100));
     this.setTransform()
     this.obj.visible = this.visible
     this.scene.add(this.obj)
+    this.isSupported && this.$nextTick(this.play)
   },
   beforeDestroy(){
     this.scene.remove(this.obj)
@@ -79,11 +95,14 @@ export default {
     this.obj = null
   },
   computed:{
+    isSupported:_=>isSupported(),
+    imagesrc(){
+      return this.image.src
+    },
     src(){
       // return this.image.src
       // return getDataURL(this.image)
       return this.video
-      // return './static/frag_bunny.mp4'
     },
     size(){
       let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)

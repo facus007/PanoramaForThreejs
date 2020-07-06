@@ -22,4 +22,5 @@ wasm-pack build
 ```
 
 ## package.json postinstall
+"postinstall": "./.plugins/postinstall.sh",
 git 版本自增脚本 (node environment required)
