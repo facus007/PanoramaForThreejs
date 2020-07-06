@@ -59,14 +59,15 @@
 <script>
 // import { vrResourceUpload } from "@/api/upload";
 import { saveproductchoose } from "./index";
+import { listChooseHotspots } from "../../../../api/server";
 import { getToken } from '@/utils/auth'
 export default {
   name: "product",
   props:['value'],
   data() {
     return {
-      vrResourceUpload: process.env.VUE_APP_COS_API + '/vrResourceUpload',
-      // vrResourceUpload: process.env.VUE_APP_COS_API + '/saveVrResource',
+      // vrResourceUpload: process.env.VUE_APP_COS_API + '/vrResourceUpload',
+      vrResourceUpload: process.env.VUE_APP_COS_API + '/saveVrResource',
       formData: {},
       rules: {
         imageUrl: [
@@ -78,8 +79,9 @@ export default {
         ]
       },
       productList: [],
-      resPonseData: [],
+      resPonseData: null,
       loading: false,
+      flag:false,
       headers: {
         Authorization: getToken()
       },
@@ -91,19 +93,27 @@ export default {
     },
     productUpload(response, file, fileList) {
       //上传成功处理
-      this.loading=false
-      console.log(response, "respone");
-      let arr = response.data.map(item => {
-        return {
-          mainUrl: item.imageUrl,
-          ...item
-        };
-      });
-      this.resPonseData = this.resPonseData.concat(arr);
+     
+      console.log(response,'response')
+      console.log(response.data, "respone");
+      this.resPonseData = response.data;
+      // this.resPonseData = this.resPonseData.concat(arr);
       this.$message({
         message: "上传成功！",
         type: "success"
       });
+      let times=0;
+      if(response.data){
+        let timer=setInterval(() => {
+          if(times>30||this.flag){
+        clearInterval(timer)
+          }else{
+            times++;
+        this.savelistChooseHotspots(response.data);
+          }
+        }, 10000);
+        
+      }
     },
     onError() {
       this.$message({
@@ -115,26 +125,44 @@ export default {
     overreProduct(files, fileList) {
       // this.msgWarning("最多上传个资源！");
     },
-    handelConfirm() {
-      //确定 返回batchNo
-      if (this.resPonseData.length == 0) {
-        this.$message({
-          message: "请上传产品资源包！",
-          type: "warning"
-        });
-        return;
-      }
-      saveproductchoose(this.resPonseData).then(res => {
-        console.log(res.data.batchNo, "batchNo");
+    savelistChooseHotspots(batchNo){
+      // console.log(this.$store.state.editor.product.tmp_group_id,'this.$store.state.editor.product.tmp_group_id')
+      this.$store.state.editor.product.tmp_group_id;
+      listChooseHotspots({batch_no:batchNo,tmp_group_id:this.$store.state.editor.product.tmp_group_id}).then(res=>{
+        console.log(res,'00')
+        if(res.code==200){
+        this.flag=res.flag;
+         this.loading=false
         this.$message({
           message: res.msg,
           type: "success"
         });
-        this.productList = [];
-        this.resPonseData = [];
-        // this.resetForm("dataForm");
-        this.$emit('input', res.data.batchNo)
-      });
+        }
+        
+      })
+    },
+    handelConfirm() {
+      //确定 返回batchNo
+      this.$emit('openAdvsSouceFrame', false)
+      // this.$emit('advsFrameVisible', false)
+      // if (this.resPonseData) {
+      //   saveproductchoose(this.resPonseData).then(res => {
+      //   console.log(res.data, "batchNo");
+      //   this.$message({
+      //     message: res.msg,
+      //     type: "success"
+      //   });
+      //   this.productList = [];
+      //   this.resPonseData = null;
+      //   this.$emit('input', res.data)
+      // });
+      // }else{
+      //   this.$message({
+      //     message: "请上传产品资源包！",
+      //     type: "warning"
+      //   });
+      //   return;
+      // }
     }
   }
 };
