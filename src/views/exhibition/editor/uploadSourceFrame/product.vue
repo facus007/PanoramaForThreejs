@@ -93,7 +93,7 @@ export default {
     },
     productUpload(response, file, fileList) {
       //上传成功处理
-      this.loading=false
+     
       console.log(response,'response')
       console.log(response.data, "respone");
       this.resPonseData = response.data;
@@ -132,6 +132,7 @@ export default {
         console.log(res,'00')
         if(res.code==200){
         this.flag=res.flag;
+         this.loading=false
         this.$message({
           message: res.msg,
           type: "success"
