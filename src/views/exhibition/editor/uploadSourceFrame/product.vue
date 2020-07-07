@@ -61,6 +61,7 @@
 import { saveproductchoose } from "./index";
 import { listChooseHotspots } from "../../../../api/server";
 import { getToken } from '@/utils/auth'
+
 export default {
   name: "product",
   props:['value'],
@@ -93,26 +94,15 @@ export default {
     },
     productUpload(response, file, fileList) {
       //上传成功处理
-     
-      console.log(response,'response')
-      console.log(response.data, "respone");
+      // console.log(response,'response')
       this.resPonseData = response.data;
       // this.resPonseData = this.resPonseData.concat(arr);
       this.$message({
         message: "上传成功！",
         type: "success"
       });
-      let times=0;
       if(response.data){
-        let timer=setInterval(() => {
-          if(times>30||this.flag){
-        clearInterval(timer)
-          }else{
-            times++;
         this.savelistChooseHotspots(response.data);
-          }
-        }, 10000);
-        
       }
     },
     onError() {
@@ -129,40 +119,42 @@ export default {
       // console.log(this.$store.state.editor.product.tmp_group_id,'this.$store.state.editor.product.tmp_group_id')
       this.$store.state.editor.product.tmp_group_id;
       listChooseHotspots({batch_no:batchNo,tmp_group_id:this.$store.state.editor.product.tmp_group_id}).then(res=>{
-        console.log(res,'00')
-        if(res.code==200){
+        // console.log(res,'00')
+        if(res.code==200&&res.flag){
+          //有数据返回才结束
         this.flag=res.flag;
-         this.loading=false
+        this.loading=false
         this.$message({
           message: res.msg,
           type: "success"
         });
+        }else{
+          //没有数据就10s请求一次  5min超时
+        let times=0;
+        let timer=setInterval(() => {
+          if(times>30||this.flag){
+        clearInterval(timer)
+          }else{
+            times++;
+        this.savelistChooseHotspots(this.resPonseData);
+          }
+        }, 10000);
+        return;
         }
         
       })
     },
     handelConfirm() {
-      //确定 返回batchNo
+      if (this.resPonseData) {
+        //隐藏弹框
       this.$emit('openAdvsSouceFrame', false)
-      // this.$emit('advsFrameVisible', false)
-      // if (this.resPonseData) {
-      //   saveproductchoose(this.resPonseData).then(res => {
-      //   console.log(res.data, "batchNo");
-      //   this.$message({
-      //     message: res.msg,
-      //     type: "success"
-      //   });
-      //   this.productList = [];
-      //   this.resPonseData = null;
-      //   this.$emit('input', res.data)
-      // });
-      // }else{
-      //   this.$message({
-      //     message: "请上传产品资源包！",
-      //     type: "warning"
-      //   });
-      //   return;
-      // }
+      }else{
+        this.$message({
+          message: "请上传产品资源包！",
+          type: "warning"
+        });
+        return;
+      }
     }
   }
 };
