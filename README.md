@@ -5,8 +5,8 @@
 npm install
 
 # serve with hot reload
-npm run dev
-npm run analyzer # script analyzer
+~~npm run dev~~
+npm run analyzer # script analyzer（建议使用）
 
 # build for production with minification
 npm run build # production
