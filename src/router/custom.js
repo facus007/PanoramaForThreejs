@@ -54,7 +54,7 @@ export const customRoutes=[
     title: "全景转换工具",
     path: "/tools",
     pid: 0,
-    icon: "example",
+    icon: "slice",
     order: 0,
     children: null,
     hidden: 0

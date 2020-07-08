@@ -54,7 +54,7 @@ export default {
       this.selected = selected
     },
     openAdvsSouceFrame(val){
-      this.advsFrameVisible = true
+      this.advsFrameVisible = val
     }
   },
   mounted(){},
