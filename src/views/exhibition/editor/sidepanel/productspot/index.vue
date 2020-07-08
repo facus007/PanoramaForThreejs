@@ -33,7 +33,7 @@ export default {
   watch:{
     selected(next){
       this.editor.$refs.tools.setSelected(next)
-      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[1].hotspots.indexOf(next)+1].$el.scrollIntoView()
+      next && this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[1].hotspots.indexOf(next)+1].$el.scrollIntoView()
     },
     batch_no(next){
       if(next){
@@ -44,11 +44,11 @@ export default {
     }
   },
   methods:{
-    del(item){
-      delembed({embedIds: item.embed_id})
+    async del(item){
+      await delembed({embedIds: item.embed_id})
       let index = this.curedit.embeddings[1].hotspots.indexOf(item)
       this.curedit.embeddings[1].hotspots.splice(index, 1)
-      this.selected = null
+      this.setSelected()
     },
     setSelected(selected){
       this.selected = selected

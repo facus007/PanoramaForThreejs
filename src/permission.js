@@ -26,22 +26,7 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      // determine whether the user has obtained his permission roles through getInfo
-      // const hasRoles = store.getters.roles && store.getters.roles.length > 0
       next()
-      // if (hasRoles) {
-      //   next()
-      // } else {
-      //   try {
-      //     next({ ...to, replace: true })
-      //   } catch (error) {
-      //     // remove token and go to login page to re-login
-      //     await store.dispatch('user/resetToken')
-      //     Message.error(error || 'Has Error')
-      //     next(`/login?redirect=${to.path}`)
-      //     NProgress.done()
-      //   }
-      // }
     }
   } else {
     /* has no token*/

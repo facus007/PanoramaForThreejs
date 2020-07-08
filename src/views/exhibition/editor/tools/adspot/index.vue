@@ -4,7 +4,7 @@
     <detail v-if="selected" :selected="selected" style="margin-left: auto;"/>
     <prebuild :template="curedit.template" v-model="group">
       <span v-for="item, index in group && curedit.embeddings[0].hotspots">
-        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" :selected="selected" @action="action"/>
+        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="item.name" :item="item" :selected="selected" @action="action"/>
       </span>
     </prebuild>
   </div>
