@@ -148,6 +148,7 @@ export default {
       if (this.resPonseData) {
         //隐藏弹框
       this.$emit('openAdvsSouceFrame', false)
+      this.$emit('input', this.resPonseData)
       }else{
         this.$message({
           message: "请上传产品资源包！",
