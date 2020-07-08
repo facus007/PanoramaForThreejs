@@ -14,7 +14,8 @@
 
     <texture-loader v-model="textures" ref="textureloader"/>
 
-    <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/>
+    <Advanced  v-if="after_animation_loaded && product && product.music_url" style="position: absolute; top: 0; right: 0; z-index:2;"/>
+    <!-- <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/> -->
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
     </div>
@@ -29,6 +30,7 @@ import Preview from './preview'
 import backgroundmusic from './backgroundmusic'
 import CameraAnimation from './cameraanimation'
 import TextureLoader from './textureloader'
+import Advanced from './advanced'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
 
@@ -62,7 +64,7 @@ const sides = [
 var interact = false
 
 export default {
-  components:{...THREE, Preview, backgroundmusic, CameraAnimation, TextureLoader },
+  components:{...THREE, Preview, backgroundmusic, CameraAnimation, TextureLoader, Advanced},
   data(){return {
     product: null,
     scenes: {},
