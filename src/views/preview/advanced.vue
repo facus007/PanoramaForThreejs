@@ -1,5 +1,5 @@
 <template>
-  <div class="home noevent center">
+  <div style="position: absolute; width: 100%; height: 100%; pointer-events: none;">
     <div class="event" :style="{display: 'grid', width: size*3+'px', height: size*5+'px', 'grid-template-columns': '1fr 1fr 1fr', position: 'absolute', left: '0', top: '0'}">
       <div v-for="i in 15" style="border: 1px dashed white; width:100%; height:100%;"/>
     </div>
@@ -16,30 +16,12 @@
 </template>
 
 <script>
-import * as THREE from 'three'
 import { mapState } from 'vuex'
-
 export default {
-  props:['renderer', 'controls'],
-  data(){return {
-    selected: null,
-  }},
-  watch:{
-    selected(next){
-      if(next){
-      }
-    }
-  },
-  methods:{
-    setSelected(selected){
-      this.selected = selected
-    },
-    // update(){},
-    // propCompute(){},
-  },
+  data(){return {}},
+  watch:{},
+  methods:{},
   computed:{
-    ...mapState('editor', ['preview', 'product', 'curedit']),
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
     size: _=>50,
   },
   mounted(){},
@@ -47,28 +29,8 @@ export default {
 }
 </script>
 
-<style scoped="three">
-.noevent {
-  pointer-events: none;
-}
-.event {
+<style scoped>
+.event{
   pointer-events: auto;
-}
-</style>
-
-<style scoped="three-editor">
-.center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.frame {
-  display: flex;
-  width: 70%;
-  height: 70%;
-  border: 2px dashed white;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 20px;
 }
 </style>

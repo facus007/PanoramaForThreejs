@@ -6,8 +6,8 @@
     <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
     <animation/>
     <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
-    <backgroundmusic/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
+    <!-- <backgroundmusic/>
+    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/> -->
   </container>
 </template>
 
@@ -17,11 +17,11 @@ import mixin from '@/views/mixin'
 import thumbnail from './thumbnail'
 import description from './description'
 import animation from './animation'
-import backgroundmusic from './backgroundmusic'
+// import backgroundmusic from './backgroundmusic'
 
 export default {
   mixins:[mixin],
-  components:{thumbnail,description,animation,backgroundmusic},
+  components:{thumbnail,description,animation},
   props:['sideImgs'],
   watch:{},
   methods:{},
