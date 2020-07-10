@@ -54,12 +54,11 @@ export default {
     commit(){
       this.product.features = this.product.features || []
       this.product.features.push({
-        name: this.option.name || '新扩展',
+        ...this.option,
         uuid: uuid(),
-        type: this.option.type,
-        url: "https://manager.flycloudinfo.com/websources/image/20200618/6bfd04f4-1a0b-4c61-8c95-0049eab6ba53.jpeg",
         size: '1 x 1',
-        position: {group: 0, x: 0, y: 0}
+        position: {group: 0, x: 0, y: 0},
+        name: this.option.name || '新扩展',
       })
       this.$emit('input', false)
     }

@@ -14,7 +14,7 @@
 
     <texture-loader v-model="textures" ref="textureloader"/>
 
-    <Advanced  v-if="after_animation_loaded && product && product.music_url" style="position: absolute; top: 0; right: 0; z-index:2;"/>
+    <advanced v-if="after_animation_loaded && product" style="position: absolute; top: 0; right: 0; z-index:2;" :product="product" v-model="isMusicPlaying"/>
     <!-- <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/> -->
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>

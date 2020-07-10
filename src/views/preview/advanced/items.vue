@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :style="{border:outline?'2px dashed yellow':'2px dashed blue'}" :item="item"/>
+    <components :is="item.type" :item="item" v-model="isMusicPlaying"/>
   </div>
 </template>
 
@@ -22,9 +22,11 @@ const sizes = {
 }
 
 export default{
-  props:['item', 'selected', 'widgets', 'grids'],
+  props:['item', 'selected', 'widgets', 'grids', 'value'],
   components:{music, imagef, linkf, hypertext},
-  data(){return{}},
+  data(){return{
+    isMusicPlaying: true,
+  }},
   methods:{
     onChange(){
       let widget = this.widgets[this.item.uuid]
@@ -44,6 +46,12 @@ export default{
       if(next){
         this.widget.appendChild(this.$el)
       }
+    },
+    isMusicPlaying(next){
+      this.$emit('input',next)
+    },
+    value(next){
+      this.isMusicPlaying = next
     }
   },
   mounted(){

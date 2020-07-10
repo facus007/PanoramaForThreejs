@@ -7,7 +7,7 @@
     </div>
     <audio v-if="item.url" controls :src="item.url" style="max-width: 100%; max-height: 100%;" playsinline/>
     <div v-else  style="width: 100%; height: 50%;"/>
-    <el-checkbox v-model="product.loop" style="margin-left: auto">循环播放</el-checkbox>
+    <el-checkbox v-model="item.loop" style="margin-left: auto">循环播放</el-checkbox>
     <material-selector v-model="showDialog" @select="select" imgtype="5"/>
   </div>
 </template>
