@@ -38,6 +38,7 @@ export async function getProduct(product_id, openserver){
     }
     a()
   });
+  result.productInfo.features = JSON.parse(result.productInfo.features)
   return result.productInfo
 }
 
@@ -86,5 +87,6 @@ export async function saveVR(product){
     loop: product.loop,
     exhibitor_id: product.exhibitor_id,
     animation: product.animation,
+    features: JSON.stringify(product.features)
   })
 }

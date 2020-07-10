@@ -46,9 +46,7 @@ export default {
   width: 100%;
   height: 160px;
   display:flex;
-  margin: 5px 0;
   justify-content: center;
-  padding: 15px 0px;
   flex-flow: wrap;
   align-content: space-around;
 }

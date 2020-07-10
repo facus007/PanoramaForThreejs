@@ -4,11 +4,10 @@
       <el-form-item label="功能名称">
         <el-input size="small" v-model="name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
       </el-form-item>
-      <el-form-item label="选择图标">
-        <el-button class="upload" type="text" @click="onChange" style="width: 200px; height: 100px; border-radius: 5px; border: 1px dashed gray; position:ralative;">
-          <el-image v-if="cover" :src="cover" fit="contain" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-button>
+      <el-form-item label="功能类型">
+        <el-select size="small" v-model="type">
+          <el-option v-for="item in types" :key="item.key" :label="item.label" :value="item.key"/>
+        </el-select>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -20,11 +19,20 @@
 
 <script>
 import { mapState } from 'vuex'
+import { v4 as uuid} from 'uuid'
+
+const types = [
+  {key:'music', label:'音乐'},
+  {key:'imagef', label:'图片'},
+  {key:'linkf', label:'超链接'},
+  {key:'hypertext', label:'富文本'},
+]
 
 export default {
   data(){ return {
     name: null,
     cover: null,
+    type: null,
     visible: false,
     showDialog: false,
   }},
@@ -39,14 +47,20 @@ export default {
     },
     commit(){
       this.product.features = this.product.features || []
+      console.log(this.type)
       this.product.features.push({
-        name: '新扩展'
+        name: this.name || '新扩展',
+        uuid: uuid(),
+        type: this.type,
+        size: '1 x 1',
+        position: {group: 0, x: 0, y: 0}
       })
       this.$emit('input', false)
     }
   },
   computed:{
     ...mapState('editor',['product']),
+    types:_=>types,
   },
   mounted(){},
   beforeDestroy(){}

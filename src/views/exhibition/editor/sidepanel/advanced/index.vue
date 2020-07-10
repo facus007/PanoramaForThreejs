@@ -18,8 +18,12 @@ import mixin from '@/views/mixin'
 import list from '../list'
 import newfeature from './newfeature'
 import music from './backgroundmusic'
+import linkf from './linkf'
+import imagef from './imagef'
+import hypertext from './hypertext'
 import empty from './empty'
 import sizes from './sizes'
+import { v4 as uuid} from 'uuid'
 
 export default {
   mixins:[mixin],
@@ -33,16 +37,18 @@ export default {
     selected: null,
     showDialog: false,
   }},
-  components:{list, newfeature, music, empty, sizes},
+  components:{list, newfeature, music, empty, sizes, linkf, imagef, hypertext},
   mounted(){
     this.product.features = this.product.features || []
     if(this.product.music_url && this.product.features.filter(item=>item.type==='music').length === 0){ // 旧版本兼容
       this.product.features.push({
         name: '背景音乐',
+        uuid: uuid(),
         type: 'music',
         url: this.product.music_url,
         loop: this.product.loop,
-        size: '1 x 1'
+        size: '1 x 1',
+        position: {group: 2, x: 2, y: 0}
       })
     }
   },
@@ -53,11 +59,15 @@ export default {
     },
     del(row){
       if(row.type = 'music'){ // 旧版本兼容
-        this.product.music_url = undefined
-        this.product.loop = undefined
+        this.product.music_url = null
+        this.product.loop = null
       }
       let index = this.product.features.indexOf(row)
       this.product.features.splice(index, 1)
+      this.setSelected()
+    },
+    setSelected(selected){
+      this.selected = selected
     },
   },
   computed: {
