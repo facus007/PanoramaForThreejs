@@ -14,8 +14,8 @@
                 <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
                 <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
                 <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
+                <div style="width:fit-content">{{scope.row.remark}}</div>
               </el-button>
-              {{scope.row.remark}}
             </template>
           </el-table-column>
         </template>

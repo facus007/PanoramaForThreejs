@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :style="{border:outline?'2px dashed yellow':'2px dashed blue'}"/>
+    <components :is="item.type" :style="{border:outline?'2px dashed yellow':'2px dashed blue'}" :item="item"/>
   </div>
 </template>
 
@@ -27,19 +27,22 @@ export default{
   data(){return{}},
   methods:{
     onChange(){
-      this.item.size = this.widget.attributes['data-gs-width'].value + ' x ' + this.widget.attributes['data-gs-height'].value
-      this.item.position = {group:this.item.position.group, x:this.widget.attributes['data-gs-x'].value, y:this.widget.attributes['data-gs-y'].value }
+      let widget = this.widgets[this.item.uuid]
+      this.item.size = widget.attributes['data-gs-width'].value + ' x ' + widget.attributes['data-gs-height'].value
+      this.item.position = {group:this.item.position.group, x:widget.attributes['data-gs-x'].value, y:widget.attributes['data-gs-y'].value }
     }
   },
   watch:{
     'item.size'(next, pre){
-      this.grid.resize(this.widget, sizes[next].width, sizes[next].height)
+      let widget = this.widgets[this.item.uuid]
+      this.grid.resize(widget, sizes[next].width, sizes[next].height)
       this.grid.batchUpdate()
       this.grid.commit()
-      this.item.size = this.widget.attributes['data-gs-width'].value + ' x ' + this.widget.attributes['data-gs-height'].value
+      this.item.size = widget.attributes['data-gs-width'].value + ' x ' + widget.attributes['data-gs-height'].value
     },
     'widget'(next){
       if(next){
+        console.log(next)
         this.widget.appendChild(this.$el)
       }
     }

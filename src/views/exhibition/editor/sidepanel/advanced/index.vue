@@ -4,7 +4,7 @@
       <list :source="product.features || []" label="扩展组件" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
     <sizes :selected="selected"/>
-    <component :is="selected && selected.type || 'empty'"/>
+    <component :is="selected && selected.type || 'empty'" :item="selected"/>
     <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
       <el-button type="primary" style="width:100%" @click="add">添加组件</el-button>
     </div>

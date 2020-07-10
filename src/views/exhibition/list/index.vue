@@ -45,7 +45,7 @@
                 <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
                 <el-button slot="reference" style="padding:0;margin:0; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
               </el-popover>
-              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制</el-button>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制作品</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="download(scope.row)">下载配置</el-button>
             </div>
           </template>
