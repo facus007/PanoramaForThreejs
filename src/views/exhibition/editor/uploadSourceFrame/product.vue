@@ -97,10 +97,10 @@ export default {
       // console.log(response,'response')
       this.resPonseData = response.data;
       // this.resPonseData = this.resPonseData.concat(arr);
-      this.$message({
-        message: "上传成功！",
-        type: "success"
-      });
+      // this.$message({
+      //   message: "上传成功！",
+      //   type: "success"
+      // });
       if(response.data){
         this.savelistChooseHotspots(response.data);
       }
