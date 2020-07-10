@@ -24,7 +24,7 @@
                 <p>1. zip包中需要包含相应的产品图片</p>
                 <p>2. zip包中需要包含相应的产品相关信息的excel</p>
                 <p>3. zip包的文件夹名字需为英文</p>
-                <p>4. 示例产品包下载</p>
+                <p>4. <a :href="demoPackageLink" style="color:#409EFF;">示例产品包下载</a> </p>
               </div>
             </div>
             <el-button size="small">上传</el-button>
@@ -69,6 +69,7 @@ export default {
     return {
       // vrResourceUpload: process.env.VUE_APP_COS_API + '/vrResourceUpload',
       vrResourceUpload: process.env.VUE_APP_COS_API + '/saveVrResource',
+      demoPackageLink:process.env.VUE_APP_WEBSOURCE_API+'/zip/demo.zip',//示例产品包链接
       formData: {},
       rules: {
         imageUrl: [
@@ -87,6 +88,9 @@ export default {
         Authorization: getToken()
       },
     };
+  },
+  mounted(){
+      // console.log(process.env.VUE_APP_WEBSOURCE_API,'域名')
   },
   methods: {
     productBeforeUpload() {
