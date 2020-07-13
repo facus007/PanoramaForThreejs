@@ -20,7 +20,7 @@ import MaterialSelector from '@/views/exhibition/materialselector'
 
 export default {
   mixins:[mixin],
-  props:['item'],
+  props:['item', 'light'],
   data(){return {
     showDialog: false,
   }},
@@ -52,6 +52,6 @@ export default {
   align-content: space-around;
 }
 .frame >>> .el-checkbox__label{
-  color: white;
+  /* color: white; */
 }
 </style>

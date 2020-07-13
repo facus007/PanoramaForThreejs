@@ -1,10 +1,10 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-      <div class="icon icon-music"/>
+    <div class="icon icon-music" @click="$emit('click')"/>
   </div>
 </template>
 
-<style>
+<style scoped>
 .icon {
     width: 25px;
     height: 25px;

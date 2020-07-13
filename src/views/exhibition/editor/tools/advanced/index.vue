@@ -5,7 +5,7 @@
     </div>
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
-      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items"/>
+      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" @click="click(feature)"/>
     </span>
   </div>
 </template>
@@ -79,6 +79,9 @@ export default {
       var typ = document.createAttribute("uuid");
       typ.value = item.uuid;
       this.widgets[item.uuid].attributes.setNamedItem(typ);
+    },
+    click(item){
+      this.editor.$refs.panel[0].setSelected(item)
     }
   },
   computed:{
@@ -160,5 +163,6 @@ export default {
 .grid-stack>.grid-stack-item>.grid-stack-item-content{
   left: 0px;
   right: 0px;
+  cursor: pointer;
 }
 </style>

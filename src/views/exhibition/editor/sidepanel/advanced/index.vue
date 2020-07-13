@@ -1,5 +1,5 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
+  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px; ">
     <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
       <list :source="product.features || []" label="扩展组件" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
@@ -22,6 +22,7 @@ import linkf from './linkf'
 import imagef from './imagef'
 import hypertext from './hypertext'
 import empty from './empty'
+import scene from './scene'
 import sizes from './sizes'
 import { v4 as uuid} from 'uuid'
 
@@ -37,7 +38,7 @@ export default {
     selected: null,
     showDialog: false,
   }},
-  components:{list, newfeature, music, empty, sizes, linkf, imagef, hypertext},
+  components:{list, newfeature, music, empty, sizes, linkf, imagef, hypertext, scene},
   mounted(){
     this.product.features = this.product.features || []
     if(this.product.music_url && this.product.features.filter(item=>item.type==='music').length === 0){ // 旧版本兼容

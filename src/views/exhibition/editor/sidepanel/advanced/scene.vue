@@ -1,12 +1,12 @@
 <template>
-  <div class="frame">
-    <div style="width: 100%;">图像</div>
-    <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+  <!-- <div class="frame">
+    <div style="width: 100%;">显示图标</div>
+    <el-button class="upload" type="text" @click="onChange">
       <el-image v-if="item.url" :src="item.url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
     <material-selector v-model="showDialog" @select="select" imgtype="1"/>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -16,7 +16,7 @@ import MaterialSelector from '@/views/exhibition/materialselector'
 
 export default {
   mixins:[mixin],
-  props:['item'],
+  props:['item', 'light'],
   data(){return {
     showDialog: false,
   }},
@@ -48,5 +48,12 @@ export default {
   padding: 15px 0px;
   flex-flow: wrap;
   align-content: space-around;
+}
+.upload{
+  width: 100%; height: 160px;
+  padding: 0;
+  position: relative;
+  border-radius: 5px;
+  border: 1px dashed;
 }
 </style>

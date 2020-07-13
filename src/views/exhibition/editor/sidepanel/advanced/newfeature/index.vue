@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="新功能" :visible.sync="visible" width="50%" :modal="false">
-    <el-form v-if="visible" label-position="right" label-width="100px">
+  <el-dialog class="dialog" title="新功能" :visible.sync="visible" width="50%" :modal="false">
+    <el-form v-if="visible" label-position="right" label-width="70px">
       <el-form-item label="功能名称">
         <el-input size="small" v-model="option.name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
       </el-form-item>
@@ -10,7 +10,7 @@
         </el-select>
       </el-form-item>
     </el-form>
-    <div style="background: rgb(48, 65, 86); padding: 20px">
+    <div style="padding: 20px">
       <component :is="option.type" :item="option"/>
     </div>
     <span slot="footer" class="dialog-footer">
@@ -26,13 +26,15 @@ import { v4 as uuid} from 'uuid'
 import hypertext from '../hypertext'
 import imagef from '../imagef'
 import linkf from '../linkf'
+import scene from '../scene'
 import music from '../backgroundmusic'
 
 const types = [
-  {key:'imagef', label:'图片'},
-  {key:'music', label:'音乐'},
-  {key:'linkf', label:'超链接'},
-  {key:'hypertext', label:'富文本'},
+  {key:'imagef', label:'图标', name: '新建图标'},
+  {key:'music', label:'音乐', name: '新建背景音乐'},
+  {key:'linkf', label:'超链接', name: '新建超链接'},
+  {key:'hypertext', label:'富文本', name: '新建富文本'},
+  {key:'scene', label:'场景列表', name: '新建场景列表'}
 ]
 
 export default {
@@ -41,10 +43,10 @@ export default {
     visible: false,
     showDialog: false,
   }},
-  components:{hypertext,imagef,linkf,music},
+  components:{hypertext,imagef,linkf,music,scene},
   watch:{
     visible(next, pre){this.$emit('input', next)},
-    value(next, pre){this.visible = next},
+    value(next, pre){this.visible = next; this.option = {type: 'imagef'}},
   },
   props:['value'],
   methods:{
@@ -53,13 +55,18 @@ export default {
     },
     commit(){
       this.product.features = this.product.features || []
-      this.product.features.push({
+      let feature = {
         ...this.option,
         uuid: uuid(),
         size: '1 x 1',
         position: {group: 0, x: 0, y: 0},
-        name: this.option.name || '新扩展',
-      })
+        name: this.option.name || types.filter(item=>item.key === this.option.type)[0].name,
+        url: '',
+        link: '',
+      }
+      this.product.features.push(feature)
+      this.product.features = JSON.parse(JSON.stringify(this.product.features))
+
       this.$emit('input', false)
     }
   },
@@ -71,3 +78,11 @@ export default {
   beforeDestroy(){}
 }
 </script>
+
+<style scoped>
+.dialog >>> .el-dialog__body{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+</style>

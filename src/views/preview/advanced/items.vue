@@ -9,6 +9,7 @@ import music from './music'
 import imagef from './imagef'
 import linkf from './linkf'
 import hypertext from './hypertext'
+import scene from './scene'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -23,7 +24,7 @@ const sizes = {
 
 export default{
   props:['item', 'selected', 'widgets', 'grids', 'value'],
-  components:{music, imagef, linkf, hypertext},
+  components:{music, imagef, linkf, hypertext, scene},
   data(){return{
     isMusicPlaying: true,
   }},

@@ -140,5 +140,6 @@ export default {
 .grid-stack>.grid-stack-item>.grid-stack-item-content{
   left: 0px;
   right: 0px;
+  cursor: pointer;
 }
 </style>

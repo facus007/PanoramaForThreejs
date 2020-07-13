@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :style="{border:outline?'2px dashed yellow':'2px dashed blue'}" :item="item"/>
+    <components :is="item.type" :style="{border:outline?'2px dashed yellow':'2px dashed blue'}" :item="item" @click="$emit('click')"/>
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 import music from './music'
 import imagef from './imagef'
 import linkf from './linkf'
+import scene from './scene'
 import hypertext from './hypertext'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
@@ -23,10 +24,11 @@ const sizes = {
 
 export default{
   props:['item', 'selected', 'widgets', 'grids'],
-  components:{music, imagef, linkf, hypertext},
+  components:{music, imagef, linkf, hypertext, scene},
   data(){return{}},
   methods:{
     onChange(){
+      if(!this.widget){return}
       let widget = this.widgets[this.item.uuid]
       this.item.size = widget.attributes['data-gs-width'].value + ' x ' + widget.attributes['data-gs-height'].value
       this.item.position = {group:this.item.position.group, x:widget.attributes['data-gs-x'].value, y:widget.attributes['data-gs-y'].value }

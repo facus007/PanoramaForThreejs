@@ -1,10 +1,11 @@
 <template>
-  <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white; cursor:auto;">
-    <img class="image" :src='item&&item.url' :style="style" @click="$emit('click')"/>
+  <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
+    <img class="image" :src='item && item.url || "./static/scene.png"' :style="style" @click="$emit('click')"/>
   </div>
 </template>
 
 <script>
+
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -16,16 +17,15 @@ const sizes = {
   '3 x 2': { width : 3, height: 2},
   '3 x 3': { width : 3, height: 3},
 }
+
 export default {
   props:['item'],
-  watch: {item(){}},
   mounted(){},
+  watch: {item(){}},
   computed: {
-    width(){return  sizes[this.item.size].width * 5},
+    width(){return sizes[this.item.size].width * 5},
     height(){return sizes[this.item.size].height * 5},
-    style(){
-      return this.item && {padding: this.height +'px ' + this.width+'px'}
-    }
+    style(){return this.item && {padding: this.height +'px ' + this.width+'px'}}
   }
 }
 </script>
@@ -36,7 +36,6 @@ export default {
   height: 100%;
   object-fit: contain;
   border: 0;
-
 }
 img[src=""],img:not([src]){
   opacity:0;
