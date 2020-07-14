@@ -12,6 +12,7 @@
       </el-tooltip>
     </div>
     <el-input class="input" size="small" v-model="item.link" style="margin-top:5px; width: 200px;"/>
+    <el-checkbox v-model="item.inline" style="margin-left: auto">网页内联</el-checkbox>
     <material-selector v-model="showDialog" @select="select" imgtype="1"/>
   </div>
 </template>

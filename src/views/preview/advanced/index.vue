@@ -2,7 +2,7 @@
   <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
-      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" v-model="isMusicPlaying"/>
+      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" v-model="isMusicPlaying" @action="$emit('action')"/>
     </span>
   </div>
 </template>
@@ -13,10 +13,10 @@ import items from './items'
 
 const size = 40;
 const layerStyle = [
-  {width: size*3+'px', height: size*5+'px', position: 'absolute', left: '0', top: '0', 'z-index': 1, margin: '0px 0'},
-  {width: size*3+'px', height: size*5+'px', position: 'absolute', left: '0', bottom: '0', 'z-index': 2, margin: '0px 0'},
-  {width: size*3+'px', height: size*5+'px', position: 'absolute', right: '0', top: '0','z-index': 1, margin: '0px 0'},
-  {width: size*3+'px', height: size*5+'px', position: 'absolute', right: '0', bottom: '0', 'z-index': 2, margin: '0px 0'},
+  {width: size*3+'px', height: size*5+'px', position: 'absolute', left: '0', top: '0', 'z-index': 'auto', margin: '0px 0'},
+  {width: size*3+'px', height: size*5+'px', position: 'absolute', left: '0', bottom: '0', 'z-index': 'auto', margin: '0px 0'},
+  {width: size*3+'px', height: size*5+'px', position: 'absolute', right: '0', top: '0','z-index': 'auto', margin: '0px 0'},
+  {width: size*3+'px', height: size*5+'px', position: 'absolute', right: '0', bottom: '0', 'z-index': 'auto', margin: '0px 0'},
 ]
 
 const gridStyle = [

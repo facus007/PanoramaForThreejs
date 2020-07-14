@@ -15,13 +15,9 @@
         <hotspot-mesh :mesh="mesh(item)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
-    <transition name="el-fade-in">
-      <div class="player" v-if="showDialog" style="width: 100%; height: 100%; z-index: 2000; top: 0; left: 0; position: absolute; display: flex; align-items: center; visibility: visible;">
-        <div style="width:100%;height:100%;background: #000; opacity: 0.8; position:absolute;" />
-        <el-button icon="el-icon-close" type="text" style="position: absolute; font-size: 30px; right: 20px; top: 40px; padding: 0;z-index:2" @click="()=>{showDialog=false;$emit('videoStop')}"/>
-        <video v-if="link" :src="link" style="width:100%; border:0px;z-index:1" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
-      </div>
-    </transition>
+      <overlayer v-model="showDialog">
+        <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
+      </overlayer>
   </span>
 </template>
 
@@ -29,71 +25,71 @@
 import { mapState } from 'vuex'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
+import overlayer from './advanced/overlayer'
 
 export default {
-  components:{...THREE},
+  components:{...THREE,overlayer},
   props:['curScene', 'value', 'visible', 'product'],
-  data(){
-    return {
+  data(){return {
       self: this,
       group: null,
       link: null,
       showDialog: null,
-    }},
-    watch:{
-      showDialog(next){
-        if(!next){
-          this.link = null
-        }
-      },
+  }},
+  watch:{
+    showDialog(next){
+      if(!next){
+        this.link = null
+      }
     },
-    methods:{
-      action(item){
-        if(item.type===1 && item.target.link){
-          this.$emit('action')
-          var a = document.createElement('a');
-          a.href=item.target.link
-          a.click()
-        }
-        else if (item.type===2 && item.target.scene_id) {
-          this.$emit('input', this.product.scenes[item.target.scene_id].scene_id)
-        }
-        else if (item.type===3 && item.target.video) {
-          this.$emit('videoPlay')
-          this.link = item.target.video
-          this.showDialog = true
-        }
-      },
-      mesh(item){
-        return {
-          position: (new three.Vector3()).fromArray(item.transform.position),
-          quaternion: (new three.Quaternion()).fromArray(item.transform.rotation),
-          scale: (new three.Vector3()).fromArray(item.transform.scale)
-        }
-      },
+  },
+  methods:{
+    action(item){
+      if(item.type===1 && item.target.link){
+        this.$emit('action')
+        var a = document.createElement('a');
+        a.href=item.target.link
+        a.click()
+      }
+      else if (item.type===2 && item.target.scene_id) {
+        this.$emit('input', this.product.scenes[item.target.scene_id].scene_id)
+      }
+      else if (item.type===3 && item.target.video) {
+        this.$emit('videoPlay')
+        this.link = item.target.video
+        this.showDialog = true
+      }
     },
-    created(){},
-    computed:{
-      ...mapState('THREE',['camera','domElement'])
-    }
+    mesh(item){
+      return {
+        position: (new three.Vector3()).fromArray(item.transform.position),
+        quaternion: (new three.Quaternion()).fromArray(item.transform.rotation),
+        scale: (new three.Vector3()).fromArray(item.transform.scale)
+      }
+    },
+  },
+  created(){},
+  computed:{
+    ...mapState('THREE',['camera','domElement'])
   }
-  </script>
-  <style scoped="three">
-  .event :hover{
-    cursor: pointer;
-    pointer-events: visible;
-  }
-  .dialog >>> .el-dialog{
-    margin-top: 15vw;
-    padding: 0;
-    background: #0000;
-  }
-  .dialog >>> .el-dialog__header{
-    padding: 0;
-  }
-  .dialog >>> .el-dialog__body{
-    height: 70vw;
-    padding: 0;
-    overflow: hidden;
-  }
-  </style>
+}
+</script>
+<style scoped="three">
+.event :hover{
+  cursor: pointer;
+  pointer-events: visible;
+}
+.dialog >>> .el-dialog{
+  margin-top: 15vw;
+  padding: 0;
+  background: #0000;
+}
+.dialog >>> .el-dialog__header{
+  padding: 0;
+}
+.dialog >>> .el-dialog__body{
+  height: 70vw;
+  padding: 0;
+  overflow: hidden;
+}
+</style>

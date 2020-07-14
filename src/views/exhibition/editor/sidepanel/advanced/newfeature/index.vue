@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item label="功能类型">
         <el-select size="small" v-model="option.type">
-          <el-option v-for="item in types" :key="item.key" :label="item.label" :value="item.key"/>
+          <el-option v-for="item in types" :key="item.key" :label="item.label" :value="item.key" :disabled="(item.key === 'music') && musicExist"/>
         </el-select>
       </el-form-item>
     </el-form>
@@ -36,7 +36,7 @@ const types = [
   {key:'music', label:'音乐', name: '新建背景音乐'},
   {key:'linkf', label:'超链接', name: '新建超链接'},
   {key:'hypertext', label:'富文本', name: '新建富文本'},
-  {key:'scene', label:'场景列表', name: '新建场景列表'}
+  // {key:'scene', label:'场景列表', name: '新建场景列表'}
 ]
 
 export default {
@@ -63,8 +63,9 @@ export default {
         size: '1 x 1',
         position: {group: 0, x: 0, y: 0},
         name: this.option.name || types.filter(item=>item.key === this.option.type)[0].name,
-        url: '',
-        link: '',
+        url: this.option.url || '',
+        link: this.option.link || '',
+        content: this.option.content || '',
       }
       this.product.features.push(feature)
       this.product.features = JSON.parse(JSON.stringify(this.product.features))
@@ -75,6 +76,9 @@ export default {
   computed:{
     ...mapState('editor',['product']),
     types:_=>types,
+    musicExist(){
+      return this.product.features.filter(item=>item.type === 'music').length > 0
+    }
   },
   mounted(){},
   beforeDestroy(){}
