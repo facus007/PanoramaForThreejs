@@ -8,7 +8,7 @@
 
   <el-button type="primary" size="small" style="margin:0; width: 200px;" @click="showEditor=true">编 辑</el-button>
 
-  <editor v-model="showEditor" @content="setContent"/>
+  <editor v-model="showEditor" @content="setContent" :item="item" :key="item.uuid"/>
   <material-selector v-model="showDialog" @select="select" imgtype="1"/>
 </div>
 </template>

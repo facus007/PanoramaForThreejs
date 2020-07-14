@@ -2,7 +2,7 @@
   <el-dialog class="dialog" :visible.sync="visible" append-to-body>
     <quill-editor v-if="visible" v-model="content" :options="editorOption" style="height: 100%; display: flex; flex-direction: column;" ref="editor"/>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取 消</el-button>
+      <el-button @click="visible = false; content = item.content">取 消</el-button>
       <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>
    </div>
   </el-dialog>
@@ -16,7 +16,7 @@ import { quillEditor } from 'vue-quill-editor'
 
 export default {
   components:{quillEditor},
-  props:['value'],
+  props:['value', 'item'],
   data(){return {
     content: '',
     visible: false,
@@ -26,7 +26,7 @@ export default {
   }},
   watch:{
     visible(next, pre){this.$emit('input', next);},
-    value(next, pre){this.visible = next;},
+    value(next, pre){this.content = this.item && this.item.content || ''; this.visible = next;},
   },
 }
 </script>

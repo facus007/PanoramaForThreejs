@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :item="item" v-model="isMusicPlaying"/>
+    <components :is="item.type" :item="item" v-model="isMusicPlaying" @action="$emit('action')"/>
   </div>
 </template>
 

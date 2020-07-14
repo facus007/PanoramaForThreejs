@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white; cursor:auto;">
-    <img class="image" :src='item&&item.url' :style="style" @click="$emit('click')"/>
+    <img class="image" :src='item&&item.url' :style="style"/>
   </div>
 </template>
 
@@ -36,7 +36,6 @@ export default {
   height: 100%;
   object-fit: contain;
   border: 0;
-
 }
 img[src=""],img:not([src]){
   opacity:0;

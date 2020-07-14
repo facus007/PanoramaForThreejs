@@ -1,11 +1,14 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <img class="image" :src='item && item.url' :style="style" @click="$emit('click')"/>
+    <img class="image" :src='item && item.url' :style="style" @click="click"/>
+    <overlayer class="iframe" v-model="showDialog">
+      <iframe :src="item.link" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen/>
+    </overlayer>
   </div>
 </template>
 
 <script>
-
+import overlayer from './overlayer'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -18,15 +21,30 @@ const sizes = {
   '3 x 3': { width : 3, height: 3},
 }
 export default {
+  data(){return {
+    showDialog: null,
+  }},
   props: ['item'],
+  components:{overlayer},
   mounted(){},
-  watch: {
-    item(){}
-  },
+  watch: {item(){}},
   computed: {
     width(){return sizes[this.item.size].width * 5},
     height(){return sizes[this.item.size].height * 5},
     style(){return this.item && {padding: this.height +'px ' + this.width+'px'}}
+  },
+  methods:{
+    click(){
+      if(this.item.inline){
+        this.showDialog = true
+      }
+      else {
+        this.$emit('action')
+        var a = document.createElement('a');
+        a.href=this.item.link
+        a.click()
+      }
+    }
   }
 }
 </script>
@@ -40,5 +58,9 @@ export default {
 }
 img[src=""],img:not([src]){
   opacity:0;
+}
+.frame >>> html,body{
+  height: 100%;
+  width: 100%;
 }
 </style>
