@@ -1,5 +1,6 @@
 <template>
-  <el-dialog class="dialog" title="新功能" :visible.sync="visible" width="50%" :modal="false">
+  <el-dialog title="新功能" :visible.sync="visible" width="50%" :modal="false">
+    <div class="dialog">
     <el-form v-if="visible" label-position="right" label-width="70px">
       <el-form-item label="功能名称">
         <el-input size="small" v-model="option.name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
@@ -12,6 +13,7 @@
     </el-form>
     <div style="padding: 20px">
       <component :is="option.type" :item="option"/>
+    </div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="$emit('input', false)">取 消</el-button>
@@ -80,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-.dialog >>> .el-dialog__body{
+.dialog{
   display: flex;
   align-items: center;
   justify-content: space-around;

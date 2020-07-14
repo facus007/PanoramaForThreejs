@@ -1,16 +1,14 @@
 <template>
   <div class="frame">
     <div style="width: 100%;">图标</div>
-    <el-button class="upload" type="text" @click="onChange">
+    <el-button class="upload" type="text" @click="showDialog= true">
       <el-image v-if="item.url" :src="item.url" fit="contain" style="position:absolute; width:100%; height: 100%; left:0;top:0;"/>
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-<!--
-    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption">
-    </quill-editor> -->
 
-  <el-button type="primary" size="small" style="margin:0; width: 200px;">编 辑</el-button>
+  <el-button type="primary" size="small" style="margin:0; width: 200px;" @click="showEditor=true">编 辑</el-button>
 
+  <editor v-model="showEditor" @content="setContent"/>
   <material-selector v-model="showDialog" @select="select" imgtype="1"/>
 </div>
 </template>
@@ -19,30 +17,24 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import MaterialSelector from '@/views/exhibition/materialselector'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
-// import { quillEditor } from 'vue-quill-editor'
+import editor from './editor'
 
 export default {
   mixins:[mixin],
   props:['item', 'light'],
   data(){return {
     showDialog: false,
-    // content: '<h2>I am Example</h2>',
-    // editorOption: {
-    //   // some quill options
-    // }
+    showEditor: false,
   }},
-  components:{MaterialSelector},
+  components:{MaterialSelector, editor},
   // props:['sideImgs'],
   watch:{},
   methods:{
-    onChange(){
-      this.showDialog= true
-    },
     select(material){
       this.item.url = material.material_content
+    },
+    setContent(content){
+      this.item.content = content
     }
   },
   computed:{
