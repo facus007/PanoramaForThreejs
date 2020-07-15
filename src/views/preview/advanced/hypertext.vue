@@ -63,7 +63,7 @@ img[src=""],img:not([src]){
   opacity:0;
 }
 .iframe >>> .ql-container{
-  overflow: scroll;
+  overflow: auto;
   border: 1px solid #ccc;
 }
 </style>
