@@ -10,6 +10,7 @@ import imagef from './imagef'
 import linkf from './linkf'
 import scene from './scene'
 import hypertext from './hypertext'
+import info from './info'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -24,7 +25,7 @@ const sizes = {
 
 export default{
   props:['item', 'selected', 'widgets', 'grids'],
-  components:{music, imagef, linkf, hypertext, scene},
+  components:{music, imagef, linkf, hypertext, scene, info},
   data(){return{}},
   methods:{
     onChange(){

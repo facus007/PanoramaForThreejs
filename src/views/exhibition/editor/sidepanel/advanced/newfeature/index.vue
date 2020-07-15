@@ -30,12 +30,14 @@ import imagef from '../imagef'
 import linkf from '../linkf'
 import scene from '../scene'
 import music from '../backgroundmusic'
+import info from '../info'
 
 const types = [
   {key:'imagef', label:'图标', name: '新建图标'},
   {key:'music', label:'音乐', name: '新建背景音乐'},
   {key:'linkf', label:'超链接', name: '新建超链接'},
   {key:'hypertext', label:'富文本', name: '新建富文本'},
+  {key:'info', label:'简介', name: '新建简介'},
   // {key:'scene', label:'场景列表', name: '新建场景列表'}
 ]
 
@@ -45,7 +47,7 @@ export default {
     visible: false,
     showDialog: false,
   }},
-  components:{hypertext,imagef,linkf,music,scene},
+  components:{hypertext,imagef,linkf,music,scene,info},
   watch:{
     visible(next, pre){this.$emit('input', next)},
     value(next, pre){this.visible = next; this.option = {type: 'imagef'}},

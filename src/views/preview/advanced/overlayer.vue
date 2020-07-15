@@ -3,7 +3,7 @@
     <div v-if="visible" style="width: 100%; height: 100%; top: 0; left: 0; position: absolute; z-index: 2000; align-items: center; visibility: visible;">
       <div style="width:100%;height:100%; background: #000B; display:grid; justify-items:center; align-items:center; grid-auto-flow:row; grid-template-rows: 1fr 50px;" >
         <div style="width:100%;height:100%;">
-          <div style="width:100%;height:100%; position:absolute; padding:20px 20px 50px 20px;">
+          <div style="width:100%;height:100%; position:absolute; padding:20px 20px 50px 20px; display:flex; justify-content:center; align-items:center;">
             <slot/>
           </div>
         </div>

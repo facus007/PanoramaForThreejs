@@ -2,7 +2,7 @@
   <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
-      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" v-model="isMusicPlaying" @action="$emit('action')"/>
+      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :product="product" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" v-model="isMusicPlaying" @action="$emit('action')"/>
     </span>
   </div>
 </template>

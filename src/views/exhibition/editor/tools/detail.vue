@@ -5,11 +5,7 @@
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
   </div>
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
-<<<<<<< HEAD
     <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;"></span></div>
-=======
-    <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;">asd</span></div>
->>>>>>> 699fa97179b053b1a92ffba5f4d8457fe29f4e2c
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
@@ -31,12 +27,14 @@
         </el-tooltip>
       </span>
       <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
+      <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏呼吸灯</el-checkbox>
     </div>
-    <div class="scene" v-if="option === '2'" style="width: 100%">
+    <div class="scene" v-if="option === '2'" style="width: 100%;display:flex; flex-direction: column;align-items:center;  ">
       <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
         <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
+      <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏图标</el-checkbox>
     </div>
     <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center;">
       <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">

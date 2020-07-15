@@ -24,6 +24,7 @@ import hypertext from './hypertext'
 import empty from './empty'
 import scene from './scene'
 import sizes from './sizes'
+import info from './info'
 import { v4 as uuid} from 'uuid'
 
 export default {
@@ -38,7 +39,7 @@ export default {
     selected: null,
     showDialog: false,
   }},
-  components:{list, newfeature, music, empty, sizes, linkf, imagef, hypertext, scene},
+  components:{list, newfeature, music, empty, sizes, linkf, imagef, hypertext, scene, info},
   mounted(){
     this.product.features = this.product.features || []
     if(this.product.music_url && this.product.features.filter(item=>item.type==='music').length === 0){ // 旧版本兼容

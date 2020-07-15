@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :item="item" v-model="isMusicPlaying" @action="$emit('action')"/>
+    <components :is="item.type" :item="item" v-model="isMusicPlaying" @action="$emit('action')" :product="product"/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import imagef from './imagef'
 import linkf from './linkf'
 import hypertext from './hypertext'
 import scene from './scene'
+import info from './info'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -23,8 +24,8 @@ const sizes = {
 }
 
 export default{
-  props:['item', 'selected', 'widgets', 'grids', 'value'],
-  components:{music, imagef, linkf, hypertext, scene},
+  props:['item', 'selected', 'widgets', 'grids', 'value', 'product'],
+  components:{music, imagef, linkf, hypertext, scene, info},
   data(){return{
     isMusicPlaying: true,
   }},

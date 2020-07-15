@@ -4,8 +4,8 @@
       <span style="position: relative">
       <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height:height * 100+'px'}"/>
       <gl-image v-if="item.style === 1 && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
-      <spot v-if="item.style === 1 && (item.type === 1 || item.type === 3) && item.target.link && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
-      <img v-if="item.type===2" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
+      <spot v-if="item.style === 1 && (item.type === 1 || item.type === 3) && item.target.link && !item.target.hidespot && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+      <img v-if="item.type===2 && !item.target.hidespot" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>
