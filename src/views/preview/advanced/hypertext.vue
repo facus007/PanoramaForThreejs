@@ -65,5 +65,6 @@ img[src=""],img:not([src]){
 .iframe >>> .ql-container{
   overflow: auto;
   border: 1px solid #ccc;
+  border-radius: 10px;
 }
 </style>

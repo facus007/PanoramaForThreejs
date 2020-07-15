@@ -5,7 +5,11 @@
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
   </div>
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
+<<<<<<< HEAD
     <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;"></span></div>
+=======
+    <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;">asd</span></div>
+>>>>>>> 699fa97179b053b1a92ffba5f4d8457fe29f4e2c
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />

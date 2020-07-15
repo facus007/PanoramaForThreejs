@@ -20,7 +20,7 @@ export default {
   },
   methods:{
     // update(){}
-    // propCompute(){},
+    // propCompute(){}, 
   },
   mounted(){
     let url = this.url.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
