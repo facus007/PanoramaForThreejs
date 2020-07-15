@@ -5,12 +5,13 @@
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
   </div>
   <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
-    <div>当前影像</div>
+    <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;"></span></div>
     <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
       <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
+    <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
   </div>
   <div class="block">
     <el-select class="select" size="mini" v-model="option" style="">
@@ -116,6 +117,10 @@ export default {
         });
       });
       return selecteds
+    },
+    clear(){
+      this.selected.img_url = null
+      this.selected.target.video = null
     }
   },
   mounted(){},
