@@ -59,4 +59,24 @@ export const customRoutes=[
     children: null,
     hidden: 0
   },
+  {
+    id: 5,
+    title: "模板",
+    path: "/templates",
+    pid: 0,
+    icon: "slice",
+    order: 0,
+    children: null,
+    hidden: 0
+  },
+  {
+    id: 51,
+    title: "模板列表",
+    path: "/templates/list",
+    pid: 5,
+    icon: "example",
+    order: 0,
+    children: null,
+    hidden: 0
+  }
 ]
