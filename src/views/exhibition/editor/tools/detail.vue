@@ -27,7 +27,10 @@
         </el-tooltip>
       </span>
       <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
-      <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏呼吸灯</el-checkbox>
+      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%;">
+        <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="showSpotDialog=true">选择动图</el-button>
+        <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏呼吸灯</el-checkbox>
+      </span>
     </div>
     <div class="scene" v-if="option === '2'" style="width: 100%;display:flex; flex-direction: column;align-items:center;  ">
       <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
@@ -44,6 +47,7 @@
     </div>
   </div>
   <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
+  <material-selector v-model="showSpotDialog" @select="selectSpot" imgtype="1"/>
   <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   <scene-selector v-model="showSceneSelector" @select="selectScene" :curSceneId="curedit.scene_id"/>
 </div>
@@ -66,6 +70,7 @@ export default {
     group: null,
     options,
     showDialog:false,
+    showSpotDialog:false,
     showSceneSelector: false,
     showvideoDialog: false,
   }},
@@ -90,6 +95,11 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = material.resource_url || item.img_url
         item.target.video = material.material_content
+      });
+    },
+    selectSpot(material){
+      this.getSelecteds().forEach((item, i) => {
+        item.target.spot_url = material.material_content
       });
     },
     selectScene(scene){
@@ -121,8 +131,10 @@ export default {
       return selecteds
     },
     clear(){
-      this.selected.img_url = null
-      this.selected.target.video = null
+      this.getSelecteds().forEach((item, i) => {
+        item.img_url = null
+        item.target.video = null
+      });
     }
   },
   mounted(){},

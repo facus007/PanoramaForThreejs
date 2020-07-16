@@ -1,13 +1,13 @@
 <template>
   <span>
     <el-dialog class="dialog" :visible.sync="visible" append-to-body>
-      <quill-editor v-if="visible" v-model="content" :options="editorOption" style="height: 100%; overflow:scoll; display: flex; flex-direction: column;" ref="editor"/>
+      <quill-editor v-if="visible" v-model="content" :options="editorOption" ref="editor" class="editor"/>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false; content = item.content">取 消</el-button>
         <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>
       </div>
+      <material-selector class="material-selector" v-model="showDialog" @select="select" imgtype="1"/>
     </el-dialog>
-    <material-selector class="material-selector" v-model="showDialog" @select="select" imgtype="1"/>
   </span>
 </template>
 
@@ -80,10 +80,19 @@ export default {
 }
 </script>
 <style scoped>
-.dialog >>> .el-dialog__body{
-  height: 60vh;
+.material-selector >>> .el-dialog__body{
+  height: auto;
 }
-.dialog >>> .ql-container{
+.editor{
+  display: flex;
+  flex-direction: column;
+  height:60vh;
+}
+.editor>>>.ql-toolbar{
+  height:10vh;
   overflow: auto;
+}
+.editor>>>.ql-container{
+  height:50vh;
 }
 </style>

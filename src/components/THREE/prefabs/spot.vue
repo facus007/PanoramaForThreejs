@@ -58,7 +58,7 @@ export default {
     },
   },
   mounted(){
-    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(30, 30),material);
+    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), material);
     this.setTransform()
     this.obj.visible = this.visible
     this.scene.add(this.obj)
