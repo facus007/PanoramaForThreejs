@@ -7,7 +7,10 @@ const texloader = new THREE.TextureLoader()
 
 export default {
   mixins: [THREEComponent],
-  props: ['url', 'onLoad', 'onProgress', 'onError', 'rotation', 'center ', 'offset', 'repeat', 'flipY '],
+  data(){return{
+    frame: 0
+  }},
+  props: ['url', 'onLoad', 'onProgress', 'onError', 'rotation', 'center ', 'offset', 'repeat', 'flipY ','dynamic'],
   watch:{
     // domElement(next, pre){
     //   pre && pre.removeEventListener('update', this.update)
@@ -20,11 +23,31 @@ export default {
   },
   methods:{
     // update(){}
-    // propCompute(){}, 
+    // propCompute(){},
+    updateTexture(){
+      let tex = this.tex
+      if(++this.frame % 4 === 0){
+        let rate = Math.floor(tex.image.width/tex.image.height*4)
+        if(this.frame % rate === 0){
+          this.frame = 0
+        }
+        tex.offset = new THREE.Vector2(this.frame * (tex.image.height / tex.image.width / 4), 0)
+        tex.updateMatrix()
+      }
+      requestAnimationFrame(this.updateTexture)
+    }
   },
   mounted(){
     let url = this.url.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API)
-    this.obj = texloader.load(url,this.onLoad,this.onProgress,this.onProgress)
+    this.obj = texloader.load(url,tex=>{
+      if(this.dynamic)
+      {
+        this.tex = tex
+        this.tex.repeat = new THREE.Vector2(tex.image.height/tex.image.width, 1)
+        requestAnimationFrame(this.updateTexture)
+      }
+      this.onLoad && this.onLoad(tex)
+    },this.onProgress,this.onProgress)
   },
   beforeDestroy(){
     this.obj && this.obj.dispose()

@@ -3,9 +3,10 @@
     <div :style="layout[item.align || '4']" @click="$emit('action', item)">
       <span style="position: relative">
       <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height:height * 100+'px'}"/>
-      <gl-image v-if="item.style === 1 && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+      <gl-image v-if="item.style === 1 && image && imageData && !item.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+      <dgl-image v-if="item.style === 1 && image && imageData && item.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
       <gl-video v-if="item.style === 2 && image && imageData && visible" :image="imageData" :video="item.target.video" :mesh="mesh" :item="item" :visible="visible"/>
-      <spot v-if="item.style === 1 && (item.type === 1 || item.type === 3) && item.target.link && !item.target.hidespot && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+      <spot v-if="item.style === 1 && (item.type === 1 || item.type === 3) && item.target.link && !item.target.hidespot && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible" :key="item.target.spot_url"/>
       <img v-if="item.type===2 && !item.target.hidespot" :src="'./static/goto.png'" style="z-index:1; color:white; text-shadow: 1px 1px 2px pink; position:absolute;left:50%; top:50%; transform:translate(-50%,-50%);border:0; width:50px;height:50px;" />
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>

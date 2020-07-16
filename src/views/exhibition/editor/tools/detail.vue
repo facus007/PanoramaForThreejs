@@ -11,6 +11,7 @@
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
+    <el-checkbox v-model="selected.dynamic_img" style="margin-left:auto;color:gray;">序列帧长图</el-checkbox>
     <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
   </div>
   <div class="block">
@@ -27,9 +28,10 @@
         </el-tooltip>
       </span>
       <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
-      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%;">
-        <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="showSpotDialog=true">选择动图</el-button>
-        <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏呼吸灯</el-checkbox>
+      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'a b' 'c c'">
+        <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">选择动图</el-button>
+        <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearStop">默认动图</el-button>
+        <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
       </span>
     </div>
     <div class="scene" v-if="option === '2'" style="width: 100%;display:flex; flex-direction: column;align-items:center;  ">
@@ -134,6 +136,11 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = null
         item.target.video = null
+      });
+    },
+    clearStop(){
+      this.getSelecteds().forEach((item, i) => {
+        item.target.spot_url = null
       });
     }
   },
