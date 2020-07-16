@@ -132,6 +132,7 @@ export default {
           message: res.msg,
           type: "success"
         });
+        return;
         }else{
           //没有数据就10s请求一次  5min超时
         let times=0;
