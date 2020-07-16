@@ -8,13 +8,13 @@
 
     <animated-panorama v-if="first_loaded" :curScene="curScene" :textures="textures" ref="panorama"/>
 
-    <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden" @videoPlay="$refs.bgm.stop()" @videoStop="()=>isMusicPlaying && $refs.bgm.play()"/>
+    <preview v-if="curScene && !loading" :curScene="curScene" v-model="curSceneId" :key="curSceneId" @action="action" :visible="after_animation_loaded" :product="product" style="visibility: hidden" @videoPlay="audioPause()" @videoStop="()=>isMusicPlaying && audioPlay()"/>
 
     <camera-animation v-if="first_loaded && !after_animation_loaded && !loading" v-model="after_animation_loaded" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product"/>
 
     <texture-loader v-model="textures" ref="textureloader"/>
 
-    <advanced v-if="after_animation_loaded && product" style="position: absolute; top: 0; right: 0; z-index:2;" :product="product" v-model="isMusicPlaying" @action="action"/>
+    <advanced v-if="!loading && product" style="position: absolute; top: 0; right: 0; z-index:2;" :product="product" v-model="isMusicPlaying" @action="action"/>
     <!-- <backgroundmusic v-model="isMusicPlaying" ref="bgm" v-if="after_animation_loaded && product && product.music_url" :product="product" style="position: absolute; top: 0; right: 0; padding:10px; z-index:2"/> -->
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
@@ -125,6 +125,16 @@ export default {
         !interact && this.isMusicPlaying && await this.$refs.bgm.$refs.audio.play()
         interact = true
       }catch{}
+    },
+    audioPlay(){
+      document.getElementsByClassName("audio-player").forEach((item, i) => {
+        item.play()
+      });
+    },
+    audioPause(){
+      document.getElementsByClassName("audio-player").forEach((item, i) => {
+        item.pause()
+      });
     }
   },
   mounted(){},
