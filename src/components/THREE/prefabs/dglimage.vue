@@ -89,12 +89,12 @@ export default {
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){

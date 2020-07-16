@@ -11,6 +11,7 @@
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
+    <el-checkbox v-model="selected.dynamic_img" style="margin-left:auto;color:gray;">序列帧长图</el-checkbox>
     <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
   </div>
   <div class="block">
@@ -26,8 +27,12 @@
           <el-button type="text" class="el-icon-info" style="margin: 0;padding:0"/>
         </el-tooltip>
       </span>
-      <el-input class="input" size="mini" v-model="link" style="margin-top:5px"/>
-      <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏呼吸灯</el-checkbox>
+      <el-input class="input" size="mini" v-model="link" style="margin:5px 0px"/>
+      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'a b' 'c c'; grid-column-gap: 4px; grid-row-gap: 2px;">
+        <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">修改呼吸灯</el-button>
+        <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearStop">默认呼吸灯</el-button>
+        <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
+      </span>
     </div>
     <div class="scene" v-if="option === '2'" style="width: 100%;display:flex; flex-direction: column;align-items:center;  ">
       <el-button class="upload" type="text" @click="showSceneSelector=true" style="width: 160px; height: 80px; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
@@ -44,6 +49,7 @@
     </div>
   </div>
   <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
+  <material-selector v-model="showSpotDialog" @select="selectSpot" imgtype="1"/>
   <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   <scene-selector v-model="showSceneSelector" @select="selectScene" :curSceneId="curedit.scene_id"/>
 </div>
@@ -66,6 +72,7 @@ export default {
     group: null,
     options,
     showDialog:false,
+    showSpotDialog:false,
     showSceneSelector: false,
     showvideoDialog: false,
   }},
@@ -90,6 +97,11 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = material.resource_url || item.img_url
         item.target.video = material.material_content
+      });
+    },
+    selectSpot(material){
+      this.getSelecteds().forEach((item, i) => {
+        item.target.spot_url = material.material_content
       });
     },
     selectScene(scene){
@@ -121,8 +133,15 @@ export default {
       return selecteds
     },
     clear(){
-      this.selected.img_url = null
-      this.selected.target.video = null
+      this.getSelecteds().forEach((item, i) => {
+        item.img_url = null
+        item.target.video = null
+      });
+    },
+    clearStop(){
+      this.getSelecteds().forEach((item, i) => {
+        item.target.spot_url = null
+      });
     }
   },
   mounted(){},
