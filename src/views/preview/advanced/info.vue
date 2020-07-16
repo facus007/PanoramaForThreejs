@@ -59,6 +59,8 @@ export default{
 
 .box-card {
   width: 480px;
+  max-height: calc(100%);
+  overflow: auto;
 }
 
 .header{
