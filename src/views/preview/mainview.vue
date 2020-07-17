@@ -24,15 +24,15 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getProduct } from '@/utils/server'
 import Cookies from 'js-cookie'
-import Preview from './preview'
-import backgroundmusic from './backgroundmusic'
-import CameraAnimation from './cameraanimation'
-import TextureLoader from './textureloader'
-import Advanced from './advanced'
+import Preview from '@/views/preview/preview'
+import backgroundmusic from '@/views/preview/backgroundmusic'
+import CameraAnimation from '@/views/preview/cameraanimation'
+import TextureLoader from '@/views/preview/textureloader'
+import Advanced from '@/views/preview/advanced'
 import * as THREE from '@/components/THREE'
-import * as three from 'three'
+
+document.title = ''
 
 const sides = [
   {
@@ -65,6 +65,7 @@ var interact = false
 
 export default {
   components:{...THREE, Preview, backgroundmusic, CameraAnimation, TextureLoader, Advanced},
+  props:['getProduct','static'],
   data(){return {
     product: null,
     scenes: {},
@@ -101,7 +102,7 @@ export default {
   methods:{
     async init(){
       this.loading = true
-      let product = await getProduct(this.$route.query.product_id, true)
+      let product = await this.getProduct(this.$route.query.product_id, true)
       product.scenes.forEach(item => { this.scenes[item.scene_id] = item });
       this.curSceneId = this.cookies && this.cookies.scene_id || product.scenes[0].scene_id
       document.title = product.name
@@ -140,8 +141,7 @@ export default {
   mounted(){},
   beforeDestroy(){},
   created(){
-    document.title = ''
-    if(this.$route.query.product_id){this.init()}
+    if(this.$route.query.product_id || this.static){this.init()}
   },
   destroyed(){},
   computed:{
