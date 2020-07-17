@@ -1,6 +1,6 @@
 <template>
   <MashBasicMaterial :transparent="true">
-    <texture :url='src' :dynamic="item.dynamic_img"/>
+    <texture :url='src' :dynamic="item.target.dynamic_img"/>
   </MashBasicMaterial>
 </template>
 <script>

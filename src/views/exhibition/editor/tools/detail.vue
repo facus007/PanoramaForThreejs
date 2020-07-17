@@ -11,7 +11,7 @@
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-    <el-checkbox v-model="selected.dynamic_img" style="margin-left:auto;color:gray;">序列帧长图</el-checkbox>
+    <el-checkbox v-model="selected.target.dynamic_img" style="margin-left:auto;color:gray;">序列帧长图</el-checkbox>
     <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
   </div>
   <div class="block">
