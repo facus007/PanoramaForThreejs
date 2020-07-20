@@ -25,11 +25,11 @@
 <script>
 import { mapState } from 'vuex'
 import Cookies from 'js-cookie'
-import Preview from '@/views/preview/preview'
-import backgroundmusic from '@/views/preview/backgroundmusic'
-import CameraAnimation from '@/views/preview/cameraanimation'
-import TextureLoader from '@/views/preview/textureloader'
-import Advanced from '@/views/preview/advanced'
+import Preview from './preview'
+import backgroundmusic from './backgroundmusic'
+import CameraAnimation from './cameraanimation'
+import TextureLoader from './textureloader'
+import Advanced from './advanced'
 import * as THREE from '@/components/THREE'
 
 document.title = ''
@@ -141,7 +141,7 @@ export default {
   mounted(){},
   beforeDestroy(){},
   created(){
-    if(this.$route.query.product_id || this.static){this.init()}
+    if(this.$route.query.product_id|| this.static){this.init()}
   },
   destroyed(){},
   computed:{

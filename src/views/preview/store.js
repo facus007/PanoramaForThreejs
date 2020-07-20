@@ -2,9 +2,13 @@ import { getProduct } from '@/utils/server'
 import Cookies from 'js-cookie'
 
 function getQueryString(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.href.split('?')[1].match(reg);
-  if (r != null) return unescape(r[2]); return null;
+  try {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.href.split('?')[1] && window.location.href.split('?')[1].match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  } catch (e) {
+    return null
+  }
 }
 
 var getProductId = () => getQueryString('product_id')
