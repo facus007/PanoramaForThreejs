@@ -1,7 +1,7 @@
 <template>
   <span>
     <el-dialog class="dialog" :visible.sync="visible" append-to-body>
-      <quill-editor v-if="visible" v-model="content" :options="editorOption" ref="editor" class="editor"/>
+      <quill-editor v-if="visible" v-model="content" :options="editorOption" ref="editor" class="editor" style="white-space: pre-wrap;"/>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false; content = item.content">取 消</el-button>
         <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>

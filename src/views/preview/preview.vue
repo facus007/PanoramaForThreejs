@@ -15,9 +15,9 @@
         <hotspot-mesh :mesh="mesh(item)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
-      <overlayer v-model="showDialog">
-        <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
-      </overlayer>
+    <overlayer v-model="showDialog">
+      <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
+    </overlayer>
   </span>
 </template>
 
