@@ -25,9 +25,9 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
-    <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
+    <!-- <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
       <autofill style="height:40px;"/>
-    </div>
+    </div> -->
     <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
       <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance" style="height:40px;"/>
       <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
@@ -50,7 +50,7 @@ import autofill from './autofill'
 import exhibitionBox from './exhibitionBox/exhibitionBox'
 import exhibitionEntrance from './exhibitionEntrance'
 
-const gridtools = "'a t' 'a b' 'a b' 'c d' 'c e'"
+const gridtools = "'a t' 'a b' 'a b' 'c b' 'c e'"
 const grid = "'a t' 'a b' 'a b' 'c b' 'c b'"
 const moduleName = "editor"
 

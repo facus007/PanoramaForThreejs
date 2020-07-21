@@ -13,9 +13,9 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
       </el-form-item>
-      <el-form-item label="选择参展商">
+      <!-- <el-form-item label="选择参展商">
         <exhibitor-selector v-model="exhibitor_id"/>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="选择模板">
         <template-selector v-model="template"/>
       </el-form-item>
@@ -78,10 +78,10 @@ export default {
         this.$message.warning('请输入作品名')
         return
       }
-      if(!this.exhibitor_id){
-        this.$message.warning('请选择参展商')
-        return
-      }
+      // if(!this.exhibitor_id){
+      //   this.$message.warning('请选择参展商')
+      //   return
+      // }
       if(!this.template){
         this.$message.warning('请选择模版')
         return

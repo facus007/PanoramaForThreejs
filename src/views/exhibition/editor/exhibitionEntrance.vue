@@ -1,7 +1,7 @@
 <template>
   <div style="display:flex; padding: 0 20px; align-items: center;width: 100%; height: 100%;">
     <el-button type="primary" style="margin: 10px; width: 100%; height: 100%;" @click="showBox" v-loading="loading">
-      批量填充热点（切换参展商）
+      批量填充产品热点
     </el-button>
   </div>
 </template>
