@@ -78,5 +78,15 @@ export const customRoutes=[
     order: 0,
     children: null,
     hidden: 0
+  },
+  {
+    id: 52,
+    title: "新增模板",
+    path: "/templates/add",
+    pid: 5,
+    icon: "example",
+    order: 0,
+    children: null,
+    hidden: 1
   }
 ]
