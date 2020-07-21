@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white; cursor:auto;">
-    <img class="image" :src='item&&item.url' :style="style"/>
+    <img class="image" :src='item && item.url' :style="style"/>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ const sizes = {
   '3 x 2': { width : 3, height: 2},
   '3 x 3': { width : 3, height: 3},
 }
+
 export default {
   props:['item'],
   watch: {item(){}},

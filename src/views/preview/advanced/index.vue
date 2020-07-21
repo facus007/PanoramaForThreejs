@@ -2,7 +2,7 @@
   <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
-      <items v-for="feature, i in product.features" :item="feature" :selected="selected" :product="product" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" v-model="isMusicPlaying" @action="$emit('action')"/>
+      <items v-for="feature, i in product.features" :item="feature" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items"/>
     </span>
   </div>
 </template>
@@ -39,28 +39,14 @@ const sizes = {
 }
 
 export default {
-  props:['product', 'value'],
   components:{items},
   data(){return {
-    selected: null,
     grids: null,
     widgets: null,
-    isMusicPlaying: true,
   }},
-  watch:{
-    isMusicPlaying(next){
-      this.$emit('input',next)
-    },
-    value(next){
-      this.isMusicPlaying = next
-    }
-  },
   methods:{
     // update(){},
     // propCompute(){},
-    setSelected(selected){
-      this.selected = selected
-    },
     onChange(){
       this.$refs.items.forEach((item, i) => {
         item.onChange()
@@ -73,13 +59,14 @@ export default {
       this.widgets[item.uuid] = this.grids[item.position.group].addWidget(
         '<div data-gs-x="'+item.position.x+ '" data-gs-y="' + item.position.y + '" data-gs-width="' + sizes[item.size].width + '" data-gs-height="' + sizes[item.size].height + '"/>'
       )
-      var typ = document.createAttribute("uuid");
-      typ.value = item.uuid;
-      this.widgets[item.uuid].attributes.setNamedItem(typ);
+      var type = document.createAttribute("uuid");
+      type.value = item.uuid;
+      this.widgets[item.uuid].attributes.setNamedItem(type);
     }
   },
   computed:{
     size: _=>size, layerStyle:_=>layerStyle, gridStyle:_=>gridStyle,
+    ...mapState('preview', ['product'])
   },
   mounted(){
     this.grids = GridStack.initAll({

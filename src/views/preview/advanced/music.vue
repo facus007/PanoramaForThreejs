@@ -1,31 +1,49 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <div @click="$emit('input',!value)" >
-      <div :class="value ? 'icon icon-music' : 'icon icon-music-mute'"/>
+    <div @click="needPlaying = !needPlaying" >
+      <div :class="needPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
       <audio class="audio-player" autoplay :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default{
-  props:['item', 'value'],
-  watch: {
-    value(next){
-      if(next){ this.$refs.audio.play()}
-      else{this.$refs.audio.pause()}
+  props:['item'],
+  data(){return{
+    needPlaying: true,
+  }},
+  watch:{
+    isPlaying(next){
+      next && this.play() || this.pause()
     }
   },
   methods:{
-    play(){
-      this.$refs.audio.play()
+    async play(){
+      if(this.stop){return}
+      try {
+        if(this.isPlaying){
+          await this.$refs.audio.play()
+        }else{
+          await this.$refs.audio.pause()
+        }
+      } catch (e) {
+        requestAnimationFrame(this.play)
+      }
     },
-    stop(){
-      this.$refs.audio.pause()
+    async pause(){
+      await this.$refs.audio.pause()
     }
   },
-  computed:{},
-  mounted(){}
+  computed:{
+    ...mapState('preview/audio',['canMusicPlay']),
+    isPlaying(){
+      return this.needPlaying && this.canMusicPlay
+    }
+  },
+  mounted(){this.play()},
+  beforeDestroy(){ this.stop = true},
 }
 </script>
 

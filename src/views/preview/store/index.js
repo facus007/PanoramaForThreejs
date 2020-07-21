@@ -1,5 +1,7 @@
-import { getProduct } from '@/utils/server'
 import Cookies from 'js-cookie'
+import texture from './texture'
+import loading from './loading'
+import audio from './audio'
 
 function getQueryString(name) {
   try {
@@ -13,29 +15,24 @@ function getQueryString(name) {
 
 var getProductId = () => getQueryString('product_id')
 var cookies = Cookies.get('vrpreivew' + getProductId()) && JSON.parse(Cookies.get('vrpreivew' + getProductId()))
-
-const sides = [
-  {position: [ 0, 0, -1 ],rotation: [ 0, 0, 0 ]},
-  {position: [ 1, 0, 0 ],rotation: [ 0, - Math.PI / 2, 0 ]},
-  {position: [ 0, 0, 1 ],rotation: [ 0, Math.PI, 0 ]},
-  {position: [ - 1, 0, 0 ],rotation: [ 0, Math.PI / 2, 0 ]},
-  {position: [ 0, 1, 0 ],rotation: [ Math.PI / 2, 0, Math.PI ]},
-  {position: [ 0, - 1, 0 ],rotation: [ - Math.PI / 2, 0, Math.PI ]},
-];
+Cookies.remove('vrpreivew' + getProductId())
 
 const state = {
+  cookies,
   product: null,
   scenes: {},
   curSceneId: cookies && cookies.scene_id,
-  cookies,
-  sides,
+  curRotation: null,
 }
 
 const mutations = {
   SET_PRODUCT: (state, value) => {
     state.product = value
-    document.title = value.name
-    value.scenes.forEach(item => { state.scenes[item.scene_id] = item });
+    if(value){
+      document.title = value.name
+      value.scenes.forEach(item => { state.scenes[item.scene_id] = item });
+      state.curSceneId = state.curSceneId || value.scenes[0].scene_id
+    }
   },
   SET_COOKIES: (state, value) => {
     value && Cookies.set('vrpreivew' + getProductId(), value) || Cookies.remove('vrpreivew' + getProductId());
@@ -43,21 +40,28 @@ const mutations = {
   },
   SET_CURSCENE_ID: (state, value) => {
     state.curSceneId = value
+  },
+  SET_CURROTATION: (state, value) => {
+    state.curRotation = value
   }
 }
 
 const actions = {
-  async init({state, commit}){
+  async init({state, commit, dispatch}, {getProduct}){
     commit('SET_PRODUCT', await getProduct(getProductId(), true))
   },
   async deinit({state, commit}){
     commit('SET_PRODUCT')
   },
+  async setCookies({state, commit}) {
+    commit('SET_COOKIES', {scene_id: state.curSceneId, start_rotation: state.curRotation})
+  }
 }
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  modules:{ texture, loading, audio}
 }

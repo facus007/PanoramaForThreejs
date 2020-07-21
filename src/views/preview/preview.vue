@@ -29,33 +29,30 @@ import overlayer from './advanced/overlayer'
 
 export default {
   components:{...THREE,overlayer},
-  props:['curScene', 'value', 'visible', 'product'],
+  props:['curScene', 'visible'],
   data(){return {
-      self: this,
       group: null,
       link: null,
       showDialog: null,
   }},
   watch:{
     showDialog(next){
-      if(!next){
-        this.link = null
-      }
+      this.$store.commit('preview/audio/SET_CAN_MUSIC_PLAY',!next)
+      !next && (this.link = null)
     },
   },
   methods:{
     action(item){
-      if(item.type===1 && item.target.link){
-        this.$emit('action')
+      if(item.type === 1 && item.target.link){
+        this.$store.dispatch('preview/setCookies')
         var a = document.createElement('a');
         a.href=item.target.link
         a.click()
       }
       else if (item.type===2 && item.target.scene_id) {
-        this.$emit('input', this.product.scenes[item.target.scene_id].scene_id)
+        this.$store.commit('preview/SET_CURSCENE_ID', this.product.scenes[item.target.scene_id].scene_id)
       }
       else if (item.type===3 && item.target.video) {
-        this.$emit('videoPlay')
         this.link = item.target.video
         this.showDialog = true
       }
@@ -70,7 +67,8 @@ export default {
   },
   created(){},
   computed:{
-    ...mapState('THREE',['camera','domElement'])
+    ...mapState('THREE',['camera','domElement']),
+    ...mapState('preview',['product','curSceneId'])
   }
 }
 </script>

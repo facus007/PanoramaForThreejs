@@ -39,7 +39,7 @@ export default {
         this.showDialog = true
       }
       else {
-        this.$emit('action')
+        this.$store.dispatch('preview/setCookies')
         var a = document.createElement('a');
         a.href=this.item.link
         a.click()

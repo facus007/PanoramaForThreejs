@@ -1,6 +1,6 @@
 <template>
   <div class="grid-stack-item-content" :widget="widget" >
-    <components :is="item.type" :item="item" v-model="isMusicPlaying" @action="$emit('action')" :product="product"/>
+    <components :is="item.type" :item="item"/>
   </div>
 </template>
 
@@ -24,37 +24,18 @@ const sizes = {
 }
 
 export default{
-  props:['item', 'selected', 'widgets', 'grids', 'value', 'product'],
+  props:['item', 'widgets', 'grids'],
   components:{music, imagef, linkf, hypertext, scene, info},
   data(){return{
     isMusicPlaying: true,
   }},
-  methods:{
-    onChange(){
-      let widget = this.widgets[this.item.uuid]
-      this.item.size = widget.attributes['data-gs-width'].value + ' x ' + widget.attributes['data-gs-height'].value
-      this.item.position = {group:this.item.position.group, x:widget.attributes['data-gs-x'].value, y:widget.attributes['data-gs-y'].value }
-    }
-  },
+  methods:{},
   watch:{
-    'item.size'(next, pre){
-      let widget = this.widgets[this.item.uuid]
-      this.grid.resize(widget, sizes[next].width, sizes[next].height)
-      this.grid.batchUpdate()
-      this.grid.commit()
-      this.item.size = widget.attributes['data-gs-width'].value + ' x ' + widget.attributes['data-gs-height'].value
-    },
     'widget'(next){
       if(next){
         this.widget.appendChild(this.$el)
       }
     },
-    isMusicPlaying(next){
-      this.$emit('input',next)
-    },
-    value(next){
-      this.isMusicPlaying = next
-    }
   },
   mounted(){
     if(this.widget){
@@ -63,12 +44,6 @@ export default{
   },
   computed:{
     control(){return this},
-    outline(){return this.item === this.selected},
-    x(){return this.item.position.x},
-    y(){return this.item.position.y},
-    width(){return sizes[this.item.size].width},
-    height(){return sizes[this.item.size].height},
-    grid(){return this.grids && this.grids[this.item.position.group]},
     widget(){return this.widgets && this.widgets[this.item.uuid]}
   }
 }

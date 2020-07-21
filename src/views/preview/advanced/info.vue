@@ -23,9 +23,10 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import overlayer from './overlayer'
 export default{
-  props:['item', 'product'],
+  props:['item'],
   components:{overlayer},
   data(){return {
     showDialog: false,
@@ -33,11 +34,12 @@ export default{
   watch: {},
   methods:{
     click(){
-      console.log(this.product)
       this.showDialog = true
     }
   },
-  computed:{},
+  computed:{
+    ...mapState('preview', ['product']),
+  },
   mounted(){}
 }
 </script>

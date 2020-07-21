@@ -1,17 +1,17 @@
 <template>
   <transition name="el-fade-in">
-    <el-dialog :visible.sync="visible" append-to-body>
-    <div v-if="visible" style="width: 100%; height: 100%; top: 0; left: 0; position: fixed; align-items: center; visibility: visible;">
-      <div style="width:100%;height:100%; background: #000B; display:grid; justify-items:center; align-items:center; grid-auto-flow:row; grid-template-rows: 1fr 50px;" >
-        <div style="width:100%;height:100%;">
-          <div style="width:100%;height:100%; position:absolute; padding:20px 20px 50px 20px; display:flex; justify-content:center; align-items:center;">
-            <slot/>
+    <el-dialog class="dialog" :visible.sync="visible" append-to-body :show-close="false">
+      <div v-if="visible" style="width: 100%; height: 100%; top: 0; left: 0; position: fixed; align-items: center; visibility: visible;">
+        <div style="width:100%;height:100%; background: #000B; display:grid; justify-items:center; align-items:center; grid-auto-flow:row; grid-template-rows: 1fr 50px;" >
+          <div style="width:100%;height:100%;">
+            <div style="width:100%;height:100%; position:absolute; padding:20px 20px 50px 20px; display:flex; justify-content:center; align-items:center;">
+              <slot/>
+            </div>
           </div>
+          <el-button icon="el-icon-close" type="text" style="width:30px; height:30px; z-index:5; padding: 0;margin:10px; border-radius: 30px; background:#444;" @click="visible=false"/>
         </div>
-        <el-button icon="el-icon-close" type="text" style="width:30px; height:30px; z-index:5; padding: 0;margin:10px; border-radius: 30px; background:#444;" @click="visible=false"/>
       </div>
-    </div>
-  </el-dialog>
+    </el-dialog>
   </transition>
 </template>
 
@@ -29,17 +29,10 @@ export default {
 </script>
 
 <style scoped>
-.dialog >>> .el-dialog{
-  margin-top: 15vw;
-  padding: 0;
-  background: #0000;
-}
 .dialog >>> .el-dialog__header{
   padding: 0;
 }
 .dialog >>> .el-dialog__body{
-  height: 70vw;
   padding: 0;
-  overflow: hidden;
 }
 </style>

@@ -13,7 +13,7 @@ const lerpfactor = 0.01
 const zero = new THREE.Vector3(0,-20, 0);
 
 export default {
-  props:['value', 'fov', 'start_rotation', 'product'],
+  props:['fov', 'start_rotation', 'product'],
   data(){return {
     cur_aim:[0 , 0],
     showguide: false,
@@ -36,12 +36,14 @@ export default {
       else{
         this.start_rotation[0] = this.cur_aim[0]
         this.start_rotation[1] = this.cur_aim[1]
-        this.$emit('input',true)
+        try {
+          this.$store.commit('preview/loading/SET_AFTER_ANIMATION_LOADED', true)
+        } catch (e) {}
       }
     },
   },
   created(){
-    if(!this.hasCookies && this.product.animation){
+    if(!this.cookies && this.product.animation){
       let v3 = (new THREE.Vector3()).setFromSphericalCoords(1,this.cur_aim[1],this.cur_aim[0])
       var aim = v3.multiplyScalar(-1)
       this.camera.fov = 150
@@ -57,18 +59,18 @@ export default {
       this.camera.lookAt(aim)
       this.camera.position.set(0,0,0)
       this.camera.updateProjectionMatrix()
-      this.$emit('input',true)
+      try {
+        this.$store.commit('preview/loading/SET_AFTER_ANIMATION_LOADED', true)
+      } catch (e) {}
     }
   },
   destroyed(){},
   computed:{
-    hasCookies(){
-      return Cookies.get('vrpreivew' + this.$route.query.product_id)
-    },
     isMoblie(){
       return(browser.versions.mobile||browser.versions.android||browser.versions.ios)
     },
     ...mapState('THREE',['camera']),
+    ...mapState('preview',['cookies'])
   }
 }
 </script>

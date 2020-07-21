@@ -1,24 +1,17 @@
 <template>
-  <div class="loading">
-      <!-- <progress :value="curProgress"  max="100"></progress> -->
+  <div class="loading" v-if="!first_loaded">
       <div class="progress">
         <span class="blue" :style="{width: curProgress +'%'}"><span>{{Math.floor(curProgress)}}%</span></span>
       </div>
-      <!-- {{Math.floor(curProgress)}}% -->
   </div>
 </template>
 <script>
-var count = 1
+import {mapState} from 'vuex'
+
 export default {
   data(){return {
     curProgress: 0,
   }},
-  props:['loading'],
-  watch:{
-    loading(){
-      this.curProgress = 100
-    }
-  },
   methods:{
     progress(){
       if(100 - this.curProgress > 0.0001){
@@ -30,7 +23,10 @@ export default {
   mounted(){
     requestAnimationFrame(this.progress)
   },
-  beforeDestroy(){}
+  beforeDestroy(){},
+  computed:{
+    ...mapState('preview/loading', ['first_loaded'])
+  },
 }
 </script>
 <style scoped>

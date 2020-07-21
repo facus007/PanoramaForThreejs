@@ -24,7 +24,7 @@ export default {
     // propCompute(){},
     changed(){
       // this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
-      this.$emit('onchange')
+      this.$emit('input', [this.obj.getAzimuthalAngle(), this.obj.getPolarAngle()])
     },
     newControl(camera, domElement){
       let controls = new OrbitControls(camera, domElement)

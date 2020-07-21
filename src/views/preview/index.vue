@@ -1,17 +1,17 @@
 <template>
   <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
-    <main-view v-model="loading" :getProduct="getProduct"/>
-    <loading v-if="loading" loading="loading"/>
+    <main-view :getProduct="getProduct"/>
+    <loading/>
   </div>
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import browser from '@/utils/browser'
-import {getshareconfig} from '@/api/server'
-import wx from 'weixin-js-sdk';
-import Loading from '@/views/preview/loading'
 import { getProduct } from '@/utils/server'
+import { getshareconfig } from '@/api/server'
+import wx from 'weixin-js-sdk';
+import store from '@/views/preview/store'
+import Loading from '@/views/preview/loading'
 
 export default {
   components:{MainView: async() => {
@@ -25,13 +25,11 @@ export default {
     }
     return await import(/* webpackChunkName: "chunk-preview-main" */ './mainview')
   }, Loading},
-  data(){return{
-    loading: true,
-    // loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
-  }},
+  created(){this.$store.registerModule('preview', store)},
+  destroyed(){this.$store.unregisterModule('preview')},
   computed:{
     getProduct:_=>getProduct,
-  }
+  },
 }
 
 </script>
