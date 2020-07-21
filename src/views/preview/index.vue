@@ -1,6 +1,6 @@
 <template>
   <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
-    <main-view v-model="loading"/>
+    <main-view v-model="loading" :getProduct="getProduct"/>
     <loading v-if="loading" loading="loading"/>
   </div>
 </template>
@@ -11,6 +11,7 @@ import browser from '@/utils/browser'
 import {getshareconfig} from '@/api/server'
 import wx from 'weixin-js-sdk';
 import Loading from '@/views/preview/loading'
+import { getProduct } from '@/utils/server'
 
 export default {
   components:{MainView: async() => {
@@ -28,7 +29,9 @@ export default {
     loading: true,
     // loading: !Cookies.get('vrpreivew' + this.$route.query.product_id)
   }},
-  computed:{}
+  computed:{
+    getProduct:_=>getProduct,
+  }
 }
 
 </script>

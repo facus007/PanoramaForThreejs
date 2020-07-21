@@ -2,7 +2,7 @@
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
     <div @click="$emit('input',!value)" >
       <div :class="value ? 'icon icon-music' : 'icon icon-music-mute'"/>
-      <audio autoplay :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
+      <audio class="audio-player" autoplay :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
     </div>
   </div>
 </template>

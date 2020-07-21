@@ -90,7 +90,7 @@ export default {
 }
 .editor>>>.ql-toolbar{
   height:10vh;
-  overflow: auto;
+  /* overflow: auto; */
 }
 .editor>>>.ql-container{
   height:50vh;

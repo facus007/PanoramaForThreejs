@@ -9,12 +9,14 @@
         <template v-slot:columns="scope">
           <el-table-column label="素材预览">
             <template v-slot:default="scope">
-              <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;display:flex;">
-                <img v-if="scope.row.material_type === '1'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
-                <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
-                <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
-                <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
-                <div style="width:fit-content">{{scope.row.remark}}</div>
+              <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;">
+                <span style="display:flex; flex-direction:column;">
+                  <img v-if="scope.row.material_type === '1'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
+                  <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
+                  <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
+                  <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
+                  <div style="width:fit-content">{{scope.row.remark}}</div>
+                </span>
               </el-button>
             </template>
           </el-table-column>

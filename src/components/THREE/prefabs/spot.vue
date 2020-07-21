@@ -40,7 +40,7 @@ export default {
     'item.transform'(next, pre){
       this.setTransform()
     },
-    'item.dynamic_img'(){
+    'item.target.dynamic_img'(){
       this.setTransform()
     },
     visible(next){
@@ -107,12 +107,12 @@ export default {
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.item.dynamic_img ? 1 : this.image.width / this.image.height
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.item.dynamic_img ? 1 : this.image.width / this.image.height
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){
