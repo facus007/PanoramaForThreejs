@@ -1,5 +1,5 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 2fr;" class="event">
+  <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 2fr;" class="event">
   <div class="block">属性</div>
   <div class="block" style="display:flex;align-items:center">
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
@@ -41,11 +41,12 @@
       </el-button>
       <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray;">隐藏图标</el-checkbox>
     </div>
-    <div class="scene" v-if="option === '3'" style="width:100%; height:100%; display:flex; justify-content:center;">
-      <el-button class="upload" type="text" @click="showvideoDialog=true" style="width: 100%; height: 100%; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
+    <div class="scene" v-if="option === '3'" style="display: grid;width:100%; height:100%; grid-template-areas:'a' 'c'; grid-column-gap: 4px; grid-row-gap: 2px; grid-template-rows:1fr 20px;">
+      <el-button class="upload" type="text" @click="showvideoDialog=true" style="grid-area: a; width: 100%; height: 100%; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
         <video v-if="selected.target.video" :src="selected.target.video" controls autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
+      <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
     </div>
   </div>
   <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>

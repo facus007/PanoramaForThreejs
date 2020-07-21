@@ -1,6 +1,6 @@
 <template>
   <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
-    <list :source="curedit.embeddings[0].hotspots" :label="labels[0]" v-model="selected" @del="del" :clearable="true" ref="list"/>
+    <list :source="curedit.embeddings[0].hotspots" :label="labels[0]+'（当前热点数：'+curedit.embeddings[0].hotspots.length+'）'" v-model="selected" @del="del" :clearable="true" ref="list"/>
     <div style="background: #304156; width: 100%; height: 50px; position:relative;display:flex;align-items:center">
       <upload-source @openAdvsSouceFrame="openAdvsSouceFrame" ref="openUploadSouceFrame" style="height:40px;"/>
       <el-dialog title="" :visible.sync="advsFrameVisible" destroy-on-close>

@@ -4,7 +4,7 @@
       <el-button type="primary" style="width:100%" @click="add">添加热点</el-button>
     </div>
     <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]" v-model="selected" @del="del" :clearable="true" ref="list"/>
+      <list :source="curedit.embeddings[2].hotspots" :label="labels[2]+'（当前热点数：'+curedit.embeddings[2].hotspots.length+'）'" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
   </container>
 </template>
