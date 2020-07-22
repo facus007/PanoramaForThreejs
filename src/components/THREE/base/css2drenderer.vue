@@ -17,10 +17,6 @@ export default {
   },
   methods:{
     update(){
-      if( ++frame % 2===0) {
-        frame = 0
-        this.resize()
-      }
       this.obj.render(this.scene, this.camera);
     }
   },
@@ -28,6 +24,7 @@ export default {
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
+    this.resize()
   },
   beforeDestroy(){
     window.removeEventListener('resize', this.resize);
@@ -35,7 +32,7 @@ export default {
     this.obj = null
   },
   methods:{
-    resize(){
+    async resize(){
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     },
   }

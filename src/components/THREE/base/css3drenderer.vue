@@ -11,16 +11,12 @@ var frame = 0
 
 export default {
   mixins: [THREEComponent],
-  watch:{
-    domElement(next, pre){
-      pre && pre.removeEventListener('update', this.update)
-      next && next.addEventListener('update', this.update)
-    }
-  },
+  watch:{},
   mounted(){
     this.obj = new CSS3DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
+    this.resize()
     this.startRendering()
   },
   beforeDestroy(){
@@ -30,21 +26,18 @@ export default {
     this.obj = null
   },
   methods:{
-    resize(){
+    async resize(){
       this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     },
     startRendering(){
-      this.domElement && this.domElement.addEventListener('update', this.update)
+      this.frame = requestAnimationFrame(this.update)
     },
     stopRendering(){
-      this.domElement && this.domElement.removeEventListener('update', this.update)
+      cancelAnimationFrame(this.frame)
     },
-    async update(){
-      if( ++frame % 2===0) {
-        frame = 0
-        this.resize()
-      }
+    update(){
       this.obj.render(this.scene, this.camera);
+      this.frame = requestAnimationFrame(this.update)
     }
   }
 }
