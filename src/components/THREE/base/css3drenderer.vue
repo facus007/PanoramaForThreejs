@@ -40,7 +40,10 @@ export default {
       this.domElement && this.domElement.removeEventListener('update', this.update)
     },
     async update(){
-      this.resize()
+      if( ++frame % 2===0) {
+        frame = 0
+        this.resize()
+      }
       this.obj.render(this.scene, this.camera);
     }
   }

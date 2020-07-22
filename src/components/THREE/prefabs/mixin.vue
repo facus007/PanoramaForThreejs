@@ -30,7 +30,7 @@ export default {
   components: {GlImage, GlVideo, Spot, DglImage},
   props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected', 'hidden'],
   data(){return {
-    imageData: null
+    imageData: null,
   }},
   watch:{
     'item.transform'(next, pre){
@@ -72,10 +72,10 @@ export default {
     this.obj = new CSS3DObject(this.$el)
     this.setTransform()
     this.scene.add(this.obj)
-    // this.domElement && this.domElement.addEventListener('update', this.update)
+    this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
-    // this.domElement && this.domElement.removeEventListener('update', this.update)
+    this.domElement && this.domElement.removeEventListener('update', this.update)
     this.scene.remove(this.obj)
     this.obj = null
   },

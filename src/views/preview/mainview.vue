@@ -1,10 +1,11 @@
 <template>
   <span style="position: absolute; width: 100%; height: 100%;">
+    <stats v-if="isDebug"/>
     <THREE v-if="first_loaded" style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
       <WebGLRenderer :option="{antialias: true, alpha: true}">
-        <!-- <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}"> -->
+        <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}">
           <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
-        <!-- </CSS3DRenderer> -->
+        </CSS3DRenderer>
       </WebGLRenderer>
 
       <animated-panorama :curScene="curScene" :textures="textures" ref="panorama"/>

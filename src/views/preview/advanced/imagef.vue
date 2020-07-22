@@ -39,6 +39,6 @@ export default {
   border: 0;
 }
 img[src=""],img:not([src]){
-  opacity:0;
+  visibility: hidden;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height:size[1] * 100+'px'}">
+  <div class="css3d" :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height:size[1] * 100+'px'}">
     <div :style="layout[item.align || '4']" @click="$emit('action', item)">
       <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height:height * 100+'px'}"/>
       <gl-image v-if="item.style === 1 && image && imageData && !item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
@@ -34,8 +34,6 @@ export default {
   computed:{
     visible(){return !this.hidden && this.obj && this.obj.visible}
   },
-  mounted(){},
-  beforeDestroy(){}
 }
 </script>
 <style scoped="three">
@@ -66,4 +64,12 @@ export default {
 0% {box-shadow:0 1px 2px rgba(255,255,255,0.1);}
 100% {border:5px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
 } */
+</style>
+<style scoped>
+.css3d{
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 </style>

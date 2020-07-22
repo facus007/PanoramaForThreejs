@@ -29,7 +29,8 @@ export default {
   watch:{
     selected(next){
       this.editor.$refs.tools.setSelected(next)
-      this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[2].hotspots.indexOf(next)+1].$el.scrollIntoView()
+      let aim = next && this.$refs.list.$refs.table.$children[2].$children[this.curedit.embeddings[2].hotspots.indexOf(next)+1]
+      aim && aim.$el.scrollIntoView()
     },
   },
   methods:{
@@ -76,6 +77,7 @@ export default {
       delembed({embedIds: item.embed_id})
       let index = this.curedit.embeddings[2].hotspots.indexOf(item)
       this.curedit.embeddings[2].hotspots.splice(index, 1)
+      this.selected = null
     },
     setSelected(selected){
       this.selected = selected
