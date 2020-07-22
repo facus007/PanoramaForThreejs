@@ -1,5 +1,5 @@
 <template>
-  <span :computeProp="computeProp" style="visibility:hidden;"><slot></slot></span>
+  <div :computeProp="computeProp" style="visibility:hidden;"><slot></slot></div>
 </template>
 
 <script>

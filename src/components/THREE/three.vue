@@ -31,6 +31,7 @@ export default {
   mounted(){
     this.$store.commit(moduleName+'/SET_DOMELEMENT', this.$el)
     window.addEventListener('resize', this.resize);
+    this.resize()
     this.startRendering()
   },
   beforeDestroy(){
@@ -43,7 +44,7 @@ export default {
     this.$store.unregisterModule(moduleName)
   },
   methods:{
-    resize(){
+    async resize(){
       let aspect = this.domElement.clientWidth / this.domElement.clientHeight;
       if(this.camera.aspect !== aspect){
         this.camera.aspect = aspect
@@ -52,7 +53,6 @@ export default {
       }
     },
     rendering(){
-      this.resize()
       this.$store.dispatch(moduleName+'/render');
       this.frame = requestAnimationFrame(this.rendering)
     },

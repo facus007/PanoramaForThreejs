@@ -3,8 +3,8 @@
     <el-header style="padding: 0px 20px;">
       <slot name="header"/>
     </el-header>
-    <el-main>
-      <el-table size="mini" :data="items" @selection-change="val=>$emit('selection-change',val)" tooltip-effect="dark" style="width: 100%; position:relative;" :height="'100%'"
+    <el-main style="position: relative;">
+      <el-table size="mini" :data="items" @selection-change="val=>$emit('selection-change',val)" tooltip-effect="dark" style="width: 100%; position:absolute;" :height="'100%'"
         :row-style="{height:'80px'}" :header-row-style="{height:'20px'}" :header-cell-style="{padding:'0'}">
         <slot name="columns"/>
       </el-table>

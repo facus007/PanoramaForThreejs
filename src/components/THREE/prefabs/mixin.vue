@@ -59,7 +59,7 @@ export default {
       this.obj.scale.set(m[2] * short * 0.01, m[3] * short * 0.01, short * 0.01)
     },
     update(){
-      if(frame++ % 2 === 0){
+      if(++frame % 4 === 0){
         frame = 0
         let front = new THREE.Vector3()
         this.camera.getWorldDirection(front)
@@ -106,6 +106,9 @@ export default {
       let sizeAspect = this.size[0] / this.size[1]
       let imageAspect = this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
+    },
+    style(){
+      return {...this.layout[this.item.align || '4'],border: this.outline ? '5px dashed yellow' : 'none', width:this.size[0] * 100+'px', height:this.size[1] * 100+'px'}
     }
   }
 }

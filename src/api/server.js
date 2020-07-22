@@ -92,6 +92,14 @@ export function getProduct(params){
   })
 }
 
+export function delProduct(data){
+  return request({
+    url: '/delproduct',
+    method: 'post',
+    data
+  })
+}
+
 export function addembed(data){
   return request({
     url: '/addembed',

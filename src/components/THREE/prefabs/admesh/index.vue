@@ -1,11 +1,9 @@
 <template>
-  <div class="css3d" :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height: size[1] * 100+'px'}">
-    <div :style="layout[item.align || '4']" @click="$emit('action',item)">
-      <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height: height * 100+'px'}"/>
-      <gl-image v-if="item.style === 1 && image && imageData && !item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
-      <dgl-image v-if="item.style === 1 && image && imageData && item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
-      <gl-video v-if="item.style === 2 && image && imageData && visible" :image="imageData" :video="item.target.video" :mesh="mesh" :item="item" :visible="visible"/>
-    </div>
+  <div class="css3d" :style="style" @click="$emit('action',item)">
+    <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height: height * 100+'px'}"/>
+    <gl-image v-if="item.style === 1 && image && imageData && !item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+    <dgl-image v-if="item.style === 1 && image && imageData && item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
+    <gl-video v-if="item.style === 2 && image && imageData && visible" :image="imageData" :video="item.target.video" :mesh="mesh" :item="item" :visible="visible"/>
   </div>
 </template>
 
@@ -27,7 +25,7 @@ export default {
     // propCompute(){},
   },
   computed:{
-    visible(){return !this.hidden && this.obj && this.obj.visible}
+    visible(){return !this.hidden}
   },
 }
 </script>

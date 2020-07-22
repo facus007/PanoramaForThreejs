@@ -24,6 +24,8 @@ export default{
       try {
         if(this.isPlaying){
           await this.$refs.audio.play()
+          window.removeEventListener('mousedown',this.play)
+          window.removeEventListener('touchstart',this.play)
         }else{
           await this.$refs.audio.pause()
         }
