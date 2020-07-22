@@ -1,5 +1,5 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 200px; display: grid; grid-gap: 1px; grid-template-rows: 30px 30px 1fr 40px 1fr;" class="event">
+  <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 240px; display: grid; grid-gap: 1px; grid-template-rows: 30px 30px 1fr 40px 1fr;" class="event">
   <div class="block">属性</div>
   <div class="block" style="display:flex;align-items:center">
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
@@ -11,7 +11,7 @@
       <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-    <el-checkbox v-model="selected.target.dynamic_img" style="margin-left:auto;color:gray;">序列帧长图</el-checkbox>
+    <el-checkbox v-model="selected.target.dynamic_img" style="margin:0;margin-left:auto;color:gray;">序列帧长图</el-checkbox>
     <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
   </div>
   <div class="block">
@@ -28,10 +28,11 @@
         </el-tooltip>
       </span>
       <el-input class="input" size="mini" v-model="link" style="margin:5px 0px"/>
-      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'a b' 'c c'; grid-column-gap: 4px; grid-row-gap: 2px;">
+      <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'d a' 'c b'; grid-column-gap: 4px; grid-row-gap: 2px;align-items: center; justify-items: flex-start;">
         <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">修改呼吸灯</el-button>
         <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearStop">默认呼吸灯</el-button>
-        <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
+        <el-checkbox v-model="selected.target.inline" style="margin:0;color:gray; grid-area: d;">网页内联</el-checkbox>
+        <el-checkbox v-model="selected.target.hidespot" style="margin:0;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
       </span>
     </div>
     <div class="scene" v-if="option === '2'" style="width: 100%;display:flex; flex-direction: column;align-items:center;  ">
@@ -48,6 +49,7 @@
       </el-button>
       <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
     </div>
+    <!-- <component :is="option.component" style="display: flex; flex-direction: column; width: 100%; height:100%; align-items: flex-start;"/> -->
   </div>
   <material-selector v-model="showDialog" @select="select" imgtype="1,2"/>
   <material-selector v-model="showSpotDialog" @select="selectSpot" imgtype="1"/>
@@ -60,15 +62,16 @@
 import { mapState } from 'vuex'
 import MaterialSelector from '@/views/exhibition/materialselector'
 import SceneSelector from '@/views/exhibition/sceneselector'
+import empty from './empty'
 
 const options = [
-  { value: '0', label: '无动作'},
-  { value: '1', label: '超链接'},
-  { value: '2', label: '场景跳转'},
-  { value: '3', label: '视频展示'},
+  { value: '0', label: '无动作', component: 'empty'},
+  { value: '1', label: '超链接', component: 'empty'},
+  { value: '2', label: '场景跳转', component: 'empty'},
+  { value: '3', label: '视频展示', component: 'empty'},
 ]
 export default {
-  components:{MaterialSelector,SceneSelector},
+  components:{MaterialSelector,SceneSelector,empty},
   data(){return {
     group: null,
     options,

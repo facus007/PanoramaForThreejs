@@ -18,6 +18,9 @@
     <overlayer v-model="showDialog">
       <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
     </overlayer>
+    <overlayer v-model="showWebDialog">
+      <iframe :src="link" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen/>
+    </overlayer>
   </span>
 </template>
 
@@ -27,6 +30,20 @@ import * as THREE from '@/components/THREE'
 import * as three from 'three'
 import overlayer from './advanced/overlayer'
 
+function updateQueryStringParameter(uri, key, value) {
+	if(!value) {
+		return uri;
+	}
+	var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+	var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+	if (uri.match(re)) {
+		return uri.replace(re, '$1' + key + "=" + value + '$2');
+	}
+	else {
+		return uri + separator + key + "=" + value;
+	}
+}
+
 export default {
   components:{...THREE,overlayer},
   props:['curScene', 'visible'],
@@ -34,6 +51,7 @@ export default {
       group: null,
       link: null,
       showDialog: null,
+      showWebDialog: null,
   }},
   watch:{
     showDialog(next){
@@ -44,10 +62,15 @@ export default {
   methods:{
     action(item){
       if(item.type === 1 && item.target.link){
-        this.$store.dispatch('preview/setCookies')
-        var a = document.createElement('a');
-        a.href=item.target.link
-        a.click()
+        if(item.target.inline){
+          this.link = updateQueryStringParameter(item.target.link,'openplace','inline')
+          this.showWebDialog = true
+        }else{
+          this.$store.dispatch('preview/setCookies')
+          var a = document.createElement('a');
+          a.href = item.target.link
+          a.click()
+        }
       }
       else if (item.type===2 && item.target.scene_id) {
         this.$store.commit('preview/SET_CURSCENE_ID', this.product.scenes[item.target.scene_id].scene_id)
