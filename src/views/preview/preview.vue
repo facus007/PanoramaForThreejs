@@ -58,6 +58,9 @@ export default {
       this.$store.commit('preview/audio/SET_CAN_MUSIC_PLAY',!next)
       !next && (this.link = null)
     },
+    showWebDialog(next){
+      !next && (this.link = null)
+    },
   },
   methods:{
     action(item){

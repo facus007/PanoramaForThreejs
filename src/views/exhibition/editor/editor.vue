@@ -31,8 +31,7 @@
     <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
       <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance" style="height:40px;"/>
       <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
-          <exhibitionBox @exhibitionFinished="exhibitionFinished" v-model="selected_ids"/>
-          <div style="position: fixed; bottom: 20px; left: 20px; background:#1118;color:white;padding: 10px;z-index:10; border-radius: 5px;">当前已选{{product.max_hotspot_num || 0}}件，还可以选择{{ 0 }}件</div>
+        <exhibitionBox @exhibitionFinished="exhibitionFinished" :max_hotspot_num="product.max_hotspot_num"/>
       </el-dialog>
     </div>
   </grid>
@@ -74,6 +73,7 @@ export default {
     exhibitionBoxVisible: false,
     selected_ids: null,
   }},
+  watch:{},
   computed:{
     isDebug: () => process.env.NODE_ENV === "development",
     features: () => features,

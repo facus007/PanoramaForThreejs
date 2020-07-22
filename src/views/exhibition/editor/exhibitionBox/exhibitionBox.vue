@@ -147,7 +147,7 @@ import {mapState} from "vuex";
 export default {
   name: "exhibitionbox",
   inheritAttrs: false,
-  props: [],
+  props: ['max_hotspot_num'],
   data() {
     return {
       currentUrl: window.location.protocol + "//" + window.location.host, //当前域名 就快来点击了解了解

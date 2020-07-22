@@ -37,16 +37,17 @@
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-auto-flow: row; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+            <div style="display: grid; grid-auto-flow: row; grid-template-columns: 1fr 1fr; grid-gap: 5px; align-items: center;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
+              <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="del(scope.row)">删除</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="link(scope.row)">复制链接</el-button>
-              <el-popover placement="left" trigger="click">
-                <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
-                <el-button slot="reference" style="padding:0;margin:0; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
-              </el-popover>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制作品</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="download(scope.row)">下载配置</el-button>
+              <el-popover placement="left" trigger="click">
+                <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
+                <el-button slot="reference" style="padding:0;margin:auto; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
+              </el-popover>
             </div>
           </template>
         </el-table-column>
@@ -59,7 +60,7 @@
 <script>
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { listProducts } from '@/api/server'
+import { listProducts, delProduct } from '@/api/server'
 import { getProduct, saveVR } from '@/utils/server'
 import NewProduct from './newproduct'
 import mixin from '@/views/mixin'
@@ -134,12 +135,33 @@ export default {
     async download(row){
       this.loading = true
       let result = await getProduct(row.product_id)
-       var urlObject = window.URL || window.webkitURL || window;
+      var urlObject = window.URL || window.webkitURL || window;
       var a = document.createElement('a');
       a.href=urlObject.createObjectURL(new Blob([JSON.stringify(result)]))
       a.download='data.json'
       a.click()
       this.loading = false
+    },
+    del(row){
+      this.$confirm('一旦点击删除，作品将无法恢复，您确定是否继续操作？', '提示', {
+        confirmButtonText: '确定删除',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async() => {
+        try {
+          this.loading = true
+          await delProduct({productId:row.product_id})
+          this.refresh_()
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        } catch (e) {
+
+        } finally {
+          this.loading = false
+        }
+      })
     }
   },
   computed:{
