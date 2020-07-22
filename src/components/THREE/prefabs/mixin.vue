@@ -105,7 +105,6 @@ export default {
     height(){
       let sizeAspect = this.size[0] / this.size[1]
       let imageAspect = this.image.width / this.image.height
-      // console.log(sizeAspect > imageAspect ? this.image.height * imageAspect / sizeAspect : this.size[1])
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     }
   }

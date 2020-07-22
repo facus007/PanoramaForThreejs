@@ -7,12 +7,40 @@ export function listProducts(params){
     params
   })
 }
-
+/**模板接口 */
 export function listTmps(params){
   return request({
     url: '/listTmps',
     method: 'get',
     params,
+  })
+}
+export function saveTmpInfo(data){
+  return request({
+    url: '/saveTmpInfo',
+    method: 'post',
+    data,
+  })
+}
+export function updateTmpInfo(data){
+  return request({
+    url: '/updateTmpInfo',
+    method: 'post',
+    data,
+  })
+}
+export function getTmpUploadInfo(params){
+  return request({
+    url: '/getTmpUploadInfo',
+    method: 'get',
+    params
+  })
+}
+export function deleteTmpUpload(params){
+  return request({
+    url: '/deleteTmpUpload',
+    method: 'get',
+    params
   })
 }
 

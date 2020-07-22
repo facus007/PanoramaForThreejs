@@ -40,6 +40,8 @@ const components={
   '/exhibition/editor': ()=>import(/* webpackChunkName: "chunk-exhibition-editor" */ '@/views/exhibition/editor'),
   '/preview': ()=>import(/* webpackChunkName: "chunk-preview" */ '@/views/preview'),
   '/tools': ()=>import(/* webpackChunkName: "chunk-tools" */ '@/views/tools'),
+  '/templates/list': () => import(/* webpackChunkName: "templates" */ '@/views/templates/list'),
+  '/templates/add': () => import(/* webpackChunkName: "templates" */ '@/views/templates/add'),
 }
 
 const state = {

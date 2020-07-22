@@ -1,7 +1,6 @@
 <template>
   <div :style="{border: outline ? '5px dashed yellow' : 'none', width:size[0] * 100+'px', height:size[1] * 100+'px'}">
     <div :style="layout[item.align || '4']" @click="$emit('action', item)">
-      <span style="position: relative">
       <div v-if="item.style === 1 && image && imageData" :style="{width:width * 100+'px', height:height * 100+'px'}"/>
       <gl-image v-if="item.style === 1 && image && imageData && !item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
       <dgl-image v-if="item.style === 1 && image && imageData && item.target.dynamic_img" :image="imageData" :mesh="mesh" :item="item" :visible="visible"/>
@@ -11,7 +10,6 @@
       <div class="label-frame">
         <div v-if="item.label" class="label">{{item.label}}</div>
       </div>
-    </span>
     </div>
   </div>
 </template>

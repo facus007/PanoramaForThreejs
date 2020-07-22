@@ -2,7 +2,7 @@
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
     <div @click="needPlaying = !needPlaying" >
       <div :class="needPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
-      <audio class="audio-player" autoplay :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
+      <audio class="audio-player" :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
     </div>
   </div>
 </template>
@@ -21,16 +21,13 @@ export default{
   },
   methods:{
     async play(){
-      if(this.stop){return}
       try {
         if(this.isPlaying){
           await this.$refs.audio.play()
         }else{
           await this.$refs.audio.pause()
         }
-      } catch (e) {
-        requestAnimationFrame(this.play)
-      }
+      }catch(e){}
     },
     async pause(){
       await this.$refs.audio.pause()
@@ -44,6 +41,15 @@ export default{
   },
   mounted(){this.play()},
   beforeDestroy(){ this.stop = true},
+  created(){
+    window.addEventListener('mousedown',this.play)
+    window.addEventListener('touchstart',this.play)
+  },
+  destroyed(){
+    window.removeEventListener('mousedown',this.play)
+    window.removeEventListener('touchstart',this.play)
+  }
+
 }
 </script>
 
