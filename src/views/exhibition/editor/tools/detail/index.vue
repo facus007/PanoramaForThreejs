@@ -1,5 +1,5 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 200px; display: grid; grid-gap: 2px; grid-template-rows: 26px 40px  3fr 40px 2fr;" class="event">
+  <div style="color: white; font-size: 14px; font-weight: bold; height: 100%; width: 200px; display: grid; grid-gap: 1px; grid-template-rows: 30px 30px 1fr 40px 1fr;" class="event">
   <div class="block">属性</div>
   <div class="block" style="display:flex;align-items:center">
     <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label" style=""></el-input>
