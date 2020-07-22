@@ -114,11 +114,11 @@ export default {
       //   this.loading = false
       // })
       listTmps({
-        type: "1",
+        type: "1"
         // pageNum: this.currentPage,
         // pageSize: this.pageSize
       }).then(result => {
-        console.log(result, "ress");
+        // console.log(result, "ress");
         // this.rawData = this.rawData.concat(result.tmps)
         this.datalist = result.tmps;
         // this.total = result.total
@@ -127,13 +127,13 @@ export default {
       });
     },
     deltemp(row) {
-      console.log(row, "row");
+      // console.log(row, "row");
       this.$confirm("删除此模板组?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        console.log("确定");
+        // console.log("确定");
         deleteTmpUpload({ tmpGroupId: row.tmp_group_id }).then(res => {
           this.$message({
             type: "success",
@@ -153,8 +153,8 @@ export default {
 };
 </script>
 <style>
-.el-table_1_column_1 .cell,
-.el-table_1_column_2 .cell {
+tr .cell,
+tr .cell {
   text-align: center !important;
 }
 </style>

@@ -158,13 +158,13 @@ export default {
       getTmpUploadInfo({ tmpGroupId: this.$route.query.tmpGroupId }).then(
         res => {
           this.templateList = res.data.tmpInfo;
-          console.log(this.templateList, "编辑res");
+          // console.log(this.templateList, "编辑res");
         }
       );
     } else {
       this.model = "add";
       this.tmp_group_id = this.$route.query.tmp_group_id;
-      console.log(this.tmp_group_id, "this.tmp_group_id");
+      // console.log(this.tmp_group_id, "this.tmp_group_id");
     }
   },
   methods: {
@@ -212,9 +212,9 @@ export default {
     },
     //图片上传成功
     UploadSucccess(response, file, fileList) {
-      console.log(response);
-      console.log(file);
-      console.log(fileList);
+      // console.log(response);
+      // console.log(file);
+      // console.log(fileList);
       this.iconShow = true;
       if (response.code == "1") {
         this.panoramaList = [];
@@ -231,7 +231,7 @@ export default {
           }
         }
 
-        console.log(this.panoramaList, "全景图this.panoramaList");
+        // console.log(this.panoramaList, "全景图this.panoramaList");
       } else {
         this.$message.error(response.msg);
       }
@@ -252,7 +252,7 @@ export default {
           }
         }
 
-        console.log(this.vagueList, "模糊图this.vagueList");
+        // console.log(this.vagueList, "模糊图this.vagueList");
       } else {
         this.$message.error(response.msg);
       }
@@ -279,7 +279,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.panoramaList, "全景图片");
+          // console.log(this.panoramaList, "全景图片");
           if (this.model == "endit") {
             if (this.panoramaList.length == 0) {
               this.panoramaList = this.templateList[this.index].pano_graphic;
@@ -295,7 +295,7 @@ export default {
               tmpIndex: this.templateList[this.index].tmpIndex,
               tmpId: this.templateList[this.index].tmpId
             };
-            console.log(this.templateList, "编辑确定");
+            // console.log(this.templateList, "编辑确定");
           } else {
             this.templateList.push({
               pano_graphic: this.panoramaList,
@@ -307,7 +307,7 @@ export default {
           this.dialogVisible = false;
           this.resetForm(formName);
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });
@@ -322,7 +322,7 @@ export default {
     },
     endittemp(index) {
       //编辑
-      console.log(index, "iii");
+      // console.log(index, "iii");
       this.index = index;
       let list = [];
       let list_b = [];
@@ -338,7 +338,7 @@ export default {
       }
       this.jsonData = this.templateList[index].template;
       this.tmpIndex = this.templateList[index].tmpIndex;
-      console.log(list, "list");
+      // console.log(list, "list");
       this.fileList = list;
       this.mfileList = list_b;
       if (this.templateList[index].nextTmpIndex) {
@@ -366,7 +366,7 @@ export default {
         });
       } else {
         saveTmpInfo(_data).then(res => {
-          console.log(res, "res");
+          // console.log(res, "res");
           this.$message({
             message: res.msg,
             type: "success"
