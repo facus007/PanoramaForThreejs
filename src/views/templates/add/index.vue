@@ -88,12 +88,13 @@
     <div class="templist" v-if="templateList.length>0">
       <el-card class="box-card" v-for="(item,index) in templateList" :key="index">
         <div slot="header" class="clearfix">
-          <span>模板{{index+1}}</span>
+          <span>场景{{index+1}}</span>
         </div>
         <div class="tempimgbox">
           <img :src="item.pano_graphic[0]" alt="模板全景图片">
         </div>
         <div style="margin-top:20px;">
+          <div style="font-size:14px;" v-if="model=='endit'">索引编号：{{item.tmpIndex}}</div>
           <el-button type="text" @click="endittemp(index)">编辑</el-button>
         </div>
       </el-card>
