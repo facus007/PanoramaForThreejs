@@ -33,6 +33,7 @@ export default {
   watch:{
     selected(next){
       this.editor.$refs.tools.setSelected(next)
+      next && this.$refs.list.$refs.table.$children[2].$children[this.product.features.indexOf(next)+1].$el.scrollIntoView()
     },
   },
   data(){return {

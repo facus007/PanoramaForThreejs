@@ -1,17 +1,18 @@
 <template>
   <span style="position: absolute; width: 100%; height: 100%;">
+    <stats v-if="isDebug"/>
     <THREE v-if="first_loaded" style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
       <WebGLRenderer :option="{antialias: true, alpha: true}">
-        <!-- <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}"> -->
+        <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}">
           <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
-        <!-- </CSS3DRenderer> -->
+        </CSS3DRenderer>
       </WebGLRenderer>
 
       <animated-panorama :curScene="curScene" :textures="textures" ref="panorama"/>
       <camera-animation v-if="!after_animation_loaded && !loading" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product"/>
 
       <preview v-if="curScene && !loading" :curScene="curScene" :key="curSceneId" :visible="after_animation_loaded" style="visibility: hidden"/>
-      <advanced v-if="!loading" style="position: absolute; top: 0; right: 0; z-index:2;" :product="product"/>
+      <!-- <advanced v-if="!loading" style="position: absolute; top: 0; right: 0; z-index:2;" :product="product"/> -->
     </THREE>
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
       <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
