@@ -36,6 +36,10 @@ export default {
     'item.transform'(next, pre){
       this.setTransform()
     },
+    domElement(next, pre){
+      pre && pre.removeEventListener('update', this.update)
+      next && next.addEventListener('update', this.update)
+    },
     url(next){
       this.imageData = null
     }
@@ -54,14 +58,24 @@ export default {
       let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
       this.obj.scale.set(m[2] * short * 0.01, m[3] * short * 0.01, short * 0.01)
     },
+    update(){
+      if(++frame % 4 === 0){
+        frame = 0
+        let front = new THREE.Vector3()
+        this.camera.getWorldDirection(front)
+        this.obj.visible = front.dot(this.obj.position) > 0
+      }
+    },
   },
   mounted(){
     // if(!this.url){ return }
     this.obj = new CSS3DObject(this.$el)
     this.setTransform()
     this.scene.add(this.obj)
+    this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
+    this.domElement && this.domElement.removeEventListener('update', this.update)
     this.scene.remove(this.obj)
     this.obj = null
   },

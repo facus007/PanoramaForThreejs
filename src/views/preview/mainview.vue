@@ -1,23 +1,20 @@
 <template>
-  <div style="position: absolute; width: 100%; height: 100%;">
     <THREE v-if="first_loaded" style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
       <stats v-if="isDebug" style="visibility:visible"/>
-      <advanced v-if="first_loaded && !loading" style="position: absolute; width: 100%; height: 100%; z-index:2;" :product="product"/>
-      <WebGLRenderer :option="{antialias: true, alpha: true}">
-        <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden'}">
-          <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
-        </CSS3DRenderer>
-      </WebGLRenderer>
+      <WebGLRenderer :option="{antialias: true, alpha: true}"/>
+      <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden','z-index': '1'}">
+        <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
+        <advanced v-if="first_loaded && !loading" style="position: absolute; width: 100%; height: 100%; z-index: 1000;"/>
+      </CSS3DRenderer>
 
       <animated-panorama :curScene="curScene" :textures="textures" ref="panorama"/>
       <camera-animation v-if="!after_animation_loaded && !loading" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product"/>
-
       <preview v-if="curScene && !loading" :curScene="curScene" :key="curSceneId" :visible="after_animation_loaded" style="visibility: hidden"/>
+
+      <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
+        <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
+      </div>
     </THREE>
-    <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
-      <i v-if="first_loaded" style="font-size: 20px; color: white; text-shadow: 0 0 5px;" class="el-icon-loading"/>
-    </div>
-  </div>
 </template>
 
 <script>

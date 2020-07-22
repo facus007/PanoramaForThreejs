@@ -23,7 +23,6 @@ export default {
     },
     // propCompute(){},
     changed(){
-      // this.$store.commit('THREE/SET_NEEDS_UPDATE', true)
       this.$emit('input', [this.obj.getAzimuthalAngle(), this.obj.getPolarAngle()])
     },
     newControl(camera, domElement){
