@@ -5,14 +5,17 @@
       <span style="width:60px">标签:</span><el-input class="select" size="mini" v-model="label"></el-input>
     </div>
     <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
-      <div style="width:100%;justify-content:flex-start;display:flex;">当前影像<span style="margin-left:auto;"></span></div>
+      <div style="width:100%;justify-content:flex-start;display:flex;">当前影像
+        <span style="margin-left:auto;">
+          <el-checkbox v-model="selected.target.dynamic_img" style="color:gray;">序列帧长图</el-checkbox>
+        </span>
+      </div>
       <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
         <el-image v-if="selected.img_url && selected.style === 1" :src="selected.img_url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
         <video v-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-button>
-      <el-checkbox v-model="selected.target.dynamic_img" style="margin:0;margin-left:auto;color:gray;">序列帧长图</el-checkbox>
-      <el-button type="primary" size="mini" style="width:100%;margin:0;" @click="clear">清空影像</el-button>
+      <el-button type="primary" size="mini" style="bottom:0;width:100%;margin:0;" @click="clear">清空影像</el-button>
     </div>
     <div class="block">
       <el-select class="select" size="mini" v-model="option" style="">
@@ -37,11 +40,11 @@ import videoselect from './videoselect'
 import hypertext from './hypertext'
 
 const options = [
-  { value: '0', label: '无动作', component: 'empty', layout: '30px 30px auto 40px 122px'},
-  { value: '1', label: '超链接', component: 'hyperlink', layout: '30px 30px auto 40px 122px'},
-  { value: '2', label: '场景跳转', component: 'sceneswitch', layout: '30px 30px auto 40px 152px'},
-  { value: '3', label: '视频展示', component: 'videoselect', layout: '30px 30px auto 40px 152px'},
-  { value: '4', label: '富文本', component: 'hypertext', layout: '30px 30px auto 40px 122px'},
+  { value: '0', label: '无动作', component: 'empty', layout: '30px 30px 180px 40px 122px'},
+  { value: '1', label: '超链接', component: 'hyperlink', layout: '30px 30px 180px 40px 122px'},
+  { value: '2', label: '场景跳转', component: 'sceneswitch', layout: '30px 30px 180px 40px 172px'},
+  { value: '3', label: '视频展示', component: 'videoselect', layout: '30px 30px 180px 40px 152px'},
+  { value: '4', label: '富文本', component: 'hypertext', layout: '30px 30px 180px 40px 42px'},
 ]
 export default {
   components:{MaterialSelector,SceneSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
@@ -120,7 +123,6 @@ export default {
   color: white;
   font-size: 14px;
   font-weight: bold;
-  height: 100%;
   width: 240px;
   display: grid;
   grid-gap: 1px;
@@ -154,6 +156,7 @@ export default {
   padding: 5px;
   display: grid; grid-gap: 5px;
   width:100%;
+  position: relative;
 }
 .select >>> input{
   background-color: #0000;

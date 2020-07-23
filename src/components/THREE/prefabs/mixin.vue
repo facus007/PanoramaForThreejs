@@ -19,6 +19,7 @@ import GlImage from './glimage'
 import DglImage from './dglimage'
 import GlVideo from './glvideo'
 import Spot from './spot'
+import Goto from './goto'
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
@@ -27,7 +28,7 @@ var frame = 0
 
 export default {
   mixins: [THREEComponent],
-  components: {GlImage, GlVideo, Spot, DglImage},
+  components: {GlImage, GlVideo, Spot, DglImage, Goto},
   props:['url', 'type', 'mesh', 'side', 'transparent', 'color', 'opacity', 'item', 'selected', 'hidden'],
   data(){return {
     imageData: null,
