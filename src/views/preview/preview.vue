@@ -21,6 +21,9 @@
     <overlayer v-model="showWebDialog">
       <iframe :src="link" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen/>
     </overlayer>
+    <overlayer v-model="showTextDialog" class="textframe">
+      <quill-editor v-model="link" :options="{placeholder: '',modules:{toolbar:''}}" style="height: 100%; width: 100%; display: flex; flex-direction: column; background:white; border-radius: 10px; white-space: pre-wrap;" ref="editor" :disabled="true"/>
+    </overlayer>
   </span>
 </template>
 
@@ -28,6 +31,10 @@
 import { mapState } from 'vuex'
 import * as THREE from '@/components/THREE'
 import * as three from 'three'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
 import overlayer from './advanced/overlayer'
 
 function updateQueryStringParameter(uri, key, value) {
@@ -45,13 +52,14 @@ function updateQueryStringParameter(uri, key, value) {
 }
 
 export default {
-  components:{...THREE,overlayer},
+  components:{...THREE,overlayer,quillEditor},
   props:['curScene', 'visible'],
   data(){return {
       group: null,
       link: null,
       showDialog: null,
       showWebDialog: null,
+      showTextDialog: false,
   }},
   watch:{
     showDialog(next){
@@ -59,6 +67,9 @@ export default {
       !next && (this.link = null)
     },
     showWebDialog(next){
+      !next && (this.link = null)
+    },
+    showTextDialog(next){
       !next && (this.link = null)
     },
   },
@@ -81,6 +92,10 @@ export default {
       else if (item.type===3 && item.target.video) {
         this.link = item.target.video
         this.showDialog = true
+      }
+      else if (item.type===4 && item.target.content) {
+        this.link = item.target.content
+        this.showTextDialog = true
       }
     },
     mesh(item){
@@ -115,5 +130,10 @@ export default {
   height: 70vw;
   padding: 0;
   overflow: hidden;
+}
+.textframe >>> .ql-container{
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 </style>

@@ -38,7 +38,7 @@ const types = [
   {key:'linkf', label:'超链接', name: '新建超链接'},
   {key:'hypertext', label:'富文本', name: '新建富文本'},
   {key:'info', label:'简介', name: '新建简介'},
-  // {key:'scene', label:'场景列表', name: '新建场景列表'}
+  {key:'scene', label:'场景列表', name: '新建场景列表'}
 ]
 
 export default {

@@ -92,11 +92,11 @@ export function getProduct(params){
   })
 }
 
-export function delProduct(data){
+export function delProduct(params){
   return request({
     url: '/delproduct',
-    method: 'post',
-    data
+    method: 'get',
+    params
   })
 }
 

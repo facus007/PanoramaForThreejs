@@ -43,6 +43,10 @@ const options = [{
   value: '5',
   label: '音频',
   accept: 'audio/*',
+},{
+  value: '10',
+  label: '云端素材库',
+  accept: 'image/*',
 }]
 
 const label = ['right','back','left','front','top','bottom']

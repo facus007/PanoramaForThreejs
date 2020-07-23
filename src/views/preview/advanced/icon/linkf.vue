@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import overlayer from './overlayer'
+import overlayer from '../overlayer'
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},

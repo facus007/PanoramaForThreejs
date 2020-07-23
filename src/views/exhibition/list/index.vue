@@ -1,13 +1,13 @@
 <template>
   <container :refresh="refresh" v-loading="loading">
-    <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false">
+    <table-frame class="table" :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false">
       <template v-slot:header="scope">
         <el-button type="primary" size="small" @click="newProduct">新建作品</el-button>
       </template>
       <template v-slot:columns="scope">
         <el-table-column label="作品封面">
           <template v-slot:default="scope">
-            <img :src="scope.row.cover" width="100px" height="50px" style="border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: contain;"/>
+            <img :src="scope.row.cover" width="100px" height="50px" style="margin:5px 5px; display:flex;border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: contain;"/>
           </template>
         </el-table-column>
         <el-table-column label="作品名称">

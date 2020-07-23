@@ -24,7 +24,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import overlayer from './overlayer'
+import overlayer from '../overlayer'
 export default{
   props:['item'],
   components:{overlayer},
@@ -48,7 +48,7 @@ export default{
 .icon {
   width: 25px;
   height: 25px;
-  background-image: url(../../../assets/img/icon_maps.png);
+  background-image: url(../../../../assets/img/icon_maps.png);
   background-repeat: no-repeat;
   background-size: 155px 125px;
   cursor: pointer;
