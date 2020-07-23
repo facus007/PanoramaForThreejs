@@ -14,6 +14,9 @@
         <el-table-column label="模板组" class="ccc" style="text-align: center;">
           <template v-slot:default="scope" style="text-align: center;">{{scope.row.tmp_group_id}}</template>
         </el-table-column>
+        <el-table-column label="创建时间" class="ccc" style="text-align: center;">
+          <template v-slot:default="scope" style="text-align: center;">{{scope.row.create_time}}</template>
+        </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
             <el-button

@@ -98,6 +98,16 @@
           <el-button type="text" @click="endittemp(index)">编辑</el-button>
         </div>
       </el-card>
+      <div class="countbox">
+        <el-form :model="countForm" ref="countForm" :inline="true" class="demo-form-inline">
+          <el-form-item label="广告位" prop="adv_count">
+            <el-input v-model="countForm.adv_count"></el-input>
+          </el-form-item>
+          <el-form-item label="产品位" prop="prod_count" label-width="140px">
+            <el-input v-model="countForm.prod_count" style="width:200px;"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
       <div class="sumbtn">
         <el-button type="primary" @click="savetemp">提交</el-button>
       </div>
@@ -145,6 +155,10 @@ export default {
           }
         ]
       },
+      countForm: {
+        prod_count: "",
+        adv_count: ""
+      },
       panoramaList: [], //全景图列表
       vagueList: [], //模糊图列表
       jsonData: null, //json数据
@@ -159,6 +173,8 @@ export default {
       getTmpUploadInfo({ tmpGroupId: this.$route.query.tmpGroupId }).then(
         res => {
           this.templateList = res.data.tmpInfo;
+          this.countForm.adv_count = res.data.adv_count;
+          this.countForm.prod_count = res.data.prod_count;
           // console.log(this.templateList, "编辑res");
         }
       );
@@ -352,7 +368,8 @@ export default {
     savetemp() {
       let _data = {
         tmp_group_id: this.tmp_group_id,
-        tmpInfo: this.templateList
+        tmpInfo: this.templateList,
+        ...this.countForm
       };
       if (this.model == "endit") {
         updateTmpInfo(_data).then(res => {
@@ -400,6 +417,9 @@ export default {
 .tempimgbox img {
   width: 200px;
   height: 150px;
+}
+.countbox {
+  margin: 30px 0;
 }
 /*隐藏上传图标*/
 .disableds >>> .el-upload--picture-card {
