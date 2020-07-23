@@ -16,28 +16,6 @@ import Texture from '../base/texture'
 import VideoTexture from '../base/videotexture'
 import {isSupported} from '@/utils/video'
 
-// var _canvas;
-// function getDataURL ( image ) {
-//   var canvas;
-//   if ( typeof HTMLCanvasElement == 'undefined' ) {
-//     return image.src;
-//   } else if ( image instanceof HTMLCanvasElement ) {
-//     canvas = image;
-//   } else {
-//     if ( _canvas === undefined ) _canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
-//     _canvas.width = 1024;
-//     _canvas.height = 1024;
-//     var context = _canvas.getContext( '2d' );
-//     if ( image instanceof ImageData ) {
-//       context.putImageData( image, 0, 0 );
-//     } else {
-//       context.drawImage( image, 0, 0, image.width, image.height, 0, 0, 1024, 1024 );
-//     }
-//     canvas = _canvas;
-//   }
-//   return canvas.toDataURL( 'image/png' );
-// }
-
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 
@@ -76,7 +54,6 @@ export default {
       this.obj.scale.set(m[2] * short * 0.01,m[3] * short * 0.01, short * 0.01)
     },
     play(){
-      console.log(1)
       this.$refs.material.obj.map = this.$refs.player.obj
       this.$refs.player.play()
       this.isPlaying = true

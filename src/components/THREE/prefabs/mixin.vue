@@ -1,14 +1,14 @@
 <script>
 const layout = {
-  '0':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'flex-start', width: '100%', height: '100%' },
-  '1':{display:'flex', 'justify-content': 'center', 'align-items': 'flex-start', width: '100%' , height: '100%'},
-  '2':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start' , width: '100%', height: '100%'},
-  '3':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'center', width: '100%' , height: '100%'},
-  '4':{display:'flex', 'justify-content': 'center', 'align-items': 'center' , width: '100%', height: '100%'},
-  '5':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'center', width: '100%' , height: '100%'},
-  '6':{display:'flex', 'justify-content': 'flex-start', 'align-items': 'flex-end', width: '100%' , height: '100%'},
-  '7':{display:'flex', 'justify-content': 'center', 'align-items': 'flex-end' , width: '100%', height: '100%'},
-  '8':{display:'flex', 'justify-content': 'flex-end', 'align-items': 'flex-end', width: '100%' , height: '100%'},
+  '0':{'display':'flex', 'justify-content': 'flex-start', 'align-items': 'flex-start', width: '100%', height: '100%' },
+  '1':{'display':'flex', 'justify-content': 'center', 'align-items': 'flex-start', width: '100%' , height: '100%'},
+  '2':{'display':'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start' , width: '100%', height: '100%'},
+  '3':{'display':'flex', 'justify-content': 'flex-start', 'align-items': 'center', width: '100%' , height: '100%'},
+  '4':{'display':'flex', 'justify-content': 'center', 'align-items': 'center' , width: '100%', height: '100%'},
+  '5':{'display':'flex', 'justify-content': 'flex-end', 'align-items': 'center', width: '100%' , height: '100%'},
+  '6':{'display':'flex', 'justify-content': 'flex-start', 'align-items': 'flex-end', width: '100%' , height: '100%'},
+  '7':{'display':'flex', 'justify-content': 'center', 'align-items': 'flex-end' , width: '100%', height: '100%'},
+  '8':{'display':'flex', 'justify-content': 'flex-end', 'align-items': 'flex-end', width: '100%' , height: '100%'},
 }
 
 import * as THREE from 'three'
@@ -107,9 +107,6 @@ export default {
       let imageAspect = this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
-    style(){
-      return {...this.layout[this.item.align || '4'],border: this.outline ? '5px dashed yellow' : 'none', width:this.size[0] * 100+'px', height:this.size[1] * 100+'px'}
-    }
   }
 }
 </script>

@@ -10,28 +10,6 @@ import THREEComponent from '../base/threecomponent'
 import MashBasicMaterial from '../base/meshbasicmaterial'
 import Texture from '../base/texture'
 
-// var _canvas;
-// function getDataURL ( image ) {
-//   var canvas;
-//   if ( typeof HTMLCanvasElement == 'undefined' ) {
-//     return image.src;
-//   } else if ( image instanceof HTMLCanvasElement ) {
-//     canvas = image;
-//   } else {
-//     if ( _canvas === undefined ) _canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
-//     _canvas.width = 1024;
-//     _canvas.height = 1024;
-//     var context = _canvas.getContext( '2d' );
-//     if ( image instanceof ImageData ) {
-//       context.putImageData( image, 0, 0 );
-//     } else {
-//       context.drawImage( image, 0, 0, image.width, image.height, 0, 0, 1024, 1024 );
-//     }
-//     canvas = _canvas;
-//   }
-//   return canvas.toDataURL( 'image/png' );
-// }
-
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
 
