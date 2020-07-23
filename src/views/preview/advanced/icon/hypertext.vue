@@ -12,7 +12,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
-import overlayer from './overlayer'
+import overlayer from '../overlayer'
 
 const sizes = {
   '1 x 1': { width : 1, height: 1},

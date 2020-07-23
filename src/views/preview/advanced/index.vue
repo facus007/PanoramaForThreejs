@@ -9,15 +9,17 @@
           width:sizes[feature.size].width * 100 / 3 +'%',
           height:size * sizes[feature.size].height + 'px',
         }">
-        <items :item="feature"/>
+        <items :item="feature" :overview="_=>$refs.overview"/>
       </div>
     </div>
+    <overview ref='overview' :height="Math.max(getHeight(1),getHeight(3))*size"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import items from './items'
+import overview from './overview'
 
 const size = 40;
 const layerStyle = [
@@ -40,7 +42,7 @@ const sizes = {
 }
 
 export default {
-  components:{items},
+  components:{items,overview},
   data(){return {}},
   methods:{
     // update(){},
@@ -54,7 +56,7 @@ export default {
         max = Math.max(max, parseInt(item.position.y) + sizes[item.size].height)
       });
       return max
-    }
+    },
   },
   computed:{
     size: _=>size, layerStyle:_=>layerStyle,sizes:_=>sizes,

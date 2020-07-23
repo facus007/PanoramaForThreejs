@@ -59,7 +59,7 @@ export default{
 .icon {
     width: 25px;
     height: 25px;
-    background-image: url(../../../assets/img/icon_maps.png);
+    background-image: url(../../../../assets/img/icon_maps.png);
     background-repeat: no-repeat;
     background-size: 155px 125px;
     cursor: pointer;

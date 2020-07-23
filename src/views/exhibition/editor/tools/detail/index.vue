@@ -44,7 +44,7 @@ const options = [
   { value: '1', label: '超链接', component: 'hyperlink', layout: '30px 30px 180px 40px 122px'},
   { value: '2', label: '场景跳转', component: 'sceneswitch', layout: '30px 30px 180px 40px 172px'},
   { value: '3', label: '视频展示', component: 'videoselect', layout: '30px 30px 180px 40px 152px'},
-  { value: '4', label: '富文本', component: 'hypertext', layout: '30px 30px 180px 40px 42px'},
+  { value: '4', label: '富文本', component: 'hypertext', layout: '30px 30px 180px 40px 97px'},
 ]
 export default {
   components:{MaterialSelector,SceneSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},

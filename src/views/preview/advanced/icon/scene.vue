@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <img class="image" :src='item && item.url || "./static/scene.png"' :style="style" @click="$emit('click')"/>
+    <img class="image" :src="'./static/scene.png'" :style="style" @click="click"/>
   </div>
 </template>
 
@@ -19,13 +19,18 @@ const sizes = {
 }
 
 export default {
-  props:['item'],
+  props:['item','overview'],
   mounted(){},
   watch: {item(){}},
   computed: {
     width(){return sizes[this.item.size].width * 5},
     height(){return sizes[this.item.size].height * 5},
     style(){return this.item && {padding: this.height +'px ' + this.width+'px'}}
+  },
+  methods:{
+    click(){
+      this.overview().sceneTab()
+    }
   }
 }
 </script>

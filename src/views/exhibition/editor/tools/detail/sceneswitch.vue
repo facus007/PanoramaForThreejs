@@ -4,7 +4,7 @@
       <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-    <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'d a' 'c b'; grid-column-gap: 4px; grid-row-gap: 2px;align-items: center; justify-items: flex-start;">
+    <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'a b' 'd c'; grid-column-gap: 4px; grid-row-gap: 2px;align-items: center; justify-items: flex-end;">
       <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">修改热点图标</el-button>
       <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearSpot">默认热点图标</el-button>
       <el-checkbox v-model="hidespot" style="margin:0;color:gray; grid-area: c;">隐藏热点图标</el-checkbox>

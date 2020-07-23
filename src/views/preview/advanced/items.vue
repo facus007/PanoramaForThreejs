@@ -1,14 +1,15 @@
 <template>
-  <components :is="item.type" :item="item" style="pointer-events:auto;cursor:pointer;"/>
+  <components :is="item.type" :item="item" style="pointer-events:auto;cursor:pointer;" :overview="overview"/>
 </template>
 
 <script>
-import music from './music'
-import imagef from './imagef'
-import linkf from './linkf'
-import hypertext from './hypertext'
-import scene from './scene'
-import info from './info'
+import music from './icon/music'
+import imagef from './icon/imagef'
+import linkf from './icon/linkf'
+import hypertext from './icon/hypertext'
+import scene from './icon/scene'
+import info from './icon/info'
+
 const sizes = {
   '1 x 1': { width : 1, height: 1},
   '1 x 2': { width : 1, height: 2},
@@ -22,7 +23,7 @@ const sizes = {
 }
 
 export default{
-  props:['item'],
+  props:['item','overview'],
   components:{music, imagef, linkf, hypertext, scene, info},
 }
 </script>
