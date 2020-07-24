@@ -16,10 +16,10 @@
       </span>
     </prebuild>
     <overlayer v-model="showDialog" class='event'>
-      <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
+      <video v-if="link" :src="link" style="width: calc(100% - 40px);height: calc(100% - 70px);  position: absolute; border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
     </overlayer>
     <overlayer v-model="showWebDialog">
-      <iframe :src="link" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen/>
+      <iframe :src="link" style="width: calc(100% - 40px);height: calc(100% - 70px);  position: absolute; border:0;" frameborder="0" allowfullscreen/>
     </overlayer>
     <overlayer v-model="showTextDialog" class="textframe">
       <quill-editor v-model="link" :options="{placeholder: '',modules:{toolbar:''}}" style="height: 100%; width: 100%; display: flex; flex-direction: column; background:white; border-radius: 10px; white-space: pre-wrap;" ref="editor" :disabled="true"/>
