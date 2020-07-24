@@ -118,18 +118,6 @@ export default {
   cursor: pointer;
   pointer-events: visible;
 }
-.dialog >>> .el-dialog{
-  margin-top: 15vw;
-  padding: 0;
-  background: #0000;
-}
-.dialog >>> .el-dialog__header{
-  padding: 0;
-}
-.dialog >>> .el-dialog__body{
-  padding: 0;
-  overflow: hidden;
-}
 .textframe >>> .ql-container{
   overflow: auto;
   border: 1px solid #ccc;
