@@ -25,9 +25,6 @@
     <div class="shadow" style="background: #304156; grid-area: t;">
       <autosave/>
     </div>
-    <!-- <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: d; width: 100%; height: 100%; position:relative;display:flex;align-items:center">
-      <autofill style="height:40px;"/>
-    </div> -->
     <div v-if="features[curFeature].showtools" class="shadow" style="background: #304156; grid-area: e; position:relative;display:flex;align-items:center">
       <exhibitionEntrance @openExhibitionBox="openExhibitionBox" ref="exhibitionEntrance" style="height:40px;"/>
       <el-dialog title="" :visible.sync="exhibitionBoxVisible" :fullscreen="true" destroy-on-close>
@@ -45,7 +42,6 @@ import * as scenetab from './scenetab'
 import * as THREE from '@/components/THREE'
 import * as Tools from './tools'
 import autosave from './autosave'
-import autofill from './autofill'
 import exhibitionBox from './exhibitionBox/exhibitionBox'
 import exhibitionEntrance from './exhibitionEntrance'
 
@@ -65,7 +61,7 @@ const features = [
 
 export default {
   mixins:[mixin],
-  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave, autofill, exhibitionBox, exhibitionEntrance},
+  components:{...THREE, ...sidepanel, ...scenetab, ...Tools, autosave, exhibitionBox, exhibitionEntrance},
   data(){
     return {
     curFeature: 0,

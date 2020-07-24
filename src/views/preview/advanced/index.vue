@@ -1,7 +1,7 @@
 <template>
   <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
     <div v-for="style,index in layerStyle" :style="{...style, height: getHeight(index) * size + 'px'}" class="event">
-      <div v-for="feature, i in product.features.filter(item=>item.position.group===index)" :key="feature.uuid"
+      <div v-for="feature, i in product.features && product.features.filter(item=>item.position.group===index) || []" :key="feature.uuid"
         :style="{
           position:'absolute',
           left:parseInt(feature.position.x) * 100 / 3+'%',
@@ -9,15 +9,17 @@
           width:sizes[feature.size].width * 100 / 3 +'%',
           height:size * sizes[feature.size].height + 'px',
         }">
-        <items :item="feature"/>
+        <items :item="feature" :overview="_=>$refs.overview"/>
       </div>
     </div>
+    <overview ref='overview' :height="Math.max(getHeight(1),getHeight(3))*size"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import items from './items'
+import overview from './overview'
 
 const size = 40;
 const layerStyle = [
@@ -40,7 +42,7 @@ const sizes = {
 }
 
 export default {
-  components:{items},
+  components:{items,overview},
   data(){return {}},
   methods:{
     // update(){},
@@ -50,11 +52,11 @@ export default {
     },
     getHeight(index){
       let max = 0
-      this.product.features.filter(item=>item.position.group===index).forEach((item, i) => {
+      this.product.features && this.product.features.filter(item=>item.position.group===index).forEach((item, i) => {
         max = Math.max(max, parseInt(item.position.y) + sizes[item.size].height)
       });
       return max
-    }
+    },
   },
   computed:{
     size: _=>size, layerStyle:_=>layerStyle,sizes:_=>sizes,

@@ -1,37 +1,36 @@
-<template>
-  <MashBasicMaterial :transparent="true" ref="material">
-    <video-texture :url='src' ref='player'/>
-    <texture :url='imagesrc'/>
-    <div v-if="!isSupported && !isPlaying" :style="{width: width*100+'px', height: height*100+'px', display: 'flex'}">
-      <el-button @click="play" style="margin: auto; color: white" type="text"><i class="el-icon-caret-right"/></el-button>
-    </div>
-  </MashBasicMaterial>
-</template>
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import THREEComponent from '../base/threecomponent'
-import MashBasicMaterial from '../base/meshbasicmaterial'
-import Texture from '../base/texture'
-import VideoTexture from '../base/videotexture'
-import {isSupported} from '@/utils/video'
+
+const material = new THREE.MeshBasicMaterial()
+const texloader = new THREE.TextureLoader()
+material.transparent = true
+material.map = texloader.load('./static/goto.png')
+// material.map.repeat = new THREE.Vector2(0.05, 1)
+const tex = material.map
+
+var frame = 0
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
+const posfix = new THREE.Vector3(0,0,0.1)
 
 export default {
-  components:{MashBasicMaterial, Texture, VideoTexture},
   mixins: [THREEComponent],
+  props: ['mesh','item','visible'],
   data(){return {
-    isPlaying: false,
+    frame: 0
   }},
-  props: ['image','video','mesh','item','visible'],
   watch:{
     // domElement(next, pre){
     //   pre && pre.removeEventListener('update', this.update)
     //   next && next.addEventListener('update', this.update)
     // }
     'item.transform'(next, pre){
+      this.setTransform()
+    },
+    'item.target.dynamic_img'(){
       this.setTransform()
     },
     visible(next){
@@ -49,50 +48,58 @@ export default {
       this.obj.quaternion.multiply(fix)
       pos.applyQuaternion (this.obj.quaternion)
       this.obj.position.add(pos)
-      let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
-      this.obj.position.add(this.layout.clone().multiplyScalar(short * 0.01))
-      this.obj.scale.set(m[2] * short * 0.01,m[3] * short * 0.01, short * 0.01)
+      this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
+      this.obj.position.add(posfix.clone().applyQuaternion (this.obj.quaternion))
+      this.obj.scale.set(m[2] * 10 * 0.01,m[3] * 10 * 0.01, 10 * 0.01)
     },
-    play(){
-      this.$refs.material.obj.map = this.$refs.player.obj
-      this.$refs.player.play()
-      this.isPlaying = true
+    updateTexture(){
+      let tex = this.tex
+      if(++this.frame % 4 === 0){
+        let rate = Math.floor(tex.image.width/tex.image.height*4)
+        if(this.frame % rate === 0){
+          this.frame = 0
+        }
+        tex.offset = new THREE.Vector2(this.frame * (tex.image.height / tex.image.width / 4), 0)
+        tex.updateMatrix()
+      }
+      requestAnimationFrame(this.updateTexture)
     }
   },
   mounted(){
-    this.obj = new THREE.Mesh(new THREE.PlaneGeometry(this.width * 100, this.height * 100));
+    if(this.item.target.spot_url){
+      this.material = new THREE.MeshBasicMaterial()
+      this.material.transparent = true
+      this.material.map = texloader.load(this.item.target.spot_url.replace('https://manager.flycloudinfo.com/websources', process.env.VUE_APP_WEBSOURCE_API), (tex)=>{
+        this.tex = tex
+        this.tex .repeat = new THREE.Vector2(tex.image.height/tex.image.width, 1)
+        requestAnimationFrame(this.updateTexture)
+      })
+      this.obj = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), this.material);
+    }else{
+      this.obj = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), material);
+    }
     this.setTransform()
     this.obj.visible = this.visible
     this.scene.add(this.obj)
-    this.isSupported && this.$nextTick(this.play)
   },
   beforeDestroy(){
+    this.material && this.material.map.dispose() && this.material.dispose()
     this.scene.remove(this.obj)
     this.obj.geometry.dispose()
     this.obj = null
   },
   computed:{
-    isSupported:_=>isSupported(),
-    imagesrc(){
-      return this.image.src
-    },
-    src(){
-      // return this.image.src
-      // return getDataURL(this.image)
-      return this.video
-    },
     size(){
-      let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
-      return [this.mesh.scale.z / short, this.mesh.scale.x / short]
+      return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){

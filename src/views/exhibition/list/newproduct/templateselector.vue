@@ -1,10 +1,14 @@
 <template>
-  <el-container style="padding:5px;display:grid; grid-gap:5px;grid-auto-flow: column;width:100%; overflow:auto;" class="media-center" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+  <el-container style="padding:5px; display:grid; grid-gap:5px; grid-auto-flow: column;width:100%; overflow:auto; justify-content:flex-start" class="media-center" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
     <el-row v-for="(src, index) in rawData" class="infinite-list-item" :key="index" style="width: 200px; height: 100px;overflow:hidden;border-radius: 5px; box-shadow: 0 0 4px 0 gray;">
       <el-button type="text" style="padding:0;width: 100%; height: 100%;" @click="()=>{tmp_group_id=src.tmp_group_id; $emit('input',src)}">
-        <img :src="src.tmp_details[0].pano_graphic_url4" style="position:relative;width: 100%; height: 100%; object-fit: cover; ">
+        <img :src="src.tmp_details[0].pano_graphic_url4" style="position:absolute;width: 100%; height: 100%; object-fit: cover;left:0;top:0;">
           <div v-if="src.tmp_group_id === tmp_group_id" style="display:block;position:absolute;right: -17px;top: -7px;width: 46px;height: 26px;background: #13ce66;text-align: center;transform: rotate(45deg);box-shadow: 0 1px 1px #ccc;">
             <i class="el-icon-check" style="font-size: 12px;margin-top: 12px;transform: rotate(-45deg);color:#fff"/>
+          </div>
+          <!-- display:grid;grid-auto-flow:column;gap:4px;justify-items: flex-end; -->
+          <div style="position:absolute;background: #8888;padding:5px 10px;bottom: 0;right: 0;color: white; font-size: smaller; width:100%;">
+            <span>广告位 / 产品位：{{src.adv_count}} / {{src.prod_count}}</span>
           </div>
         </img>
       </el-button>

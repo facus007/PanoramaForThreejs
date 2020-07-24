@@ -5,13 +5,14 @@
         <template v-slot:header="scope">
           <el-button type="primary" size="small" @click="newMaterial">上传素材</el-button>
           <el-button type="primary" size="small" @click="refresh_">刷新</el-button>
+          <el-checkbox v-if="imgtype.split(',').includes('1')" v-model="showSystemStore" size="small" style="margin-left: 10px">显示云端素材库</el-checkbox>
         </template>
         <template v-slot:columns="scope">
           <el-table-column label="素材预览">
             <template v-slot:default="scope">
               <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;">
                 <span style="display:flex; flex-direction:column;">
-                  <img v-if="scope.row.material_type === '1'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
+                  <img v-if="scope.row.material_type === '1' || scope.row.material_type === '10'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
                   <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
                   <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
                   <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
@@ -22,7 +23,7 @@
           </el-table-column>
         </template>
       </table-frame>
-      <uploader v-model="showDialog"/>
+      <uploader v-model="showDialog" :isCloud="showSystemStore"/>
     </container>
   </el-dialog>
 </template>
@@ -45,6 +46,7 @@ export default {
     visible: false,
     loading: true,
     showDialog: false,
+    showSystemStore: false,
   }},
   watch:{
     visible(next, pre){this.$emit('input', next)},
@@ -54,13 +56,14 @@ export default {
         this.selected = '0'
         this.name = ''
         this.file = null
+        this.showSystemStore = false
       }
     },
     showDialog(){
       this.loading = true
       listMaterials({
         // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
-        materialType: this.imgtype,
+        materialType: this.showSystemStore ? '10' : this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       }).then(result=>{
@@ -68,6 +71,10 @@ export default {
         this.datalist = result.materials
         this.loading = false
       })
+    },
+    showSystemStore(next){
+      this.currentPage = 1
+      this.refresh_()
     }
   },
   props:['value', 'onSelect', 'imgtype'],
@@ -80,7 +87,7 @@ export default {
       this.loading = true
       listMaterials({
         // endTime: moment(new Date()).format('YYYYMMDDHHmmss'),
-        materialType: this.imgtype,
+        materialType: this.showSystemStore ? '10' : this.imgtype,
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       }).then(result=>{
