@@ -1,7 +1,7 @@
 <template>
     <THREE v-if="first_loaded" style="position: absolute; width: 100%; height: 100%;" :isDebug="true">
       <stats v-if="isDebug" style="visibility:visible"/>
-      <WebGLRenderer :option="{antialias: true, alpha: true}"/>
+      <WebGLRenderer :option="{antialias: true}"/>
       <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden','z-index': '1'}">
         <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
         <advanced v-if="first_loaded && !loading" style="position: absolute; width: 100%; height: 100%; z-index: 1000;"/>

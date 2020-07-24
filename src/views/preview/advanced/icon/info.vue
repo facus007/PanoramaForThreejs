@@ -60,7 +60,8 @@ export default{
 }
 
 .box-card {
-  width: 480px;
+  min-width: 350px;
+  max-width: calc(100% - 40px);
   height: calc(100% - 70px);
   position: absolute;
   overflow: auto;
