@@ -46,6 +46,10 @@ const options = [
   { value: '3', label: '视频展示', component: 'videoselect', layout: '30px 30px 180px 40px 152px'},
   { value: '4', label: '富文本', component: 'hypertext', layout: '30px 30px 180px 40px 97px'},
 ]
+
+const styles = {
+  '1':1,'2':2,'10':1
+}
 export default {
   components:{MaterialSelector,SceneSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
   data(){return {
@@ -65,7 +69,7 @@ export default {
     },
     select(material){
       this.getSelecteds().forEach((item, i) => {
-        item.style = parseInt(material.material_type)
+        item.style = styles[material.material_type]
         item.img_url = material.material_content
         if(item.style === 2) {
           item.img_url = material.resource_url
