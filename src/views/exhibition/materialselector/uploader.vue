@@ -3,7 +3,7 @@
     <el-form label-position="right" label-width="80px">
       <el-form-item label="资源类型">
         <el-select size="small" v-model="selected" placeholder="请选择">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.value !== '1' && isCloud"/>
         </el-select>
       </el-form-item>
       <el-form-item label="选择资源">
@@ -33,20 +33,19 @@ import { addMaterial } from '@/api/server'
 
 const options = [{
   value: '1',
+  cloudvalue: '10',
   label: '图片',
   accept: 'image/*',
 },{
   value: '2',
+  cloudvalue: '10',
   label: '视频',
   accept: 'video/*',
 },{
   value: '5',
+  cloudvalue: '10',
   label: '音频',
   accept: 'audio/*',
-},{
-  value: '10',
-  label: '云端素材库',
-  accept: 'image/*',
 }]
 
 const label = ['right','back','left','front','top','bottom']
@@ -63,7 +62,7 @@ export default {
     url: null,
     remark: null,
   }},
-  props:['value'],
+  props:['value', 'isCloud'],
   watch:{
     visible(next, pre){this.$emit('input', next)},
     value(next, pre){
@@ -120,7 +119,7 @@ export default {
         imageUpload(formData).then(result=>{
           console.log(result)
           addMaterial({
-            materialType: '1',
+            materialType: this.isCloud ? this.cloudvalue : this.select,
             materialContent: result.url,
             remark: this.remark,
           }).then(_=>{this.loading=false;this.visible=false})
@@ -130,7 +129,7 @@ export default {
         mediaUpload(formData).then(result=>{
           console.log(result)
           addMaterial({
-            materialType: '2',
+            materialType: this.isCloud ? this.cloudvalue : this.select,
             materialContent: result.url,
             remark: this.remark,
             resourceUrl: result.previewurl,
@@ -141,7 +140,7 @@ export default {
         mediaUpload(formData).then(result=>{
           console.log(result)
           addMaterial({
-            materialType: '5',
+            materialType: this.isCloud ? this.cloudvalue : this.select,
             materialContent: result.url,
             remark: this.remark,
           }).then(_=>{this.loading=false;this.visible=false})
@@ -158,6 +157,13 @@ export default {
         item.value === this.selected && (accept = item.accept)
       });
       return accept;
+    },
+    cloudvalue(){
+      var cloudvalue;
+      options.forEach((item, i) => {
+        item.value === this.selected && (cloudvalue = item.cloudvalue)
+      });
+      return cloudvalue;
     }
   },
 }
