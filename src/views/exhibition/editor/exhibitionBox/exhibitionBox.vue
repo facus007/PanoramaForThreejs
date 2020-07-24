@@ -61,7 +61,7 @@
       ref="multipleTable"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="55" :selectable="isDisabled"></el-table-column>
       <el-table-column label="参展商编号" align="center" prop="exhibitorId" width="100"/>
       <el-table-column label="参展商名称" align="center" prop="exhibitorName" width="150"/>
       <el-table-column label="展商标题" align="center" prop="productName" min-width="150"/>
@@ -116,7 +116,7 @@
                 </template>
       </el-table-column>-->
     </el-table>
-<!--    <el-pagination
+    <!--    <el-pagination
       v-show="total>0"
       :total="total"
       :current-page="queryParams.pageNum"
@@ -128,11 +128,23 @@
       :current-page.sync="queryParams.pageNum"
       :page-size="queryParams.pageSize"
       layout="total, prev, pager, next"
-      :total="total">
-    </el-pagination>
-
-    <div style="text-align:right;margin:0px 15px;">
-      <el-button type="primary" size="mini" @click="toggleSelectionData">确定</el-button>
+      :total="total"
+    ></el-pagination>
+    <div style="margin:10px 30px;">
+      <div
+        style="position: fixed; bottom: 20px; left: 20px; background:#1118;color:white;padding: 10px;z-index:10; border-radius: 5px;"
+      >当前已选{{sCount}}件，可选{{max_hotspot_num}}件</div>
+      <!-- <div style="float:left;">
+        <p>
+          可选
+          <span>{{max_hotspot_num}}</span>条
+          已选
+          <span>{{sCount}}</span>条
+        </p>
+      </div>-->
+      <div style="float:right;">
+        <el-button type="primary" size="mini" @click="toggleSelectionData">确定</el-button>
+      </div>
     </div>
     <!-- 新增弹窗 -->
     <!-- 查看作品弹框 -->
@@ -142,12 +154,16 @@
 </template>
 <script>
 import { listExhibitor } from "./exhibitor";
-import { boxlist, boxaddChooseBox,listChooseHotspots } from "./externalLinks/index";
-import {mapState} from "vuex";
+import {
+  boxlist,
+  boxaddChooseBox,
+  listChooseHotspots
+} from "./externalLinks/index";
+import { mapState } from "vuex";
 export default {
   name: "exhibitionbox",
   inheritAttrs: false,
-  props: ['max_hotspot_num'],
+  props: ["max_hotspot_num"],
   data() {
     return {
       currentUrl: window.location.protocol + "//" + window.location.host, //当前域名 就快来点击了解了解
@@ -166,6 +182,9 @@ export default {
       // 选中数组
       ids: [],
       idList: [],
+      sCount: 0, //已选中数量
+      num: 0,
+      tempnum: 0,
       // 选中下标
       indexs: [],
       // 当前页码
@@ -231,7 +250,8 @@ export default {
     this.getlistExhibitor(1);
     // this.getlistExhibitor();
     this.currentUrl = process.env.VUE_APP_WEBSOURCE_API;
-    this.websourcesUrl = process.env.VUE_APP_WEBSOURCE_API + "/xiangqing/index.html?id=";
+    this.websourcesUrl =
+      process.env.VUE_APP_WEBSOURCE_API + "/xiangqing/index.html?id=";
   },
   methods: {
     onClose() {
@@ -252,6 +272,7 @@ export default {
         this.postList = response.rows;
         this.total = response.total;
         this.loading = false;
+        // console.log(this.indexs, "indexss");
         if (this.indexs.length > 0) {
           this.pageData(this.currentPage);
         }
@@ -278,10 +299,23 @@ export default {
     },
     pageData(page) {
       /**页码选择数据记录 */
-      this.pageSlectData.push({ page: page, indexs: this.indexs });
+      for (let i = 0; i < this.pageSlectData.length; i++) {
+        if (page == this.pageSlectData[i].page) {
+          this.pageSlectData.splice(i, 1);
+        }
+        // num += this.pageSlectData[i].ids.length;
+      }
+      this.pageSlectData.push({
+        page: page,
+        indexs: this.indexs,
+        ids: this.ids
+      });
+      // this.pageSlectData = Array.from(new Set(this.pageSlectData));
     },
     getPageSelectData(page) {
       // 当前页数是否有选择过数据  有就反选
+      this.num = 0; //一共已选多少条
+      // this.sCount=this.sCount;
       for (let i = 0; i < this.pageSlectData.length; i++) {
         if (page == this.pageSlectData[i].page) {
           // console.log(
@@ -295,6 +329,17 @@ export default {
           }
         }
       }
+      for (let i = 0; i < this.pageSlectData.length; i++) {
+        if (page == this.pageSlectData[i].page) {
+          //当前页不+统计
+        } else {
+          this.num += this.pageSlectData[i].ids.length;
+        }
+      }
+      // console.log(this.num, "num*****");
+      this.sCount = this.num;
+      this.tempnum = 0;
+      // console.log(this.pageSlectData, "页码数据");
     },
     // 表单重置
     reset() {
@@ -333,15 +378,44 @@ export default {
       // console.log(row, "选中的数据");
       this.templateSelection = row;
     },
+    isDisabled(disable) {
+      //禁用多选框
+      if (disable == 1) {
+        // console.log('禁用了')
+        return false;
+      } else {
+        return true;
+      }
+    },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      //   console.log(selection, "666");
+      // console.log(selection, "选中的");
+      // let tmpnum = selection.length;
+      // let temcount = this.sCount;
       this.ids = selection.map(item => item.id);
       this.indexs = selection.map((item, index) => {
         return this.contains(this.postList, item);
       });
-      this.idList = this.idList.concat(this.ids);
+      // arr = this.ids;
+      // console.log(this.num, "选中num的");
+
+      this.num = this.num - this.tempnum;
+      this.num += selection.length;
+      this.tempnum = selection.length;
+      this.sCount = this.num;
+      // console.log(this.sCount, "sCount");
+      // console.log(selection.length, "selection.length");
+      // console.log(this.currentPage, "this.currentPage");
+      // this.getPageSelectData(this.queryParams.pageNum);
       this.currentPage = this.queryParams.pageNum;
+      if (this.sCount > this.max_hotspot_num) {
+        this.$message.error(
+          "只能选择" + this.max_hotspot_num + "条，后面选中的无效！"
+        );
+        this.idList.length = this.max_hotspot_num;
+        return;
+      } else {
+      }
     },
     // 获取数组下标
     contains(arrays, item) {
@@ -365,7 +439,7 @@ export default {
       document.execCommand("Copy"); // 执行浏览器复制命令
       // oInput.className = "oInput";
       oInput.style.display = "none";
-      this.$message.success('复制成功')
+      this.$message.success("复制成功");
     },
     CopyUrl1(url, id) {
       //复制
@@ -377,7 +451,7 @@ export default {
       document.execCommand("Copy"); // 执行浏览器复制命令
       // oInput.className = "oInput";
       oInput.style.display = "none";
-      this.$message.success('复制成功')
+      this.$message.success("复制成功");
     },
     toggleSelection(rows) {
       if (rows) {
@@ -410,24 +484,34 @@ export default {
     },
     toggleSelectionData() {
       // 确定
+      this.pageData(this.currentPage);
+      let ids = [];
+      // console.log(this.pageSlectData, "提交的页码数据");
+      for (let i = 0; i < this.pageSlectData.length; i++) {
+        for (let j = 0; j < this.pageSlectData[i].ids.length; j++) {
+          // console.log(this.pageSlectData[i].ids[j], "********");
+          ids.push(this.pageSlectData[i].ids[j]);
+        }
+      }
+      // this.idList = Array.from(new Set(this.idList.concat(this.ids)));
       let localStorage = window.localStorage;
       localStorage.removeItem("batchNo");
-      let ids = Array.from(new Set(this.idList));
-      console.log("toggleSelectionData==--=", ids)
-      if(ids.length > 0){
+      // let ids = Array.from(new Set(this.idList));
+      // console.log("toggleSelectionData==--=", ids);
+      if (ids.length > 0) {
         boxaddChooseBox(ids).then(res => {
           if (res.code == 200) {
             localStorage.setItem("batchNo", res.data.batchNo);
-            this.$emit("exhibitionFinished", res.data.batchNo)
+            this.$emit("exhibitionFinished", res.data.batchNo);
           }
         });
-      }else{
-        this.$emit("exhibitionFinished", "")
+      } else {
+        this.$emit("exhibitionFinished", "");
       }
     }
   },
   computed: {
-    ...mapState('editor', ['product']),
+    ...mapState("editor", ["product"])
   }
 };
 </script>
