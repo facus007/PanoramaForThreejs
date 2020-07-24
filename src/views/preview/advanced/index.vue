@@ -1,7 +1,7 @@
 <template>
   <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
     <div v-for="style,index in layerStyle" :style="{...style, height: getHeight(index) * size + 'px'}" class="event">
-      <div v-for="feature, i in product.features.filter(item=>item.position.group===index)" :key="feature.uuid"
+      <div v-for="feature, i in product.features && product.features.filter(item=>item.position.group===index) || []" :key="feature.uuid"
         :style="{
           position:'absolute',
           left:parseInt(feature.position.x) * 100 / 3+'%',
@@ -52,7 +52,7 @@ export default {
     },
     getHeight(index){
       let max = 0
-      this.product.features.filter(item=>item.position.group===index).forEach((item, i) => {
+      this.product.features && this.product.features.filter(item=>item.position.group===index).forEach((item, i) => {
         max = Math.max(max, parseInt(item.position.y) + sizes[item.size].height)
       });
       return max
