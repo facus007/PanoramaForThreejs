@@ -15,7 +15,7 @@
         <hotspot-mesh :mesh="mesh(item)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
     </prebuild>
-    <overlayer v-model="showDialog">
+    <overlayer v-model="showDialog" class='event'>
       <video v-if="link" :src="link" style="width:100%;height:100%;border:0;" controls x5-autoplay autoplay playsinline webkit-playsinline x5-playsinline/>
     </overlayer>
     <overlayer v-model="showWebDialog">
@@ -127,7 +127,6 @@ export default {
   padding: 0;
 }
 .dialog >>> .el-dialog__body{
-  height: 70vw;
   padding: 0;
   overflow: hidden;
 }
