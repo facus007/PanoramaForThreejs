@@ -18,7 +18,7 @@ const posfix = new THREE.Vector3(0,0,0.1)
 
 export default {
   mixins: [THREEComponent],
-  props: ['image','mesh','item','visible'],
+  props: ['mesh','item','visible'],
   data(){return {
     frame: 0
   }},
@@ -89,20 +89,17 @@ export default {
     this.obj = null
   },
   computed:{
-    src(){
-      return getDataURL(this.image)
-    },
     size(){
       return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
+      let imageAspect = 1
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){
