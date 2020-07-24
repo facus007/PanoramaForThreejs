@@ -327,15 +327,17 @@ export default {
               this.postList[this.pageSlectData[i].indexs[j]]
             ]);
           }
-        }
-      }
-      for (let i = 0; i < this.pageSlectData.length; i++) {
-        if (page == this.pageSlectData[i].page) {
-          //当前页不+统计
         } else {
           this.num += this.pageSlectData[i].ids.length;
         }
       }
+      // for (let i = 0; i < this.pageSlectData.length; i++) {
+      //   if (page == this.pageSlectData[i].page) {
+      //     //当前页不+统计
+      //   } else {
+      //     this.num += this.pageSlectData[i].ids.length;
+      //   }
+      // }
       // console.log(this.num, "num*****");
       this.sCount = this.num;
       this.tempnum = 0;
