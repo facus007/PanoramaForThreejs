@@ -46,7 +46,6 @@
     </el-form>
     <!-- <el-row :gutter="10" class="mb8">
             <el-col :span="1.5">
-
             </el-col>
     </el-row>-->
     <!-- <el-button
@@ -146,10 +145,23 @@
         <el-button type="primary" size="mini" @click="toggleSelectionData">确定</el-button>
       </div>
     </div>
-    <!-- 新增弹窗 -->
-    <!-- 查看作品弹框 -->
-    <!-- 查看作品弹框 end-->
-    <!-- 详情弹框end -->
+    <!-- 超出可选范围弹窗 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="overshow"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+      width="20%"
+      append-to-body
+    >
+      <div style="text-align:center;">当前已选{{sCount}}件，可选{{max_hotspot_num}}件</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="refreshdata">重新选择</el-button>
+        <el-button type="primary" @click="toggleSelectionData">直接提交</el-button>
+      </span>
+    </el-dialog>
+    <!-- 超出可选范围弹窗 end-->
   </div>
 </template>
 <script>
@@ -238,7 +250,8 @@ export default {
       picList: [], //图片列表
       Viewworks: false, //查看作品
       id: null,
-      websourcesUrl: ""
+      websourcesUrl: "",
+      overshow: false
     };
   },
   created() {
@@ -259,7 +272,7 @@ export default {
       this.$emit("open:visible", false);
     },
     /** 查询展商列表 */
-    getList() {
+    getList(over) {
       this.loading = true;
       if (this.dateRanges != null) {
         this.queryParams.beginTime = this.dateRanges[0];
@@ -272,7 +285,6 @@ export default {
         this.postList = response.rows;
         this.total = response.total;
         this.loading = false;
-        // console.log(this.indexs, "indexss");
         if (this.indexs.length > 0) {
           this.pageData(this.currentPage);
         }
@@ -299,6 +311,7 @@ export default {
     },
     pageData(page) {
       /**页码选择数据记录 */
+      console.log(this.pageSlectData, "this.pageSlectData");
       for (let i = 0; i < this.pageSlectData.length; i++) {
         if (page == this.pageSlectData[i].page) {
           this.pageSlectData.splice(i, 1);
@@ -327,11 +340,6 @@ export default {
               this.postList[this.pageSlectData[i].indexs[j]]
             ]);
           }
-        }
-      }
-      for (let i = 0; i < this.pageSlectData.length; i++) {
-        if (page == this.pageSlectData[i].page) {
-          //当前页不+统计
         } else {
           this.num += this.pageSlectData[i].ids.length;
         }
@@ -389,30 +397,24 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      // console.log(selection, "选中的");
-      // let tmpnum = selection.length;
-      // let temcount = this.sCount;
       this.ids = selection.map(item => item.id);
       this.indexs = selection.map((item, index) => {
         return this.contains(this.postList, item);
       });
-      // arr = this.ids;
-      // console.log(this.num, "选中num的");
-
       this.num = this.num - this.tempnum;
       this.num += selection.length;
       this.tempnum = selection.length;
       this.sCount = this.num;
-      // console.log(this.sCount, "sCount");
       // console.log(selection.length, "selection.length");
-      // console.log(this.currentPage, "this.currentPage");
-      // this.getPageSelectData(this.queryParams.pageNum);
       this.currentPage = this.queryParams.pageNum;
       if (this.sCount > this.max_hotspot_num) {
-        this.$message.error(
-          "只能选择" + this.max_hotspot_num + "条，后面选中的无效！"
-        );
-        this.idList.length = this.max_hotspot_num;
+        // this.$message.error("只能选择" + this.max_hotspot_num + "条！**");
+        this.ids.length = this.ids.length - 1;
+        this.indexs.length = this.indexs.length - 1;
+        this.sCount = Number(this.max_hotspot_num);
+        this.overshow = true;
+        // this.pageData(this.currentPage, 1);
+        this.isDisabled(1);
         return;
       } else {
       }
@@ -508,6 +510,17 @@ export default {
       } else {
         this.$emit("exhibitionFinished", "");
       }
+    },
+    refreshdata() {
+      this.loading = true;
+      boxlist(this.queryParams).then(response => {
+        this.postList = response.rows;
+        this.total = response.total;
+        this.loading = false;
+      });
+      this.$refs.multipleTable.clearSelection();
+      this.overshow = false;
+      // console.log(this.sCount, "sCount****");
     }
   },
   computed: {
