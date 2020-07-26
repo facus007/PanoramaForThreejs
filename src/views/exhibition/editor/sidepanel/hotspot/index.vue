@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     add(){
-      var pos = new THREE.Vector3(0,0,-50)
+      var pos = new THREE.Vector3(0,0,-45)
       pos.applyQuaternion(this.camera.quaternion)
       var e = new THREE.Euler( 1.57, 1.57, 0, 'XYZ' );
       var q = (new THREE.Quaternion(0,0,0,1)).setFromEuler(e)

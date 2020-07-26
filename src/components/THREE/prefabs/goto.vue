@@ -5,8 +5,8 @@ import THREEComponent from '../base/threecomponent'
 
 const material = new THREE.MeshBasicMaterial()
 const texloader = new THREE.TextureLoader()
-material.transparent = true
 material.map = texloader.load('./static/goto.png')
+material.transparent = true
 // material.map.repeat = new THREE.Vector2(0.05, 1)
 const tex = material.map
 

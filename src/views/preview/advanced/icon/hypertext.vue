@@ -2,7 +2,7 @@
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
     <img class="image" :src='item && item.url' :style="style" @click="click"/>
     <overlayer class="iframe" v-model="showDialog">
-      <quill-editor v-model="item.content" :options="editorOption" style="height: 100%; width: 100%; display: flex; flex-direction: column; background:white; border-radius: 10px; white-space: pre-wrap;" ref="editor" :disabled="true"/>
+      <quill-editor v-model="item.content" :options="editorOption" style="width: calc(100% - 40px);height: calc(100% - 70px);  position: absolute; display: flex; flex-direction: column; background:white; border-radius: 10px; white-space: pre-wrap;" ref="editor" :disabled="true"/>
     </overlayer>
   </div>
 </template>

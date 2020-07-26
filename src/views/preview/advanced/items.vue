@@ -1,5 +1,9 @@
 <template>
-  <components :is="item.type" :item="item" style="pointer-events:auto;cursor:pointer;" :overview="overview"/>
+  <div class="grid-stack-item-content" :widget="widget" >
+    <components :is="item.type" :item="item" style="pointer-events:auto;cursor:pointer;" :overview="overview"/>
+    <!-- <components :is="item.type" :item="item"/> -->
+  </div>
+
 </template>
 
 <script>
@@ -23,7 +27,24 @@ const sizes = {
 }
 
 export default{
-  props:['item','overview'],
+  props:['item', 'widgets', 'grids', 'overview'],
   components:{music, imagef, linkf, hypertext, scene, info},
+  watch:{
+  'widget'(next){
+    if(next){
+      this.widget.appendChild(this.$el)
+    }
+  },
+},
+mounted(){
+  if(this.widget){
+    this.widget.appendChild(this.$el)
+  }
+},
+computed:{
+  control(){return this},
+  widget(){return this.widgets && this.widgets[this.item.uuid]}
+}
+
 }
 </script>

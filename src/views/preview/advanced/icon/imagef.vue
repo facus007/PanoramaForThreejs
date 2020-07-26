@@ -37,6 +37,7 @@ export default {
   height: 100%;
   object-fit: contain;
   border: 0;
+
 }
 img[src=""],img:not([src]){
   visibility: hidden;
