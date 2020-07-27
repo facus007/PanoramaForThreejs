@@ -10,7 +10,7 @@
             </div>
           </div>
         </div>
-        <div class="block">{{product.name}}</div>
+        <div class="block" style="overflow:hidden">{{product.name}}</div>
       </div>
     </transition>
   </div>

@@ -3,8 +3,14 @@
     <transform v-if="selected" :selected="selected"/>
     <detail v-if="selected" :selected="selected" style="margin-left: auto;"/>
     <prebuild :template="curedit.template" v-model="group">
+      <span v-for="item, index in group && curedit.embeddings[0].hotspots">
+        <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="item.name" :item="item" :selected="selected"/>
+      </span>
       <span v-for="item, index in group && curedit.embeddings[1].hotspots">
         <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="item.name" :item="item" :selected="selected" @action="action"/>
+      </span>
+      <span v-for="item, index in group && curedit.embeddings[2].hotspots">
+        <hotspot-mesh :url="item.img_url" :mesh="mesh(item)" :key="item.name" :item="item" :selected="selected"/>
       </span>
     </prebuild>
   </div>
@@ -40,7 +46,14 @@ export default {
     },
     action(item){
       this.editor.$refs.panel[0].setSelected(this.selected === item ? null : item)
-    }
+    },
+    mesh(item){
+      return {
+        position: (new THREE.Vector3()).fromArray(item.transform.position),
+        quaternion: (new THREE.Quaternion()).fromArray(item.transform.rotation),
+        scale: (new THREE.Vector3()).fromArray(item.transform.scale)
+      }
+    },
   },
   mounted(){},
   beforeDestroy(){},

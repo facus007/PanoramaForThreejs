@@ -3,7 +3,7 @@
     <el-form label-position="right" label-width="80px">
       <el-form-item label="资源类型">
         <el-select size="small" v-model="selected" placeholder="请选择">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.value !== '1' && isCloud"/>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="!accepttype.split(',').includes(item.value) || (item.value !== '1' && isCloud)"/>
         </el-select>
       </el-form-item>
       <el-form-item label="选择资源">
@@ -54,7 +54,7 @@ export default {
   // mixins:[mixin],
   data(){return {
     options,
-    selected: '1',
+    selected: null,
     name: '',
     file: null,
     visible: false,
@@ -62,17 +62,24 @@ export default {
     url: null,
     remark: null,
   }},
-  props:['value', 'isCloud'],
+  props:['value', 'isCloud', 'accepttype'],
   watch:{
     visible(next, pre){this.$emit('input', next)},
     value(next, pre){
       this.visible = next
       if(!next){
-        this.selected = '1'
         this.name = ''
+        this.selected = null,
         this.file = null
         this.url = null
         this.remark = null
+      } else {
+        let accepttype = this.accepttype.split(',')
+        for (var i = 0; i < options.length; i++) {
+          if( accepttype.includes(options[i].value)){
+            this.selected = options[i].value
+          }
+        }
       }
     },
     selected(){
@@ -111,13 +118,15 @@ export default {
       //     this.$emit('input', false)
       //   }
       // })
+      if(!this.file){
+        return
+      }
       this.loading= true
       let formData = new FormData()
       formData.append('filename',this.file.name)
       formData.append('file',this.file.raw)
       if (this.selected==='1') {
         imageUpload(formData).then(result=>{
-          console.log(result)
           addMaterial({
             materialType: this.isCloud ? this.cloudvalue : this.select,
             materialContent: result.url,

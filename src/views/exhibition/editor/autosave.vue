@@ -40,7 +40,7 @@ export default {
       this.$store.dispatch(moduleName+'/save').then(()=>this.loading = false)
     },
     preview(){
-      this.$router.push({path:'/preview', query: { product_id: this.product.product_id }})
+      this.$router.push({path:'/exhibition/preview', query: { product_id: this.product.product_id }})
     },
     qrcode(){
       var link = location.href.replace(this.$route.path,'/share');

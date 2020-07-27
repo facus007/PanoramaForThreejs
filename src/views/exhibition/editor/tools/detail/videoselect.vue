@@ -19,7 +19,7 @@ export default {
   methods:{
     selectVideo(material){
       this.getSelecteds().forEach((item, i) => {
-        item.img_url = material.resource_url || item.img_url
+        item.img_url = item.img_url || material.resource_url
         item.target.video = material.material_content
       });
     },

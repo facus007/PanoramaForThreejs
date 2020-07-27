@@ -47,6 +47,7 @@ export default {
       //
       // this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL("image/jpeg", 1.0))
       this.curedit.start_rotation = [this.controls.obj.getAzimuthalAngle(), this.controls.obj.getPolarAngle()]
+      this.$message.success('设置成功')
     },
     // update(){},
     // propCompute(){},
@@ -55,12 +56,8 @@ export default {
     ...mapState('editor', ['preview', 'product', 'curedit']),
     ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
   },
-  mounted(){
-    this.$nextTick(() => this.preview || this.setView())
-  },
-  beforeDestroy(){
-
-  }
+  mounted(){},
+  beforeDestroy(){}
 }
 </script>
 
@@ -81,8 +78,8 @@ export default {
 }
 .frame {
   display: flex;
-  width: 70%;
-  height: 70%;
+  width: 50%;
+  height: 50%;
   border: 2px dashed white;
   justify-content: center;
   align-items: flex-end;

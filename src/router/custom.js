@@ -42,7 +42,7 @@ export const customRoutes=[
   {
     id: 33,
     title: "展馆预览",
-    path: "/preview",
+    path: "/exhibition/preview",
     pid: 3,
     icon: "example",
     order: 0,
