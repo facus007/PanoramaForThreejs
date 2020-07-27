@@ -96,7 +96,9 @@ export default {
       this.$refs.exhibitionEntrance.fill(batchNo)
     },
   },
-  mounted(){},
+  mounted(){
+    
+  },
   beforeDestroy(){},
 }
 </script>

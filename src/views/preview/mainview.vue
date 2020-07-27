@@ -8,7 +8,7 @@
     </CSS3DRenderer>
 
     <animated-panorama :curScene="curScene" :textures="textures" ref="panorama"/>
-    <camera-animation v-if="!after_animation_loaded && !loading" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product"/>
+    <camera-animation v-if="!loading" :fov="curScene.fov" :start_rotation="curScene.start_rotation" :product="product" :key="curSceneId + 'fov'"/>
     <preview v-if="curScene && !loading" :curScene="curScene" :key="curSceneId" :visible="after_animation_loaded" style="visibility: hidden"/>
 
     <div v-if="loading" style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
@@ -86,7 +86,10 @@ export default {
       (()=>{})(this.curSceneId) // watch
       return this.cookies && this.cookies.start_rotation
     },
-    curScene(){ return this.scenes[this.curSceneId] },
+    curScene(){
+      (()=>{})(this.curSceneId) // watch
+      return this.scenes[this.curSceneId]
+    },
     isDebug: () => isDebug,
     curRotation:{
       get (){

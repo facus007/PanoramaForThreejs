@@ -4,6 +4,7 @@
     <div style="width: 90%; justify-content:space-between; flex-direction: row; display: flex; align-items: center;">
       30 <el-slider class="slider" v-model="curedit.fov" :min="30" :max="160"></el-slider> 160
     </div>
+    <el-button type="primary" size='small' style="width:100%;" @click="save">保存视角大小</el-button>
   </div>
 </template>
 
@@ -25,7 +26,12 @@ export default {
       this.camera.updateProjectionMatrix()
     }
   },
-  methods:{},
+  methods:{
+    save(){
+      this.$store.dispatch('editor/save')
+      this.$message.success('设置成功')
+    }
+  },
   computed:{
     ...mapState('THREE',['scene', 'camera']),
     ...mapState('editor',['preview', 'product', 'curedit']),
