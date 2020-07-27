@@ -49,6 +49,7 @@ export default{
       set(value){
         this.getSelecteds().forEach((item, i) => {
           item.target.link = value
+          item.target = JSON.parse(JSON.stringify(item.target))
         })
       }
     },
@@ -57,6 +58,7 @@ export default{
       set(value){
         this.getSelecteds().forEach((item, i) => {
           item.target.inline = value
+          item.target = JSON.parse(JSON.stringify(item.target))
         })
       }
     },
@@ -65,6 +67,7 @@ export default{
       set(value){
         this.getSelecteds().forEach((item, i) => {
           item.target.hidespot = value
+          item.target = JSON.parse(JSON.stringify(item.target))
         })
       }
     }

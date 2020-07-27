@@ -74,6 +74,7 @@ export default {
         if(item.style === 2) {
           item.img_url = item.img_url || material.resource_url
           item.target.video = material.material_content
+          item.target = JSON.parse(JSON.stringify(item.target))
         }
       });
     },
@@ -102,6 +103,7 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = null
         item.target.video = null
+        item.target = JSON.parse(JSON.stringify(item.target))
       });
     },
   },
