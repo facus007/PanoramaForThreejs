@@ -1,6 +1,10 @@
 <template>
   <div class="frame">
-    <div style="width: 200px;">图标</div>
+    <div style="width: 200px;">图标
+      <el-tooltip class="item" effect="dark" content="支持jpg、png、gif " placement="right-end">
+        <el-button type="text" class="el-icon-info" style="margin: 0;padding:0"/>
+      </el-tooltip>
+    </div>
     <el-button class="upload" type="text" @click="onChange">
       <el-image v-if="item.url" :src="item.url" fit="contain" style="position:absolute; width:100%; height: 100%;left:0;top:0;"/>
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>

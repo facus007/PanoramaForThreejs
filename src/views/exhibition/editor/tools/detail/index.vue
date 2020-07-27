@@ -72,7 +72,7 @@ export default {
         item.style = styles[material.material_type]
         item.img_url = material.material_content
         if(item.style === 2) {
-          item.img_url = material.resource_url
+          item.img_url = item.img_url || material.resource_url
           item.target.video = material.material_content
         }
       });

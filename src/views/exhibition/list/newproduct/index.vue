@@ -36,6 +36,7 @@ import ExhibitorSelector from './exhibitorselector'
 import { imageUpload } from '@/api/cos'
 import { saveVR } from '@/utils/server'
 import MaterialSelector from '@/views/exhibition/materialselector'
+import { v4 as uuid} from 'uuid'
 
 const defaultScene = {
   fov: 60,
@@ -107,7 +108,12 @@ export default {
           music_url: music_url,
           loop: true,
           animation: true,
+          features: [
+            {"type":"scene","uuid":uuid(),"size":"1 x 1","position":{"group":1,"x":"0","y":"0"},"name":"场景列表","url":"","link":"","content":""},
+            {"type":"info","uuid":uuid(),"size":"1 x 1","position":{"group":2,"x":2,"y":0},"name":"简介","url":"","link":"","content":""}
+          ],
         })
+        this.$message.success('创建成功')
         this.visible=false
       } catch (e) {
         this.$message.error(e)

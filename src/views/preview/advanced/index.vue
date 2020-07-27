@@ -9,12 +9,12 @@
           width:sizes[feature.size].width * 100 / 3 +'%',
           height:size * sizes[feature.size].height + 'px',
         }">
-        <items :item="feature" :overview="_=>$refs.overview"/>
+        <items :item="feature" />
       </div>
     </div> -->
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
-      <items v-for="feature, i in product.features" :item="feature" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items"/>
+      <items v-for="feature, i in product.features" :item="feature" :grids="grids" :widgets='widgets' :key="feature.uuid" ref="items" :overview="_=>$refs.overview"/>
     </span>
 
     <overview ref='overview' :height="Math.max(getHeight(1),getHeight(3))*size"/>

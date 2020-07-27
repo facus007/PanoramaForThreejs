@@ -2,6 +2,7 @@
   <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
     <main-view :getProduct="getProduct"/>
     <loading/>
+    <el-button @click="click" size=small class="back"><span style="position:absolute;left:5px;">&lt;</span>返回</el-button>
   </div>
 </template>
 
@@ -23,13 +24,35 @@ export default {
       });
       await ready
     }
-    return await import(/* webpackChunkName: "chunk-preview-main" */ './mainview')
+    return await import(/* webpackChunkName: "chunk-preview-main" */ '@/views/preview/mainview')
   }, Loading},
   created(){this.$store.registerModule('preview', store)},
   destroyed(){this.$store.unregisterModule('preview')},
   computed:{
     getProduct:_=>getProduct,
   },
+  methods:{
+    click(){
+      this.$router.push({path:'/exhibition/editor', query: { product_id: this.$route.query.product_id }})
+    }
+  }
 }
 
 </script>
+<style scoped>
+.back{
+  right: -90px;
+  width: 100px;
+  top: 5px;
+  position:absolute;
+  margin: 0px;
+  z-index: 30;
+  background:#000;
+  opacity: .5;
+  color: #fff;
+  border: 0;
+}
+.back:hover{
+  right: 0px;
+}
+</style>
