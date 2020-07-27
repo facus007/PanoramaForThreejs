@@ -45,12 +45,14 @@ export default {
   },
   methods:{
     async resize(){
-      let aspect = this.domElement.clientWidth / this.domElement.clientHeight;
-      if(this.camera.aspect !== aspect){
-        this.camera.aspect = aspect
-        this.camera.updateProjectionMatrix();
-        this.$store.dispatch(moduleName+'/render')
-      }
+      requestAnimationFrame(()=>{
+        let aspect = this.domElement.clientWidth / this.domElement.clientHeight;
+        if(this.camera.aspect !== aspect){
+          this.camera.aspect = aspect
+          this.camera.updateProjectionMatrix();
+          this.$store.dispatch(moduleName+'/render')
+        }
+      })
     },
     rendering(){
       this.$store.dispatch(moduleName+'/render');
