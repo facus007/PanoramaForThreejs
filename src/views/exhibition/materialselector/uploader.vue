@@ -119,6 +119,7 @@ export default {
       //   }
       // })
       if(!this.file){
+        this.$message.warning('请上传图片')
         return
       }
       this.loading= true
