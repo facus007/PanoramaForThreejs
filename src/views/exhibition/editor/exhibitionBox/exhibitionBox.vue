@@ -63,8 +63,8 @@
       <el-table-column type="selection" width="55" :selectable="isDisabled"></el-table-column>
       <el-table-column label="参展商编号" align="center" prop="exhibitorId" width="100"/>
       <el-table-column label="参展商名称" align="center" prop="exhibitorName" width="150"/>
-      <el-table-column label="展商标题" align="center" prop="productName" min-width="150"/>
-      <el-table-column label="3D展商链接" align="center" min-width="400">
+      <el-table-column label="展品" align="center" prop="productName" min-width="150"/>
+      <el-table-column label="3D展品链接" align="center" min-width="400">
         <template slot-scope="scope">
           <div style="text-align:left;">{{scope.row.resourceUrl}}</div>
           <div
@@ -75,7 +75,7 @@
           >复制链接</div>
         </template>
       </el-table-column>
-      <el-table-column label="平面展商链接" align="center" width="400">
+      <el-table-column label="平面展品链接" align="center" width="400">
         <template slot-scope="scope">
           <div style="text-align:left;">{{websourcesUrl}}{{scope.row.id}}</div>
           <div
@@ -83,6 +83,17 @@
             size="mini"
             @click="CopyUrl1(websourcesUrl,scope.row.id)"
           >复制链接</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="缩略图" align="center" width="400">
+        <template slot-scope="scope">
+          <div
+            class="thumbnail"
+            style="text-align:center; width:50px;height:60px;"
+            v-if="scope.row.thumbUrl1"
+          >
+            <img :src="scope.row.thumbUrl1" alt="缩略图">
+          </div>
         </template>
       </el-table-column>
       <!-- <el-table-column
@@ -582,6 +593,16 @@ video {
   max-height: 100%;
 }
 
+.thumbnail {
+  width: 100px;
+  height: 60px;
+  margin: 0 auto;
+  /* text-align: center; */
+}
+.thumbnail img {
+  width: 100px;
+  height: auto;
+}
 .el-button--text,
 .el-button--text:hover {
   border: 1px solid transparent !important;
