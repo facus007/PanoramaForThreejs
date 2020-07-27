@@ -16,7 +16,7 @@ export default {
     this.obj = new CSS3DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.resize()
+    this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
     this.startRendering()
   },
   beforeDestroy(){
@@ -27,7 +27,9 @@ export default {
   },
   methods:{
     async resize(){
-      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      requestAnimationFrame(()=>{
+        this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      })
     },
     startRendering(){
       this.frame = requestAnimationFrame(this.update)

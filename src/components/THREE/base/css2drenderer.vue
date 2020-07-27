@@ -24,7 +24,7 @@ export default {
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.resize()
+    this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
   },
   beforeDestroy(){
     window.removeEventListener('resize', this.resize);
@@ -33,7 +33,9 @@ export default {
   },
   methods:{
     async resize(){
-      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      requestAnimationFrame(()=>{
+        this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      })
     },
   }
 }

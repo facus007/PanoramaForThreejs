@@ -22,7 +22,8 @@ export default {
     this.obj = new THREE.WebGLRenderer(this.option)
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.resize()
+    this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+    this.obj.setPixelRatio( window.devicePixelRatio );
     this.startRendering()
   },
   beforeDestroy(){
@@ -33,8 +34,10 @@ export default {
   },
   methods:{
     async resize(){
-      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
-      this.obj.setPixelRatio( window.devicePixelRatio );
+      requestAnimationFrame(()=>{
+        this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+        this.obj.setPixelRatio( window.devicePixelRatio );
+      })
     },
     startRendering(){
       this.domElement && this.domElement.addEventListener('update', this.update)
