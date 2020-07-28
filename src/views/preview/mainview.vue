@@ -68,13 +68,12 @@ export default {
       this.$store.dispatch('preview/deinit')
     },
     onResize(){
-      requestAnimationFrame(()=>{
-        document.body.style.cssText = 'width:'+window.innerWidth+'px; height:'+window.innerHeight+'px';
-      })
+      WeixinJSBridge && WeixinJSBridge.call('hideToolbar')
+      this.frame = requestAnimationFrame(this.onResize)
     }
   },
-  created(){window.addEventListener('resize',this.onResize)},
-  destroyed(){window.removeEventListener('resize',this.onResize)},
+  created(){this.frame = requestAnimationFrame(this.onResize)},
+  destroyed(){cancelAnimationFrame(this.frame)},
   mounted(){ this.init(); },
   beforeDestroy(){ this.deinit(); },
   computed:{
