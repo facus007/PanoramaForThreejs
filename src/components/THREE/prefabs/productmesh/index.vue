@@ -71,5 +71,6 @@ export default {
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
+  opacity: 1;
 }
 </style>

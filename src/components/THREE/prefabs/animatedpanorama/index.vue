@@ -68,6 +68,8 @@ export default {
 
       var aim = (new THREE.Vector3()).setFromSphericalCoords(200, this.curScene.start_rotation[1], this.curScene.start_rotation[0]).multiplyScalar(-1)
       this.camera.lookAt(aim)
+      this.camera.fov = this.curScene.fov
+      this.camera.updateProjectionMatrix()
       this.$refs.round.forEach((item, i) => {
         item.obj.applyQuaternion(this.camera.quaternion.clone())
       });

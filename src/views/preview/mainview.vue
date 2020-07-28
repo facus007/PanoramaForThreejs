@@ -1,5 +1,5 @@
 <template>
-  <THREE v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}" :isDebug="true">
+  <THREE class="as;dlkas" v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}" :isDebug="true">
     <stats v-if="isDebug" style="visibility:visible"/>
     <WebGLRenderer :option="{antialias: true}"/>
     <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden','z-index': '1'}">
@@ -68,13 +68,22 @@ export default {
       this.$store.dispatch('preview/deinit')
     },
     onResize(){
-      WeixinJSBridge && WeixinJSBridge.call('hideToolbar')
+      document.body.setAttribute('style', 'width:'+window.innerWidth+'px; height:'+window.innerHeight+'px;overflow:hidden;');
+      document.documentElement.setAttribute('style', 'width:'+window.innerWidth+'px; height:'+window.innerHeight+'px;overflow:hidden;');
       this.frame = requestAnimationFrame(this.onResize)
-    }
+    },
   },
-  created(){this.frame = requestAnimationFrame(this.onResize)},
-  destroyed(){cancelAnimationFrame(this.frame)},
-  mounted(){ this.init(); },
+  created(){
+    window.onscroll=_=>{window.scrollTo(0,0)}
+    this.frame = requestAnimationFrame(this.onResize)
+  },
+  destroyed(){
+    window.onscroll=null
+    cancelAnimationFrame(this.frame)
+    document.body.setAttribute('style', '');
+    document.documentElement.setAttribute('style', '');
+  },
+  mounted(){ this.init();},
   beforeDestroy(){ this.deinit(); },
   computed:{
     ...mapState('preview', ['product', 'scenes', 'curSceneId', 'cookies']),
