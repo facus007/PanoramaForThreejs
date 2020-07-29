@@ -3,30 +3,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 export default {
   mixins: [THREEComponent],
-  watch:{
-    domElement(next, pre){
-      pre && pre.removeEventListener('update', this.update)
-      next && next.addEventListener('update', this.update)
-    }
-  },
-  methods:{
-    update(){
-      this.obj.render(this.scene, this.camera);
-    }
-  },
+  watch:{},
   mounted(){
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+    this.startRendering()
   },
   beforeDestroy(){
+    this.stopRendering()
     window.removeEventListener('resize', this.resize);
     this.obj.domElement.remove()
     this.obj = null
@@ -37,6 +27,17 @@ export default {
         this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
       })
     },
+    startRendering(){
+      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      this.frame = requestAnimationFrame(this.update)
+    },
+    stopRendering(){
+      cancelAnimationFrame(this.frame)
+    },
+    update(){
+      this.obj.render(this.scene, this.camera);
+      this.frame = requestAnimationFrame(this.update)
+    }
   }
 }
 </script>

@@ -1,14 +1,12 @@
 <template>
-  <div :computeProp="computeProp" style="visibility:hidden;"><slot></slot></div>
+  <div :computeProp="computeProp" style="visibility:hidden;"><slot/></div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
 export default {
-  data(){return {
-    obj: null,
-  }},
+  data(){return { obj: null,}},
   methods:{
     propCompute(){},
   },
@@ -16,7 +14,7 @@ export default {
     computeProp(){
       this.obj && this.propCompute()
     },
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement'])
+    ...mapState('THREE',['scene', 'camera', 'domElement'])
   }
 }
 </script>
@@ -27,5 +25,7 @@ export default {
   display: flex;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
 }
 </style>

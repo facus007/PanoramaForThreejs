@@ -10,7 +10,7 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 import MashBasicMaterial from '../../base/meshbasicmaterial'
 import Texture from '../../base/texture'
 import VideoTexture from '../../base/videotexture'

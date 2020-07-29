@@ -5,25 +5,17 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 
 var frame = 0
 
 export default {
   mixins: [THREEComponent],
   props: ['option'],
-  watch:{
-    domElement(next, pre){
-      pre && pre.removeEventListener('update', this.update)
-      next && next.addEventListener('update', this.update)
-    }
-  },
   mounted(){
     this.obj = new THREE.WebGLRenderer(this.option)
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
-    this.obj.setPixelRatio( window.devicePixelRatio );
     this.startRendering()
   },
   beforeDestroy(){
@@ -40,14 +32,17 @@ export default {
       })
     },
     startRendering(){
-      this.domElement && this.domElement.addEventListener('update', this.update)
+      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      this.obj.setPixelRatio( window.devicePixelRatio );
+      this.frame = requestAnimationFrame(this.update)
     },
     stopRendering(){
-      this.domElement && this.domElement.removeEventListener('update', this.update)
+      cancelAnimationFrame(this.frame)
     },
     update(){
       this.obj.render(this.scene, this.camera);
-    },
+      this.frame = requestAnimationFrame(this.update)
+    }
   }
 }
 </script>
