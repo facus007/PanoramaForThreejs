@@ -94,3 +94,4 @@ export function resetRouter() {
 
 export default router
 export const customRoutes = require('./custom').customRoutes
+export const components = require('./custom').components
