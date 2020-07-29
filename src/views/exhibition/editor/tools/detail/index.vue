@@ -7,7 +7,7 @@
     <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
       <div style="width:100%;justify-content:flex-start;display:flex;">当前影像
         <span style="margin-left:auto;">
-          <el-checkbox v-model="selected.target.dynamic_img" style="color:gray;">序列帧长图</el-checkbox>
+          <el-checkbox v-model="dynamic_img" style="color:gray;">序列帧长图</el-checkbox>
         </span>
       </div>
       <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
@@ -115,6 +115,15 @@ export default {
     option:{
       get(){return this.selected.type.toString()},
       set(value){this.getSelecteds().forEach((item, i) => item.type = parseInt(value))}
+    },
+    dynamic_img:{
+      get(){return this.selected.target.dynamic_img},
+      set(value){
+        this.getSelecteds().forEach((item, i) => {
+          item.target.dynamic_img = value
+          item.target = JSON.parse(JSON.stringify(item.target))
+        })
+      }
     },
   }
 }

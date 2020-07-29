@@ -4,7 +4,7 @@
       <video v-if="selected.target.video" :src="selected.target.video" controls autoplay playsinline style="position:absolute; width:100%; height: 100%;left:0;top:0;" muted />
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-button>
-    <el-checkbox v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
+    <el-checkbox v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" v-model="selected.target.hidespot" style="margin-left:auto;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
     <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   </div>
 </template>
