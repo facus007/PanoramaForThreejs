@@ -50,7 +50,10 @@ export default {
       this.obj.position.add(pos)
       this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
       this.obj.position.add(posfix.clone().applyQuaternion (this.obj.quaternion))
-      this.obj.scale.set(m[2] * 10 * 0.01,m[3] * 10 * 0.01, 10 * 0.01)
+      this.obj.position.normalize()
+      this.obj.scale.set(10 * 0.01 / 50, 10 * 0.01 / 50, 10 * 0.01 / 50)
+      this.obj.lookAt(this.camera)
+      this.obj.lookAt(0,0,0)
     },
     updateTexture(){
       let tex = this.tex
