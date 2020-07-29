@@ -10,8 +10,8 @@ import browser from '@/utils/browser'
 import { getProduct } from '@/utils/server'
 import { getshareconfig } from '@/api/server'
 import wx from 'weixin-js-sdk';
-import store from '@/views/preview/store'
-import Loading from '@/views/preview/loading'
+import store from '@/components/Preview/store'
+import Loading from '@/components/Preview/loading'
 
 export default {
   components:{ MainView: async () => {
@@ -23,7 +23,7 @@ export default {
       });
       await ready
     }
-    return await import(/* webpackChunkName: "chunk-preview-main" */ '@/views/preview/mainview')
+    return await import(/* webpackChunkName: "chunk-preview-main" */ '@/components/Preview/mainview')
   }, Loading},
   created(){this.$store.registerModule('preview', store)},
   destroyed(){

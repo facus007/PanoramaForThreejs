@@ -7,12 +7,12 @@
 
 <script>
 // import Cookies from 'js-cookie'
-import Loading from '@/views/preview/loading'
+import Loading from '@/components/Preview/loading'
 import { getProduct } from './server'
-import store from '@/views/preview/store'
+import store from '@/components/Preview/store'
 
 export default {
-  components:{MainView: () => import(/* webpackChunkName: "chunk-preview-main" */ '@/views/preview/mainview'), Loading},
+  components:{MainView: () => import(/* webpackChunkName: "chunk-preview-main" */ '@/components/Preview/mainview'), Loading},
   data(){return{}},
   computed:{
     getProduct:_=>getProduct,

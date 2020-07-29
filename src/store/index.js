@@ -6,7 +6,6 @@ import permission from './modules/permission'
 import settings from './modules/settings'
 import user from './modules/user'
 
-import {registerModules} from './custom'
 
 Vue.use(Vuex)
 
@@ -20,5 +19,4 @@ const store = new Vuex.Store({
   getters
 })
 
-registerModules(store)
 export default store

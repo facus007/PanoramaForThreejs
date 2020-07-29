@@ -13,9 +13,6 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
       </el-form-item>
-      <!-- <el-form-item label="选择参展商">
-        <exhibitor-selector v-model="exhibitor_id"/>
-      </el-form-item> -->
       <el-form-item label="选择模板">
         <template-selector v-model="template"/>
       </el-form-item>
@@ -32,7 +29,6 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import TemplateSelector from './templateselector'
-import ExhibitorSelector from './exhibitorselector'
 import { imageUpload } from '@/api/cos'
 import { saveVR } from '@/utils/server'
 import MaterialSelector from '@/views/exhibition/materialselector'
@@ -45,7 +41,7 @@ const defaultScene = {
 
 export default {
   // mixins:[mixin],
-  components:{TemplateSelector, MaterialSelector,ExhibitorSelector},
+  components:{TemplateSelector, MaterialSelector},
   data(){return {
     selected: '0',
     name: '',

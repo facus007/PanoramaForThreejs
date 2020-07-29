@@ -32,7 +32,6 @@
 <script>
 import { mapState } from 'vuex'
 import MaterialSelector from '@/views/exhibition/materialselector'
-import SceneSelector from '@/views/exhibition/sceneselector'
 import empty from './empty'
 import hyperlink from './hyperlink'
 import sceneswitch from './sceneswitch'
@@ -51,14 +50,11 @@ const styles = {
   '1':1,'2':2,'10':1
 }
 export default {
-  components:{MaterialSelector,SceneSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
+  components:{MaterialSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
   data(){return {
     group: null,
     options,
     showDialog:false,
-    showSpotDialog:false,
-    showSceneSelector: false,
-    showvideoDialog: false,
   }},
   props:['selected'],
   watch:{

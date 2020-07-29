@@ -129,7 +129,7 @@ export default {
       if (this.selected==='1') {
         imageUpload(formData).then(result=>{
           addMaterial({
-            materialType: this.isCloud ? this.cloudvalue : this.select,
+            materialType: this.isCloud ? this.cloudvalue : this.selected,
             materialContent: result.url,
             remark: this.remark,
           }).then(_=>{this.loading=false;this.visible=false})
@@ -139,7 +139,7 @@ export default {
         mediaUpload(formData).then(result=>{
           console.log(result)
           addMaterial({
-            materialType: this.isCloud ? this.cloudvalue : this.select,
+            materialType: this.isCloud ? this.cloudvalue : this.selected,
             materialContent: result.url,
             remark: this.remark,
             resourceUrl: result.previewurl,
@@ -150,10 +150,10 @@ export default {
         mediaUpload(formData).then(result=>{
           console.log(result)
           addMaterial({
-            materialType: this.isCloud ? this.cloudvalue : this.select,
+            materialType: this.isCloud ? this.cloudvalue : this.selected,
             materialContent: result.url,
             remark: this.remark,
-          }).then(_=>{this.loading=false;this.visible=false})
+          }).then(_=>{this.loading=false;this.visible = false})
         })
       }
     }
