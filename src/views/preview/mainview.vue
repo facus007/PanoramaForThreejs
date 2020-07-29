@@ -1,5 +1,5 @@
 <template>
-  <THREE class="as;dlkas" v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}" :isDebug="true">
+  <THREE v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}" :isDebug="true">
     <stats v-if="isDebug" style="visibility:visible"/>
     <WebGLRenderer :option="{antialias: true}"/>
     <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden','z-index': '1'}">
