@@ -45,8 +45,8 @@
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="copy(scope.row)">复制作品</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="download(scope.row)">下载配置</el-button>
               <el-popover placement="left" trigger="click">
-                <canvas id="qrcodeContent" style="width: 100%; height: 150px"/>
-                <el-button slot="reference" style="padding:0;margin:auto; width:min-content;" @click="qrcode(scope.row)" type="text">显示二维码</el-button>
+                <canvas :id="'qrcodeContent'+scope.$index" style="width: 100%; height: 150px"/>
+                <el-button slot="reference" style="padding:0;margin:auto; width:min-content;" @click="qrcode(scope.row, scope)" type="text">显示二维码</el-button>
               </el-popover>
             </div>
           </template>
@@ -91,7 +91,7 @@ export default {
       this.$router.push({path:'/exhibition/editor', query: { product_id: row.product_id }})
     },
     preview(row){
-      this.$router.push({path:'/preview', query: { product_id: row.product_id }})
+      this.$router.push({path:'/exhibition/preview', query: { product_id: row.product_id }})
     },
     link(row){
       var input = document.createElement('input');
@@ -108,9 +108,9 @@ export default {
         this.$message("已复制至剪贴板")
       }
     },
-    qrcode(row){
+    qrcode(row, scope){
       var link = location.href.replace(this.$route.path,'/share?product_id='+row.product_id);
-      QRCode.toCanvas(document.getElementById('qrcodeContent'), link)
+      QRCode.toCanvas(document.getElementById('qrcodeContent'+scope.$index), link)
     },
     refresh_(){
       this.loading = true
