@@ -3,11 +3,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
-
-var frame = 0
 
 export default {
   mixins: [THREEComponent],
@@ -16,7 +13,6 @@ export default {
     this.obj = new CSS3DRenderer()
     this.$el.appendChild(this.obj.domElement)
     window.addEventListener('resize', this.resize);
-    this.resize()
     this.startRendering()
   },
   beforeDestroy(){
@@ -27,9 +23,12 @@ export default {
   },
   methods:{
     async resize(){
-      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      requestAnimationFrame(()=>{
+        this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
+      })
     },
     startRendering(){
+      this.obj.setSize( this.$el.clientWidth, this.$el.clientHeight );
       this.frame = requestAnimationFrame(this.update)
     },
     stopRendering(){

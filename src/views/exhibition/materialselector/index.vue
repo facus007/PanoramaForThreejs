@@ -3,7 +3,7 @@
     <container v-if="visible" :refresh="refresh" v-loading="loading">
       <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
         <template v-slot:header="scope">
-          <el-button type="primary" size="small" @click="newMaterial" :disabled="showSystemStore">上传素材</el-button>
+          <el-button type="primary" size="small" @click="newMaterial" v-if="!showSystemStore">上传素材</el-button>
           <el-button type="primary" size="small" @click="refresh_">刷新</el-button>
           <el-checkbox v-if="imgtype.split(',').includes('1')" v-model="showSystemStore" size="small" style="margin-left: 10px">显示云端素材库</el-checkbox>
         </template>

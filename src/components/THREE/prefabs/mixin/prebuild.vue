@@ -7,7 +7,7 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 
 const texloader = new THREE.TextureLoader()
 

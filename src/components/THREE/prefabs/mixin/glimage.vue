@@ -6,9 +6,9 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
-import MashBasicMaterial from '../base/meshbasicmaterial'
-import Texture from '../base/texture'
+import THREEComponent from '@/components/THREE/base/threecomponent'
+import MashBasicMaterial from '../../base/meshbasicmaterial'
+import Texture from '../../base/texture'
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
@@ -67,12 +67,12 @@ export default {
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = this.image.width / this.image.height
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){

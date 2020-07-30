@@ -4,13 +4,9 @@
       <span v-for="item, index in group && curScene.embeddings[2].hotspots">
         <hotspot-mesh :mesh="mesh(item)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible" style="z-index:2"/>
       </span>
-    </prebuild>
-    <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[0].hotspots">
         <ad-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>
-    </prebuild>
-    <prebuild :template="curScene.template" v-model="group">
       <span v-for="item, index in group && curScene.embeddings[1].hotspots">
         <product-mesh v-if="group.getObjectByName(item.name)" :mesh="group.getObjectByName(item.name)" :url="item.img_url" :key="index" :item="item" @action="action" :hidden="!visible"/>
       </span>

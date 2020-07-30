@@ -1,4 +1,4 @@
-import { constantRoutes, customRoutes } from '@/router'
+import { constantRoutes, customRoutes, components } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -32,16 +32,6 @@ export function filterAsyncRoutes(routes, roles) {
   })
 
   return res
-}
-
-const components={
-  '/dashboard': ()=>import(/* webpackChunkName: "chunk-buildin-views" */ '@/views/dashboard/index'),
-  '/exhibition/list': ()=>import(/* webpackChunkName: "chunk-exhibition" */ '@/views/exhibition/list'),
-  '/exhibition/editor': ()=>import(/* webpackChunkName: "chunk-exhibition-editor" */ '@/views/exhibition/editor'),
-  '/exhibition/preview': ()=>import(/* webpackChunkName: "chunk-exhibition-preview" */ '@/views/exhibition/preview'),
-  '/tools': ()=>import(/* webpackChunkName: "chunk-tools" */ '@/views/tools'),
-  '/templates/list': () => import(/* webpackChunkName: "templates" */ '@/views/templates/list'),
-  '/templates/add': () => import(/* webpackChunkName: "templates" */ '@/views/templates/add'),
 }
 
 const state = {

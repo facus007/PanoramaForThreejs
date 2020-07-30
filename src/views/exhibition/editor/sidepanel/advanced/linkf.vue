@@ -1,7 +1,7 @@
 <template>
   <div class="frame">
     <div style="width: 100%;">图标
-       <el-tooltip class="item" effect="dark" content="支持jpg、png、gif " placement="right-end">
+       <el-tooltip class="item" effect="dark" content="支持jpg、png、gif等格式图片" placement="right-end">
         <el-button type="text" class="el-icon-info" style="margin: 0;padding:0"/>
       </el-tooltip>
     </div>

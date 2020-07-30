@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <div @click="needPlaying = !needPlaying" >
+    <div @click="$store.commit('preview/audio/SET_NEEDPLAYING',!needPlaying)" >
       <div :class="needPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
       <audio class="audio-player" :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>
     </div>
@@ -11,9 +11,7 @@
 import {mapState} from 'vuex'
 export default{
   props:['item'],
-  data(){return{
-    needPlaying: true,
-  }},
+  data(){return{}},
   watch:{
     isPlaying(next){
       next && this.play() || this.pause()
@@ -36,7 +34,7 @@ export default{
     }
   },
   computed:{
-    ...mapState('preview/audio',['canMusicPlay']),
+    ...mapState('preview/audio',['canMusicPlay','needPlaying']),
     isPlaying(){
       return this.needPlaying && this.canMusicPlay
     }

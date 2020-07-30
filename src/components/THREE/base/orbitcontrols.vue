@@ -1,16 +1,14 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { OrbitControls } from '../core/orbitcontrols'
 
 export default {
   mixins: [THREEComponent],
   props: ['start_rotation', 'auto_rotate'],
-  data(){return {
-    interval: null
-  }},
+  // data(){return {interval: null}},
   watch:{
     domElement(next, pre){
       pre && pre.removeEventListener('update', this.update)

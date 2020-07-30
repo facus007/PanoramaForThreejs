@@ -5,7 +5,7 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 import {default as VideoUtils, isSupported} from '@/utils/video'
 
 export default {
@@ -38,8 +38,10 @@ export default {
       }
     }, false);
     this.isSupported && new VideoUtils(this.$el, this.src)
+    this.$parent.obj && (this.$parent.obj instanceof THREE.Material) && (this.$parent.obj.map = this.obj);
   },
   beforeDestroy(){
+    this.$parent.obj && this.$parent.obj.map === this.obj && (this.$parent.obj.map = null);
     this.obj && this.obj.dispose()
   },
   computed:{

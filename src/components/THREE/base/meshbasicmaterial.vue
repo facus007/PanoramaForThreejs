@@ -1,7 +1,7 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 
 export default {
   mixins: [THREEComponent],
@@ -27,8 +27,10 @@ export default {
   },
   mounted(){
     this.obj = new THREE.MeshBasicMaterial()
+    this.$parent.obj && this.$parent.obj instanceof THREE.Mesh && (this.$parent.obj.material = this.obj);
   },
   beforeDestroy(){
+    this.$parent.obj && this.$parent.obj.material === this.obj && (this.$parent.obj.material = null);
     this.obj.dispose()
   }
 }

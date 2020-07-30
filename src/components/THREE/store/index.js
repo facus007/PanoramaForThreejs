@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 
 const event = new Event('update');
-
 function render({state, commit}){
   state.domElement.dispatchEvent(event)
 }
@@ -10,7 +9,6 @@ const state = {
   domElement: null,
   camera: null,
   scene: null,
-  needsUpdate: true,
 }
 
 const mutations = {
@@ -38,5 +36,4 @@ export default {
   state,
   mutations,
   actions,
-  modules:{},
 }

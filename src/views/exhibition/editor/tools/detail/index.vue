@@ -7,7 +7,7 @@
     <div class="block" style="display:flex; flex-direction:column; align-items: flex-start;">
       <div style="width:100%;justify-content:flex-start;display:flex;">当前影像
         <span style="margin-left:auto;">
-          <el-checkbox v-model="selected.target.dynamic_img" style="color:gray;">序列帧长图</el-checkbox>
+          <el-checkbox v-model="dynamic_img" style="color:gray;">序列帧长图</el-checkbox>
         </span>
       </div>
       <el-button class="upload" type="text" @click="onChange" style="width: 100%; height: 100%; margin-top: 5px; padding: 0; position: relative; border-radius: 5px; border: 1px dashed white;">
@@ -32,7 +32,6 @@
 <script>
 import { mapState } from 'vuex'
 import MaterialSelector from '@/views/exhibition/materialselector'
-import SceneSelector from '@/views/exhibition/sceneselector'
 import empty from './empty'
 import hyperlink from './hyperlink'
 import sceneswitch from './sceneswitch'
@@ -51,14 +50,11 @@ const styles = {
   '1':1,'2':2,'10':1
 }
 export default {
-  components:{MaterialSelector,SceneSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
+  components:{MaterialSelector,empty,hyperlink,sceneswitch,videoselect,hypertext},
   data(){return {
     group: null,
     options,
     showDialog:false,
-    showSpotDialog:false,
-    showSceneSelector: false,
-    showvideoDialog: false,
   }},
   props:['selected'],
   watch:{
@@ -74,6 +70,7 @@ export default {
         if(item.style === 2) {
           item.img_url = item.img_url || material.resource_url
           item.target.video = material.material_content
+          item.target = JSON.parse(JSON.stringify(item.target))
         }
       });
     },
@@ -102,13 +99,14 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = null
         item.target.video = null
+        item.target = JSON.parse(JSON.stringify(item.target))
       });
     },
   },
   mounted(){},
   beforeDestroy(){},
   computed:{
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
+    ...mapState('THREE',['scene', 'camera', 'domElement']),
     ...mapState('editor',['curedit', 'product']),
     label:{
       get(){return this.selected.label},
@@ -117,6 +115,15 @@ export default {
     option:{
       get(){return this.selected.type.toString()},
       set(value){this.getSelecteds().forEach((item, i) => item.type = parseInt(value))}
+    },
+    dynamic_img:{
+      get(){return this.selected.target.dynamic_img},
+      set(value){
+        this.getSelecteds().forEach((item, i) => {
+          item.target.dynamic_img = value
+          item.target = JSON.parse(JSON.stringify(item.target))
+        })
+      }
     },
   }
 }

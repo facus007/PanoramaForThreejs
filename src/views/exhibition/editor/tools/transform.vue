@@ -92,7 +92,7 @@ export default {
   mounted(){},
   beforeDestroy(){},
   computed:{
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
+    ...mapState('THREE',['scene', 'camera', 'domElement']),
     ...mapState('editor',['curedit']),
   }
 }

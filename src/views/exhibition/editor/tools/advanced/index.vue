@@ -86,7 +86,7 @@ export default {
   },
   computed:{
     ...mapState('editor', ['preview', 'product', 'curedit']),
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
+    ...mapState('THREE',['scene', 'camera', 'domElement']),
     size: _=>size, layerStyle:_=>layerStyle, gridStyle:_=>gridStyle,
   },
   mounted(){

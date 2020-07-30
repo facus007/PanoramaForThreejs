@@ -1,16 +1,26 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 
 const material = new THREE.MeshBasicMaterial()
 const texloader = new THREE.TextureLoader()
-material.map = texloader.load('./static/goto.png')
 material.transparent = true
-// material.map.repeat = new THREE.Vector2(0.05, 1)
+material.map = texloader.load('./static/spot.png')
+material.map.repeat = new THREE.Vector2(0.05, 1)
 const tex = material.map
 
 var frame = 0
+
+function updateTexture(){
+  if(++frame % 4 === 0){
+    if(frame % 80 === 0){frame = 0}
+    tex.offset = new THREE.Vector2(frame * 0.0125, 0)
+    tex.updateMatrix()
+  }
+  requestAnimationFrame(updateTexture)
+}
+requestAnimationFrame(updateTexture)
 
 var fix = new THREE.Quaternion()
 fix.setFromEuler(new THREE.Euler(Math.PI/2, Math.PI, Math.PI/2, 'XYZ'))
@@ -18,7 +28,7 @@ const posfix = new THREE.Vector3(0,0,0.1)
 
 export default {
   mixins: [THREEComponent],
-  props: ['mesh','item','visible'],
+  props: ['image','mesh','item','visible'],
   data(){return {
     frame: 0
   }},
@@ -50,7 +60,9 @@ export default {
       this.obj.position.add(pos)
       this.obj.position.add(this.layout.clone().multiplyScalar(this.mesh.scale.y * 0.01))
       this.obj.position.add(posfix.clone().applyQuaternion (this.obj.quaternion))
-      this.obj.scale.set(m[2] * 10 * 0.01,m[3] * 10 * 0.01, 10 * 0.01)
+      this.obj.position.normalize()
+      this.obj.scale.set(10 * 0.01 / 50, 10 * 0.01 / 50, 10 * 0.01 / 50)
+      this.obj.lookAt(0,0,0)
     },
     updateTexture(){
       let tex = this.tex
@@ -89,17 +101,20 @@ export default {
     this.obj = null
   },
   computed:{
+    src(){
+      return getDataURL(this.image)
+    },
     size(){
       return [this.mesh.scale.z / this.mesh.scale.y, this.mesh.scale.x / this.mesh.scale.y]
     },
     width(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = 1
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[0] / sizeAspect * imageAspect  :this.size[0]
     },
     height(){
       let sizeAspect = this.size[0] / this.size[1]
-      let imageAspect = 1
+      let imageAspect = this.item.target.dynamic_img ? 1 : this.image.width / this.image.height
       return sizeAspect > imageAspect ? this.size[1] : this.size[1] / imageAspect * sizeAspect
     },
     layout(){

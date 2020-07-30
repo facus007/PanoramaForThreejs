@@ -54,7 +54,7 @@ export default {
   },
   computed:{
     ...mapState('editor', ['preview', 'product', 'curedit']),
-    ...mapState('THREE',['scene', 'camera', 'needsUpdate', 'domElement']),
+    ...mapState('THREE',['scene', 'camera', 'domElement']),
   },
   mounted(){},
   beforeDestroy(){}

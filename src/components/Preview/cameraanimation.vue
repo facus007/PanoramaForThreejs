@@ -1,7 +1,5 @@
 <template>
-  <transition class= "el-fade-in">
     <div :class="isMoblie ? 'guide-mobile' : 'guide'" :style="{visibility: showguide? 'visible' : 'hidden'}"/>
-  </transition>
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -43,7 +41,7 @@ export default {
     },
   },
   created(){
-    if(!this.cookies && this.product.animation){
+    if(!this.cookies && this.product.animation && !this.after_animation_loaded){
       let v3 = (new THREE.Vector3()).setFromSphericalCoords(1,this.cur_aim[1],this.cur_aim[0])
       var aim = v3.multiplyScalar(-1)
       this.camera.fov = 150
@@ -70,7 +68,8 @@ export default {
       return(browser.versions.mobile||browser.versions.android||browser.versions.ios)
     },
     ...mapState('THREE',['camera']),
-    ...mapState('preview',['cookies'])
+    ...mapState('preview',['cookies']),
+    ...mapState('preview/loading',['after_animation_loaded']),
   }
 }
 </script>

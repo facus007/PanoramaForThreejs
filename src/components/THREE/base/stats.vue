@@ -1,6 +1,6 @@
 <script>
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 
 export default {
@@ -21,8 +21,10 @@ export default {
     this.obj.dom.style.position = 'absolute'
     this.obj.dom.style['z-index'] = '1'
     this.$el.appendChild(this.obj.dom)
+    this.domElement && this.domElement.addEventListener('update', this.update)
   },
   beforeDestroy(){
+    this.domElement && this.domElement.removeEventListener('update', this.update)
     this.obj.dom.remove()
     this.obj = null
   }

@@ -12,7 +12,7 @@ export const Texture = () => import(/* webpackChunkName: "chunk-THREEComponent" 
 
 export const AnimatedPanorama = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/animatedpanorama')
 export const Panorama = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/panorama')
-export const Prebuild = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/prebuild')
+export const Prebuild = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/mixin/prebuild')
 export const AdMesh = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/admesh')
 export const ProductMesh = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/productmesh')
 export const HotspotMesh = () => import(/* webpackChunkName: "chunk-THREEComponent" */'./prefabs/hotspotmesh')

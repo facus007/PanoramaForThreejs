@@ -10,10 +10,10 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-import THREEComponent from '../base/threecomponent'
-import MashBasicMaterial from '../base/meshbasicmaterial'
-import Texture from '../base/texture'
-import VideoTexture from '../base/videotexture'
+import THREEComponent from '@/components/THREE/base/threecomponent'
+import MashBasicMaterial from '../../base/meshbasicmaterial'
+import Texture from '../../base/texture'
+import VideoTexture from '../../base/videotexture'
 import {isSupported} from '@/utils/video'
 
 var fix = new THREE.Quaternion()
