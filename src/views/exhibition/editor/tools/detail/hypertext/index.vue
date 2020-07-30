@@ -1,6 +1,6 @@
 <template>
-  <div style="display: flex; flex-direction: column; width: 100%; height:120px; align-items: flex-start; gap: 5px 4px;">
-    <el-button type="primary" size="mini" style="margin:0; width: 100%;" @click="showEditor=true">编 辑</el-button>
+  <div style="display: flex; flex-direction: column; width: 100%; height:120px; align-items: flex-start;">
+    <el-button type="primary" size="mini" style="margin:0; margin-bottom: 4px; width: 100%;" @click="showEditor=true">编 辑</el-button>
     <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'c b' 'd a'; grid-column-gap: 4px; grid-row-gap: 5px;align-items: center; justify-items: flex-end;">
       <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: c;" @click="showSpotDialog=true">修改呼吸灯</el-button>
       <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearSpot">默认呼吸灯</el-button>
