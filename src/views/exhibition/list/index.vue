@@ -7,17 +7,17 @@
       <template v-slot:columns="scope">
         <el-table-column label="作品封面">
           <template v-slot:default="scope">
-            <img :src="scope.row.cover" width="100px" height="50px" style="margin:5px 5px; display:flex;border-radius: 5px; box-shadow: 0 0 4px 0 gray; object-fit: contain;"/>
+            <img :src="scope.row.cover" class="scene-box"/>
           </template>
         </el-table-column>
         <el-table-column label="作品名称">
           <template v-slot:default="scope">
-            {{scope.row.name}}
+            <span class="text">{{scope.row.name}}</span>
           </template>
         </el-table-column>
         <el-table-column label="作品ID">
           <template v-slot:default="scope">
-            {{scope.row.product_id}}
+            <span class="text">{{scope.row.product_id}}</span>
           </template>
         </el-table-column>
         <el-table-column label="发布状态">
@@ -27,17 +27,17 @@
         </el-table-column>
         <el-table-column label="创建日期">
           <template v-slot:default="scope">
-            {{scope.row.create_time}}
+            <span class="text">{{scope.row.create_time}}</span>
           </template>
         </el-table-column>
         <el-table-column label="修改日期">
           <template v-slot:default="scope">
-            {{scope.row.update_time}}
+            <span class="text">{{scope.row.update_time}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot:default="scope">
-            <div style="display: grid; grid-auto-flow: row; grid-template-columns: 1fr 1fr; grid-gap: 5px; align-items: center;">
+            <div class="grid grid-vertical grid-centering" style="grid-template-columns: 1fr 1fr; justify-items: flex-start;">
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="edit(scope.row)">编辑</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="del(scope.row)">删除</el-button>
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="preview(scope.row)">预览</el-button>
@@ -46,7 +46,7 @@
               <el-button style="padding:0;margin:0; width:min-content;" type="text" @click="download(scope.row)">下载配置</el-button>
               <el-popover placement="left" trigger="click">
                 <canvas :id="'qrcodeContent'+scope.$index" style="width: 100%; height: 150px"/>
-                <el-button slot="reference" style="padding:0;margin:auto; width:min-content;" @click="qrcode(scope.row, scope)" type="text">显示二维码</el-button>
+                <el-button slot="reference" style="padding:0; margin:auto; width:min-content;" @click="qrcode(scope.row, scope)" type="text">显示二维码</el-button>
               </el-popover>
             </div>
           </template>
@@ -157,7 +157,6 @@ export default {
             message: '删除成功!'
           });
         } catch (e) {
-
         } finally {
           this.loading = false
         }
@@ -165,9 +164,7 @@ export default {
     }
   },
   computed:{
-    refresh(){
-      this.refresh_()
-    }
+    refresh(){this.refresh_()}
   },
   mounted(){},
   beforeDestroy(){}

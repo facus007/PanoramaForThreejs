@@ -1,6 +1,6 @@
 <template>
   <div class="absolute centering" style="z-index: 5;">
-    <main-view :getProduct="getProduct"/>
+    <main-view v-if="hasProductId" :getProduct="getProduct"/>
     <loading/>
     <back/>
   </div>
@@ -21,17 +21,24 @@ export default {
     if(browser.versions.weixin){
       var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
       wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});
-      var ready = new Promise(function(resolve, reject) {
-        wx.ready(resolve);
-      });
+      var ready = new Promise((resolve, reject) => wx.ready(resolve));
       await ready
     }
     return await import(/* webpackChunkName: "chunk-preview-main" */ '@/components/Preview/mainview')
   }, Loading, back},
-  created(){this.$store.registerModule('preview', store)},
+  created(){
+    this.$store.registerModule('preview', store)
+    if(!this.hasProductId){
+      this.$router.push('/exhibition/list')
+      return
+    }
+  },
   destroyed(){this.$store.unregisterModule('preview')},
   computed:{
     getProduct:_=>getProduct,
+    hasProductId(){
+      return this.$route.query.product_id
+    }
   },
 }
 

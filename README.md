@@ -25,3 +25,10 @@ wasm-pack build
 "postinstall": "./.plugins/postinstall.sh",
 
 git 版本自增脚本 (node environment required)
+
+## TODO LIST
+@/views/exhibition/list/index.vue
+@/views/exhibition/editor/uploadSource.vue
+@/views/exhibition/editor/scenetab.vue
+@/views/exhibition/editor/exhibitionEntrance.vue
+@/views/exhibition/editor/uploadSourceFrame

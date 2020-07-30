@@ -1,8 +1,8 @@
 <template>
-  <container v-if="this.$route.query.product_id">
+  <div class="absolute centering" v-if="this.$route.query.product_id">
     <editor v-if="$store.state.editor.product && $store.state.editor.curedit"/>
-    <div v-else v-loading='true' style="width: 100%; height: 100%;"/>
-  </container>
+    <div v-else v-loading='true' class="absolute centering"/>
+  </div>
 </template>
 
 <script>
@@ -16,10 +16,6 @@ const moduleName = "editor"
 export default {
   mixins:[mixin],
   components: {editor},
-  watch:{},
-  methods:{},
-  mounted(){},
-  beforeDestroy(){},
   created(){
     if(!this.$route.query.product_id){
       this.$router.push('/exhibition/list')

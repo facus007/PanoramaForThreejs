@@ -1,5 +1,8 @@
 <template>
-  <el-button @click="click" size=small class="back"><span style="position:absolute; left:5px;">&lt;</span>返回</el-button>
+  <el-button @click="click" size=small class="back">
+    <span style="position:absolute; left:5px;">&lt;</span>
+    返回
+  </el-button>
 </template>
 
 <script>
@@ -12,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .back{
   right: -90px;
   width: 100px;
@@ -20,12 +23,11 @@ export default {
   position:absolute;
   margin: 0px;
   z-index: 30;
-  background:#000;
+  background: #121212;
   opacity: .5;
   color: #fff;
   border: 0;
-}
-.back:hover{
-  right: 0px;
+
+  &:hover{right: 0px;}
 }
 </style>

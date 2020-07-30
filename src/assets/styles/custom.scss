@@ -1,3 +1,7 @@
+.fill {
+  width: 100%;
+  height: 100%;
+}
 .absolute{
   position: absolute;
   width: 100%;
@@ -20,18 +24,54 @@
 }
 
 .image-box{
-  padding: 5px;
-  width:100px;
-  height:50px;
+  width: 96px;
+  height: 54px;
   border-radius: 10px;
   object-fit: contain;
-  background: #EEE;
+  &-2x{
+    width: 192px;
+    height: 108px;
+  }
+  &-3x{
+    width: 288px;
+    height: 162px;
+  }
 }
 
 .scene-box{
-  width:100px;
-  height:50px;
+  width: 96px;
+  height: 54px;
   border-radius: 10px;
   object-fit: cover;
-  background: #EEE;
+  &-2x{
+    width: 192px;
+    height: 108px;
+  }
+  &-3x{
+    width: 288px;
+    height: 162px;
+  }
+}
+
+.grid{
+  display: grid;
+  grid-gap: 5px;
+  &-horizontal{
+    grid-auto-flow: column;
+  }
+  &-vertical{
+    grid-auto-flow: row;
+  }
+  &-centering{
+    justify-items: center;
+    align-items: center;
+  }
+}
+
+.noevent {
+  pointer-events: none;
+}
+
+.event {
+  pointer-events: visiblePainted;
 }

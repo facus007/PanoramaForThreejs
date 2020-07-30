@@ -1,28 +1,28 @@
 <template>
-  <div style="color: white; font-size: 14px; font-weight: bold; height: 70%; width: 130px; display: grid; grid-gap: 2px; grid-template-rows: 26px 1fr 1fr 26px;" class="event">
+  <div style="height: 70%; width: 130px; grid-template-rows: 26px 1fr 1fr 26px;" class="grid event">
   <div class="block">细节调整</div>
   <div class="block">
     <div>平 移</div>
-    <div style="display: grid; grid-template-areas:'. . a . .' '. . b . .' 'c d . e f' '. . g . .' '. . h . .'; place-items: center center;">
+    <div class="grid" style="grid-template-areas:'. . a . .' '. . b . .' 'c d . e f' '. . g . .' '. . h . .'; place-items: center center;">
       <div style="grid-area: a;">上</div>
-      <el-button type="text" style="grid-area: b; padding: 0;margin: 0;" icon="el-icon-arrow-up" @click="up"/>
       <div style="grid-area: c;">左</div>
-      <el-button type="text" style="grid-area: d; padding: 0;margin: 0;" icon="el-icon-arrow-left" @click="left"/>
-      <el-button type="text" style="grid-area: e; padding: 0;margin: 0;" icon="el-icon-arrow-right" @click="right"/>
       <div style="grid-area: f;">右</div>
-      <el-button type="text" style="grid-area: g; padding: 0;margin: 0;" icon="el-icon-arrow-down" @click="down"/>
       <div style="grid-area: h;">下</div>
+      <el-button class="textbtn" type="text" style="grid-area: b;" icon="el-icon-arrow-up" @click="action('up')"/>
+      <el-button class="textbtn" type="text" style="grid-area: d;" icon="el-icon-arrow-left" @click="action('left')"/>
+      <el-button class="textbtn" type="text" style="grid-area: e;" icon="el-icon-arrow-right" @click="action('right')"/>
+      <el-button class="textbtn" type="text" style="grid-area: g;" icon="el-icon-arrow-down" @click="action('down')"/>
     </div>
   </div>
   <div class="block">
     <div>缩 放</div>
-    <div style="display: grid; grid-template-areas:'a b c' 'd e f'; place-items: center center;">
+    <div class="grid" style="grid-template-areas:'a b c' 'd e f'; place-items: center center;">
       <div style="grid-area: a;">水平</div>
-      <el-button type="text" style="grid-area: b; padding: 0;margin: 0;" icon="el-icon-minus" @click="horizonal_minus"/>
-      <el-button type="text" style="grid-area: c; padding: 0;margin: 0;" icon="el-icon-plus" @click="horizonal_add"/>
       <div style="grid-area: d;">竖直</div>
-      <el-button type="text" style="grid-area: e; padding: 0;margin: 0;" icon="el-icon-minus" @click="vertical_minus"/>
-      <el-button type="text" style="grid-area: f; padding: 0;margin: 0;" icon="el-icon-plus" @click="vertical_add"/>
+      <el-button class="textbtn" type="text" style="grid-area: b;" icon="el-icon-minus" @click="action('horizonal_minus')"/>
+      <el-button class="textbtn" type="text" style="grid-area: c;" icon="el-icon-plus" @click="action('horizonal_add')"/>
+      <el-button class="textbtn" type="text" style="grid-area: e;" icon="el-icon-minus" @click="action('vertical_minus')"/>
+      <el-button class="textbtn" type="text" style="grid-area: f;" icon="el-icon-plus" @click="action('vertical_add')"/>
     </div>
   </div>
   <div class="block">
@@ -33,9 +33,19 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
-// import * as THREE from '@/components/THREE'
 const scaleStep = Math.pow(2, 0.1)
 const posStep = 1
+
+const actions = {
+  right: selected => selected.transform.affine_transform[0] -= posStep,
+  left: selected => selected.transform.affine_transform[0] += posStep,
+  up: selected => selected.transform.affine_transform[1] -= posStep,
+  down: selected => selected.transform.affine_transform[1] += posStep,
+  horizonal_add: selected => selected.transform.affine_transform[2] *= scaleStep,
+  horizonal_minus: selected => selected.transform.affine_transform[2] /= scaleStep,
+  vertical_add: selected => selected.transform.affine_transform[3] *= scaleStep,
+  vertical_minus: selected => selected.transform.affine_transform[3] /= scaleStep,
+}
 
 export default {
   data(){return {
@@ -44,44 +54,8 @@ export default {
   props:['selected'],
   // components:{...THREE},
   methods:{
-    right(){
-      this.selected.transform.affine_transform[0] -= posStep
-      // this.selected.transform.affine_transform[0] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[0], -100, 100)
-      this.selected.transform = {...this.selected.transform}
-    },
-    left(){
-      this.selected.transform.affine_transform[0] += posStep
-      // this.selected.transform.affine_transform[0] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[0], -100, 100)
-      this.selected.transform = {...this.selected.transform}
-    },
-    up(){
-      this.selected.transform.affine_transform[1] -= posStep
-      // this.selected.transform.affine_transform[1] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[1], -1, 1)
-      this.selected.transform = {...this.selected.transform}
-    },
-    down(){
-      this.selected.transform.affine_transform[1] += posStep
-      // this.selected.transform.affine_transform[1] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[1], -1, 1)
-      this.selected.transform = {...this.selected.transform}
-    },
-    horizonal_add(){
-      this.selected.transform.affine_transform[2] *= scaleStep
-      // this.selected.transform.affine_transform[2] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[2], 0.5, 2)
-      this.selected.transform = {...this.selected.transform}
-    },
-    horizonal_minus(){
-      this.selected.transform.affine_transform[2] /= scaleStep
-      // this.selected.transform.affine_transform[2] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[2], 0.5, 2)
-      this.selected.transform = {...this.selected.transform}
-    },
-    vertical_add(){
-      this.selected.transform.affine_transform[3] *= scaleStep
-      // this.selected.transform.affine_transform[3] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[3], 0.5, 2)
-      this.selected.transform = {...this.selected.transform}
-    },
-    vertical_minus(){
-      this.selected.transform.affine_transform[3] /= scaleStep
-      // this.selected.transform.affine_transform[3] = THREE.MathUtils.clamp(this.selected.transform.affine_transform[3], 0.5, 2)
+    action(key){
+      actions[key](this.selected)
       this.selected.transform = {...this.selected.transform}
     },
     reset(){
@@ -98,42 +72,26 @@ export default {
 }
 </script>
 
-<style scoped="three">
-.noevent {
-  pointer-events: none;
-}
-.event {
-  pointer-events: visiblePainted;
-}
-</style>
-
-<style scoped="three-editor">
-.center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.frame {
-  display: flex;
-  width: 70%;
-  height: 70%;
-  border: 2px dashed white;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 20px;
-}
+<style scoped="three-editor" lang="scss">
 .el-button {
   color: #AAA;
-}
-.el-button :hover{
-  color: yellow;
+  & :hover{
+    color: yellow;
+  }
 }
 .block{
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
   text-align: center;
   background: rgba(51,51,51,0.8);
   padding: 5px;
   display: grid; grid-gap: 5px;
   grid-template-rows: 16px 1fr;
   width:100%;
+}
+.textbtn{
+  padding: 0;
+  margin: 0;
 }
 </style>

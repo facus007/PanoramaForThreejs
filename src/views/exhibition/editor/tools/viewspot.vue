@@ -1,6 +1,7 @@
 <template>
-  <div class="home noevent center">
+  <div class="home noevent centering">
     <div class="frame">
+      <i v-for="style in corner" class="el-icon-arrow-left corner" :style="style"/>
       <el-button type="primary" class="event" @click="setView">
         将当前视角设定为初始视角
       </el-button>
@@ -12,11 +13,18 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 
-const renderTarget = new THREE.WebGLRenderTarget(200, 100);
+const corner = [
+  {top: '0', left: '0', transform: 'rotate(45deg)'},
+  {top: '0', right: '0', transform: 'rotate(135deg)'},
+  {bottom: '0', left: '0', transform: 'rotate(315deg)'},
+  {bottom: '0', right: '0', transform: 'rotate(225deg)'},
+]
+
+// const renderTarget = new THREE.WebGLRenderTarget(200, 100);
 
 export default {
   props:['renderer', 'controls'],
-  watch:{},
+  data(){return{corner}},
   methods:{
     setView(){
       // var aspect = this.camera.aspect
@@ -61,28 +69,20 @@ export default {
 }
 </script>
 
-<style scoped="three">
-.noevent {
-  pointer-events: none;
-}
-.event {
-  pointer-events: visiblePainted;
-}
-</style>
-
 <style scoped="three-editor">
-.center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .frame {
+  position: relative;
   display: flex;
   width: 50%;
   height: 50%;
-  border: 2px dashed white;
   justify-content: center;
   align-items: flex-end;
   padding: 20px;
+}
+.corner {
+  position: absolute;
+  color: white;
+  font-size: 40px;
+  text-shadow: #12121288 1px 0 10px;
 }
 </style>
