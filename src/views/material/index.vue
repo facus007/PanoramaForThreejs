@@ -379,7 +379,7 @@ export default {
     },
     // 字典翻译
     typeFormat(row, column) {
-      console.log(this.typeOptions, "this.typeOptions");
+      //   console.log(this.typeOptions, "this.typeOptions");
       for (let i = 0; i < this.typeOptions.length; i++) {
         if ((row.materialType = this.typeOptions[i].dictValue)) {
           return this.typeOptions[i].dictLabel;
@@ -436,9 +436,8 @@ export default {
       // if(this.exhibitorList.length==0){
       //     this.getlistExhibitor();
       // }
-      this.form.remark='';
-      this.form.materialContent='';
-
+      this.form.remark = "";
+      this.form.materialContent = "";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
