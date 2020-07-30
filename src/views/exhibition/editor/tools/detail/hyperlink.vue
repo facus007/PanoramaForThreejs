@@ -8,10 +8,10 @@
     </span>
     <el-input class="input" size="mini" v-model="link" style="margin:5px 0px"/>
     <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" class="grid grid-centering" style="width:100%; grid-template-areas:'d a' 'c b'; justify-items: flex-start;">
-      <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">修改呼吸灯</el-button>
-      <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearSpot">默认呼吸灯</el-button>
-      <el-checkbox v-model="inline" style="margin:0;color:gray; grid-area: d;">弹框打开</el-checkbox>
-      <el-checkbox v-model="hidespot" style="margin:0;color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
+      <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: a;" @click="showSpotDialog=true">修改呼吸灯</el-button>
+      <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: b;" @click="clearSpot">默认呼吸灯</el-button>
+      <el-checkbox v-model="inline" style="margin:0; color:gray; grid-area: d;">弹框打开</el-checkbox>
+      <el-checkbox v-model="hidespot" style="margin:0; color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
     </span>
     <material-selector v-model="showSpotDialog" @select="selectSpot" imgtype="1"/>
   </div>
