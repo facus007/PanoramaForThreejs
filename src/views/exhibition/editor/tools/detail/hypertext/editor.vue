@@ -1,7 +1,7 @@
 <template>
   <span>
     <el-dialog class="dialog" :visible.sync="visible" append-to-body>
-      <quill-editor v-if="visible" v-model="content" :options="editorOption" ref="editor" class="editor" style="white-space: pre-wrap;"/>
+      <quill-editor v-if="visible" v-model="content" @change="input" :options="editorOption" ref="editor" class="editor" style="white-space: pre-wrap;"/>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false; content = item.content">取 消</el-button>
         <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>
@@ -71,6 +71,13 @@ export default {
       let length = quill.getSelection().index;
       quill.insertEmbed(length, 'image',  material.material_content)
       quill.setSelection(length + 1)
+    },
+    input(event){
+      if(this.content.length - 1500 > 0){
+        this.$message.warning('输入文本过多，请精简输入')
+        event.quill.setContents(this.oldcontent, "api")
+      }
+      this.oldcontent = event.quill.getContents()
     }
   },
   watch:{
