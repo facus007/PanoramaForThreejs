@@ -239,6 +239,9 @@ export default {
     },
     refresh_() {
       this.loading = true;
+      if (this.queryParams.name) {
+        this.queryParams.name = this.queryParams.name.replace(/\s+/g, "");
+      }
       listProducts({
         pageNum: this.currentPage,
         pageSize: this.pageSize,
