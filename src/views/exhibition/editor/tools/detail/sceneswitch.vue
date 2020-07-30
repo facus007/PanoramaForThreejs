@@ -24,7 +24,7 @@ export default {
     showSceneSelector:false,
     showSpotDialog:false,
   }},
-  components:{SceneSelector,MaterialSelector},
+  components:{SceneSelector, MaterialSelector},
   methods:{
     selectScene(scene){
       this.getSelecteds().forEach((item, i) => {

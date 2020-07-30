@@ -1,30 +1,23 @@
 <template>
-  <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5; top: 0; left: 0;">
+  <div class="absolute centering" style="z-index: 5;">
     <main-view :getProduct="getProduct" :static="true"/>
     <loading/>
   </div>
 </template>
 
 <script>
-// import Cookies from 'js-cookie'
 import Loading from '@/components/Preview/loading'
 import { getProduct } from './server'
 import store from '@/components/Preview/store'
 
 export default {
   components:{MainView: () => import(/* webpackChunkName: "chunk-preview-main" */ '@/components/Preview/mainview'), Loading},
-  data(){return{}},
+  created(){this.$store.registerModule('preview', store)},
+  destroyed(){this.$store.unregisterModule('preview')},
   computed:{
     getProduct:_=>getProduct,
   },
-  created(){
-    this.$store.registerModule('preview', store)
-  },
-  destroyed(){
-    this.$store.unregisterModule('preview')
-  }
 }
-
 </script>
 
 <style>

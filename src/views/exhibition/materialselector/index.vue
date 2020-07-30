@@ -11,12 +11,12 @@
           <el-table-column label="素材预览">
             <template v-slot:default="scope">
               <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;">
-                <span style="display:flex; flex-direction:column;">
-                  <img v-if="scope.row.material_type === '1' || scope.row.material_type === '10'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px; object-fit:contain"/>
-                  <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" style="background:#EEE; width:100px; height:50px; border-radius: 10px;" autoplay playsinline muted/>
-                  <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" style="background:#EEE; width:350px; height:50px; border-radius: 10px;" playsinline controls/>
-                  <div v-else style="background:#EEE; width:100px; height:50px; border-radius: 10px;"/>
-                  <div style="width:fit-content">{{scope.row.remark}}</div>
+                <span style="display:grid; grid-auto-flow: row; gap: 5px; height: 70px;">
+                  <img v-if="scope.row.material_type === '1' || scope.row.material_type === '10'" :src="scope.row.material_content" class="image-box"/>
+                  <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" class="image-box" autoplay playsinline muted/>
+                  <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" class="image-box" style="width: 350px;" playsinline controls/>
+                  <div v-else class="image-box"/>
+                  <div class="text" style="width: 350px; text-align: left;">{{scope.row.remark}}</div>
                 </span>
               </el-button>
             </template>

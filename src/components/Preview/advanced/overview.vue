@@ -5,7 +5,7 @@
         <div class="block">
           <div v-for="scene,index in product.scenes" class="tab">
             <img :src="scene.pano_graphic_url4" style="height:50px; width:100px; object-fit: cover;" @click="switchScene(scene)"/>
-            <div style="position:absolute; width:100%; height:15px; display:flex;justify-content:center; background:#0008;bottom:0;align-items:center;">
+            <div style="position:absolute; width:100%; height:15px; display:flex;justify-content:center; background:#0008; bottom:0;align-items:center;">
               {{scene.name}}
             </div>
           </div>
@@ -47,10 +47,10 @@ export default {
 .scene-tab{
   position:absolute;
   width:100%;
-  height:80px;
+  height:86px;
   display: grid;
   grid-gap: 4px;
-  grid-template-rows: 1fr 16px;
+  grid-template-rows: 1fr 22px;
 }
 .block{
   width: 100%;
@@ -66,7 +66,7 @@ export default {
   padding: 5px;
 }
 .tab{
-  height: 100%;
+  height: 50px;
   width: 100px;
   background: white;
   position: relative;

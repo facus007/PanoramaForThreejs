@@ -1,5 +1,5 @@
 <template>
-  <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 5;">
+  <div class="absolute centering" style="z-index: 5;">
     <main-view :getProduct="getProduct"/>
     <loading/>
   </div>
@@ -14,7 +14,7 @@ import store from '@/components/Preview/store'
 import Loading from '@/components/Preview/loading'
 
 export default {
-  components:{ MainView: async () => {
+  components:{MainView: async () => {
     if(browser.versions.weixin){
       var {data} = await getshareconfig({url: location.href.slice(0,location.href.indexOf('#'))})
       wx.config({appId: data.appid,timestamp: data.timestamp,nonceStr: data.nonceStr,signature: data.signature,});
@@ -26,12 +26,9 @@ export default {
     return await import(/* webpackChunkName: "chunk-preview-main" */ '@/components/Preview/mainview')
   }, Loading},
   created(){this.$store.registerModule('preview', store)},
-  destroyed(){
-    this.$store.unregisterModule('preview')
-  },
+  destroyed(){this.$store.unregisterModule('preview')},
   computed:{
     getProduct:_=>getProduct,
   },
 }
-
 </script>
