@@ -532,6 +532,9 @@ export default {
       this.$refs.multipleTable.clearSelection();
       this.overshow = false;
       // console.log(this.sCount, "sCount****");
+    },
+    resetForm(form) {
+      this.$refs[form].resetFields();
     }
   },
   computed: {
