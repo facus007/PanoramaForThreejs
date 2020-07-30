@@ -2,14 +2,14 @@
   <el-dialog title="新建作品" :visible.sync="visible" width="70%" v-loading="loading">
     <el-form v-if="visible" label-position="right" label-width="100px">
       <el-form-item label="作品名称">
-        <el-input size="small" v-model="name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
+        <el-input size="small" v-model="name" style="width: 250px" show-word-limit :maxlength="20" :minlength="4"></el-input>
       </el-form-item>
       <el-form-item label="作品描述">
-        <el-input size="small" type="textarea" v-model="description" :rows="2" style="width: 200px" show-word-limit :maxlength="50" resize="none"></el-input>
+        <el-input size="small" type="textarea" v-model="description" :rows="2" style="width: 250px" show-word-limit :maxlength="50" resize="none"></el-input>
       </el-form-item>
       <el-form-item label="选择封面">
-        <el-button class="upload" type="text" @click="onChange" style="width: 200px; height: 100px; border-radius: 5px; border: 1px dashed gray; position:ralative;">
-          <el-image v-if="cover" :src="cover" fit="contain" style="position:absolute; width: 200px; height: 100px;left:0;top:0; padding:1px;"/>
+        <el-button class="upload scene-box scene-box-2x centering" type="text" @click="onChange" style="border: 1px dashed #d9d9d9;">
+          <el-image v-if="cover" :src="cover" class="scene-box scene-box-2x"/>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-button>
       </el-form-item>
@@ -27,12 +27,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import { v4 as uuid} from 'uuid'
+import { saveVR } from '@/utils/server'
 import mixin from '@/views/mixin'
 import TemplateSelector from './templateselector'
-import { imageUpload } from '@/api/cos'
-import { saveVR } from '@/utils/server'
 import MaterialSelector from '@/views/exhibition/materialselector'
-import { v4 as uuid} from 'uuid'
 
 const defaultScene = {
   fov: 60,
@@ -52,7 +51,6 @@ export default {
     template: null,
     showDialog: false,
     cover: false,
-    exhibitor_id: null,
   }},
   props:['value'],
   watch:{
@@ -65,7 +63,6 @@ export default {
         this.file = null
         this.cover = null
         this.template = null
-        this.exhibitor_id = null
       }
     },
   },
@@ -75,10 +72,6 @@ export default {
         this.$message.warning('请输入作品名')
         return
       }
-      // if(!this.exhibitor_id){
-      //   this.$message.warning('请选择参展商')
-      //   return
-      // }
       if(!this.template){
         this.$message.warning('请选择模版')
         return
@@ -93,14 +86,12 @@ export default {
           this.template.tmp_group_id === '1' && item.tmp_id === '1' && (scenes[i].start_rotation[0] -= Math.PI/6) //TODO:  hardcode
         });
 
-
         await saveVR({
           name: this.name,
           description: this.description,
           cover: this.cover,
           scenes,
           tmp_group_id: this.template.tmp_group_id,
-          exhibitor_id: this.exhibitor_id,
           music_url: music_url,
           loop: true,
           animation: true,

@@ -1,6 +1,5 @@
 <template>
-  <THREE v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}" :isDebug="true">
-    <stats v-if="isDebug" style="visibility:visible"/>
+  <THREE v-if="first_loaded" :style="{position: 'absolute', width, height,top:'0',left:'0'}">
     <WebGLRenderer :option="{antialias: true}"/>
     <CSS3DRenderer :style="{visibility: after_animation_loaded ? 'visible' : 'hidden','z-index': '1'}">
       <orbit-controls v-model="curRotation" v-if="after_animation_loaded && !loading" style="pointer-events:auto" :auto_rotate="true" :start_rotation="start_rotation || curScene.start_rotation" :key="curScene.scene_id"/>
@@ -26,7 +25,6 @@ import Advanced from './advanced'
 import * as THREE from '@/components/THREE'
 
 document.title = ''
-const isDebug = process.env.NODE_ENV === "development"
 
 export default {
   components:{...THREE, Preview, CameraAnimation, Advanced},
@@ -98,7 +96,6 @@ export default {
       (()=>{})(this.curSceneId) // watch
       return this.scenes[this.curSceneId]
     },
-    isDebug: () => isDebug,
     curRotation:{
       get (){
         return this.$store.state.preview.curRotation

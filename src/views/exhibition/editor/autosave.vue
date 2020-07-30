@@ -31,7 +31,7 @@ export default {
   }},
   watch:{
     'setting.autosave'(next){
-      this.$store.commit(moduleName+'/SET_SETTING',this.setting)
+      this.$store.commit(moduleName+'/SET_SETTING', this.setting)
     }
   },
   methods:{
@@ -50,13 +50,13 @@ export default {
   mounted(){},
   beforeDestroy(){},
   computed:{
-    ...mapState(moduleName, ['product', 'setting','curedit','cursave']),
+    ...mapState(moduleName, ['product', 'setting', 'curedit', 'cursave']),
     autosave(){
       let product = JSON.parse(JSON.stringify(this.product))
       product.scenes.forEach((item, i) => {
         delete item.fov
       });
-      if(this.setting.autosave && JSON.stringify(product)!==this.cursave){
+      if(this.setting.autosave && JSON.stringify(product) !== this.cursave){
         this.save()
       }
       return this.cursave

@@ -1,5 +1,6 @@
 <template>
-  <div class="home" :debug="isDebug && debug">
+  <div class="home" :debug="debug">
+    <stats v-if="isDebug"/>
     <slot></slot>
   </div>
 </template>
@@ -7,16 +8,19 @@
 <script>
 import * as THREE from 'three'
 import { mapState } from 'vuex'
+import stats from './base/stats'
 import THREEComponent from '@/components/THREE/base/threecomponent'
 import store from './store'
+const isDebug = process.env.NODE_ENV === "development"
 
 export default {
+  data(){return {isDebug}},
+  components:{stats},
   mixins:[THREEComponent],
-  props:['isDebug'],
   computed:{
     debug(){
-      window.scene = this.scene
-      window.THREE = THREE
+      window.scene = isDebug && this.scene
+      window.THREE = isDebug && THREE
     },
   },
   created(){

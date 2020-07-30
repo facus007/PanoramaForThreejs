@@ -1,4 +1,3 @@
-// import {getProduct} from './test'
 import {getProduct, saveVR} from '@/utils/server'
 import { listRandomHotspots, listChooseHotspots, listAdvHotspots } from '@/api/server'
 

@@ -1,30 +1,17 @@
 <template>
-  <el-dialog title="选择素材" :visible.sync="visible" width="50%" v-loading="loading" :modal="false">
-    <container v-if="visible" :refresh="refresh" v-loading="loading">
-      <table-frame :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
-        <template v-slot:header="scope">
-          <el-button type="primary" size="small" @click="newMaterial" v-if="!showSystemStore">上传素材</el-button>
-          <el-button type="primary" size="small" @click="refresh_">刷新</el-button>
-          <el-checkbox v-if="imgtype.split(',').includes('1')" v-model="showSystemStore" size="small" style="margin-left: 10px">显示云端素材库</el-checkbox>
-        </template>
-        <template v-slot:columns="scope">
-          <el-table-column label="素材预览">
-            <template v-slot:default="scope">
-              <el-button type="text" @click="()=>{$emit('select',scope.row);$emit('input', false)}" style="width: 100%; height: 100%; padding:0;">
-                <span style="display:grid; grid-auto-flow: row; gap: 5px; height: 70px;">
-                  <img v-if="scope.row.material_type === '1' || scope.row.material_type === '10'" :src="scope.row.material_content" class="image-box"/>
-                  <video v-else-if="scope.row.material_type === '2'" :src="scope.row.material_content" class="image-box" autoplay playsinline muted/>
-                  <audio v-else-if="scope.row.material_type === '5'" :src="scope.row.material_content" class="image-box" style="width: 350px;" playsinline controls/>
-                  <div v-else class="image-box"/>
-                  <div class="text" style="width: 350px; text-align: left;">{{scope.row.remark}}</div>
-                </span>
-              </el-button>
-            </template>
-          </el-table-column>
-        </template>
-      </table-frame>
-      <uploader v-model="showDialog" :isCloud="showSystemStore" :accepttype="imgtype"/>
-    </container>
+  <el-dialog title="选择素材" :visible.sync="visible" width="50%" v-loading="loading" :refresh="refresh" :modal="false">
+    <table-frame v-if="visible" :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false" style="height:500px">
+      <template v-slot:header="scope">
+        <el-button type="primary" size="small" @click="newMaterial" v-if="!showSystemStore">上传素材</el-button>
+        <el-button type="primary" size="small" @click="refresh_">刷新</el-button>
+        <el-checkbox v-if="imgtype.split(',').includes('1')" v-model="showSystemStore" size="small" style="margin-left: 10px">显示云端素材库</el-checkbox>
+      </template>
+      <template v-slot:columns="scope">
+        <columns @select="row=>{$emit('select',row);$emit('input', false)}">
+        </columns>
+      </template>
+    </table-frame>
+    <uploader v-model="showDialog" :isCloud="showSystemStore" :accepttype="imgtype"/>
   </el-dialog>
 </template>
 
@@ -34,10 +21,11 @@ import { listMaterials } from '@/api/server'
 import Container from '@/views/mixin/container'
 import TableFrame from '@/components/UI/tableframe'
 import Uploader from './uploader'
+import Columns from './columns'
 // import moment from 'moment'
 
 export default {
-  components:{Container, TableFrame, Uploader},
+  components:{Container, TableFrame, Uploader, Columns},
   data(){ return {
     total: 0,
     pageSize: 10,
@@ -98,9 +86,7 @@ export default {
     }
   },
   computed:{
-    refresh(){
-      this.refresh_()
-    }
+    refresh(){this.refresh_()}
   },
   mounted(){},
   beforeDestroy(){}
