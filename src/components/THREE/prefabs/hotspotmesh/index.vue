@@ -9,7 +9,7 @@
       <gl-image v-if="item.style === 1 && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible" :key="''+item.target.dynamic_img"/>
       <gl-video v-if="item.style === 2 && image && imageData && visible" :image="imageData" :video="item.target.video" :mesh="mesh" :item="item" :visible="visible"/>
       <spot v-if=" item.style === 1 && ((item.type === 1 &&item.target.link) || item.type === 3 || item.type === 4) && !item.target.hidespot && image && imageData" :image="imageData" :mesh="mesh" :item="item" :visible="visible" :key="item.target.spot_url"/>
-      <goto v-if="item.type===2 && !item.target.hidespot" :mesh="mesh" :item="item" :visible="visible" :key="item.target.spot_url"/>
+      <goto v-if="item.type===2 && !item.target.hidespot" :image='imageData' :mesh="mesh" :item="item" :visible="visible" :key="item.target.spot_url + imageData"/>
     </div>
   </div>
 </template>
