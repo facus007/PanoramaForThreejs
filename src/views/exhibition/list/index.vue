@@ -22,7 +22,7 @@
               />
             </el-form-item>
             <el-form-item label="作品创建时间" prop="dateRanges">
-              
+
               <el-date-picker
                 v-model="dateRanges"
                 size="small"
@@ -115,7 +115,7 @@
                     type="text"
                     @click="downloadqrcode(scope.$index)"
                   >下载二维码</el-button>
-                  <a style="display:none;" href="" :download="scope.row.name" id="download"></a>
+                  <a style="display:none;" href="" :download="scope.row.name" :id="'download'+scope.$index"></a>
                 </div>
                 <el-button
                   slot="reference"
@@ -233,10 +233,10 @@ export default {
     downloadqrcode(index) {
       let canvas = document.getElementById("qrcodeContent" + index);
       let dataURL = canvas.toDataURL("image/png");
-      let a = document.getElementById("download");
+      let a = document.getElementById("download"+ index);
       a.setAttribute("href", dataURL);
       // console.log(dataURL, "dataURL");
-      document.getElementById("download").click();
+      document.getElementById("download"+ index).click();
     },
     refresh_() {
       this.loading = true;
