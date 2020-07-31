@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 70%; width: 130px; grid-template-rows: 26px 1fr 1fr 26px;" class="grid event">
+  <div style="width: 130px; grid-template-rows: 26px 1fr 1fr 26px;" class="grid event">
   <div class="block">细节调整</div>
   <div class="block">
     <div>平 移</div>

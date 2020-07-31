@@ -67,6 +67,7 @@ export default {
         for (var i = 0; i < options.length; i++) {
           if( accepttype.includes(options[i].value)){
             this.selected = options[i]
+            return
           }
         }
       }

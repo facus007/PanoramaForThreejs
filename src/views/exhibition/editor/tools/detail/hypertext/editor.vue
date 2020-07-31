@@ -1,14 +1,12 @@
 <template>
-  <span>
-    <el-dialog class="dialog" :visible.sync="visible" append-to-body>
-      <quill-editor v-if="visible" v-model="content" @change="input" :options="editorOption" ref="editor" class="editor" style="white-space: pre-wrap;"/>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="visible = false; content = item.content">取 消</el-button>
-        <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>
-      </div>
-      <material-selector class="material-selector" v-model="showDialog" @select="select" imgtype="1"/>
-    </el-dialog>
-  </span>
+  <el-dialog class="dialog" :visible.sync="visible" append-to-body>
+    <quill-editor v-if="visible" v-model="content" @change="input" :options="editorOption" ref="editor" class="grid grid-vertical editor"/>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="visible = false; content = item.content">取 消</el-button>
+      <el-button type="primary" @click="()=>{visible = false; $emit('content',content)}">确 定</el-button>
+    </div>
+    <material-selector class="material-selector" v-model="showDialog" @select="select" imgtype="1"/>
+  </el-dialog>
 </template>
 
 <script>
@@ -86,20 +84,16 @@ export default {
   },
 }
 </script>
-<style scoped>
-.material-selector >>> .el-dialog__body{
-  height: auto;
-}
+<style scoped lang="scss">
 .editor{
-  display: flex;
-  flex-direction: column;
   height:60vh;
-}
-.editor>>>.ql-toolbar{
-  height:10vh;
-  /* overflow: auto; */
-}
-.editor>>>.ql-container{
-  height:50vh;
+  grid-template-rows: auto 1fr;
+  grid-gap: 0;
+  /deep/ .ql-container{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    white-space: pre-wrap;
+  }
 }
 </style>

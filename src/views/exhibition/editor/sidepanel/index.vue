@@ -1,5 +1,5 @@
 <template>
-  <el-tabs class="sidepanel" v-model="curFeature" tabPosition="right" lazy style="color: white; height: 100%; padding: 10px; font-size: 14px; font-weight: bold;">
+  <el-tabs class="sidepanel fill" v-model="curFeature" tabPosition="right" lazy style="color: white; padding: 10px; font-size: 14px; font-weight: bold;">
     <slot></slot>
   </el-tabs>
 </template>
@@ -44,15 +44,5 @@ export default sidepanel;
 .sidepanel >>> .el-tabs__content{
   height: 100%;
   overflow: auto;
-}
-.sidepanel >>> .el-tabs__content::-webkit-scrollbar-track-piece {
-  background: #d3dce6;
-}
-.sidepanel >>> .el-tabs__content::-webkit-scrollbar {
-  width: 6px;
-}
-.sidepanel >>> .el-tabs__content::-webkit-scrollbar-thumb {
-  background: #99a9bf;
-  border-radius: 20px;
 }
 </style>

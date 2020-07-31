@@ -6,7 +6,7 @@
         <el-button type="text" class="el-icon-info" style="margin: 0; padding:0"/>
       </el-tooltip>
     </span>
-    <el-input class="input" size="mini" v-model="link" style="margin:5px 0px"/>
+    <el-input class="input" size="mini" v-model="link"/>
     <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" class="grid grid-centering" style="width:100%; grid-template-areas:'d a' 'c b'; justify-items: flex-start;">
       <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: a;" @click="showSpotDialog=true">修改呼吸灯</el-button>
       <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: b;" @click="clearSpot">默认呼吸灯</el-button>

@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-centering fill" style="grid-template-areas:'a' 'c';">
-    <el-button class="upload image-box image-box-2x" type="text" @click="showvideoDialog=true" style="grid-area: a; padding: 0; border: 1px dashed white;">
+  <div class="grid grid-centering grid-vertical fill">
+    <el-button class="upload" type="text" @click="showvideoDialog=true" style="padding: 0;">
       <video v-if="selected.target.video" :src="selected.target.video" controls autoplay playsinline class="image-box image-box-2x" muted />
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed white;"></i>
     </el-button>
-    <el-checkbox v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" v-model="selected.target.hidespot" style="margin-left:auto; color:gray; grid-area: c;">隐藏呼吸灯</el-checkbox>
+    <el-checkbox v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" v-model="selected.target.hidespot" style="margin-left:auto; color:gray;">隐藏呼吸灯</el-checkbox>
     <material-selector v-model="showvideoDialog" @select="selectVideo" imgtype="2"/>
   </div>
 </template>

@@ -8,9 +8,9 @@
         <el-input size="small" type="textarea" v-model="description" :rows="2" style="width: 250px" show-word-limit :maxlength="50" resize="none"></el-input>
       </el-form-item>
       <el-form-item label="选择封面">
-        <el-button class="upload scene-box scene-box-2x centering" type="text" @click="onChange" style="border: 1px dashed #d9d9d9;">
+        <el-button class="upload centering" type="text" @click="onChange">
           <el-image v-if="cover" :src="cover" class="scene-box scene-box-2x"/>
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed #d9d9d9;"></i>
         </el-button>
       </el-form-item>
       <el-form-item label="选择模板">

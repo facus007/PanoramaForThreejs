@@ -56,6 +56,7 @@
 .grid{
   display: grid;
   grid-gap: 5px;
+  align-content: stretch;
   &-horizontal{
     grid-auto-flow: column;
   }
@@ -74,4 +75,14 @@
 
 .event {
   pointer-events: visiblePainted;
+}
+
+*::-webkit-scrollbar-track-piece {
+  background: #d3dce6;
+}
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #99a9bf;
 }

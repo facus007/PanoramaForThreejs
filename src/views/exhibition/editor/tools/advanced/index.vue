@@ -59,8 +59,6 @@ export default {
     }
   },
   methods:{
-    // update(){},
-    // propCompute(){},
     setSelected(selected){
       this.selected = selected
     },
@@ -131,12 +129,6 @@ export default {
 </script>
 
 <style scoped>
-.noevent {
-  pointer-events: none;
-}
-.event {
-  pointer-events: auto;
-}
 .grid-stack >>> .grid-stack-item[data-gs-width='1'] {
     width: 33.3333333333%;
 }

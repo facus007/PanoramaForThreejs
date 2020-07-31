@@ -1,12 +1,12 @@
 <template>
-  <div class="grid grid-centering fill" style="grid-template-areas:'a' 'c';">
-    <el-button class="upload" type="text scene-box scene-box-2x" @click="showSceneSelector=true" style="grid-area: a; padding: 0; border: 1px dashed white;">
+  <div class="grid grid-centering grid-vectical fill">
+    <el-button class="upload" type="text" @click="showSceneSelector=true" style="padding: 0;">
       <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" class="scene-box scene-box-2x"/>
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed white;"></i>
     </el-button>
-    <span v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="display: grid;width:100%; grid-template-areas:'a b' 'd c'; grid-column-gap: 4px; grid-row-gap: 2px;align-items: center; justify-items: flex-end;">
-      <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: a;" @click="showSpotDialog=true">修改热点图标</el-button>
-      <el-button type="primary" size="mini" style="width:100%;margin:0; grid-area: b;" @click="clearSpot">默认热点图标</el-button>
+    <span class="grid" v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="grid-template-areas:'a b' 'd c'; justify-items: flex-end;">
+      <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: a;" @click="showSpotDialog=true">修改热点图标</el-button>
+      <el-button type="primary" size="mini" style="width:100%; margin:0; grid-area: b;" @click="clearSpot">默认热点图标</el-button>
       <el-checkbox v-model="hidespot" style="margin:0;color:gray; grid-area: c;">隐藏热点图标</el-checkbox>
     </span>
     <material-selector v-model="showSpotDialog" @select="selectSpot" imgtype="1"/>
