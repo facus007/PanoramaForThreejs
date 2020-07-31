@@ -1,136 +1,74 @@
 <template>
-    <div class="app-container">
-        <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="110px">
-            <!-- <el-form-item label="展会名称:" prop="fairId">
-                <el-select
-                    v-model="queryParams.fairId"
-                    placeholder="请选择展会名称:"
-                    clearable
-                    filterable
-                    :style="{width: '100%'}"
-                >
-                    <el-option
-                        v-for="(item, index) in QfairList"
-                        :key="index"
-                        :label="item.fairName"
-                        :value="item.id"
-                        :disabled="item.disabled"
-                    ></el-option>
-                </el-select>
-            </el-form-item>-->
-            <el-form-item label="参展商名称:" prop="exhibitorId">
-                <el-select
-                    v-model="queryParams.exhibitorId"
-                    placeholder="请选择参展商名称:"
-                    clearable
-                    filterable
-                    :style="{width: '100%'}"
-                >
-                    <el-option
-                        v-for="(item, index) in QexhibitorList"
-                        :key="index"
-                        :label="item.exhibitorName"
-                        :value="item.exhibitorId"
-                        :disabled="item.disabled"
-                    ></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="素材类型" prop="materialType">
-                <el-select
-                    v-model="queryParams.materialType"
-                    placeholder="请选择素材类型"
-                    clearable
-                    size="small"
-                >
-                    <el-option
-                        v-for="dict in typeOptions"
-                        :key="dict.dictValue"
-                        :label="dict.dictLabel"
-                        :value="dict.dictValue"
-                    />
-                </el-select>
-            </el-form-item>
-            <!-- <el-form-item label="显示顺序" prop="orderNum">
-        <el-input
-          v-model="queryParams.orderNum"
-          placeholder="请输入显示顺序"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-            </el-form-item>-->
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <div style="margin:0 30px;">
-            <el-row :gutter="10" class="mb8">
-                <el-col :span="1.5">
-                    <el-button
-                        type="primary"
-                        icon="el-icon-plus"
-                        size="mini"
-                        @click="handleAdd"
-                        v-hasPermi="['fair:material:add']"
-                    >新增</el-button>
-                </el-col>
-            </el-row>
-        </div>
-        <el-table
-            v-loading="loading"
-            :data="materialList"
-            @selection-change="handleSelectionChange"
-        >
-            <!-- <el-table-column type="selection" width="55" align="center" /> -->
-            <el-table-column label="素材编号" align="center" prop="id"/>
-            <!-- <el-table-column label="展会编号" align="center" prop="fairId"/>
-            <el-table-column label="展会名称" align="center" prop="fairName"/>-->
-            <el-table-column label="参展商名称" align="center" prop="exhibitorName"/>
-            <el-table-column
-                label="素材类型"
-                align="center"
-                prop="materialType"
-                :formatter="typeFormat"
-            />
-            <el-table-column label="素材内容" align="center" prop="materialContent"/>
-            <el-table-column label="显示顺序" align="center" prop="orderNum"/>
-            <el-table-column label="说明信息" align="center" prop="remark"/>
-            <el-table-column
-                label="操作"
-                align="center"
-                width="130"
-                class-name="small-padding fixed-width"
-            >
-                <template slot-scope="scope">
-                    <el-button
-                        size="mini"
-                        type="text"
-                        icon="el-icon-edit"
-                        @click="handleUpdate(scope.row)"
-                        v-hasPermi="['fair:material:edit']"
-                    >修改</el-button>
-                    <el-button
-                        size="mini"
-                        type="text"
-                        icon="el-icon-delete"
-                        @click="handleDelete(scope.row)"
-                        v-hasPermi="['fair:material:remove']"
-                    >删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <pagination
-            v-show="total>0"
-            :total="total"
-            :page.sync="queryParams.pageNum"
-            :limit.sync="queryParams.pageSize"
-            @pagination="getList"
-        />
-        <!-- 添加或修改素材对话框 -->
-        <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
-            <el-form ref="form" :model="form" :rules="rules" label-width="90px">
-                <!-- <el-form-item label="展会名称:" prop="fairId">
+  <div class="app-container">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="110px">
+      <el-form-item label="素材类型" prop="materialType">
+        <el-select v-model="queryParams.materialType" placeholder="请选择素材类型" clearable size="small">
+          <el-option
+            v-for="dict in typeOptions"
+            :key="dict.dictValue"
+            :label="dict.dictLabel"
+            :value="dict.dictValue"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+    </el-form>
+    <div style="margin:0 30px;">
+      <el-row :gutter="10" class="mb8">
+        <el-col :span="1.5">
+          <el-button
+            type="primary"
+            icon="el-icon-plus"
+            size="mini"
+            @click="handleAdd"
+            v-hasPermi="['fair:material:add']"
+          >新增</el-button>
+        </el-col>
+      </el-row>
+    </div>
+    <el-table v-loading="loading" :data="materialList" @selection-change="handleSelectionChange">
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+      <el-table-column label="素材编号" align="center" prop="id"/>
+      <!-- <el-table-column label="展会编号" align="center" prop="fairId"/>
+      <el-table-column label="展会名称" align="center" prop="fairName"/>-->
+      <el-table-column label="参展商名称" align="center" prop="exhibitorName"/>
+      <el-table-column label="素材类型" align="center" prop="materialType" :formatter="typeFormat"/>
+      <el-table-column label="素材内容" align="center" prop="materialContent"/>
+      <!-- <el-table-column label="显示顺序" align="center" prop="orderNum"/> -->
+      <el-table-column label="说明信息" align="center" prop="remark"/>
+      <el-table-column label="操作" align="center" width="130" class-name="small-padding fixed-width">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['fair:material:edit']"
+          >修改</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-delete"
+            @click="handleDelete(scope.row)"
+            v-hasPermi="['fair:material:remove']"
+          >删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
+    />
+    <!-- 添加或修改素材对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="90px">
+        <!-- <el-form-item label="展会名称:" prop="fairId">
                     <el-select
                         v-model="form.fairId"
                         placeholder="请选择展会名称:"
@@ -163,21 +101,21 @@
                             :disabled="item.disabled"
                         ></el-option>
                     </el-select>
-                </el-form-item>-->
-                <el-form-item label="素材类型">
-                    <el-select v-model="form.materialType" placeholder="请选择素材类型">
-                        <el-option
-                            v-for="dict in typeOptions"
-                            :key="dict.dictValue"
-                            :label="dict.dictLabel"
-                            :value="dict.dictValue"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="素材内容:" prop="materialContent">
-                    <el-input v-model="form.materialContent" type="textarea" placeholder="请输入内容"/>
-                </el-form-item>
-                <!-- <el-form-item label="全景图:" prop="resourceUrl">
+        </el-form-item> v-model="materialSeclect"-->
+        <el-form-item label="素材类型">
+          <el-select v-model="form.materialType" @change="materChange" placeholder="请选择素材类型">
+            <el-option
+              v-for="dict in typeOptions"
+              :key="dict.dictValue"
+              :label="dict.dictLabel"
+              :value="dict.dictValue"
+            />
+          </el-select>
+        </el-form-item>
+        <!-- <el-form-item label="素材内容:" prop="materialContent">
+          <el-input v-model="form.materialContent" type="textarea" placeholder="请输入内容"/>
+        </el-form-item>-->
+        <!-- <el-form-item label="全景图:" prop="resourceUrl">
           <el-upload
             ref="resourceUrl"
             :file-list="field104fileList"
@@ -187,47 +125,48 @@
             :on-exceed="overresourcenum"
             :on-remove="resourceremove"
             :limit='1'
-                >-->
-                <!--  :http-request="fileUploadreq" -->
-                <!-- <div slot="tip" class="el-upload__tip">只能上传zip/rar文件，且不超过300M</div>
+        >-->
+        <!--  :http-request="fileUploadreq" -->
+        <!-- <div slot="tip" class="el-upload__tip">只能上传zip/rar文件，且不超过300M</div>
             <el-button size="small">上传</el-button>
           </el-upload>
-                </el-form-item>-->
-                <el-form-item label="素材:">
-                    <el-upload
-                        ref="thumbUrl1"
-                        :file-list="field103fileList"
-                        :action="imageUpload"
-                        multiple
-                        :class="{'disabled': uploadDisabled}"
-                        :before-upload="field103BeforeUpload"
-                        :with-credentials="true"
-                        :on-remove="picremove"
-                        :on-preview="handlePictureCardPreview"
-                        :on-success="thumbUrlUpload"
-                        :on-exceed="overpicnum"
-                        list-type="picture-card"
-                        :limit="1"
-                        accept="image/*"
-                    >
-                        <i class="el-icon-plus"></i>
-                        <div slot="tip" class="el-upload__tip">请上传jpg/png格式，尺寸为1：1比例，大小不超过15M</div>
-                    </el-upload>
-                    <!-- :http-request="myUpload" -->
-                </el-form-item>
-                <el-form-item label="资源描述:" prop="remark">
-                    <el-input v-model="form.remark" placeholder="请输入资源描述"/>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="submitForm">确 定</el-button>
-                <el-button @click="cancel">取 消</el-button>
-            </div>
-        </el-dialog>
-        <el-dialog :visible.sync="dialogVisible" style="z-index='100">
-            <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
-    </div>
+        </el-form-item>-->
+        <el-form-item label="素材:">
+          <el-upload
+            ref="thumbUrl1"
+            :file-list="field103fileList"
+            :action="imageUpload"
+            multiple
+            :class="{'disabled': uploadDisabled}"
+            :before-upload="field103BeforeUpload"
+            :with-credentials="true"
+            :on-remove="picremove"
+            :on-preview="handlePictureCardPreview"
+            :on-success="thumbUrlUpload"
+            :on-exceed="overpicnum"
+            list-type="picture-card"
+            :limit="1"
+            :accept="accept"
+            :show-file-list="false"
+          >
+            <i class="el-icon-plus"></i>
+            <!-- <div slot="tip" class="el-upload__tip">请上传jpg/png格式，尺寸为1：1比例，大小不超过15M</div> -->
+          </el-upload>
+          <!-- :http-request="myUpload" -->
+        </el-form-item>
+        <el-form-item label="资源描述:" prop="remark">
+          <el-input v-model="form.remark" placeholder="请输入资源描述"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogVisible" style="z-index='100">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -238,24 +177,10 @@ import {
   addVrMaterial,
   updateMaterial,
   dictType,
-  listFair,
+  getInfo,
   listExhibitor
 } from "@/api/server";
-
-// import {
-//   listProduct,
-//   getProduct,
-//   delProduct,
-//   addProduct,
-//   updateProduct,
-//   exportProduct,
-//   imageUpload,
-//   removeBg
-// } from "@/api/fair/product/product";
-// import { envUrl, imgUploadUrl, fileUploadUrl, mediaUpload } from "@/api/upload";
-// import { listFair } from "@/api/fair/fair/fair";
-// import { getStatus } from "@/utils/index";
-// import { listExhibitor } from "@/api/fair/exhibitor/exhibitor";
+// import { imageUpload, mediaUpload } from '@/api/cos'
 export default {
   name: "material",
   data() {
@@ -298,12 +223,7 @@ export default {
       // 查询参数
       queryParams: {
         pageNum: 1,
-        pageSize: 10,
-        fairId: undefined,
-        exhibitorId: undefined,
-        materialType: undefined,
-        materialContent: undefined,
-        orderNum: undefined
+        pageSize: 10
       },
       // 表单参数
       form: {},
@@ -315,14 +235,16 @@ export default {
       dbgcimgList: [],
       //上传
       dialogImageUrl: "",
-      dialogVisible: false
+      dialogVisible: false,
+      accept: "image/*",
+      materialType: 1 //类型
     };
   },
   created() {
     this.getList();
-    this.getlistFair();
-    this.getlistExhibitor(1);
-    this.getlistExhibitor();
+    // this.getlistFair();
+    // this.getlistExhibitor(1);
+    this.getUserInfo();
     this.getDicts();
   },
   methods: {
@@ -338,9 +260,22 @@ export default {
         this.QfairList = arrs;
       });
     },
+    getUserInfo() {},
     getDicts() {
       dictType("vr_material_type").then(response => {
-        this.typeOptions = response.data;
+        if (response.code == 200) {
+          getInfo().then(res => {
+            console.log(res, "账户");
+            if (res.code == 200) {
+              if (res.roles[0] == "common") {
+                response.data.pop();
+                this.typeOptions = response.data;
+              } else {
+                this.typeOptions = response.data;
+              }
+            }
+          });
+        }
       });
     },
     field104BeforeUpload(file) {
@@ -509,21 +444,7 @@ export default {
         .catch(function() {});
     },
     /** 导出按钮操作 */
-    handleExport() {
-      //   const queryParams = this.queryParams;
-      //   this.$confirm("是否确认导出所有素材数据项?", "警告", {
-      //     confirmButtonText: "确定",
-      //     cancelButtonText: "取消",
-      //     type: "warning"
-      //   })
-      //     .then(function() {
-      //       return exportMaterial(queryParams);
-      //     })
-      //     .then(response => {
-      //       this.download(response.msg);
-      //     })
-      //     .catch(function() {});
-    },
+    handleExport() {},
     //获取参展商列表
     getlistExhibitor(status) {
       listExhibitor().then(response => {
@@ -543,17 +464,13 @@ export default {
         }
       });
     },
-
     /** 图片上传 */
     picremove(file, fileList) {
       // 删除图片
       this.formData = {
         ...this.formData,
         thumbUrl1: null,
-        thumbUrl2: null,
-        thumbUrl3: null,
-        thumbUrl4: null,
-        thumbUrl5: null
+        thumbUrl2: null
       };
       for (let i = 0; i < fileList.length; i++) {
         //动态添加图片属性
@@ -563,10 +480,15 @@ export default {
     },
     //图片上传成功
     thumbUrlUpload(response, file, fileList) {
-      //   console.log(file, "0000 remark");
+      // console.log(file, "0000 remark");
       if (response.code == "1") {
         this.$message(response.msg);
-        this.form.resourceUrl = response.url;
+        if (this.materialType == 2) {
+          //视频
+          // this.form.materialContent = response.url;
+          this.form.resourceUrl = response.previewurl;
+        }
+        this.form.materialContent = response.url;
         this.uploadDisabled = true;
         this.form.remark = file.name;
       } else {
@@ -647,6 +569,22 @@ export default {
       this.$nextTick(() => {
         this.$refs[form].resetFields();
       });
+    },
+    materChange(e) {
+      console.log(e, "eeee");
+      this.materialType = e;
+      if (e == 1 || e == 10) {
+        // console.log("其他 accept");
+        this.accept = "image/*";
+        this.imageUpload = process.env.VUE_APP_COS_API + "/imageUpload";
+      } else if (e == 2) {
+        this.imageUpload = process.env.VUE_APP_COS_API + "/mediaUpload";
+        this.accept = "video/*";
+        console.log("视频");
+      } else if (e == 5) {
+        this.accept = "audio/*";
+        this.imageUpload = process.env.VUE_APP_COS_API + "/imageUpload";
+      }
     }
   }
 };

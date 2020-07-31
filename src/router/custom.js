@@ -74,7 +74,7 @@ export const customRoutes=[
     title: "模板列表",
     path: "/templates/list",
     pid: 5,
-    icon: "example",
+    icon: "deviceGroup",
     order: 0,
     children: null,
     hidden: 0
@@ -94,7 +94,7 @@ export const customRoutes=[
     title: "素材库管理",
     path: "/material",
     pid: 0,
-    icon: "example",
+    icon: "security",
     order: 0,
     children: null,
     hidden: 0
