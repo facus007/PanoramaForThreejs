@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function listProducts(params){
+export function listProducts(params) {
   return request({
     url: '/listProducts',
     method: 'get',
@@ -8,35 +8,35 @@ export function listProducts(params){
   })
 }
 /**模板接口 */
-export function listTmps(params){
+export function listTmps(params) {
   return request({
     url: '/listTmps',
     method: 'get',
     params,
   })
 }
-export function saveTmpInfo(data){
+export function saveTmpInfo(data) {
   return request({
     url: '/saveTmpInfo',
     method: 'post',
     data,
   })
 }
-export function updateTmpInfo(data){
+export function updateTmpInfo(data) {
   return request({
     url: '/updateTmpInfo',
     method: 'post',
     data,
   })
 }
-export function getTmpUploadInfo(params){
+export function getTmpUploadInfo(params) {
   return request({
     url: '/getTmpUploadInfo',
     method: 'get',
     params
   })
 }
-export function deleteTmpUpload(params){
+export function deleteTmpUpload(params) {
   return request({
     url: '/deleteTmpUpload',
     method: 'get',
@@ -44,7 +44,7 @@ export function deleteTmpUpload(params){
   })
 }
 
-export function listMaterials(params){
+export function listMaterials(params) {
   return request({
     url: '/listMaterials',
     method: 'get',
@@ -52,7 +52,7 @@ export function listMaterials(params){
   })
 }
 
-export function addMaterial(data){
+export function addMaterial(data) {
   return request({
     url: '/addMaterial',
     method: 'post',
@@ -60,7 +60,7 @@ export function addMaterial(data){
   })
 }
 
-export function listHotspots(params){
+export function listHotspots(params) {
   return request({
     url: '/listHotspots',
     method: 'get',
@@ -68,7 +68,7 @@ export function listHotspots(params){
   })
 }
 
-export function listRandomHotspots(params){
+export function listRandomHotspots(params) {
   return request({
     url: '/listRandomHotspots',
     method: 'get',
@@ -76,7 +76,7 @@ export function listRandomHotspots(params){
   })
 }
 
-export function saveVR(data){
+export function saveVR(data) {
   return request({
     url: '/saveVR',
     method: 'post',
@@ -84,7 +84,7 @@ export function saveVR(data){
   })
 }
 
-export function getProduct(params){
+export function getProduct(params) {
   return request({
     url: '/getProduct',
     method: 'get',
@@ -92,7 +92,7 @@ export function getProduct(params){
   })
 }
 
-export function delProduct(params){
+export function delProduct(params) {
   return request({
     url: '/delproduct',
     method: 'get',
@@ -100,7 +100,7 @@ export function delProduct(params){
   })
 }
 
-export function addembed(data){
+export function addembed(data) {
   return request({
     url: '/addembed',
     method: 'post',
@@ -108,7 +108,7 @@ export function addembed(data){
   })
 }
 
-export function delembed(params){
+export function delembed(params) {
   return request({
     url: '/delembed',
     method: 'get',
@@ -116,7 +116,7 @@ export function delembed(params){
   })
 }
 
-export function listexhibitor(params){
+export function listexhibitor(params) {
   return request({
     url: '/listexhibitor',
     method: 'get',
@@ -217,6 +217,14 @@ export function listExhibitor() {
   return request({
     baseURL: process.env.VUE_APP_BASE_API_1,
     url: '/fair/exhibitor/list',
+    method: 'get'
+  })
+}
+
+export function getInfo() {
+  return request({
+    baseURL: process.env.VUE_APP_BASE_API_1,
+    url: '/getInfo',
     method: 'get'
   })
 }
