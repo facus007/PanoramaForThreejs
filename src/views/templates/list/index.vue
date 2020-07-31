@@ -14,6 +14,17 @@
         <el-table-column label="模板组" class="ccc" style="text-align: center;">
           <template v-slot:default="scope" style="text-align: center;">{{scope.row.tmp_group_id}}</template>
         </el-table-column>
+        <el-table-column label="模板预览图" class="ccc" style="text-align: center;">
+          <template v-slot:default="scope" style="text-align: center;">
+            <div style="width:200px;height:150px;margin:0 auto;">
+              <img
+                style="width: auto;height: auto;max-width: 100%;max-height: 100%"
+                :src="scope.row.tmp_details[0].pano_graphic_url4"
+                alt=""
+              >
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column label="创建时间" class="ccc" style="text-align: center;">
           <template v-slot:default="scope" style="text-align: center;">{{scope.row.create_time}}</template>
         </el-table-column>

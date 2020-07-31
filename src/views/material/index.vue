@@ -193,7 +193,7 @@
             <el-button size="small">上传</el-button>
           </el-upload>
                 </el-form-item>-->
-                <el-form-item label="全景图:">
+                <el-form-item label="素材:">
                     <el-upload
                         ref="thumbUrl1"
                         :file-list="field103fileList"
