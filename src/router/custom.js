@@ -74,7 +74,7 @@ export const customRoutes=[
     title: "模板列表",
     path: "/templates/list",
     pid: 5,
-    icon: "example",
+    icon: "deviceGroup",
     order: 0,
     children: null,
     hidden: 0
@@ -88,7 +88,17 @@ export const customRoutes=[
     order: 0,
     children: null,
     hidden: 1
-  }
+  },
+  {
+    id: 6,
+    title: "素材库管理",
+    path: "/material",
+    pid: 0,
+    icon: "security",
+    order: 0,
+    children: null,
+    hidden: 0
+  },
 ]
 
 export const components = {
@@ -99,4 +109,5 @@ export const components = {
   '/tools': ()=>import(/* webpackChunkName: "chunk-tools" */ '@/views/tools'),
   '/templates/list': () => import(/* webpackChunkName: "templates" */ '@/views/templates/list'),
   '/templates/add': () => import(/* webpackChunkName: "templates" */ '@/views/templates/add'),
+  '/material': () => import(/* webpackChunkName: "templates" */ '@/views/material/index'),
 }

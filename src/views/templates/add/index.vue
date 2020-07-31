@@ -74,6 +74,7 @@
         </el-form-item>
         <el-form-item label="跳转下一场景索引" prop="nextTmpIndex" label-width="140px">
           <el-input v-model="tempForm.nextTmpIndex" style="width:200px;"></el-input>
+          <p>例：[{"name":"T1","index":"0"},{"name":"T2","index":"1"}]</p>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
