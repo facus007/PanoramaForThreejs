@@ -1,9 +1,9 @@
 <template>
-  <div v-if="selected" style="display: grid; align-items: center; grid-gap: 10px; grid-auto-flow: column;">
-    尺寸
-    <span><el-select size="small" v-model="selected.size">
+  <div v-if="selected" class="grid grid-centering grid-horizontal">
+    <span style="justify-self: flex-start;">尺寸:</span>
+    <el-select size="mini" v-model="selected.size" style="justify-self: flex-end;">
       <el-option v-for="item in Object.keys(sizes)" :key="item" :label="item" :value="item"/>
-    </el-select></span>
+    </el-select>
   </div>
 </template>
 

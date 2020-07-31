@@ -55,7 +55,7 @@
 
 .grid{
   display: grid;
-  grid-gap: 5px;
+  grid-gap: 3px 4px;
   align-content: stretch;
   &-horizontal{
     grid-auto-flow: column;

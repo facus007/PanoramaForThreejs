@@ -1,5 +1,5 @@
 <template>
-  <div class="frame">
+  <div class="fill grid grid-centering">
     <el-form class="form" ref="form" :model="product" size="small" style="width: 100%;">
       <el-form-item label="作品标题" style="margin-bottom:0">
         <el-input v-model="product.name" show-word-limit :maxlength="20" :minlength="4"></el-input>
@@ -29,15 +29,6 @@ export default {
 </script>
 
 <style scoped="views">
-.frame {
-  width: 100%;
-  display:flex;
-  margin: 5px 0;
-  justify-content: center;
-  padding: 15px 0px;
-  flex-flow: wrap;
-  align-content: space-between;
-}
 .form >>> .el-form-item__label{
   color: white;
 }

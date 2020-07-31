@@ -79,7 +79,8 @@ export default {
     layoutStyle(){ return {
         'grid-template-areas': features[this.curFeature].showtools ? gridtools : grid,
         'grid-template-columns': '1fr 350px',
-        'grid-template-rows': '40px 1fr 100px 70px 70px'
+        'grid-template-rows': '40px 1fr 100px 70px 70px',
+        'padding': '5px',
       }
     },
     tag(){

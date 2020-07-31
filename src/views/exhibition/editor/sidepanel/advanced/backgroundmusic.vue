@@ -1,25 +1,24 @@
 <template>
-  <div class="frame">
-    <div style="width: 100%;display:flex;align-items:center;">背景音乐
-       <span style="margin-left: auto;"><el-button size="mini" class="upload" type="primary" @click="onChange">
+  <div class="grid grid-centering grid-vertical">
+    <div class="grid grid-horizontal grid-centering" style="width: 100%;">
+      <span style="justify-self: flex-start">背景音乐:</span>
+      <el-button size="mini" type="primary" @click="onChange" style="justify-self: flex-end">
         选择背景音乐
-      </el-button></span>
+      </el-button>
     </div>
-    <audio v-if="item.url" controls :src="item.url" style="max-width: 100%; max-height: 100%;" playsinline/>
-    <div v-else  style="width: 100%; height: 50%;"/>
-    <el-checkbox v-model="item.loop" style="margin-left: auto">循环播放</el-checkbox>
+    <span v-if="item.url" class="image-box image-box-2x centering" style="width: 100%;"><audio controls :src="item.url" style="width: 100%;" playsinline/></span>
+    <div v-else class="image-box image-box-2x" style="width: 100%;"/>
+    <el-checkbox v-model="item.loop" style="justify-self: flex-end">循环播放</el-checkbox>
     <material-selector v-model="showDialog" @select="select" imgtype="5"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import * as THREE from '@/components/THREE'
 import MaterialSelector from '@/views/exhibition/materialselector'
 
 export default {
-  mixins:[mixin],
   props:['item', 'light'],
   data(){return {
     showDialog: false,
@@ -41,17 +40,3 @@ export default {
   },
 }
 </script>
-
-<style scoped="views">
-.frame {
-  width: 100%;
-  height: 160px;
-  display:flex;
-  justify-content: center;
-  flex-flow: wrap;
-  align-content: space-around;
-}
-.frame >>> .el-checkbox__label{
-  /* color: white; */
-}
-</style>

@@ -1,26 +1,22 @@
 <template>
-  <container class="home" style="display: flex; flex-direction: column;">
+  <div class="absolute grid grid-vertical grid-centering" style="grid-template-rows: auto 1px auto 10px auto 1px 1fr; padding: 5px 0;">
     <thumbnail :sideImgs="sideImgs"/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
+    <div style="background: gray; height: 1px; width: 100%;"/>
     <description/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
+    <div/>
     <animation/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/>
-    <!-- <backgroundmusic/>
-    <div style="background: gray; height: 1px; width: 100%; margin: 5px 0;"/> -->
-  </container>
+    <div style="background: gray; height: 1px; width: 100%;"/>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import thumbnail from './thumbnail'
 import description from './description'
 import animation from './animation'
 // import backgroundmusic from './backgroundmusic'
 
 export default {
-  mixins:[mixin],
   components:{thumbnail,description,animation},
   props:['sideImgs'],
   watch:{},

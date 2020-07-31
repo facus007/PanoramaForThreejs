@@ -1,12 +1,12 @@
 <template>
-  <el-table class="table" :data="source" height="100%" :row-style="{'background-color': '#0000', height: '64px'}" ref="table">
+  <el-table class="table absolute" :data="source" height="100%" :row-style="{'background-color': '#0000', height: '64px'}" ref="table">
     <el-table-column :label="label">
       <template slot-scope="scope">
-        <div :style="{display:'flex', background:scope.row === value ? '#1f2d3d' : '#0000', height:'64px', padding: '0'}">
-          <el-button type="text" style="display:flex; padding:0; width:100%; height:100%; align-items: center; padding: 10px" @click="$emit('input', value !== scope.row && scope.row)">
-            <span style="display:flex; padding:0; width:200px; height:100%; align-items: center;">
-              <span class="text">{{scope.row.label || scope.row.name}}</span>
-              <el-button v-if="clearable" type="text" style="margin-left: auto" icon="el-icon-close" @click="$emit('del', scope.row)"/>
+        <div :style="{background:scope.row === value ? '#1f2d3d' : '#0000', height:'64px', padding: '0'}">
+          <el-button type="text" style="width: 100%;" @click="$emit('input', value !== scope.row && scope.row)">
+            <span class="grid grid-horizontal grid-centering" style="grid-template-columns: 1fr 40px;">
+              <span class="text centering" style="justify-self:flex-start; max-width:100%; padding: 0 10px;">{{scope.row.label || scope.row.name}}</span>
+              <el-button v-if="clearable" type="text" icon="el-icon-close" @click="$emit('del', scope.row)"/>
             </span>
           </el-button>
         </div>

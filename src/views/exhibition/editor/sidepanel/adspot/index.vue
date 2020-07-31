@@ -1,18 +1,19 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
-    <list :source="curedit.embeddings[0].hotspots" :label="labels[0]+'（当前热点数：'+curedit.embeddings[0].hotspots.length+'）'" v-model="selected" @del="del" :clearable="true" ref="list"/>
-    <div style="background: #304156; width: 100%; height: 50px; position:relative;display:flex;align-items:center">
+  <div class="absolute grid grid-centering grid-vertical" style="grid-template-rows: 1fr 40px; padding: 10px 0;">
+    <div class="fill" style="position:relative">
+      <list :source="curedit.embeddings[0].hotspots" :label="labels[0]+'（当前热点数：'+curedit.embeddings[0].hotspots.length+'）'" v-model="selected" @del="del" :clearable="true" ref="list"/>
+    </div>
+    <div style="background: #304156; width: 100%; position:relative;" class="centering">
       <upload-source @openAdvsSouceFrame="openAdvsSouceFrame" ref="openUploadSouceFrame" style="height:40px;"/>
       <el-dialog title="" :visible.sync="advsFrameVisible" destroy-on-close>
         <advs v-model="batch_no"/>
       </el-dialog>
     </div>
-  </container>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import list from '../list'
 import * as THREE from '@/components/THREE'
 import {addembed, delembed} from '@/api/server'
@@ -22,7 +23,6 @@ import UploadSource from "../../uploadSource";
 const labels = ['广告位热点', '产品位热点', '自定义热点']
 
 export default {
-  mixins:[mixin],
   components:{ ...THREE, list, advs, UploadSource},
   data(){return {
     selected: null,

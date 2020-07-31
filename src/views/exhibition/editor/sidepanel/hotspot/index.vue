@@ -1,17 +1,16 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px;">
-    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <el-button type="primary" style="width:100%" @click="add">添加热点</el-button>
-    </div>
-    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
+  <div class="absolute grid grid-centering grid-vertical" style="grid-template-rows: 1fr 40px; padding: 5px 0;">
+    <div class="fill" style="position:relative">
       <list :source="curedit.embeddings[2].hotspots" :label="labels[2]+'（当前热点数：'+curedit.embeddings[2].hotspots.length+'）'" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
-  </container>
+    <div style="background: #304156; width: 100%; position:relative;" class="centering">
+      <el-button type="primary" style="width:100%" @click="add">添加热点</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import list from '../list'
 import * as THREE from 'three'
 import { v4 as uuid} from 'uuid'
@@ -20,9 +19,7 @@ import {addembed, delembed} from '@/api/server'
 
 const labels = ['广告位热点', '产品位热点', '自定义热点']
 
-
 export default {
-  mixins:[mixin],
   components:{list},
   data(){return {selected: null}},
   props:['editor'],

@@ -1,19 +1,19 @@
 <template>
-  <el-dialog title="新功能" :visible.sync="visible" width="50%" :modal="false">
-    <div class="dialog">
-    <el-form v-if="visible" label-position="right" label-width="70px">
-      <el-form-item label="功能名称">
-        <el-input size="small" v-model="option.name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
-      </el-form-item>
-      <el-form-item label="功能类型">
-        <el-select size="small" v-model="option.type">
-          <el-option v-for="item in types" :key="item.key" :label="item.label" :value="item.key" :disabled="(item.key === 'music') && musicExist"/>
-        </el-select>
-      </el-form-item>
-    </el-form>
-    <div style="padding: 20px">
-      <component :is="option.type" :item="option"/>
-    </div>
+  <el-dialog class="eldialog" title="新功能" :visible.sync="visible" width="50%" :modal="false">
+    <div class="fill dialog grid grid-centering grid-horizontal">
+      <el-form v-if="visible" label-position="right" label-width="70px">
+        <el-form-item label="功能名称">
+          <el-input size="small" v-model="option.name" style="width: 200px" show-word-limit :maxlength="20" :minlength="4"></el-input>
+        </el-form-item>
+        <el-form-item label="功能类型">
+          <el-select size="small" v-model="option.type">
+            <el-option v-for="item in types" :key="item.key" :label="item.label" :value="item.key" :disabled="(item.key === 'music') && musicExist"/>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div style="padding: 20px">
+        <component :is="option.type" :item="option"/>
+      </div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="$emit('input', false)">取 消</el-button>
@@ -86,11 +86,3 @@ export default {
   beforeDestroy(){}
 }
 </script>
-
-<style scoped>
-.dialog{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-</style>

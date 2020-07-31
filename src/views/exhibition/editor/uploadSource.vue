@@ -1,9 +1,7 @@
 <template>
-  <div style="display:flex; padding: 0 20px; align-items: center;width: 100%; height: 100%;">
-    <el-button type="primary" style="margin: 10px; width: 100%; height: 100%;" @click="showBox" v-loading="loading">
-      上传资源
-    </el-button>
-  </div>
+  <el-button type="primary" style="width: 100%; height: 100%;" @click="showBox" v-loading="loading">
+    上传资源
+  </el-button>
 </template>
 
 <script>

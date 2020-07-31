@@ -8,7 +8,7 @@
       <span style="grid-area: a; justify-self: flex-start;">当前影像</span>
       <el-checkbox v-model="dynamic_img" style="color:gray; grid-area: b; justify-self: flex-end;">序列帧长图</el-checkbox>
       <el-button class="upload" type="text" @click="onChange" style="grid-area: c; padding:0;">
-        <el-image class="image-box image-box-2x" v-if="selected.img_url && selected.style === 1" :src="selected.img_url"/>
+        <img class="image-box image-box-2x" v-if="selected.img_url && selected.style === 1" :src="selected.img_url"/>
         <video class="image-box image-box-2x" v-else-if="selected.target.video && selected.style === 2" :src="selected.target.video" autoplay playsinline x5-playsinline x5-video-player-type="h5" muted />
         <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed white;"></i>
       </el-button>

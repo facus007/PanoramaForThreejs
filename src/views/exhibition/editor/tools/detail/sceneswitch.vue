@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-centering grid-vectical fill">
     <el-button class="upload" type="text" @click="showSceneSelector=true" style="padding: 0;">
-      <el-image v-if="selected.target.scene_id" :src="selected.target.scene_cover" fit="cover" class="scene-box scene-box-2x"/>
+      <img v-if="selected.target.scene_id" :src="selected.target.scene_cover" class="scene-box scene-box-2x"/>
       <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed white;"></i>
     </el-button>
     <span class="grid" v-if="curedit.embeddings[0].hotspots.indexOf(selected) < 0" style="grid-template-areas:'a b' 'd c'; justify-items: flex-end;">

@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item label="选择封面">
         <el-button class="upload centering" type="text" @click="onChange">
-          <el-image v-if="cover" :src="cover" class="scene-box scene-box-2x"/>
+          <img v-if="cover" :src="cover" class="scene-box scene-box-2x"/>
           <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed #d9d9d9;"></i>
         </el-button>
       </el-form-item>

@@ -7,14 +7,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import editor from './editor'
 import store from './store'
 
 const moduleName = "editor"
 
 export default {
-  mixins:[mixin],
   components: {editor},
   created(){
     if(!this.$route.query.product_id){

@@ -1,20 +1,17 @@
 <template>
-  <container class="home" style="display: grid; overflow: hidden; grid-gap: 10px; ">
-    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
+  <div class="absolute grid grid-vertical" style="grid-template-rows: 1fr auto; padding: 5px 1px;">
+    <div class="fill" style="position:relative">
       <list :source="product.features || []" label="扩展组件" v-model="selected" @del="del" :clearable="true" ref="list"/>
     </div>
     <sizes :selected="selected"/>
     <component :is="selected && selected.type || 'empty'" :item="selected"/>
-    <div style="height: 100%; width: 100%; position: relative; overflow: auto;">
-      <el-button type="primary" style="width:100%" @click="add">添加组件</el-button>
-    </div>
+    <el-button type="primary" style="width:100%" @click="add" size="small">添加组件</el-button>
     <newfeature v-model="showDialog"/>
-  </container>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import mixin from '@/views/mixin'
 import list from '../list'
 import newfeature from './newfeature'
 import music from './backgroundmusic'
@@ -28,7 +25,6 @@ import info from './info'
 import { v4 as uuid} from 'uuid'
 
 export default {
-  mixins:[mixin],
   props:['editor'],
   watch:{
     selected(next){

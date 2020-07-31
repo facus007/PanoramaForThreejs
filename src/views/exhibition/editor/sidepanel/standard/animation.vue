@@ -1,6 +1,6 @@
 <template>
-  <div class="frame">
-    <div>动画设置</div>
+  <div class="fill grid grid-horizontal grid-centering">
+    <div style="justify-self: flex-start;">动画设置</div>
     <el-checkbox v-model="product.animation" style="margin-left: auto">小行星动画</el-checkbox>
   </div>
 </template>
@@ -23,15 +23,6 @@ export default {
 </script>
 
 <style scoped="views">
-.frame {
-  width: 100%;
-  display:flex;
-  margin: 5px 0;
-  justify-content: center;
-  padding: 15px 0px;
-  flex-flow: wrap;
-  align-content: space-between;
-}
 .form >>> .el-form-item__label{
   color: white;
 }
