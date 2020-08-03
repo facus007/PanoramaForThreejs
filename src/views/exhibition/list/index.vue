@@ -1,13 +1,6 @@
 <template>
   <container :refresh="refresh" v-loading="loading">
-    <table-frame
-      class="table"
-      :total="total"
-      :page-size="pageSize"
-      :currentPage.sync="currentPage"
-      :items="datalist"
-      :loading="false"
-    >
+    <table-frame class="table" :total="total" :page-size="pageSize" :currentPage.sync="currentPage" :items="datalist" :loading="false">
       <template v-slot:header="scope">
         <el-button type="primary" size="small" @click="newProduct">新建作品</el-button>
         <div style="margin-top:20px;margin-left:30px;">
@@ -22,7 +15,6 @@
               />
             </el-form-item>
             <el-form-item label="作品创建时间" prop="dateRanges">
-
               <el-date-picker
                 v-model="dateRanges"
                 size="small"
@@ -35,7 +27,6 @@
               ></el-date-picker>
             </el-form-item>
             <el-form-item style="margin-left:30px;">
-              <el-button type="success" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
               <el-button type="warning" icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -59,8 +50,7 @@
         </el-table-column>
         <el-table-column label="发布状态">
           <template v-slot:default="scope">
-            <span
-              :style="{'color': scope.row.published==='0' ? 'red' : 'green' }"
+            <span :style="{'color': scope.row.published==='0' ? 'red' : 'green' }"
             >{{scope.row.published==='0'?"未发布":"发布"}}</span>
           </template>
         </el-table-column>
@@ -86,10 +76,10 @@
               <el-popover placement="left" trigger="click">
                 <div style="text-align:center;">
                   <canvas :id="'qrcodeContent'+scope.$index" style="width: 100%; height: 150px"/>
-                  <el-button style="padding:5px;margin:auto; width:min-content;position: absolute;bottom: 3px;left: 30%;" type="text" @click="downloadqrcode(scope.$index)">
+                  <el-button style="padding:5px;margin:auto; width:min-content;position: absolute;bottom: 3px;left: 30%;" type="text" @click="downloadqrcode(scope)">
                     下载二维码
                   </el-button>
-                  <a style="display:none;" href="" :download="scope.row.name" id="download"></a>
+                  <a style="display:none;" href="" :download="scope.row.name" :id="'download'+scope.$index"></a>
                 </div>
                 <el-button slot="reference" style="padding:0; margin:auto; width:min-content;" @click="qrcode(scope.row, scope)" type="text">显示二维码</el-button>
               </el-popover>
@@ -126,7 +116,6 @@ export default {
         name: ""
       },
       dateRanges: [],
-      qrcodelink: ""
     };
   },
   watch: {
@@ -136,22 +125,11 @@ export default {
   },
   methods: {
     selectionChange(val) {},
-    handleQuery() {
-      if (this.dateRanges != null) {
-        this.queryParams.startTime = this.dateRanges[0];
-        this.queryParams.endTime = this.dateRanges[1];
-      } else {
-        this.queryParams.startTime = undefined;
-        this.queryParams.endTime = undefined;
-      }
-      this.refresh_();
-    },
     resetQuery() {
       this.dateRanges = [];
       this.queryParams.startTime = null;
       this.queryParams.endTime = null;
       this.resetForm("queryForm");
-      this.refresh_();
     },
     resetForm(form) {
       this.$refs[form].resetFields();
@@ -193,22 +171,28 @@ export default {
         this.$route.path,
         "/share?product_id=" + row.product_id
       );
-      this.qrcodelink = link;
       QRCode.toCanvas(
         document.getElementById("qrcodeContent" + scope.$index),
         link
       );
     },
-    downloadqrcode(index) {
-      let canvas = document.getElementById("qrcodeContent" + index);
+    downloadqrcode(scope) {
+      let canvas = document.getElementById("qrcodeContent" + scope.$index);
       let dataURL = canvas.toDataURL("image/png");
-      let a = document.getElementById("download");
+      let a = document.getElementById("download"+ scope.$index);
       a.setAttribute("href", dataURL);
       // console.log(dataURL, "dataURL");
-      document.getElementById("download").click();
+      document.getElementById("download"+ scope.$index).click();
     },
     refresh_() {
       this.loading = true;
+      if (this.dateRanges != null) {
+        this.queryParams.startTime = this.dateRanges[0];
+        this.queryParams.endTime = this.dateRanges[1];
+      } else {
+        this.queryParams.startTime = undefined;
+        this.queryParams.endTime = undefined;
+      }
       if (this.queryParams.name) {
         this.queryParams.name = this.queryParams.name.replace(/\s+/g, "");
       }

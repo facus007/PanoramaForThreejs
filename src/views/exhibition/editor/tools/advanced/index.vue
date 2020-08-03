@@ -1,5 +1,5 @@
 <template>
-  <div class="home noevent center" style="overflow: hidden">
+  <div class="absolute noevent centering" style="overflow: hidden">
     <div v-for="style,index in gridStyle" :style="style">
       <div v-for="j in 15" style="width:100%; height:100%; border:1px dashed #8888; background: #3333"/>
     </div>
