@@ -20,14 +20,12 @@ label {
 }
 
 html {
-  width: 100vw;
-  height: 100vh;
+  @extend .absolute;
   box-sizing: border-box;
 }
 
 #app {
-  width: 100vw;
-  height: 100vh;
+  @extend .absolute;
 }
 
 *,
