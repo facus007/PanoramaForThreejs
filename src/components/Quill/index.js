@@ -1,1 +1,1 @@
-export const editor = () => import('./editor')
+export const editor = () => import(/* webpackChunkName: "chunk-exhibition-editor" */ './editor')

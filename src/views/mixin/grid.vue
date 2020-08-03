@@ -1,6 +1,6 @@
 <template>
   <div class="home container grid" :style="{'grid-template-areas': grid}">
-    <slot/>
+    <slot />
   </div>
 </template>
 
