@@ -1,5 +1,5 @@
 <template>
-  <div class="home"><slot/></div>
+  <div class="absolute"><slot/></div>
 </template>
 
 <script>
@@ -12,12 +12,10 @@ export default {
   mounted(){
     this.obj = new CSS2DRenderer()
     this.$el.appendChild(this.obj.domElement)
-    window.addEventListener('resize', this.resize);
     this.startRendering()
   },
   beforeDestroy(){
     this.stopRendering()
-    window.removeEventListener('resize', this.resize);
     this.obj.domElement.remove()
     this.obj = null
   },
@@ -36,6 +34,9 @@ export default {
     },
     update(){
       this.obj.render(this.scene, this.camera);
+      if(this.$el.clientWidth / this.$el.clientHeight !== this.camera.aspect){
+        this.resize()
+      }
       this.frame = requestAnimationFrame(this.update)
     }
   }

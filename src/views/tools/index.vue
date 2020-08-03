@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content:center; flex-direction: column" v-loading="loading">
-    <el-card style="display: flex; align-items: center; justify-content:center; flex-direction: column">
+  <div class="absolute centering" style="flex-direction: column" v-loading="loading">
+    <el-card class="centering" style="flex-direction: column">
       <div slot="header" class="clearfix">
         全景图处理工具
       </div>

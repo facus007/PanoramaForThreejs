@@ -1,5 +1,5 @@
 <template>
-  <div class="noevent" style="overflow: hidden; width:100%; height:100%;">
+  <div class="noevent fill" style="overflow: hidden;">
     <!-- <div v-for="style,index in layerStyle" :style="{...style, height: getHeight(index) * size + 'px'}" class="event">
       <div v-for="feature, i in product.features && product.features.filter(item=>{;console.log(item);return item.position.group===index}) || []" :key="feature.uuid"
         :style="{
@@ -105,12 +105,6 @@ export default {
 </script>
 
 <style scoped>
-.noevent {
-  pointer-events: none;
-}
-.event {
-  pointer-events: auto;
-}
 .grid-stack >>> .grid-stack-item[data-gs-width='1'] {
     width: 33.3333333333%;
 }

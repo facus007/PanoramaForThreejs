@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
+  <div class="fill centering" style="color:white">
     <div @click="$store.commit('preview/audio/SET_NEEDPLAYING',!needPlaying)" >
       <div :class="needPlaying ? 'icon icon-music' : 'icon icon-music-mute'"/>
       <audio class="audio-player" :loop="item.loop" :src="item.url" preload="metadata" ref="audio"/>

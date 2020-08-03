@@ -1,6 +1,6 @@
 <template>
-  <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <img class="image" :src='item && item.url' :style="style" @click="click"/>
+  <div class="fill centering" style="color:white">
+    <img class="image fill" :src='item && item.url' :style="style" @click="click"/>
     <overlayer class="iframe" v-model="showDialog">
       <iframe :src="item.link" style="width: calc(100% - 40px);height: calc(100% - 70px);  position: absolute;border:0;" frameborder="0" allowfullscreen/>
     </overlayer>
@@ -51,8 +51,6 @@ export default {
 <style scoped>
 .image{
   position: relative;
-  width: 100%;
-  height: 100%;
   object-fit: contain;
   border: 0;
 }

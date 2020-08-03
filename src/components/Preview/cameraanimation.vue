@@ -73,7 +73,7 @@ export default {
   }
 }
 </script>
-<style scoped="">
+<style scoped>
 .guide{
   width: 200px;
   height: 200px;

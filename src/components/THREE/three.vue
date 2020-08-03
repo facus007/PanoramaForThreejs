@@ -1,5 +1,5 @@
 <template>
-  <div class="home" :debug="debug">
+  <div class="absolute" :debug="debug">
     <stats v-if="isDebug"/>
     <slot></slot>
   </div>
@@ -9,8 +9,8 @@
 import * as THREE from 'three'
 import { mapState } from 'vuex'
 import stats from './base/stats'
-import THREEComponent from '@/components/THREE/base/threecomponent'
 import store from './store'
+import THREEComponent from '@/components/THREE/base/threecomponent'
 const isDebug = process.env.NODE_ENV === "development"
 
 export default {
@@ -29,12 +29,10 @@ export default {
   },
   mounted(){
     this.$store.commit('THREE/SET_DOMELEMENT', this.$el)
-    window.addEventListener('resize', this.resize);
     this.startRendering()
   },
   beforeDestroy(){
     this.stopRendering()
-    window.removeEventListener('resize', this.resize);
     this.$store.commit('THREE/SET_DOMELEMENT', null)
   },
   destroyed(){
@@ -54,6 +52,9 @@ export default {
     },
     rendering(){
       this.$store.dispatch('THREE/render');
+      if(this.domElement.clientWidth / this.domElement.clientHeight !== this.camera.aspect){
+        this.resize()
+      }
       this.frame = requestAnimationFrame(this.rendering)
     },
     startRendering(){

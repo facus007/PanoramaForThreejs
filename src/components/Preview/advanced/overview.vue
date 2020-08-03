@@ -1,5 +1,5 @@
 <template>
-  <div style="position:absolute; width:100%; height:100%;">
+  <div class="absolute">
     <transition name="el-fade-in">
       <div class="event scene-tab" v-if="showSceneTab" :style="{bottom: height+'px'}">
         <div class="block">
@@ -38,12 +38,6 @@ export default {
 </script>
 
 <style scoped>
-.noevent {
-  pointer-events: none;
-}
-.event {
-  pointer-events: auto;
-}
 .scene-tab{
   position:absolute;
   width:100%;

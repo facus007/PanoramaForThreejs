@@ -1,8 +1,8 @@
 <template>
   <el-dialog class="dialog" :visible.sync="visible" append-to-body :show-close="false">
     <div v-if="visible" style="width: 100%; height: 100%; top: 0; left: 0; position: fixed; align-items: center; visibility: visible;">
-      <div style="width:100%;height:100%; background: #000B; display:grid; justify-items:center; align-items:center; grid-auto-flow:row; grid-template-rows: 1fr 50px;" >
-        <div style="width:100%;height:100%; padding:20px 20px 0px 20px; display:flex; justify-content:center;align-items:center;">
+      <div class="fill grid grid-centering grid-horizontal" style="background: #000B; grid-template-rows: 1fr 50px;" >
+        <div class="centering fill" style="padding:20px 20px 0px 20px;">
             <slot/>
         </div>
         <el-button icon="el-icon-close" type="text" style="width:30px; height:30px; z-index:5; padding: 0;margin:10px; border-radius: 30px; background:#444;" @click="visible=false"/>

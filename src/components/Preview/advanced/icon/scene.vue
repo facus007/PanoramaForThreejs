@@ -1,6 +1,6 @@
 <template>
-  <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:white">
-    <img class="image" :src="'./static/scene.png'" :style="style" @click="click"/>
+  <div class="fill centering" style="color:white">
+    <img class="image fill" :src="'./static/scene.png'" :style="style" @click="click"/>
   </div>
 </template>
 
@@ -37,8 +37,6 @@ export default {
 <style scoped>
 .image{
   position: relative;
-  width: 100%;
-  height: 100%;
   object-fit: contain;
   border: 0;
 }
