@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import editor from './editor'
+import {editor} from '@/components/Quill'
 import MaterialSelector from '@/views/exhibition/materialselector'
 
 import {mapState} from 'vuex'

@@ -22,7 +22,7 @@
 import { mapState } from 'vuex'
 import mixin from '@/views/mixin'
 import MaterialSelector from '@/views/exhibition/materialselector'
-import editor from './editor'
+import { editor } from '@/components/Quill'
 
 export default {
   mixins:[mixin],

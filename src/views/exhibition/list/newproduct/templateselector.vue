@@ -19,13 +19,11 @@
 </template>
 
 <script>
-import styles from '@/components/UI/base/styles'
 import { mapState } from 'vuex'
 import { listTmps } from '@/api/server'
 // import moment from 'moment'
 
 export default {
-  mixins: [styles],
   data(){return {
     loading: true,
     states:[],

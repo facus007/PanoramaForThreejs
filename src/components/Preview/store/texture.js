@@ -1,11 +1,12 @@
-import * as three from 'three'
 import multiaction from '@/utils/multiaction'
-
-const texloader = new three.TextureLoader()
+const three = import(/* webpackChunkName: "chunk-THREEComponent" */ 'three')
+const texloader = new Promise(async function(resolve, reject) {
+  resolve(new (await three).TextureLoader())
+});
 
 function loadtex(url, loaders) {
   return new Promise((resolve, reject) => {
-    let loader = () => texloader.load(url, resolve, null, loader)
+    let loader =async () => (await texloader).load(url, resolve, null, loader)
     loaders.push(loader())
   });
 }
