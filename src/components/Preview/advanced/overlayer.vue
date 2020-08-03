@@ -1,7 +1,7 @@
 <template>
   <el-dialog class="dialog" :visible.sync="visible" append-to-body :show-close="false">
     <div v-if="visible" style="width: 100%; height: 100%; top: 0; left: 0; position: fixed; align-items: center; visibility: visible;">
-      <div class="fill grid grid-centering grid-horizontal" style="background: #000B; grid-template-rows: 1fr 50px;" >
+      <div class="fill grid grid-centering grid-horizontal" style="background: rgba(0,0,0,0.5); grid-template-rows: 1fr 50px;" >
         <div class="centering fill" style="padding:20px 20px 0px 20px;">
             <slot/>
         </div>

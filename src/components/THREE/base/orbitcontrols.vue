@@ -7,7 +7,7 @@ import { OrbitControls } from '../core/orbitcontrols'
 
 export default {
   mixins: [THREEComponent],
-  props: ['start_rotation', 'auto_rotate'],
+  props: ['start_rotation', 'auto_rotate', 'fov'],
   // data(){return {interval: null}},
   watch:{
     domElement(next, pre){
@@ -26,6 +26,10 @@ export default {
     newControl(camera, domElement){
       let controls = new OrbitControls(camera, domElement)
       camera.position.set(0.00001,0,0) //controls.update() must be called after any manual changes to the camera's transform
+      if(this.fov){
+        this.camera.fov = this.fov
+        this.camera.updateProjectionMatrix()
+      }
       controls.enableKeys = false
       controls.enablePan = false
       controls.enableZoom = false

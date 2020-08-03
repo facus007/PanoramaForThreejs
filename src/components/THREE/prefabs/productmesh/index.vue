@@ -48,7 +48,7 @@ export default {
 }
 .label{
   border-radius: 20px;
-  background: #0008;
+  background: rgba(0,0,0,0.5);
   padding: 5px 10px;
   color: white;
 }

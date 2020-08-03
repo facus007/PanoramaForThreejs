@@ -4,7 +4,7 @@
       <div class="event grid grid-centering grid-horizontal scene-tab" v-if="showSceneTab" :style="{bottom: height+'px'}">
         <div v-for="scene,index in product.scenes" style="position: relative; overflow:hidden;" class="scene-box">
           <img :src="scene.pano_graphic_url4" class="scene-box" @click="switchScene(scene)"/>
-          <div style="position:absolute; width:100%; height:15px; display:flex;justify-content:center; background:#0008; bottom:0;align-items:center;">
+          <div style="position:absolute; width:100%; height:15px; display:flex;justify-content:center; background: rgba(0,0,0,0.5); bottom:0;align-items:center;">
             {{scene.name}}
           </div>
         </div>
@@ -38,7 +38,7 @@ export default {
 .scene-tab{
   position:absolute;
   width:100%;
-  background:#0008;
+  background: rgba(0,0,0,0.5);
   color: white;
   font-size: 12px;
   overflow: auto;

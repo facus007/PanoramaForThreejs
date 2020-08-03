@@ -4,11 +4,11 @@
       <THREE style="position: relative;">
         <WebGLRenderer>
           <CSS3DRenderer>
-            <orbit-controls ref="controls" :start_rotation="curedit.start_rotation"/>
+            <orbit-controls ref="controls" :start_rotation="curedit.start_rotation" :fov="curedit.fov" :key="curedit.scene_id"/>
           </CSS3DRenderer>
         </WebGLRenderer>
         <panorama v-if="sideImgs" :sideImgs="sideImgs" :key="'scene'+curedit.scene_id"/>
-        <component :is="curFeature && features[curFeature].tools" style="z-index: 1" :renderer="$refs.renderer" :controls="$refs.controls" :tag="tag" ref="tools" :key="curedit.scene_id" :editor="self"/>
+        <component :is="curFeature && features[curFeature].tools" style="z-index: 1" :renderer="$refs.renderer" :controls="()=>$refs.controls" :tag="tag" ref="tools" :key="curedit.scene_id" :editor="self"/>
       </THREE>
     </div>
     <div class="block" style="grid-area: b;">

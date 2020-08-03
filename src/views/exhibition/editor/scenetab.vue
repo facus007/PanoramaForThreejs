@@ -1,6 +1,6 @@
 <template>
   <div class="frame" style="width: 100%; color: white; padding: 5px 10px; height: 100%;">
-    <el-tabs v-model="tab_id" type="border-card" style="width: 100%; height: 100%; background: #0000; border: none;-webkit-box-shadow: none; box-shadow: none;">
+    <el-tabs v-model="tab_id" type="border-card" style="width: 100%; height: 100%; background: rgba(0, 0, 0, 0); border: none;-webkit-box-shadow: none; box-shadow: none;">
       <el-tab-pane class="fill grid grid-centering grid-horizontal" style="grid-template-columns: auto 1fr" :key="item.scene_id" v-for="(item, index) in product.scenes" :label="item.name" :name="index.toString()" >
           <img :src="item.pano_graphic_url4" class="scene-box"/>
           <!-- <el-form class="form" label-position="left" style="display: flex; flex-direction: column; align-items:space-around; margin-left: 50px;">
@@ -59,7 +59,7 @@ export default scenetab;
   border-left-color: #1f2d3d;
 }
 .frame >>> .el-tabs__header{
-  background-color: #0000;
+  background-color: #304156;
   border-bottom: 1px solid #1f2d3d
 }
 .frame >>> .el-tabs__item{

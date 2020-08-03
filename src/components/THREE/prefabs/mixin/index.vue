@@ -55,6 +55,7 @@ export default {
       this.obj.quaternion.multiply(fix)
       pos.applyQuaternion(this.obj.quaternion)
       this.obj.position.add(pos)
+      this.obj.position.multiplyScalar(1/this.scalar)
       let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
       this.obj.scale.set(m[2] * short * 0.01, m[3] * short * 0.01, short * 0.01)
     },
@@ -84,9 +85,13 @@ export default {
     outline(){
       return this.selected && this.selected.name === this.item.name
     },
+    scalar(){
+      let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
+      return 7 / short
+    },
     size(){
       let short = Math.min(this.mesh.scale.z, this.mesh.scale.x)
-      return [this.mesh.scale.z / short, this.mesh.scale.x / short]
+      return [this.mesh.scale.z / short / this.scalar, this.mesh.scale.x / short / this.scalar]
     },
     image(){
       if(!this.url){return;}
@@ -114,7 +119,7 @@ export default {
 .label{
   position: absolute;
   border-radius: 20px;
-  background: #0008;
+  background: rgba(0,0,0,0.5);
   padding: 5px 10px;
   color: white;
   width: max-content;

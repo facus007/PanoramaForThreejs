@@ -7,7 +7,7 @@
             <i class="el-icon-check" style="font-size: 12px;margin-top: 12px;transform: rotate(-45deg);color:#fff"/>
           </div>
           <!-- display:grid;grid-auto-flow:column;gap:4px;justify-items: flex-end; -->
-          <div style="position:absolute; background: #8888; padding:5px 10px;bottom: 0;right: 0;color: white; font-size: smaller; width:100%;">
+          <div style="position:absolute; background: rgba(128,128,128,0.5); padding:5px 10px;bottom: 0;right: 0;color: white; font-size: smaller; width:100%;">
             <span>广告位 / 产品位：{{src.adv_count}} / {{src.prod_count}}</span>
           </div>
         </img>

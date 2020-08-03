@@ -35,7 +35,7 @@ export default {
         let pos =  this.group.getObjectByName(next.name) && this.group.getObjectByName(next.name).position.clone() || new THREE.Vector3(next.transform.position[0],next.transform.position[1],next.transform.position[2])
         pos.x *= -1; pos.y *= -1; pos.z *= -1;
         spherical.setFromVector3(pos)
-        this.controls.setView(spherical.phi, spherical.theta)
+        this.controls().setView(spherical.phi, spherical.theta)
       }
     },
   },

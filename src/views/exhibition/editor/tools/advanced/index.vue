@@ -1,7 +1,7 @@
 <template>
   <div class="absolute noevent centering" style="overflow: hidden">
     <div v-for="style,index in gridStyle" :style="style">
-      <div v-for="j in 15" style="width:100%; height:100%; border:1px dashed #8888; background: #3333"/>
+      <div v-for="j in 15" style="width:100%; height:100%; border:1px dashed rgba(128,128,128,0.5); background: rgba(64,64,64,0.25)"/>
     </div>
     <div v-for="style,index in layerStyle" :style="style" class="grid-stack event"/>
     <span style="visibility: hidden">
@@ -150,7 +150,7 @@ export default {
 .grid-stack >>> .placeholder-content{
   left: 0px;
   right: 0px;
-  border:2px dashed #FFFF;
+  border:2px dashed #FFF;
 }
 .grid-stack>.grid-stack-item>.grid-stack-item-content{
   left: 0px;

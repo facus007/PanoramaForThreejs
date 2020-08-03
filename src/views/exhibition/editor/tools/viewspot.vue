@@ -54,7 +54,7 @@ export default {
       // context.drawImage(newCanvas, 0, 0);
       //
       // this.$store.commit('editor/SET_PREVIEW', canvas.toDataURL("image/jpeg", 1.0))
-      this.curedit.start_rotation = [this.controls.obj.getAzimuthalAngle(), this.controls.obj.getPolarAngle()]
+      this.curedit.start_rotation = [this.controls().obj.getAzimuthalAngle(), this.controls().obj.getPolarAngle()]
       this.$message.success('设置成功')
     },
     // update(){},
@@ -83,6 +83,6 @@ export default {
   position: absolute;
   color: white;
   font-size: 40px;
-  text-shadow: #12121288 1px 0 10px;
+  text-shadow: rgba(32,32,32,0.5) 1px 0 10px;
 }
 </style>

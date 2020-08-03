@@ -142,8 +142,8 @@ export default {
   width: 100%;
 }
 .select >>> input{
-  background-color: #0000;
-  border-color: #0000;
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
   color: white;
 }
 .upload >>> .el-upload--picture-card{
@@ -153,7 +153,7 @@ export default {
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #0000;
+  background-color: rgba(0,0,0,0);
 }
 .radio >>> .el-radio{
   color: white;
