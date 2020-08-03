@@ -76,7 +76,7 @@
               <el-popover placement="left" trigger="click">
                 <div style="text-align:center;">
                   <canvas :id="'qrcodeContent'+scope.$index" style="width: 100%; height: 150px"/>
-                  <el-button style="padding:5px;margin:auto; width:min-content;position: absolute;bottom: 3px;left: 30%;" type="text" @click="downloadqrcode(scope)">
+                  <el-button style="padding:5px;margin:auto; width:min-content;position: absolute;bottom: 3px;left: 30%;" type="text" @click="downloadqrcode(scope.$index)">
                     下载二维码
                   </el-button>
                   <a style="display:none;" href="" :download="scope.row.name" :id="'download'+scope.$index"></a>
@@ -176,13 +176,13 @@ export default {
         link
       );
     },
-    downloadqrcode(scope) {
-      let canvas = document.getElementById("qrcodeContent" + scope.$index);
+    downloadqrcode(index) {
+      let canvas = document.getElementById("qrcodeContent" + index);
       let dataURL = canvas.toDataURL("image/png");
-      let a = document.getElementById("download"+ scope.$index);
+      let a = document.getElementById("download"+ index);
       a.setAttribute("href", dataURL);
       // console.log(dataURL, "dataURL");
-      document.getElementById("download"+ scope.$index).click();
+      document.getElementById("download"+ index).click();
     },
     refresh_() {
       this.loading = true;
