@@ -6,8 +6,11 @@
       </el-tooltip>
     </div>
     <el-button type="text" @click="onChange">
-      <img v-if="item.url" :src="item.url" class="image-box image-box-2x"/>
-      <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed #d9d9d9;"></i>
+      <div class="grid grid-vertical grid-centering ">
+        <img v-if="item.url" :src="item.url" class="image-box image-box-2x"/>
+        <i v-else class="el-icon-plus avatar-uploader-icon image-box image-box-2x centering" style="border: 1px dashed #d9d9d9;"></i>
+        <span class="text image-box-2x" style="height:auto">{{item.remark}}</span>
+      </div>
     </el-button>
     <material-selector v-model="showDialog" @select="select" imgtype="1"/>
   </div>
@@ -30,6 +33,7 @@ export default {
       this.showDialog= true
     },
     select(material){
+      this.item.remark = material.remark
       this.item.url = material.material_content
     }
   },

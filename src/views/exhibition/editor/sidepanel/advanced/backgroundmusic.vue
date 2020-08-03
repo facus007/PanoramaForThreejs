@@ -6,8 +6,11 @@
         选择背景音乐
       </el-button>
     </div>
-    <span v-if="item.url" class="image-box image-box-2x centering" style="width: 100%;"><audio controls :src="item.url" style="width: 100%;" playsinline/></span>
-    <div v-else class="image-box image-box-2x" style="width: 100%;"/>
+    <span v-if="item.url" class="centering grid grid-vertical" >
+      <audio controls :src="item.url" playsinline style="width: 230px;"/>
+      <span class="text" style="width: 230px;">{{item.remark}}</span>
+    </span>
+    <div v-else class="image-box" style="width: 230px;"/>
     <el-checkbox v-model="item.loop" style="justify-self: flex-end">循环播放</el-checkbox>
     <material-selector v-model="showDialog" @select="select" imgtype="5"/>
   </div>
@@ -31,6 +34,7 @@ export default {
       this.showDialog= true
     },
     select(material){
+      this.item.remark = material.remark
       this.item.url = material.material_content
     }
   },

@@ -96,6 +96,7 @@ export default {
       this.getSelecteds().forEach((item, i) => {
         item.img_url = null
         item.target.video = null
+        item.target.remark = null
         item.target = JSON.parse(JSON.stringify(item.target))
       });
     },

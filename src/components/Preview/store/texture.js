@@ -44,8 +44,8 @@ const actions = {
     onloadclear && onloadclear()
   },
   async unload({state, commit}){
-    state.loaders.forEach((item, i) => {
-      item.dispose()
+    state.loaders.forEach(async (item, i) => {
+      (await item).dispose()
     });
     commit('SET_LOADERS')
   }
