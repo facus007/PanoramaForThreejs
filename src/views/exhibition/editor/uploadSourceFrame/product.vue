@@ -155,7 +155,7 @@ this.requerttime(res.flag);
               });
               return;
       }else{
-        console.log(this.times,'times')
+        // console.log(this.times,'times')
         this.times++;
         this.timer=setInterval(() => {
         if(this.times>30&&!flag){
