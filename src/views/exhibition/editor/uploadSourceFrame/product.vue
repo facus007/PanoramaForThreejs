@@ -87,6 +87,8 @@ export default {
       headers: {
         Authorization: getToken()
       },
+      timer:null,
+      times:1
     };
   },
   mounted(){
@@ -120,34 +122,57 @@ export default {
       // this.msgWarning("最多上传个资源！");
     },
     savelistChooseHotspots(batchNo){
-      // console.log(this.$store.state.editor.product.tmp_group_id,'this.$store.state.editor.product.tmp_group_id')
-      this.$store.state.editor.product.tmp_group_id;
-      listChooseHotspots({batch_no:batchNo,tmp_group_id:this.$store.state.editor.product.tmp_group_id}).then(res=>{
+      if(batchNo){
+listChooseHotspots({batch_no:batchNo,tmp_group_id:this.$store.state.editor.product.tmp_group_id}).then(res=>{
         // console.log(res,'00')
         if(res.code==200&&res.flag){
-          //有数据返回才结束
-        this.flag=res.flag;
-        this.loading=false
-        this.$message({
-          message: res.msg,
-          type: "success"
-        });
-        return;
-        }else{
-          //没有数据就10s请求一次  5min超时
-        let times=0;
-        let timer=setInterval(() => {
-          if(times>30||this.flag){
-        clearInterval(timer)
-          }else{
-            times++;
-        this.savelistChooseHotspots(this.resPonseData);
-          }
-        }, 10000);
-        return;
+          //有数据返回 flag=true才结束
+          this.loading=false;
+          this.$message({
+                message: res.msg,
+                type: "success"
+              });
+            clearInterval(this.timer)
+            return;
+        }else if(res.code==200&&!res.flag){
+this.requerttime(res.flag);
         }
-        
       })
+      }
+      // console.log(this.$store.state.editor.product.tmp_group_id,'this.$store.state.editor.product.tmp_group_id')
+      // this.$store.state.editor.product.tmp_group_id;
+      
+    },
+    requerttime(flag){
+      //  //没有数据就10s请求一次  5min超时
+      if(flag){
+      this.loading=false
+      this.times=1;
+        clearInterval(this.timer)
+                this.$message({
+                message: '上传成功',
+                type: "success"
+              });
+              return;
+      }else{
+        console.log(this.times,'times')
+        this.times++;
+        this.timer=setInterval(() => {
+        if(this.times>30&&!flag){
+        this.times=1;
+          this.$message.error({
+                message: "上传不成功"
+              });
+              this.resPonseData="";
+              this.productList=[];
+        this.loading=false;
+        clearInterval(this.timer)
+        return;
+      }else{
+      this.savelistChooseHotspots(this.resPonseData);
+      }
+        }, 10000);
+}
     },
     handelConfirm() {
       if (this.resPonseData) {
