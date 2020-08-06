@@ -61,14 +61,14 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" :selectable="isDisabled"></el-table-column>
-      <el-table-column label="缩略图" align="center" width="400">
+      <el-table-column label="缩略图" align="center" width="200">
         <template slot-scope="scope">
           <div
             class="thumbnail"
             style="text-align:center; width:50px;height:60px;"
             v-if="scope.row.thumbUrl1"
           >
-            <img :src="scope.row.thumbUrl1" alt="缩略图">
+            <img :src="scope.row.thumbUrl1" style="margin-left:-20px;" alt="缩略图">
           </div>
         </template>
       </el-table-column>
