@@ -61,6 +61,17 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" :selectable="isDisabled"></el-table-column>
+      <el-table-column label="缩略图" align="center" width="400">
+        <template slot-scope="scope">
+          <div
+            class="thumbnail"
+            style="text-align:center; width:50px;height:60px;"
+            v-if="scope.row.thumbUrl1"
+          >
+            <img :src="scope.row.thumbUrl1" alt="缩略图">
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="参展商编号" align="center" prop="exhibitorId" width="100"/>
       <el-table-column label="参展商名称" align="center" prop="exhibitorName" width="150"/>
       <el-table-column label="展品" align="center" prop="productName" min-width="150"/>
@@ -85,17 +96,7 @@
           >复制链接</div>
         </template>
       </el-table-column>
-      <el-table-column label="缩略图" align="center" width="400">
-        <template slot-scope="scope">
-          <div
-            class="thumbnail"
-            style="text-align:center; width:50px;height:60px;"
-            v-if="scope.row.thumbUrl1"
-          >
-            <img :src="scope.row.thumbUrl1" alt="缩略图">
-          </div>
-        </template>
-      </el-table-column>
+      
       <!-- <el-table-column
                 label="操作"
                 align="center"
