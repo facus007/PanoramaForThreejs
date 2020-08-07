@@ -60,7 +60,7 @@
       ref="multipleTable"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" :selectable="isDisabled"></el-table-column>
+      <el-table-column type="selection" width="55" :selectable="isDisabled" disabled="true"></el-table-column>
       <el-table-column label="缩略图" align="center" width="200">
         <template slot-scope="scope">
           <div
@@ -96,7 +96,6 @@
           >复制链接</div>
         </template>
       </el-table-column>
-      
       <!-- <el-table-column
                 label="操作"
                 align="center"
@@ -134,13 +133,19 @@
       :page-size="queryParams.pageSize"
       @pagination="getList"
     />-->
-    <el-pagination
-      @current-change="getList"
-      :current-page.sync="queryParams.pageNum"
-      :page-size="queryParams.pageSize"
-      layout="total, prev, pager, next"
-      :total="total"
-    ></el-pagination>
+    <div style="float:right;margin:20px;">
+      <el-button type="primary" size="mini" @click="toggleSelectionData">确定</el-button>
+    </div>
+    <div style="margin:20px;float:right;">
+      <el-pagination
+        @current-change="getList"
+        :current-page.sync="queryParams.pageNum"
+        :page-size="queryParams.pageSize"
+        layout="total, prev, pager, next"
+        :total="total"
+        :disabled="disable"
+      ></el-pagination>
+    </div>
     <div style="margin:10px 30px;">
       <div
         style="position: fixed; bottom: 20px; left: 20px; background:#1118;color:white;padding: 10px;z-index:10; border-radius: 5px;"
@@ -153,9 +158,6 @@
           <span>{{sCount}}</span>条
         </p>
       </div>-->
-      <div style="float:right;">
-        <el-button type="primary" size="mini" @click="toggleSelectionData">确定</el-button>
-      </div>
     </div>
     <!-- 超出可选范围弹窗 -->
     <el-dialog
@@ -263,7 +265,8 @@ export default {
       Viewworks: false, //查看作品
       id: null,
       websourcesUrl: "",
-      overshow: false
+      overshow: false,
+      disable: false //是否禁用
     };
   },
   created() {
@@ -398,10 +401,11 @@ export default {
       // console.log(row, "选中的数据");
       this.templateSelection = row;
     },
-    isDisabled(disable) {
+    isDisabled(row, index) {
       //禁用多选框
-      if (disable == 1) {
-        // console.log('禁用了')
+      // console.log(row, "禁用");
+      // return false;
+      if (row.disable == true) {
         return false;
       } else {
         return true;
@@ -413,22 +417,44 @@ export default {
       this.indexs = selection.map((item, index) => {
         return this.contains(this.postList, item);
       });
+      // console.log(this.indexs, "indexs");
       this.num = this.num - this.tempnum;
       this.num += selection.length;
       this.tempnum = selection.length;
       this.sCount = this.num;
-      // console.log(selection.length, "selection.length");
       this.currentPage = this.queryParams.pageNum;
       if (this.sCount > this.max_hotspot_num) {
         // this.$message.error("只能选择" + this.max_hotspot_num + "条！**");
         this.ids.length = this.ids.length - 1;
         this.indexs.length = this.indexs.length - 1;
         this.sCount = Number(this.max_hotspot_num);
-        this.overshow = true;
+        // this.overshow = true;//弹窗
         // this.pageData(this.currentPage, 1);
-        this.isDisabled(1);
+        // this.postList = this.postList.map(item => {
+        //   return {
+        //     ...item,
+        //     disable: true
+        //   };
+        // });
+        for (let i = 0; i < this.postList.length; i++) {
+          for (let j = 0; j < this.indexs.length; j++) {
+            if (i != this.indexs[j]) {
+              this.postList[i].disable = true;
+            }
+          }
+        }
+        this.disable = true;
+        // console.log(this.postList, "000---达到禁用条件了");
         return;
-      } else {
+      } else if (this.sCount == this.max_hotspot_num) {
+        for (let i = 0; i < this.postList.length; i++) {
+          for (let j = 0; j < this.indexs.length; j++) {
+            if (i != this.indexs[j]) {
+              this.postList[i].disable = true;
+            }
+          }
+        }
+        this.disable = true;
       }
     },
     // 获取数组下标
@@ -500,7 +526,7 @@ export default {
       // 确定
       this.pageData(this.currentPage);
       let ids = [];
-      // console.log(this.pageSlectData, "提交的页码数据");
+      console.log(this.pageSlectData, "提交的页码数据");
       for (let i = 0; i < this.pageSlectData.length; i++) {
         for (let j = 0; j < this.pageSlectData[i].ids.length; j++) {
           // console.log(this.pageSlectData[i].ids[j], "********");
